@@ -2,9 +2,15 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import request from './requests/handleBackendRequests'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [backendData, setBackendData] = useState('')
+
+  const getBackendData = async () => {
+    const data = await request.getData()
+    setBackendData(data)
+  }
 
   return (
     <>
@@ -16,18 +22,17 @@ function App() {
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a>
       </div>
-      <h1>Vite + React</h1>
+      {
+        backendData === '' ? <h1>React + Vite</h1> : <h1>{backendData}</h1>
+      }
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
+        <button onClick={getBackendData}>
+          Get backend data
         </button>
         <p>
           Edit <code>src/App.tsx</code> and save to test HMR
         </p>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
   )
 }
