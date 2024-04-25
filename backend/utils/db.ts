@@ -7,11 +7,11 @@ export const connect = () => {
             connectionLimit: 10,
             host: MYSQLHOST,
             user: MYSQLUSER,
-            password: MYSQLPASSWORD,
+            password: 'dasdas',
             database: DATABASE,
             port: +(MYSQLPORT ?? '')
         })
-        console.log('\x1b[35mGetting data from Railway MySQL database! 📶\x1b[0m');
+        console.log('\x1b[35mSending a request to the database! 📶\x1b[0m');
 
         return dbConnection
     } catch (error) {

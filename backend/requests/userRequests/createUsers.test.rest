@@ -2,8 +2,41 @@ POST http://localhost:3001/new/user
 Content-Type: application/json
 
 {
-    "username": "Joel6",
+    "username": "Joel5",
     "email": "joel@test.com",
-    "password": "9090pass",
-    "profilePicture": ""
+    "password": "9090pass"
+}
+
+###
+# --- Testing different cases: ---
+# Case 1: username not provided:
+POST http://localhost:3001/new/user
+Content-Type: application/json
+
+{
+    "username": "",
+    "email": "joel@test.com",
+    "password": "9090pass"
+}
+
+###
+# Case 2: email not provided:
+POST http://localhost:3001/new/user
+Content-Type: application/json
+
+{
+    "username": "Joel10",
+    "email": "",
+    "password": "9090pass"
+}
+
+###
+# Case 3: password not provided:
+POST http://localhost:3001/new/user
+Content-Type: application/json
+
+{
+    "username": "Joel11",
+    "email": "joel@test.com",
+    "password": ""
 }
