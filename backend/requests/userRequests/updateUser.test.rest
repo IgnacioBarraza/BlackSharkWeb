@@ -1,0 +1,8 @@
+PUT http://localhost:3001/update/user/4
+Content-Type: application/json
+
+{
+    "username": "Samuel",
+    "email": "samu@gmail.com",
+    "profilePicture": ""
+}

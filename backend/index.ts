@@ -1,5 +1,5 @@
 import app from './app'
-import PORT from './utils/config'
+import { PORT, MYSQLPORT } from './utils/config'
 
 app.listen(PORT, () => {
     console.log('Server up!')
