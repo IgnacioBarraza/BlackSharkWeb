@@ -1,0 +1,7 @@
+PUT http://localhost:3001/update/project/2
+Content-Type: application/json
+
+{
+    "user_id": 1,
+    "nombre": "Rebranding de logo de empresa Z"
+}

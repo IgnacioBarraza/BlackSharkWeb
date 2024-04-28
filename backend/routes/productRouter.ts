@@ -24,8 +24,19 @@ productRouter.post('/new/product', async (req, res) => {
     const data = req.body
     const connection = connect()
 
+    if (!data.nombre) {
+        res.status(400).json({ message: 'El producto debe tener un nombre!' })
+        return
+    } else if (!data.precio) {
+        res.status(400).json({ message: 'Debes indicar el precio del producto!' })
+        return
+    } else if (!data.descripcion) {
+        res.status(400).json({ message: 'Deberías agregar una descripción!' })
+        return
+    }
+
     try {
-        const searchProduct = await connection.query(`SELECT * FROM productos WHERE `)
+        const searchProduct = await connection.query(`SELECT * FROM productos WHERE nombre = ?`, [data.nombre])
 
         if (Array.isArray(searchProduct[0]) && searchProduct[0].length > 0) {
             res.status(400).json({ message: 'Ya existe el producto en la base de datos!' })
@@ -43,7 +54,7 @@ productRouter.post('/new/product', async (req, res) => {
             return
         }
     } catch (error) {
-        // console.log(error)
+        console.log(error)
         res.status(500).json({ message: 'Hubo un error intentando añadir el producto a la base de datos!' })
     } finally {
         if (connection) {
@@ -64,7 +75,7 @@ productRouter.put('/update/producto/:id', async (req, res) => {
             const updatedProduct = {
                 nombre: data.nombre,
                 precio: data.precio,
-                desc: data.desc
+                desc: data.descripcion
             }
 
             await connection.query(`
@@ -82,7 +93,7 @@ productRouter.put('/update/producto/:id', async (req, res) => {
             return
         }
     } catch (error) {
-        // console.log(error)
+        console.log(error)
         res.status(500).json({ message: 'Hubo un problema intentando actualizar el producto.' })
     } finally {
         if (connection) {

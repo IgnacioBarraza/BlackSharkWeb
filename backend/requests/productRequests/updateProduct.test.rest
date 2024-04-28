@@ -1,0 +1,8 @@
+PUT http://localhost:3001/update/producto/1
+Content-Type: application/json
+
+{
+    "nombre": "Manejo de redes sociales",
+    "precio": "20000",
+    "descripcion": "3 días de manejo de redes sociales, publicaciones e historias"
+}

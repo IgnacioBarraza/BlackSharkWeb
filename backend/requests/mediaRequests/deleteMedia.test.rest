@@ -1,2 +1,2 @@
-DELETE http://localhost:3001/delete/media/3
+DELETE http://localhost:3001/delete/media/1
 Content-Type: application/json

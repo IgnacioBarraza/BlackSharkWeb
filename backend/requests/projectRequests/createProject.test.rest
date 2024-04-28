@@ -1,0 +1,37 @@
+POST http://localhost:3001/new/project
+Content-Type: application/json
+
+{
+    "user_id": 1,
+    "nombre": "Rebranding de logo de empresa Y"
+}
+
+###
+# Case 1: the user provided does not exists on the database:
+POST http://localhost:3001/new/project
+Content-Type: application/json
+
+{
+    "user_id": 42,
+    "nombre": "Rebranding de logo de empresa P"
+}
+
+###
+# Case 2: user not provided:
+POST http://localhost:3001/new/project
+Content-Type: application/json
+
+{
+    "user_id": "",
+    "nombre": "Rebranding de logo de empresa Y"
+}
+
+###
+# Case 3: nombre not provided:
+POST http://localhost:3001/new/project
+Content-Type: application/json
+
+{
+    "user_id": "1",
+    "nombre": ""
+}

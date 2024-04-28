@@ -6,6 +6,8 @@ import userRouter from './routes/userRouter'
 import campaignRouter from './routes/campaignRouter'
 import inventoryRouter from './routes/inventoryRouter'
 import mediaRouter from './routes/mediaRouter'
+import productRouter from './routes/productRouter'
+import projectRouter from './routes/projectRouter'
 
 const app = express()
 
@@ -16,5 +18,7 @@ app.use('', userRouter)
 app.use('', campaignRouter)
 app.use('', inventoryRouter)
 app.use('', mediaRouter)
+app.use('', productRouter)
+app.use('', projectRouter)
 
 export default app
