@@ -1,0 +1,27 @@
+POST http://localhost:3001/new/media
+Content-Type: application/json
+
+{
+    "nombreMedio": "Once",
+    "tipoMedio": "Tetería"
+}
+
+###
+# Case 1: nombreMedio not provided:
+POST http://localhost:3001/new/media
+Content-Type: application/json
+
+{
+    "nombreMedio": "",
+    "tipoMedio": "Tetería"
+}
+
+###
+# Case 2: tipoMedio not provided:
+POST http://localhost:3001/new/media
+Content-Type: application/json
+
+{
+    "nombreMedio": "Once",
+    "tipoMedio": ""
+}

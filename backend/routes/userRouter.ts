@@ -12,16 +12,19 @@ const bcryptPassword = async (password: string) => {
 }
 
 userRouter.get('/users', async (req, res) => {
+    const connection = connect()
+    
     try {
-        const connection = connect()
-
-        const [row, fields] = await connection.query(`SELECT * FROM users`)
+        const [row, fields] = await connection.query(`SELECT * FROM usuario`)
 
         res.status(200).json(row)
-
-        connection.end()
     } catch (error) {
-        res.status(500).json({ message: 'There was a problem getting users data.' })
+        // console.log(error)
+        res.status(500).json({ message: 'Hubo un problema al obtener datos de los usuarios.' })
+    } finally {
+        if (connection) {
+            connection.end()
+        }
     }
 })
 
@@ -31,38 +34,50 @@ userRouter.post('/new/user', async (req, res) => {
 
     // Checking if any field from the request is empty:
     if (!data.username) {
-        res.status(400).json({ message: 'You should provide an username!' })
+        res.status(400).json({ message: 'Debes especificar el nombre del usuario!' })
         return
     } else if (!data.password) {
-        res.status(400).json({ message: 'You should provide a password!' })
+        res.status(400).json({ message: 'El usuario debe tener una contraseña!' })
         return
     } else if (!data.email) {
-        res.status(400).json({ message: 'You should provide an email.' })
+        res.status(400).json({ message: 'El usuario debe tener un correo.' })
+        return
+    } else if (!data.tipo_user) {
+        res.status(400).json({ message: 'Debes especificar el tipo de usuario!' })
         return
     }
     
     try {
-        const searchUser = await connection.query(`SELECT * FROM users WHERE username = ?`, [data.username])
+        const searchUser = await connection.query(`SELECT * FROM usuario WHERE Correo = ?`, [data.correo])
         
         // Checking if the user exists on the database:
         if (Array.isArray(searchUser[0]) && searchUser[0].length > 0) {
-            res.status(404).json({ message: 'This user is already on the database!.' })
+            res.status(404).json({ message: 'El usuario ya existe en la base de datos!' })
+            return
+        } else {
+            const newUser = {
+                username: data.username,
+                password: await bcryptPassword(data.password),
+                correo: data.email,
+                telefono: data.phone,
+                tipo_user: data.tipo_user,
+                direccion: data.direccion
+            }
+    
+            await connection.query(`INSERT INTO usuario (username, contrasenha, correo, telefono, tipo_user, direccion) VALUES (?, ?, ?, ?, ?, ?)`,
+                [newUser.username, newUser.password, newUser.correo, newUser.telefono, newUser.tipo_user, newUser.direccion]
+            )
+    
+            res.status(201).json({ message: 'Usuario creado!' })
             return
         }
-
-        const newUser = {
-            username: data.username,
-            password: await bcryptPassword(data.password),
-            email: data.email
-        }
-
-        await connection.query(`INSERT INTO users (username, password, email) VALUES (?, ?, ?)`, [newUser.username, newUser.password, newUser.email])
-
-        res.status(201).json({ message: 'User created!' })
-
-        connection.end()
     } catch (error) {
-        res.status(500).json({ message: 'There was an error adding users to the database.' })
+        // console.log(error)
+        res.status(500).json({ message: 'Hubo un error intentando añadir el usuario a la base de datos.' })
+    } finally {
+        if (connection) {
+            connection.end()
+        }
     }
 })
 
@@ -72,25 +87,39 @@ userRouter.put('/update/user/:id', async (req, res) => {
     const connection = connect()
 
     try {
-        const searchUser = await connection.query(`SELECT * FROM users WHERE user_id = ?`, [userId])
+        const searchUser = await connection.query(`SELECT * FROM usuario WHERE id_usuario = ?`, [userId])
 
         if (Array.isArray(searchUser[0]) && searchUser[0].length > 0) {
             const updatedUser = {
                 username: data.username,
-                email: data.email
+                email: data.email,
+                telefono: data.telefono,
+                tipo_user: data.tipo_user,
+                direccion: data.direccion
             }
 
             await connection.query(`
-                UPDATE users
+                UPDATE usuario
                 SET username = ?,
-                email = ?
-                WHERE user_id = ?
-            `, [updatedUser.username, updatedUser.email, userId])
+                correo = ?,
+                telefono = ?,
+                tipo_user = ?,
+                direccion = ?
+                WHERE id_usuario = ?
+            `, [updatedUser.username, updatedUser.email, updatedUser.telefono, updatedUser.tipo_user, updatedUser.direccion, userId])
 
-            res.status(200).json({ message: 'User updated!' })
+            res.status(200).json({ message: 'Usuario actualizado!' })
+            return
+        } else {
+            res.status(404).json({ message: 'Usuario no encontrado.' })
         }
     } catch (error) {
-        res.status(500).json({ message: 'There was an error updating the user' })
+        // console.log(error)
+        res.status(500).json({ message: 'Hubo un error intentando actualizar el usuario.' })
+    } finally {
+        if (connection) {
+            connection.end()
+        }
     }
 })
 
@@ -99,20 +128,25 @@ userRouter.delete('/delete/user/:id', async (req, res) => {
     const connection = connect()
 
     try {
-        const searchUser = await connection.query(`SELECT * FROM users WHERE user_id = ?`, [userId])
+        const searchUser = await connection.query(`SELECT * FROM usuario WHERE id_usuario = ?`, [userId])
         
         if (Array.isArray(searchUser[0]) && searchUser[0].length > 0) {
-            await connection.query(`DELETE FROM users WHERE user_id = ?`, [userId])
+            await connection.query(`DELETE FROM usuario WHERE id_usuario = ?`, [userId])
 
-            res.status(200).json({ message: 'User removed from the database.' })
+            res.status(200).json({ message: 'Usuario eliminado de la base de datos.' })
             return
         } else {
-            res.status(400).json({ message: 'User not found.' })
+            res.status(400).json({ message: 'Usuario no encontrado.' })
             return
         }
 
     } catch (error) {
-        res.status(500).json({ message: 'There was a problem trying to remove the user from the database.' })
+        // console.log(error)
+        res.status(500).json({ message: 'Hubo un problema al intentar eliminar el usuario de la base de datos.' })
+    } finally {
+        if (connection) {
+            connection.end()
+        }
     }
 })
 

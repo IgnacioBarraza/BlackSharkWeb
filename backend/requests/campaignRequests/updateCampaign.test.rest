@@ -1,0 +1,7 @@
+PUT http://localhost:3001/update/campaign/1
+Content-Type: application/json
+
+{
+    "nombre": "11 Campaña",
+    "presupuesto": "300000"
+}

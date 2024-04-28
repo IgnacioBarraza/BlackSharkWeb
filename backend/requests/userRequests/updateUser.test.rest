@@ -1,8 +1,9 @@
-PUT http://localhost:3001/update/user/4
+PUT http://localhost:3001/update/user/3
 Content-Type: application/json
 
 {
-    "username": "Samuel",
-    "email": "samu@gmail.com",
-    "profilePicture": ""
+    "username": "Joel3",
+    "password": "9090pass",
+    "email": "joel3@test.com",
+    "tipo_user": "usuario"
 }

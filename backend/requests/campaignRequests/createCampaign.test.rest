@@ -1,0 +1,27 @@
+POST http://localhost:3001/new/campaign
+Content-Type: application/json
+
+{
+    "nombre": "13 Campaña",
+    "presupuesto": "400000"
+}
+
+###
+# Case 1: nombre not provided:
+POST http://localhost:3001/new/campaign
+Content-Type: application/json
+
+{
+    "nombre": "",
+    "presupuesto": "300000"
+}
+
+###
+# Case 2: presupuesto not provided:
+POST http://localhost:3001/new/campaign
+Content-Type: application/json
+
+{
+    "nombre": "11 Campaña",
+    "presupuesto": ""
+}

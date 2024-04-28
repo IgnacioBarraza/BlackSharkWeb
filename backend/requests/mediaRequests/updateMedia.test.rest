@@ -1,0 +1,7 @@
+PUT http://localhost:3001/update/media/1
+Content-Type: application/json
+
+{
+    "nombreMedio": "Doce",
+    "tipoMedio": "Juegueria"
+}

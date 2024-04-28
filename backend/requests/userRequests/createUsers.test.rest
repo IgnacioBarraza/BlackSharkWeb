@@ -2,9 +2,10 @@ POST http://localhost:3001/new/user
 Content-Type: application/json
 
 {
-    "username": "Joel5",
+    "username": "Joel",
+    "password": "9090pass",
     "email": "joel@test.com",
-    "password": "9090pass"
+    "tipo_user": "usuario"
 }
 
 ###
@@ -15,28 +16,43 @@ Content-Type: application/json
 
 {
     "username": "",
-    "email": "joel@test.com",
-    "password": "9090pass"
+    "password": "9090pass",
+    "email": "joel2@test.com",
+    "tipo_user": "usuario"
 }
 
 ###
-# Case 2: email not provided:
+# Case 2: password not provided:
 POST http://localhost:3001/new/user
 Content-Type: application/json
 
 {
-    "username": "Joel10",
+    "username": "Joel2",
+    "password": "",
+    "email": "joel2@test.com",
+    "tipo_user": "usuario"
+}
+
+###
+# Case 3: email not provided:
+POST http://localhost:3001/new/user
+Content-Type: application/json
+
+{
+    "username": "Joel2",
+    "password": "9090pass",
     "email": "",
-    "password": "9090pass"
+    "tipo_user": "usuario"
 }
 
 ###
-# Case 3: password not provided:
+# Case 4: tipo_user not provided:
 POST http://localhost:3001/new/user
 Content-Type: application/json
 
 {
-    "username": "Joel11",
-    "email": "joel@test.com",
-    "password": ""
+    "username": "Joel2",
+    "password": "9090pass",
+    "email": "joel2@test.com",
+    "tipo_user": ""
 }
