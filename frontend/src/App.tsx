@@ -1,10 +1,10 @@
 import "./App.css";
+import { Homepage } from "./components/HomePage/HomePage";
 
 function App() {
   return (
     <>
-      <h1 className="text-3xl font-bold underline">Hello world!</h1>
-      <h2 className="uppercase">Bienvenido</h2>
+      <Homepage/>
     </>
   );
 }
