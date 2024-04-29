@@ -1,8 +1,7 @@
 export const Login = () => {
   return (
     <>
-      <link rel="stylesheet" type="text/css" href="ruta/a/myriad-pro.css"></link>
-      <body>
+      <div>
         <div className="imback fixed top-0 left-0 p-2">
             <a className="flex items-center justify-center rounded-full w-20 h-20 bg-[url(../public/backpage-BSW.png)] bg-no-repeat bg-center bg-cover" style={{ backgroundSize: '50%' }}></a>
         </div>
@@ -36,7 +35,7 @@ export const Login = () => {
               </form>
           </div>
         </div>
-      </body>
+      </div>
     </>
   )
 }
