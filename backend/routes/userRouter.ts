@@ -1,6 +1,7 @@
 import express from 'express'
 import { connect } from '../utils/db'
 import bcrypt from 'bcrypt'
+import { randomUUID } from 'crypto'
 
 const userRouter = express.Router()
 
@@ -56,6 +57,7 @@ userRouter.post('/new/user', async (req, res) => {
             return
         } else {
             const newUser = {
+                id_usuario: randomUUID(),
                 username: data.username,
                 password: await bcryptPassword(data.password),
                 correo: data.email,
@@ -63,16 +65,17 @@ userRouter.post('/new/user', async (req, res) => {
                 tipo_user: data.tipo_user,
                 direccion: data.direccion
             }
+            console.log(newUser)
     
-            await connection.query(`INSERT INTO usuario (username, contrasenha, correo, telefono, tipo_user, direccion) VALUES (?, ?, ?, ?, ?, ?)`,
-                [newUser.username, newUser.password, newUser.correo, newUser.telefono, newUser.tipo_user, newUser.direccion]
+            await connection.query(`INSERT INTO usuario (id_usuario, username, contrasenha, correo, telefono, tipo_user, direccion) VALUES (?, ?, ?, ?, ?, ?, ?)`,
+                [newUser.id_usuario, newUser.username, newUser.password, newUser.correo, newUser.telefono, newUser.tipo_user, newUser.direccion]
             )
     
             res.status(201).json({ message: 'Usuario creado!' })
             return
         }
     } catch (error) {
-        // console.log(error)
+        console.log(error)
         res.status(500).json({ message: 'Hubo un error intentando añadir el usuario a la base de datos.' })
     } finally {
         if (connection) {

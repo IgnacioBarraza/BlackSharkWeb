@@ -1,4 +1,4 @@
-PUT http://localhost:3001/update/producto/1
+PUT http://localhost:3001/update/producto/a1c18839-6983-4ea0-ad77-e1953510dacb
 Content-Type: application/json
 
 {

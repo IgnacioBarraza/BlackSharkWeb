@@ -1,5 +1,6 @@
 import express from 'express'
 import { connect } from '../utils/db'
+import { randomUUID } from 'crypto'
 
 const projectRouter = express.Router()
 
@@ -45,11 +46,12 @@ projectRouter.post('/new/project', async (req, res) => {
             return
         } else {
             const newProject = {
+                id_proyecto: randomUUID(),
                 user_id: data.user_id,
                 nombre: data.nombre
             }
 
-            await connection.query(`INSERT INTO proyecto (id_usuario, nombre) VALUES (?, ?)`, [newProject.user_id, newProject.nombre])
+            await connection.query(`INSERT INTO proyecto (id_proyecto, id_usuario, nombre) VALUES (?, ?, ?)`, [newProject.id_proyecto, newProject.user_id, newProject.nombre])
 
             res.status(201).json({ message: 'Proyecto creado exitosamente!' })
             return

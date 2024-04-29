@@ -1,5 +1,6 @@
 import express from 'express'
 import { connect } from '../utils/db'
+import { randomUUID } from 'crypto'
 
 const campaignRouter = express.Router()
 
@@ -41,11 +42,12 @@ campaignRouter.post('/new/campaign', async (req, res) => {
             return
         } else {
             const campaignData = {
+                id_campanha: randomUUID(),
                 nombre: data.nombre,
                 presupuesto: data.presupuesto
             }
 
-            await connection.query(`INSERT INTO campanha (nombre, presupuesto) VALUES (?, ?)`, [campaignData.nombre, campaignData.presupuesto])
+            await connection.query(`INSERT INTO campanha (id_campanha, nombre, presupuesto) VALUES (?, ?, ?)`, [campaignData.id_campanha, campaignData.nombre, campaignData.presupuesto])
 
             res.status(201).json({ message: 'Campaña añadida exitosamente!' })
         }

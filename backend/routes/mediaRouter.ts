@@ -1,5 +1,6 @@
 import express from 'express'
 import { connect } from '../utils/db'
+import { randomUUID } from 'crypto'
 
 const mediaRouter = express.Router()
 
@@ -40,11 +41,12 @@ mediaRouter.post('/new/media', async (req, res) => {
             return
         } else {
             const newMedia = {
+                id_medio: randomUUID(),
                 nombre_media: data.nombreMedio,
                 tipo_media: data.tipoMedio
             }
 
-            await connection.query(`INSERT INTO medios_comunicacion (nombre_medio, tipo_medios) VALUES (?, ?)`, [newMedia.nombre_media, newMedia.tipo_media])
+            await connection.query(`INSERT INTO medios_comunicacion (id_medio, nombre_medio, tipo_medios) VALUES (?, ?, ?)`, [newMedia.id_medio, newMedia.nombre_media, newMedia.tipo_media])
 
             res.status(201).json({ message: 'Medio de comunicación creada!' })
             return

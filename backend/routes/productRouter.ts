@@ -1,5 +1,6 @@
 import express from 'express'
 import { connect } from '../utils/db'
+import { randomUUID } from 'crypto'
 
 const productRouter = express.Router()
 
@@ -43,12 +44,13 @@ productRouter.post('/new/product', async (req, res) => {
             return
         } else {
             const newProduct = {
+                id_productos: randomUUID(),
                 nombre: data.nombre,
                 precio: data.precio,
                 desc: data.descripcion
             }
 
-            await connection.query(`INSERT INTO productos (nombre, precio, descripcion) VALUES (?, ?, ?)`, [newProduct.nombre, newProduct.precio, newProduct.desc])
+            await connection.query(`INSERT INTO productos (id_productos, nombre, precio, descripcion) VALUES (?, ?, ?, ?)`, [newProduct.id_productos, newProduct.nombre, newProduct.precio, newProduct.desc])
 
             res.status(201).json({ message: 'Producto guardado!' })
             return

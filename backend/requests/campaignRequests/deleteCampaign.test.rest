@@ -1,1 +1,1 @@
-DELETE http://localhost:3001/delete/campaign/1
+DELETE http://localhost:3001/delete/campaign/3e53713e-a6e7-4da0-b89a-ee2fc634bb55

@@ -2,8 +2,8 @@ POST http://localhost:3001/new/project
 Content-Type: application/json
 
 {
-    "user_id": 1,
-    "nombre": "Rebranding de logo de empresa Y"
+    "user_id": "937c669b-db42-45e0-b49a-83a2c64f871c",
+    "nombre": "Rebranding de logo de empresa G"
 }
 
 ###
@@ -32,6 +32,6 @@ POST http://localhost:3001/new/project
 Content-Type: application/json
 
 {
-    "user_id": "1",
+    "user_id": "937c669b-db42-45e0-b49a-83a2c64f871c",
     "nombre": ""
 }

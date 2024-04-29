@@ -1,7 +1,7 @@
-PUT http://localhost:3001/update/project/2
+PUT http://localhost:3001/update/project/3b1da66d-fe7a-4e11-9a99-c8c3ca08df7f
 Content-Type: application/json
 
 {
-    "user_id": 1,
+    "user_id": "937c669b-db42-45e0-b49a-83a2c64f871c",
     "nombre": "Rebranding de logo de empresa Z"
 }
