@@ -1,8 +1,8 @@
 import express from 'express'
-import { connect } from '../utils/db'
-import bcrypt from 'bcrypt'
 import { randomUUID } from 'crypto'
+import { connect } from '../utils/db'
 import { validateUser, validateUpdateuser } from '../schemas/userSchema'
+import bcrypt from 'bcrypt'
 
 const userRouter = express.Router()
 
@@ -36,7 +36,7 @@ userRouter.post('/new/user', async (req, res) => {
     const result = validateUser(req.body)
 
     if (result.error) {
-        return res.status(400).json({ message: JSON.parse(result.error.message)[0].message})
+        return res.status(400).json({ message: JSON.parse(result.error.message)[0].message })
     }
     
     try {

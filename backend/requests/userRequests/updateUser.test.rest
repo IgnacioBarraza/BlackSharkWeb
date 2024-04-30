@@ -2,10 +2,10 @@ PUT http://localhost:3001/update/user/7eef03ad-2757-4b7c-91ca-412731359067
 Content-Type: application/json
 
 {
-    "username": "Joel new",
+    "username": "Joel",
     "password": "9090pass",
     "email": "joelnew@test.com",
     "tipo_user": "usuario",
 }
 
-# Para actualizar un usuario, se deben mandar todos los campos de un usuario.
+# Se deben mandar todos los campos para actualizar un usuario!

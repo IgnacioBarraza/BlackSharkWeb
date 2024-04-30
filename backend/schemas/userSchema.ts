@@ -93,9 +93,9 @@ const updateUserSchema = z.object({
 })
 
 export const validateUser = (object: object) => {
-  return userSchema.safeParse(object);
+  return userSchema.safeParse(object)
 }
 
 export const validateUpdateuser = (object: Object) => {
-    return updateUserSchema.safeParse(object);
+    return updateUserSchema.safeParse(object)
   }

@@ -1,6 +1,7 @@
 import express from 'express'
 import { connect } from '../utils/db'
 import { randomUUID } from 'crypto'
+import { validateProject } from '../schemas/projectSchema'
 
 const projectRouter = express.Router()
 
@@ -10,10 +11,10 @@ projectRouter.get('/projects', async (req, res) => {
     try {
         const [row, fields] = await connection.query(`SELECT * FROM proyecto`)
 
-        res.status(200).json(row)
+        return res.status(200).json(row)
     } catch (error) {
         // console.log(error)
-        res.status(500).json({ message: 'Hubo un error al intentar obtener los proyectos.' })
+        return res.status(500).json({ message: 'Hubo un error al intentar obtener los proyectos.' })
     } finally {
         if (connection) {
             connection.end()
@@ -22,43 +23,36 @@ projectRouter.get('/projects', async (req, res) => {
 })
 
 projectRouter.post('/new/project', async (req, res) => {
-    const data = req.body
     const connection = connect()
     
-    if (!data.user_id) {
-        res.status(400).json({ message: 'Debes indicar un usuario a cargo del proyecto!' })
-        return
-    } else if (!data.nombre) {
-        res.status(400).json({ message: 'El proyecto debe llevar un nombre!' })
-        return
+    const validateData = validateProject(req.body)
+
+    if (validateData.error) {
+        return res.status(400).json({ message: JSON.parse(validateData.error.message)[0].message })
     }
 
     try {
-        const searchProject = await connection.query(`SELECT * FROM proyecto WHERE nombre = ?`, [data.nombre])
-        const searchUser = await connection.query(`SELECT * FROM usuario WHERE id_usuario = ?`, [data.user_id])
+        const searchProject = await connection.query(`SELECT * FROM proyecto WHERE nombre = ?`, [validateData.data.nombre])
+        const searchUser = await connection.query(`SELECT * FROM usuario WHERE id_usuario = ?`, [validateData.data.id_usuario])
 
         if (Array.isArray(searchProject[0]) && searchProject[0].length > 0) {
-            console.log(searchProject)
-            res.status(400).json({ message: 'El proyecto ya existe en la base de datos.' })
-            return
+            return res.status(400).json({ message: 'El proyecto ya existe en la base de datos.' })
         } else if (!(Array.isArray(searchUser[0]) && searchUser[0].length > 0)) {
-            res.status(400).json({ message: 'El usuario indicado no existe en la base de datos.' })
-            return
+            return res.status(400).json({ message: 'El usuario indicado no existe en la base de datos.' })
         } else {
             const newProject = {
                 id_proyecto: randomUUID(),
-                user_id: data.user_id,
-                nombre: data.nombre
+                user_id: validateData.data.id_usuario,
+                nombre: validateData.data.nombre
             }
 
             await connection.query(`INSERT INTO proyecto (id_proyecto, id_usuario, nombre) VALUES (?, ?, ?)`, [newProject.id_proyecto, newProject.user_id, newProject.nombre])
 
-            res.status(201).json({ message: 'Proyecto creado exitosamente!' })
-            return
+            return res.status(201).json({ message: 'Proyecto creado exitosamente!' })
         }
     } catch (error) {
-        console.log(error)
-        res.status(500).json({ message: 'Hubo un error al intentar agregar el proyecto a la base de datos.' })
+        // console.log(error)
+        return res.status(500).json({ message: 'Hubo un error al intentar agregar el proyecto a la base de datos.' })
     } finally {
         if (connection) {
             connection.end()
@@ -68,16 +62,21 @@ projectRouter.post('/new/project', async (req, res) => {
 
 projectRouter.put('/update/project/:id', async (req, res) => {
     const projectId = req.params.id
-    const data = req.body
     const connection = connect()
+
+    const validateData = validateProject(req.body)
+
+    if (validateData.error) {
+        return res.status(400).json({ message: JSON.parse(validateData.error.message)[0].message })
+    }
 
     try {
         const searchProject = await connection.query(`SELECT * FROM proyecto WHERE id_proyecto = ?`, [projectId])
 
         if (Array.isArray(searchProject[0]) && searchProject[0].length > 0) {
             const updatedProject = {
-                id_usuario: data.user_id,
-                nombre: data.nombre
+                id_usuario: validateData.data.id_usuario,
+                nombre: validateData.data.nombre
             }
 
             await connection.query(`
@@ -87,15 +86,13 @@ projectRouter.put('/update/project/:id', async (req, res) => {
                 WHERE id_proyecto = ?
             `, [updatedProject.id_usuario, updatedProject.nombre, projectId])
 
-            res.status(200).json({ message: 'Proyecto actualizado exitosamente!' })
-            return
+            return res.status(200).json({ message: 'Proyecto actualizado exitosamente!' })
         } else {
-            res.status(400).json({ message: 'El proyecto que quieres actualizar no existe en la base de datos.' })
-            return
+            return res.status(400).json({ message: 'El proyecto que quieres actualizar no existe en la base de datos.' })
         }
     } catch (error) {
-        console.log(error)
-        res.status(500).json({ message: 'Hubo un error intentando actualizar el proyecto.' })
+        // console.log(error)
+        return res.status(500).json({ message: 'Hubo un error intentando actualizar el proyecto.' })
     } finally {
         if (connection) {
             connection.end()
@@ -113,15 +110,13 @@ projectRouter.delete('/delete/project/:id', async (req, res) => {
         if (Array.isArray(searchProject[0]) && searchProject[0].length > 0) {
             await connection.query(`DELETE FROM proyecto WHERE id_proyecto = ?`, [projectId])
 
-            res.status(200).json({ message: 'Proyecto eliminado!' })
-            return
+            return res.status(200).json({ message: 'Proyecto eliminado!' })
         } else {
-            res.status(400).json({ message: 'El proyecto no se encuentra en la base de datos.' })
-            return
+            return res.status(400).json({ message: 'El proyecto no se encuentra en la base de datos.' })
         }
     } catch (error) {
         // console.log(error)
-        res.status(500).json({ message: 'Ha ocurrido un error al intentar eliminar el proyecto.' })
+        return res.status(500).json({ message: 'Ha ocurrido un error al intentar eliminar el proyecto.' })
     } finally {
         if (connection) {
             connection.end()
