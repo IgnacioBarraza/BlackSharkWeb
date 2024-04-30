@@ -3,50 +3,48 @@ import { z } from "zod"
 const userSchema = z.object({
   username: z
     .string({
-        required_error: 'Debes ingresar un nombre de usuario!'
+      required_error: "Debes ingresar un nombre de usuario!",
+      invalid_type_error: "Ingresa un nombre de usuario válido.",
     })
-    .min(3, {
-        message: 'El nombre de usuario debe ser de al menos 3 caracteres.'
-    })
-    .max(50, {
-        message: 'El nombre de usuario debe tener un máximo de 50 caracteres.'
+    .refine(value => /^.{3,50}$/.test(value ?? ""), {
+      message: "El nombre de usuario debe ser de mínimo 3 caracteres y máximo 50.",
     }),
-    password: z
+  password: z
     .string({
-        required_error: 'Debes ingresar una contraseña!'
+      required_error: "Debes ingresar una contraseña!",
     })
-    .min(8, {
-        message: 'La contraseña debe contener al menos 8 caracteres.'
+    .refine(value => /^.{8,}$/.test(value ?? ""), {
+      message: "La contraseña debe contener al menos 8 caracteres.",
     }),
-    email: z
+  email: z
     .string({
-        required_error: 'El usuario debe contener un correo.'
+      required_error: "El usuario debe contener un correo.",
     })
     .email({
-        message: 'Ingresa un correo válido.'
+      message: "Ingresa un correo válido.",
     }),
-    phone: z
-    .number({
-        invalid_type_error: 'Debes ingresar un número válido!'
+  phone: z
+    .string({
+      message: "Debes ingresar un número válido.",
     })
-    .int()
-    .max(9, {
-        message: 'El número debe ser de máximo 9 caracteres.'
+    .refine(value => /^\d{9}$/.test(value ?? ""), {
+      message: "El número debe ser de 9 caracteres.",
     })
     .optional(),
-    tipo_user: z.enum(['usuario', 'administrador'], {
-        errorMap: () => ({ message: 'Debes seleccionar un tipo de usuario válido.',
-            required_error: 'Debes señalar el tipo de usuario.'
-         })
+  tipo_user: z.enum(["usuario", "administrador"], {
+    errorMap: () => ({
+      message: "Debes seleccionar un tipo de usuario válido.",
+      required_error: "Debes señalar el tipo de usuario.",
     }),
-    direction: z
+  }),
+  direction: z
     .string()
-    .max(30, {
-        message: 'La dirección solo puede contener hasta 30 caracteres.'
+    .refine(value => /^.{0,30}$/.test(value), {
+      message: "La dirección solo puede contener hasta 30 caracteres.",
     })
-    .optional()
+    .optional(),
 })
 
 export const validateUser = (object: object) => {
-    return userSchema.safeParse(object)
+  return userSchema.safeParse(object);
 }
