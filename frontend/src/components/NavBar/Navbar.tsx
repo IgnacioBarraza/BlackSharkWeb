@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 
 export const Navbar = () => {
   return (
@@ -11,8 +12,12 @@ export const Navbar = () => {
                 <a href="#" className="font-myriad-pro font-semibold text-white transition duration-500 transform hover:scale-110 text-base px-2">Galería</a>
                 <a href="#" className="font-myriad-pro font-semibold text-white transition duration-500 transform hover:scale-110 text-base px-2">Portafolio</a>
                 <a href="#" className="font-myriad-pro font-semibold text-white transition duration-500 transform hover:scale-110 text-base px-2">Contactos</a>
-                <a href="#" className="font-myriad-pro font-semibold text-white transition duration-500 transform hover:scale-110 text-base px-2">Iniciar Sesión</a>
-                <a href="#" className="border px-4 py-1.5 rounded-md border-white font-myriad-pro font-semibold text-white transition duration-500 transform hover:scale-110 text-base">Registrarse</a>
+                <Link to={'/login'}>
+                  <span className="font-myriad-pro font-semibold text-white transition duration-500 transform hover:scale-110 text-base px-2">Iniciar Sesión</span>
+                </Link>
+                <Link to={'/signup'}>
+                  <span className="border px-4 py-1.5 rounded-md border-white font-myriad-pro font-semibold text-white transition duration-500 transform hover:scale-110 text-base">Registrarse</span>
+                </Link>
                 <div className="mr-0">
                   <a href="https://web.facebook.com/ElLokojara/"><img src="../../../public/facebook.png" alt="Icon" className="h-5 w-5 mr-2 inline-block transition duration-500 transform hover:scale-110" /></a>
                   <a href="https://www.instagram.com/blackshark.studios/?hl=es-la"><img src="../../../public/instagram.png" alt="Icono" className="h-5 w-5 mr-2 inline-block transition duration-500 transform hover:scale-110" /></a>
