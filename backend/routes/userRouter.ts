@@ -2,7 +2,7 @@ import express from 'express'
 import { connect } from '../utils/db'
 import bcrypt from 'bcrypt'
 import { randomUUID } from 'crypto'
-import { validateUser } from '../schemas/userSchema'
+import { validateUser, validateUpdateuser } from '../schemas/userSchema'
 
 const userRouter = express.Router()
 
@@ -31,7 +31,6 @@ userRouter.get('/users', async (req, res) => {
 })
 
 userRouter.post('/new/user', async (req, res) => {
-    const data = req.body
     const connection = connect()
 
     const result = validateUser(req.body)
@@ -50,7 +49,7 @@ userRouter.post('/new/user', async (req, res) => {
             const newUser = {
                 id_usuario: randomUUID(),
                 username: result.data.username,
-                password: await bcryptPassword(data.password),
+                password: await bcryptPassword(result.data.password),
                 correo: result.data.email,
                 telefono: result.data.phone,
                 tipo_user: result.data.tipo_user,
@@ -74,20 +73,25 @@ userRouter.post('/new/user', async (req, res) => {
 })
 
 userRouter.put('/update/user/:id', async (req, res) => {
-    const data = req.body
     const userId = req.params.id
     const connection = connect()
+
+    const result = validateUpdateuser(req.body)
+
+    if (result.error) {
+        return res.status(400).json({ message: JSON.parse(result.error.message)[0].message })
+    }
 
     try {
         const searchUser = await connection.query(`SELECT * FROM usuario WHERE id_usuario = ?`, [userId])
 
         if (Array.isArray(searchUser[0]) && searchUser[0].length > 0) {
             const updatedUser = {
-                username: data.username,
-                email: data.email,
-                telefono: data.telefono,
-                tipo_user: data.tipo_user,
-                direccion: data.direccion
+                username: result.data.username,
+                email: result.data.email,
+                telefono: result.data.phone,
+                tipo_user: result.data.tipo_user,
+                direccion: result.data.direction
             }
 
             await connection.query(`

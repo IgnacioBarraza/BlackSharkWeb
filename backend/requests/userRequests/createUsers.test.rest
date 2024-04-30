@@ -4,9 +4,8 @@ Content-Type: application/json
 {
     "username": "Joel5",
     "password": "9090pass",
-    "email": "joel5@test.com",
-    "tipo_user": "usuario",
-    "phone": "111111111"
+    "email": "joel@gmail.com",
+    "tipo_user": "usuario"
 }
 
 ###
