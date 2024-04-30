@@ -2,15 +2,26 @@ POST http://localhost:3001/new/user
 Content-Type: application/json
 
 {
-    "username": "Joel2",
+    "username": "Joel",
     "password": "9090pass",
-    "email": "joel2@test.com",
+    "email": "joel@test.com",
     "tipo_user": "usuario"
 }
 
 ###
 # --- Testing different cases: ---
 # Case 1: username not provided:
+POST http://localhost:3001/new/user
+Content-Type: application/json
+
+{
+    "password": "9090pass",
+    "email": "joel2@test.com",
+    "tipo_user": "usuario"
+}
+
+###
+# Case 2: username is too short:
 POST http://localhost:3001/new/user
 Content-Type: application/json
 
@@ -22,7 +33,7 @@ Content-Type: application/json
 }
 
 ###
-# Case 2: password not provided:
+# Case 3: password not provided:
 POST http://localhost:3001/new/user
 Content-Type: application/json
 
@@ -34,7 +45,7 @@ Content-Type: application/json
 }
 
 ###
-# Case 3: email not provided:
+# Case 4: email not provided:
 POST http://localhost:3001/new/user
 Content-Type: application/json
 
@@ -46,7 +57,7 @@ Content-Type: application/json
 }
 
 ###
-# Case 4: tipo_user not provided:
+# Case 5: tipo_user not provided:
 POST http://localhost:3001/new/user
 Content-Type: application/json
 
