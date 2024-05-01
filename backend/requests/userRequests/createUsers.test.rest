@@ -2,7 +2,7 @@ POST http://localhost:3001/new/user
 Content-Type: application/json
 
 {
-    "username": "Joel5",
+    "username": "Joel",
     "password": "9090pass",
     "email": "joel@gmail.com",
     "tipo_user": "usuario"

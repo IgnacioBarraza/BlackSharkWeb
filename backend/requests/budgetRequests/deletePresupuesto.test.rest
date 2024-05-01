@@ -1,0 +1,1 @@
+DELETE http://localhost:3001/delete/presupuesto/1f68837c-cac8-4ae8-bb03-aeb26f8b22be

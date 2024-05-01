@@ -2,7 +2,7 @@ POST http://localhost:3001/new/project
 Content-Type: application/json
 
 {
-    "id_usuario": "7eef03ad-2757-4b7c-91ca-412731359067",
+    "id_usuario": "46f5ebe3-a2ef-42c0-9917-79263f6887db",
     "nombre": "Rebranding de logo de empresa G"
 }
 
@@ -32,6 +32,6 @@ POST http://localhost:3001/new/project
 Content-Type: application/json
 
 {
-    "id_usuario": "937c669b-db42-45e0-b49a-83a2c64f871c",
+    "id_usuario": "46f5ebe3-a2ef-42c0-9917-79263f6887db",
     "nombre": ""
 }
