@@ -2,9 +2,10 @@ POST http://localhost:3001/new/product
 Content-Type: application/json
 
 {
-    "nombre": "Manejo de redes sociales extendido",
-    "precio": "50000",
-    "descripcion": "2 semanas de manejo de redes sociales, historias y publicaciones"
+    "nombre": "Manejo de redes sociales extendido 2",
+    "precio": 50000,
+    "descripcion": "2 semanas de manejo de redes sociales, historias y publicaciones",
+    "id_inventario": "7ddc82ff-a2d8-4fcc-8e24-b999a9a148a4"
 }
 
 ###

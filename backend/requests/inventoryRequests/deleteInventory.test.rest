@@ -1,0 +1,1 @@
+DELETE http://localhost:3001/delete/inventory/360823a7-b3fb-4942-b383-5fcefddda940
