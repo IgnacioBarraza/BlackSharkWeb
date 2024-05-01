@@ -1,4 +1,4 @@
-POST http://localhost:3001/new/campaign
+POST http://localhost:3001/api/campaign/new
 Content-Type: application/json
 
 {
@@ -8,7 +8,7 @@ Content-Type: application/json
 
 ###
 # Case 1: nombre not provided:
-POST http://localhost:3001/new/campaign
+POST http://localhost:3001/api/campaign/new
 Content-Type: application/json
 
 {
@@ -18,7 +18,7 @@ Content-Type: application/json
 
 ###
 # Case 2: presupuesto not provided:
-POST http://localhost:3001/new/campaign
+POST http://localhost:3001/api/campaign/new
 Content-Type: application/json
 
 {

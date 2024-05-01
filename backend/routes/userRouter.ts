@@ -13,7 +13,7 @@ const bcryptPassword = async (password: string) => {
     return hushedPassword
 }
 
-userRouter.get('/users', async (req, res) => {
+userRouter.get('/', async (req, res) => {
     const connection = connect()
     
     try {
@@ -30,7 +30,7 @@ userRouter.get('/users', async (req, res) => {
     }
 })
 
-userRouter.post('/new/user', async (req, res) => {
+userRouter.post('/new', async (req, res) => {
     const connection = connect()
 
     const result = validateUser(req.body)
@@ -72,7 +72,7 @@ userRouter.post('/new/user', async (req, res) => {
     }
 })
 
-userRouter.put('/update/user/:id', async (req, res) => {
+userRouter.put('/update/:id', async (req, res) => {
     const userId = req.params.id
     const connection = connect()
 
@@ -118,7 +118,7 @@ userRouter.put('/update/user/:id', async (req, res) => {
     }
 })
 
-userRouter.delete('/delete/user/:id', async (req, res) => {
+userRouter.delete('/delete/:id', async (req, res) => {
     const userId = req.params.id
     const connection = connect()
 

@@ -1,7 +1,7 @@
-POST http://localhost:3001/new/inventario
+POST http://localhost:3001/api/inventory/new
 Content-Type: application/json
 
 {
-    "nombre": "Inventario fotografías",
+    "nombre": "Inventario servicios",
     "cantidad": 23
 }

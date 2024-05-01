@@ -5,7 +5,7 @@ import { validateProject } from '../schemas/projectSchema'
 
 const projectRouter = express.Router()
 
-projectRouter.get('/projects', async (req, res) => {
+projectRouter.get('/', async (req, res) => {
     const connection = connect()
 
     try {
@@ -22,7 +22,7 @@ projectRouter.get('/projects', async (req, res) => {
     }
 })
 
-projectRouter.post('/new/project', async (req, res) => {
+projectRouter.post('/new', async (req, res) => {
     const connection = connect()
     
     const validateData = validateProject(req.body)
@@ -60,7 +60,7 @@ projectRouter.post('/new/project', async (req, res) => {
     }
 })
 
-projectRouter.put('/update/project/:id', async (req, res) => {
+projectRouter.put('/update/:id', async (req, res) => {
     const projectId = req.params.id
     const connection = connect()
 
@@ -100,7 +100,7 @@ projectRouter.put('/update/project/:id', async (req, res) => {
     }
 })
 
-projectRouter.delete('/delete/project/:id', async (req, res) => {
+projectRouter.delete('/delete/:id', async (req, res) => {
     const projectId = req.params.id
     const connection = connect()
 

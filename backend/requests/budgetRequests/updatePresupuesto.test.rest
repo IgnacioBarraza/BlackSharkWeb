@@ -1,4 +1,4 @@
-PUT http://localhost:3001/update/presupuesto/1f68837c-cac8-4ae8-bb03-aeb26f8b22be
+PUT http://localhost:3001/api/budget/update/1f68837c-cac8-4ae8-bb03-aeb26f8b22be
 Content-Type: application/json
 
 {

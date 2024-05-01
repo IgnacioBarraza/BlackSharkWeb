@@ -1,2 +1,2 @@
-DELETE http://localhost:3001/delete/media/0e673391-979a-4c45-b88f-994db7921fc5
+DELETE http://localhost:3001/api/media/delete/0e673391-979a-4c45-b88f-994db7921fc5
 Content-Type: application/json

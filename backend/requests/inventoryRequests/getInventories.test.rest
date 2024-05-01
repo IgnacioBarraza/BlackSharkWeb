@@ -1,1 +1,1 @@
-GET http://localhost:3001/inventory
+GET http://localhost:3001/api/inventory

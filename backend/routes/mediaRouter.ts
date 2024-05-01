@@ -5,7 +5,7 @@ import { verifyMedia } from '../schemas/mediaSchema'
 
 const mediaRouter = express.Router()
 
-mediaRouter.get('/media', async (req, res) => {
+mediaRouter.get('/', async (req, res) => {
     const connection = connect()
 
     try {
@@ -22,7 +22,7 @@ mediaRouter.get('/media', async (req, res) => {
     }
 })
 
-mediaRouter.post('/new/media', async (req, res) => {
+mediaRouter.post('/new', async (req, res) => {
     const connection = connect()
 
     const verifyData = verifyMedia(req.body)
@@ -58,7 +58,7 @@ mediaRouter.post('/new/media', async (req, res) => {
     }
 })
 
-mediaRouter.put('/update/media/:id', async (req, res) => {
+mediaRouter.put('/update/:id', async (req, res) => {
     const mediaId = req.params.id
     const connection = connect()
 
@@ -98,7 +98,7 @@ mediaRouter.put('/update/media/:id', async (req, res) => {
     }
 })
 
-mediaRouter.delete('/delete/media/:id', async (req, res) => {
+mediaRouter.delete('/delete/:id', async (req, res) => {
     const mediaId = req.params.id
     const connection = connect()
 

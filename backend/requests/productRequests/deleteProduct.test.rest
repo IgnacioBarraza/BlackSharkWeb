@@ -1,2 +1,2 @@
-DELETE http://localhost:3001/delete/product/a1c18839-6983-4ea0-ad77-e1953510dacb
+DELETE http://localhost:3001/api/product/delete/a1c18839-6983-4ea0-ad77-e1953510dacb
 Content-Type: application/json

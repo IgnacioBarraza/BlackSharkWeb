@@ -1,4 +1,4 @@
-PUT http://localhost:3001/update/project/3b1da66d-fe7a-4e11-9a99-c8c3ca08df7f
+PUT http://localhost:3001/api/project/update/3b1da66d-fe7a-4e11-9a99-c8c3ca08df7f
 Content-Type: application/json
 
 {

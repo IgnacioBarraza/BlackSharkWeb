@@ -1,4 +1,4 @@
-POST http://localhost:3001/new/project
+POST http://localhost:3001/api/project/new
 Content-Type: application/json
 
 {
@@ -8,7 +8,7 @@ Content-Type: application/json
 
 ###
 # Case 1: the user provided does not exists on the database:
-POST http://localhost:3001/new/project
+POST http://localhost:3001/api/project/new
 Content-Type: application/json
 
 {
@@ -18,7 +18,7 @@ Content-Type: application/json
 
 ###
 # Case 2: user not provided:
-POST http://localhost:3001/new/project
+POST http://localhost:3001/api/project/new
 Content-Type: application/json
 
 {
@@ -28,7 +28,7 @@ Content-Type: application/json
 
 ###
 # Case 3: nombre not provided:
-POST http://localhost:3001/new/project
+POST http://localhost:3001/api/project/new
 Content-Type: application/json
 
 {

@@ -5,7 +5,7 @@ import { randomUUID } from 'crypto'
 
 const inventoryRouter = express.Router()
 
-inventoryRouter.get('/inventory', async (req, res) => {
+inventoryRouter.get('/', async (req, res) => {
     const connection = connect()
 
     try {
@@ -22,7 +22,7 @@ inventoryRouter.get('/inventory', async (req, res) => {
     }
 })
 
-inventoryRouter.post('/new/inventario', async (req, res) => {
+inventoryRouter.post('/new', async (req, res) => {
     const connection = connect()
 
     const verifyData = verifyInventory(req.body)
@@ -57,7 +57,7 @@ inventoryRouter.post('/new/inventario', async (req, res) => {
     }
 })
 
-inventoryRouter.put('/update/inventario/:id', async (req, res) => {
+inventoryRouter.put('/update/:id', async (req, res) => {
     const inventoryId = req.params.id
     const connection = connect()
 
@@ -92,7 +92,7 @@ inventoryRouter.put('/update/inventario/:id', async (req, res) => {
     }
 })
 
-inventoryRouter.delete('/delete/inventory/:id', async (req, res) => {
+inventoryRouter.delete('/delete/:id', async (req, res) => {
     const inventoryId = req.params.id
     const connection = connect()
 

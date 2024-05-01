@@ -5,7 +5,7 @@ import { verifyProduct } from '../schemas/productSchema'
 
 const productRouter = express.Router()
 
-productRouter.get('/products', async (req, res) => {
+productRouter.get('/', async (req, res) => {
     const connection = connect()
 
     try {
@@ -22,7 +22,7 @@ productRouter.get('/products', async (req, res) => {
     }
 })
 
-productRouter.post('/new/product', async (req, res) => {
+productRouter.post('/new', async (req, res) => {
     const connection = connect()
 
     const verifyData = verifyProduct(req.body)
@@ -62,7 +62,7 @@ productRouter.post('/new/product', async (req, res) => {
     }
 })
 
-productRouter.put('/update/producto/:id', async (req, res) => {
+productRouter.put('/update/:id', async (req, res) => {
     const productId = req.params.id
     const connection = connect()
 
@@ -104,7 +104,7 @@ productRouter.put('/update/producto/:id', async (req, res) => {
     }
 })
 
-productRouter.delete('/delete/product/:id', async (req, res) => {
+productRouter.delete('/delete/:id', async (req, res) => {
     const productId = req.params.id
     const connection = connect()
 

@@ -1,1 +1,1 @@
-GET http://localhost:3001/campaigns
+GET http://localhost:3001/api/campaign

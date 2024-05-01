@@ -5,7 +5,7 @@ import { validateCampaign } from '../schemas/campaignSchema'
 
 const campaignRouter = express.Router()
 
-campaignRouter.get('/campaigns', async (req, res) => {
+campaignRouter.get('/', async (req, res) => {
     const connection = connect()
 
     try {
@@ -22,7 +22,7 @@ campaignRouter.get('/campaigns', async (req, res) => {
     }
 })
 
-campaignRouter.post('/new/campaign', async (req, res) => {
+campaignRouter.post('/new', async (req, res) => {
     const connection = connect()
 
     const validateData = validateCampaign(req.body)
@@ -57,7 +57,7 @@ campaignRouter.post('/new/campaign', async (req, res) => {
     }
 })
 
-campaignRouter.put('/update/campaign/:id', async (req, res) => {
+campaignRouter.put('/update/:id', async (req, res) => {
     const campaignId = req.params.id
     const connection = connect()
 
@@ -97,7 +97,7 @@ campaignRouter.put('/update/campaign/:id', async (req, res) => {
     }
 })
 
-campaignRouter.delete('/delete/campaign/:id', async (req, res) => {
+campaignRouter.delete('/delete/:id', async (req, res) => {
     const campaignId = req.params.id
     const connection = connect()
 

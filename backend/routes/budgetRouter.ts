@@ -5,7 +5,7 @@ import { randomUUID } from 'crypto'
 
 const budgetRouter = express.Router()
 
-budgetRouter.get('/presupuesto', async (req, res) => {
+budgetRouter.get('/', async (req, res) => {
     const connection = connect()
 
     try {
@@ -22,7 +22,7 @@ budgetRouter.get('/presupuesto', async (req, res) => {
     }
 })
 
-budgetRouter.post('/new/presupuesto', async (req, res) => {
+budgetRouter.post('/new', async (req, res) => {
     const connection = connect()
 
     const verifyData = validateBudget(req.body)
@@ -63,7 +63,7 @@ budgetRouter.post('/new/presupuesto', async (req, res) => {
     }
 })
 
-budgetRouter.put('/update/presupuesto/:id', async (req, res) => {
+budgetRouter.put('/update/:id', async (req, res) => {
     const budgetId = req.params.id
     const connection = connect()
 
@@ -100,7 +100,7 @@ budgetRouter.put('/update/presupuesto/:id', async (req, res) => {
     }
 })
 
-budgetRouter.delete('/delete/presupuesto/:id', async (req, res) => {
+budgetRouter.delete('/delete/:id', async (req, res) => {
     const budgetId = req.params.id
     const connection = connect()
 

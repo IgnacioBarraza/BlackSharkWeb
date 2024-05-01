@@ -1,4 +1,4 @@
-PUT http://localhost:3001/update/campaign/3e53713e-a6e7-4da0-b89a-ee2fc634bb55
+PUT http://localhost:3001/api/campaign/update/3e53713e-a6e7-4da0-b89a-ee2fc634bb55
 Content-Type: application/json
 
 {

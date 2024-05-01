@@ -1,1 +1,1 @@
-DELETE http://localhost:3001/delete/project/c06d0bfc-e724-47f2-8f7c-35521c5d854c
+DELETE http://localhost:3001/api/project/delete/c06d0bfc-e724-47f2-8f7c-35521c5d854c
