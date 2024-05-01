@@ -1,2 +1,2 @@
-DELETE http://localhost:3001/delete/user/577a535a-9cfc-48e7-861a-4d509656454e
+DELETE http://localhost:3001/delete/user/b3e83498-c96e-41a5-a3ff-b053269b826f
 Content-Type: application/json

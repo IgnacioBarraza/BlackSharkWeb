@@ -12,6 +12,7 @@ const userSchema = z.object({
     password: z
         .string({
             required_error: "Debes ingresar una contraseña!",
+            invalid_type_error: "Ingresa una contraseña válida."
         })
         .refine(value => /^.{8,}$/.test(value ?? ""), {
             message: "La contraseña debe contener al menos 8 caracteres.",
@@ -19,6 +20,7 @@ const userSchema = z.object({
     email: z
         .string({
             required_error: "El usuario debe contener un correo.",
+            invalid_type_error: "Ingresa un correo válido."
         })
         .email({
             message: "Ingresa un correo válido.",
@@ -38,7 +40,9 @@ const userSchema = z.object({
         }),
     }),
     direction: z
-        .string()
+        .string({
+            invalid_type_error: "Ingresa una dirección válida."
+        })
         .refine(value => /^.{0,30}$/.test(value), {
             message: "La dirección solo puede contener hasta 30 caracteres.",
         })

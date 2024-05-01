@@ -2,8 +2,8 @@ POST http://localhost:3001/new/presupuesto
 Content-Type: application/json
 
 {
-    "id_proyecto": "e1a5196e-3eb4-4dc0-b0c3-8cf53b442cbe",
-    "id_inventario": "7ddc82ff-a2d8-4fcc-8e24-b999a9a148a0",
-    "id_usuario": "46f5ebe3-a2ef-42c0-9917-79263f6887db",
+    "id_proyecto": "2b7bf832-418a-42f7-ad07-303c7f292117",
+    "id_inventario": "563009a9-4201-488f-9755-74aeada39d5b",
+    "id_usuario": "5f229103-e1cf-4aa2-871e-0ac941fdcabd",
     "valor": 40000
 }

@@ -3,7 +3,7 @@ Content-Type: application/json
 
 {
     "nombre": "Once",
-    "tipo_medios": 23
+    "tipo_medios": "instagram"
 }
 
 ###

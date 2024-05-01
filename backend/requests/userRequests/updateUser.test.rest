@@ -5,7 +5,7 @@ Content-Type: application/json
     "username": "Joel",
     "password": "9090pass",
     "email": "joelnew@test.com",
-    "tipo_user": "usuario",
+    "tipo_user": "usuario"
 }
 
 # Se deben mandar todos los campos para actualizar un usuario!
