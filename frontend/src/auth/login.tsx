@@ -1,4 +1,4 @@
-import { faChevronLeft } from "@fortawesome/free-solid-svg-icons"
+import { faChevronLeft, faLock, faUser } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { Link } from "react-router-dom"
 
@@ -21,14 +21,18 @@ export const Login = () => {
                 
                 <div className="email flex flex-col items-start mb-4">
                   <span className="label-email-input">Correo</span>
-                  <input className="email-input" type="email" name="username" placeholder="Ingrese su correo" />
-                  {/* icono de un usuario */}
+                  <div className="flex items-center">
+                    <FontAwesomeIcon icon={faUser}/>
+                    <input className="email-input ml-2" type="email" name="username" placeholder="Ingrese su correo" />
+                  </div>
                 </div>
 
                 <div className="password flex flex-col items-start mb-4">
                   <span className="label-input-password">Contraseña</span>
-                  <input className="password-input" type="password" name="pass" placeholder="Ingrese su contraseña"/>
-                  {/* icono de un candado */}
+                  <div className="flex items-center">
+                    <FontAwesomeIcon icon={faLock}/>
+                    <input className="password-input ml-2" type="password" name="pass" placeholder="Ingrese su contraseña"/>
+                  </div>
                 </div>
 
                 <div className="mb-4">

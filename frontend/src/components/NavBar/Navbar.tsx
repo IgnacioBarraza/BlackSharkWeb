@@ -7,7 +7,7 @@ export const Navbar = () => {
     <>
         <div className="flex items-center justify-between">
             <div className="w-32 h-32 z-100">
-                <img src="/BlackShark.png" alt="logo"  />
+                <img src="/BlackShark.png" alt="Blackshark logo"  />
             </div>
             <div className="flex items-center space-x-12 ml-20">   
                 <a href="#" className="font-myriad-pro font-semibold text-white transition duration-500 transform hover:scale-110 text-base px-2">Servicios</a>
