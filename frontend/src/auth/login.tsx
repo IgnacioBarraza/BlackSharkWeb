@@ -1,9 +1,17 @@
+import { faChevronLeft } from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { Link } from "react-router-dom"
+
 export const Login = () => {
   return (
     <>
       <div>
         <div className="imback fixed top-0 left-0 p-2">
-            <a className="flex items-center justify-center rounded-full w-20 h-20 bg-[url(../public/backpage-BSW.png)] bg-no-repeat bg-center bg-cover" style={{ backgroundSize: '50%' }}></a>
+            <Link to={'/'}>
+              <span className="flex items-center justify-center rounded-full w-20 h-20">
+                <FontAwesomeIcon icon={faChevronLeft} size="2xl"/>
+              </span>
+            </Link>
         </div>
         <div className="flex justify-center items-center h-screen ">
           <div className="limit font-myriad-pro rounded-xl" style={{ backgroundColor: 'rgba(1, 134, 255, 0.6)' }}>
