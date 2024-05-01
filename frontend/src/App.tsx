@@ -1,11 +1,10 @@
 import "./App.css";
-import { Homepage } from "./shared/homepage";
+import Router from "./router";
+import { routes } from "./routes/routesConfig";
 
 function App() {
   return (
-    <>
-      <Homepage/>
-    </>
+    <Router routes={routes} />
   );
 }
 
