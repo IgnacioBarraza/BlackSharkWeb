@@ -1,6 +1,7 @@
 import express from 'express'
 import { connect } from '../utils/db'
 import { randomUUID } from 'crypto'
+import { verifyMedia } from '../schemas/mediaSchema'
 
 const mediaRouter = express.Router()
 
@@ -10,10 +11,10 @@ mediaRouter.get('/media', async (req, res) => {
     try {
         const [row, fields] = await connection.query(`SELECT * FROM medios_comunicacion`)
 
-        res.status(200).json(row)
+        return res.status(200).json(row)
     } catch (error) {
         // console.log(error)
-        res.status(500).json({ message: 'Hubo un error en el servidor al intentar obtener los datos.' })
+        return res.status(500).json({ message: 'Hubo un error en el servidor al intentar obtener los datos.' })
     } finally {
         if (connection) {
             connection.end()
@@ -22,19 +23,16 @@ mediaRouter.get('/media', async (req, res) => {
 })
 
 mediaRouter.post('/new/media', async (req, res) => {
-    const data = req.body
     const connection = connect()
 
-    if (!data.nombreMedio) {
-        res.status(400).json({ message: 'El medio de comunicación debe tener un nombre!' })
-        return
-    } else if (!data.tipoMedio) {
-        res.status(400).json({ message: 'Debes indicar el tipo de medio de comunicación!' })
-        return
+    const verifyData = verifyMedia(req.body)
+
+    if (verifyData.error) {
+        return res.status(400).json({ message: JSON.parse(verifyData.error.message)[0].message })
     }
 
     try {
-        const searchMedia = await connection.query(`SELECT * FROM medios_comunicacion WHERE nombre_medio = ?`, [data.nombreMedio])
+        const searchMedia = await connection.query(`SELECT * FROM medios_comunicacion WHERE nombre_medio = ?`, [verifyData.data.nombre])
 
         if (Array.isArray(searchMedia[0]) && searchMedia[0].length > 0) {
             res.status(404).json({ message: 'Este medio ya existe en la base de datos!' })
@@ -42,18 +40,17 @@ mediaRouter.post('/new/media', async (req, res) => {
         } else {
             const newMedia = {
                 id_medio: randomUUID(),
-                nombre_media: data.nombreMedio,
-                tipo_media: data.tipoMedio
+                nombre_media: verifyData.data.nombre,
+                tipo_media: verifyData.data.tipo_medios
             }
 
             await connection.query(`INSERT INTO medios_comunicacion (id_medio, nombre_medio, tipo_medios) VALUES (?, ?, ?)`, [newMedia.id_medio, newMedia.nombre_media, newMedia.tipo_media])
 
-            res.status(201).json({ message: 'Medio de comunicación creada!' })
-            return
+            return res.status(201).json({ message: 'Medio de comunicación creada!' })
         }
     } catch (error) {
-            console.log(error)
-        res.status(500).json({ message: 'Hubo un error intentando añadir el medio de comunicación a la base de datos.' })
+        // console.log(error)
+        return res.status(500).json({ message: 'Hubo un error intentando añadir el medio de comunicación a la base de datos.' })
     } finally {
         if (connection) {
             connection.end()
@@ -62,17 +59,22 @@ mediaRouter.post('/new/media', async (req, res) => {
 })
 
 mediaRouter.put('/update/media/:id', async (req, res) => {
-    const data = req.body
     const mediaId = req.params.id
     const connection = connect()
+
+    const verifyData = verifyMedia(req.body)
+
+    if (verifyData.error) {
+        return res.status(400).json({ message: JSON.parse(verifyData.error.message)[0].message })
+    }
 
     try {
         const searchMedia = await connection.query(`SELECT * FROM medios_comunicacion WHERE id_medio = ?`, [mediaId])
 
         if (Array.isArray(searchMedia[0]) && searchMedia[0].length > 0) {
             const updateMedia = {
-                nombre_media: data.nombreMedio,
-                tipo_media: data.tipoMedio
+                nombre_media: verifyData.data.nombre,
+                tipo_media: verifyData.data.tipo_medios
             }
 
             await connection.query(`
@@ -82,11 +84,9 @@ mediaRouter.put('/update/media/:id', async (req, res) => {
                 WHERE id_medio = ?
             `, [updateMedia.nombre_media, updateMedia.tipo_media, mediaId])
 
-            res.status(200).json({ message: 'Medio de comunicación actualizado!' })
-            return
+            return res.status(200).json({ message: 'Medio de comunicación actualizado!' })
         } else {
-            res.status(404).json({ message: 'Medio de comunicación no encontrado.' })
-            return
+            return res.status(404).json({ message: 'Medio de comunicación no encontrado.' })
         }
     } catch (error) {
         // console.log(error)
@@ -108,14 +108,12 @@ mediaRouter.delete('/delete/media/:id', async (req, res) => {
         if (Array.isArray(searchMedia[0]) && searchMedia[0].length > 0) {
             await connection.query(`DELETE FROM medios_comunicacion WHERE id_medio = ?`, [mediaId])
 
-            res.status(200).json({ message: 'Medio de comunicación eliminado.' })
-            return
+            return res.status(200).json({ message: 'Medio de comunicación eliminado.' })
         } else {
-            res.status(400).json({ message: 'Medio de comunicación no encontrado.' })
-            return
+            return res.status(400).json({ message: 'Medio de comunicación no encontrado.' })
         }
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         res.status(500).json({ message: 'Hubo un problema intentando eliminar el medio de comunicación.' })
     } finally {
         if (connection) {

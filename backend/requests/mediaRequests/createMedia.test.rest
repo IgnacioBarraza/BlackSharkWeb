@@ -2,8 +2,8 @@ POST http://localhost:3001/new/media
 Content-Type: application/json
 
 {
-    "nombreMedio": "Once",
-    "tipoMedio": "Tetería"
+    "nombre": "Once",
+    "tipo_medios": 23
 }
 
 ###
