@@ -8,7 +8,7 @@ import inventoryRouter from './routes/inventoryRouter'
 import mediaRouter from './routes/mediaRouter'
 import productRouter from './routes/productRouter'
 import projectRouter from './routes/projectRouter'
-import budgetRouter from './routes/bidgetRouter'
+import budgetRouter from './routes/budgetRouter'
 
 const app = express()
 
