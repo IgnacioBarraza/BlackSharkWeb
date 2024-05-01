@@ -1,0 +1,7 @@
+POST http://localhost:3001/new/inventario
+Content-Type: application/json
+
+{
+    "nombre": "Inventario fotografías",
+    "cantidad": 23
+}

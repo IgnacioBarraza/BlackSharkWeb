@@ -12,8 +12,8 @@ POST http://localhost:3001/new/media
 Content-Type: application/json
 
 {
-    "nombreMedio": "",
-    "tipoMedio": "Tetería"
+    "nombre": "",
+    "tipo_medios": "Tetería"
 }
 
 ###
@@ -22,6 +22,6 @@ POST http://localhost:3001/new/media
 Content-Type: application/json
 
 {
-    "nombreMedio": "Once",
-    "tipoMedio": ""
+    "nombre": "Once",
+    "tipo_medios": ""
 }
