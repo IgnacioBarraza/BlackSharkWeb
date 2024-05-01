@@ -1,0 +1,9 @@
+POST http://localhost:3001/api/budget/new
+Content-Type: application/json
+
+{
+    "id_proyecto": "2b7bf832-418a-42f7-ad07-303c7f292117",
+    "id_inventario": "563009a9-4201-488f-9755-74aeada39d5b",
+    "id_usuario": "5f229103-e1cf-4aa2-871e-0ac941fdcabd",
+    "valor": 40000
+}

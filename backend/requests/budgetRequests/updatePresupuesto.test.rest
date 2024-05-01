@@ -1,0 +1,9 @@
+PUT http://localhost:3001/api/budget/update/1f68837c-cac8-4ae8-bb03-aeb26f8b22be
+Content-Type: application/json
+
+{
+    "id_proyecto": "e1a5196e-3eb4-4dc0-b0c3-8cf53b442cbe",
+    "id_inventario": "7ddc82ff-a2d8-4fcc-8e24-b999a9a148a0",
+    "id_usuario": "46f5ebe3-a2ef-42c0-9917-79263f6887db",
+    "valor": 50000
+}

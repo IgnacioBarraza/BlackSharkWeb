@@ -1,0 +1,11 @@
+PUT http://localhost:3001/api/users/update/7eef03ad-2757-4b7c-91ca-412731359067
+Content-Type: application/json
+
+{
+    "username": "Joel",
+    "password": "9090pass",
+    "email": "joelnew@test.com",
+    "tipo_user": "usuario"
+}
+
+# Se deben mandar todos los campos para actualizar un usuario!

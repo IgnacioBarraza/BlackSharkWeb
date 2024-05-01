@@ -1,0 +1,27 @@
+POST http://localhost:3001/api/media/new
+Content-Type: application/json
+
+{
+    "nombre": "Once",
+    "tipo_medios": "instagram"
+}
+
+###
+# Case 1: nombreMedio not provided:
+POST http://localhost:3001/api/media/new
+Content-Type: application/json
+
+{
+    "nombre": "",
+    "tipo_medios": "Tetería"
+}
+
+###
+# Case 2: tipoMedio not provided:
+POST http://localhost:3001/api/media/new
+Content-Type: application/json
+
+{
+    "nombre": "Once",
+    "tipo_medios": ""
+}
