@@ -9,3 +9,5 @@ export const MYSQLHOST = process.env.MYSQLHOST
 export const MYSQLUSER = process.env.MYSQLUSER
 export const MYSQLPASSWORD = process.env.MYSQLPASSWORD
 export const MYSQLPORT = process.env.MYSQLPORT
+
+export const SECRET = process.env.SECRET
