@@ -80,7 +80,7 @@ loginRouter.post('/register', async (req, res) => {
                 email: validateData.data.email,
                 phone: validateData.data.phone ?? null,
                 tipo_user: 'usuario',
-                direction: validateData.data.direction
+                direction: validateData.data.direction ?? null
             }
 
             await connection.query(`INSERT INTO usuario (id_usuario, username, contrasenha, correo, telefono, tipo_user, direccion) VALUES (?, ?, ?, ?, ?, ?, ?)`,
