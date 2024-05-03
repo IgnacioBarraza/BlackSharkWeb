@@ -2,6 +2,7 @@ import express from 'express'
 import cors from 'cors'
 
 // Routers:
+import loginRouter from './routes/loginRouter'
 import userRouter from './routes/userRouter'
 import campaignRouter from './routes/campaignRouter'
 import inventoryRouter from './routes/inventoryRouter'
@@ -15,6 +16,7 @@ const app = express()
 app.use(express.json())
 app.use(cors())
 
+app.use('/api/login', loginRouter)
 app.use('/api/users', userRouter)
 app.use('/api/campaign', campaignRouter)
 app.use('/api/inventory', inventoryRouter)
