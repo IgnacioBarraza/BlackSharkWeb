@@ -9,8 +9,8 @@ const userRouter = express.Router()
 const bcryptPassword = async (password: string) => {
     const salt = 10
 
-    const hushedPassword = await bcrypt.hash(password, salt)
-    return hushedPassword
+    const hashedPassword = await bcrypt.hash(password, salt)
+    return hashedPassword
 }
 
 userRouter.get('/', async (req, res) => {
