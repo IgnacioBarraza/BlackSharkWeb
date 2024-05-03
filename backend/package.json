@@ -8,7 +8,7 @@
     "start": "node dist/index.js",
     "dev": "nodemon index.ts"
   },
-  "author": "Equipo do trabajo",
+  "author": "Equipo de trabajo",
   "license": "ISC",
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
