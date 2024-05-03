@@ -71,12 +71,12 @@ loginRouter.post('/register', async (req, res) => {
             return res.status(400).json({ message: 'El correo ya tiene una cuenta asociada. Intente con otro.' })
         } else {
             const salt = 10
-            const hushedPassword = await bcrypt.hash(validateData.data.password, salt)
+            const hashedPassword = await bcrypt.hash(validateData.data.password, salt)
 
             const newUser = {
                 id_usuario: randomUUID(),
                 username: validateData.data.username,
-                password: hushedPassword,
+                password: hashedPassword,
                 email: validateData.data.email,
                 phone: validateData.data.phone ?? null,
                 tipo_user: 'usuario',
