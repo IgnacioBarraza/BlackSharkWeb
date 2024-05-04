@@ -10,6 +10,8 @@ import mediaRouter from './routes/mediaRouter'
 import productRouter from './routes/productRouter'
 import projectRouter from './routes/projectRouter'
 import budgetRouter from './routes/budgetRouter'
+
+// Middleware:
 import verifyToken from './middleware/verifyToken'
 
 const app = express()

@@ -17,7 +17,7 @@ const verifyToken = async (req: Request, res: Response, next: NextFunction) => {
             jwt.verify(cleanToken, SECRET)
             next()
         } catch (error) {
-            return res.status(400).json({ message: 'Token inválido.' })
+            return res.status(401).json({ message: 'Token inválido.' })
         }
     } else {
         return res.status(500).json({ message: 'Hubo un error en el servidor. Intente más tarde.s' })
