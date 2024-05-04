@@ -5,7 +5,7 @@ Content-Type: application/json
     "username": "Test 2",
     "password": "9090pass",
     "email": "test2@gmail.com",
-    "tipo_user": "usuario"
+    "tipo_user": "user"
 }
 
 ###
@@ -17,7 +17,7 @@ Content-Type: application/json
 {
     "password": "9090pass",
     "email": "joel2@test.com",
-    "tipo_user": "usuario"
+    "tipo_user": "user"
 }
 
 ###
@@ -29,7 +29,7 @@ Content-Type: application/json
     "username": "",
     "password": "9090pass",
     "email": "joel2@test.com",
-    "tipo_user": "usuario"
+    "tipo_user": "user"
 }
 
 ###
@@ -41,7 +41,7 @@ Content-Type: application/json
     "username": "Joel2",
     "password": "",
     "email": "joel2@test.com",
-    "tipo_user": "usuario"
+    "tipo_user": "user"
 }
 
 ###
@@ -52,7 +52,7 @@ Content-Type: application/json
 {
     "username": "Joel2",
     "email": "joel2@test.com",
-    "tipo_user": "usuario"
+    "tipo_user": "user"
 }
 
 ###
@@ -64,7 +64,7 @@ Content-Type: application/json
     "username": "Joel2",
     "password": "9090pass",
     "email": "",
-    "tipo_user": "usuario"
+    "tipo_user": "user"
 }
 
 ###
@@ -75,7 +75,7 @@ Content-Type: application/json
 {
     "username": "Joel2",
     "password": "9090pass",
-    "tipo_user": "usuario"
+    "tipo_user": "user"
 }
 
 ###
