@@ -11,7 +11,9 @@ export const Navbar = () => {
             </div>
             <div className="flex items-center space-x-12 ml-20">   
                 <a href="#" className="font-myriad-pro font-semibold text-white transition duration-500 transform hover:scale-110 text-base px-2">Servicios</a>
-                <a href="#" className="font-myriad-pro font-semibold text-white transition duration-500 transform hover:scale-110 text-base px-2">Galería</a>
+                <Link to={'/gallery'} className="font-myriad-pro font-semibold text-white transition duration-500 transform hover:scale-110 text-base px-2">
+                <a href="#" >Galería</a>
+                </Link>
                 <a href="#" className="font-myriad-pro font-semibold text-white transition duration-500 transform hover:scale-110 text-base px-2">Portafolio</a>
                 <Link to={'/contact'} className="font-myriad-pro font-semibold text-white transition duration-500 transform hover:scale-110 text-base px-2">
                 <a href="#" >Contactos</a>
