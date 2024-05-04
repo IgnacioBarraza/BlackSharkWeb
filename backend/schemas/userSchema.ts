@@ -33,7 +33,7 @@ const userSchema = z.object({
             message: "El número debe ser de 9 caracteres.",
         })
         .optional(),
-    tipo_user: z.enum(["usuario", "administrador"], {
+    tipo_user: z.enum(["user", "admin"], {
         errorMap: () => ({
             message: "Debes seleccionar un tipo de usuario válido.",
             required_error: "Debes señalar el tipo de usuario.",
