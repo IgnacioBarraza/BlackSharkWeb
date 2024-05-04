@@ -14,7 +14,7 @@ export const Login = () => {
             </Link>
         </div>
         <div className="flex justify-center items-center h-screen ">
-          <div className="limit font-myriad-pro rounded-xl" style={{ backgroundColor: 'rgba(1, 134, 255, 0.6)' }}>
+          <div className="limit font-myriad-pro rounded-xl" >
               <form className="flex flex-col items-center max-w-400px mx-auto p-20 rounded-lg">
 
                 <span className="login-title mb-4">Iniciar Sesión</span>
@@ -36,7 +36,9 @@ export const Login = () => {
                 </div>
 
                 <div className="mb-4">
-                  <a>¿Has olvidado tu contraseña?</a>
+                  <Link to={'/signup'}>
+                    <a>¿Has olvidado tu contraseña?</a>
+                  </Link>
                 </div>
 
                 <div className="contenedor">

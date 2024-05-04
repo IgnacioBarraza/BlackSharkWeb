@@ -6,54 +6,56 @@ export const Register = () => {
     return (
       <>
         <div>
-        <div className="imback fixed top-0 left-0 p-2">
-            <Link to={'/'}>
-              <span className="flex items-center justify-center rounded-full w-20 h-20">
-                <FontAwesomeIcon icon={faChevronLeft} size="2xl"/>
-              </span>
-            </Link>
-        </div>
+          <div className="imback fixed top-0 left-0 p-2">
+              <Link to={'/'}>
+                <span className="flex items-center justify-center rounded-full w-20 h-20">
+                  <FontAwesomeIcon icon={faChevronLeft} size="2xl"/>
+                </span>
+              </Link>
+          </div>
   
-          <div className="flex justify-center items-center h-screen ">
-              <div className="limit font-myriad-pro rounded-xl" style={{ backgroundColor: 'rgba(1, 134, 255, 0.6)' }}>
-                <form className="flex flex-col items-center max-w-400px mx-auto p-20 rounded-lg">
-                    <span className="register-title mb-4">Registrarse</span>
-    
-                    <div className="w-full pt-5">
+          <div className="flex justify-center items-center h-screen">
+              <form className="font-myriad-pro flex flex-col items-center max-w-xl mx-auto p-20 rounded-lg ">
+                  <div>
+                    <h2 className="mt-5 text-2xl font-extrabold text-center text-neutral-600">Registrarse</h2>
+                  </div>
+
+                  <div className="w-full pt-10">
                     <span className="label-name-input">Nombre completo</span>
-                    <input className="name-input w-full h-8" type="text" name="fullname" placeholder="Ingrese su nombre completo"/>
-                    </div>
+                    <input className="w-full px-5 py-3 text-base text-neutral-600 placeholder-gray-300 transition duration-500 ease-in-out transform border border-transparent rounded-lg bg-gray-50 focus:outline-none focus:border-transparent focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300" type="text" name="fullname" placeholder="Nombre completo"/>
+                  </div>
     
-                    <div className="w-full pt-3">
+                  <div className="w-full pt-3">
                     <span className="label-user-input">Correo</span>
-                    <input className="user-input w-full h-8" type="email" name="username" placeholder="Ingrese su correo" />
+                    <input className="w-full px-5 py-3 text-base text-neutral-600 placeholder-gray-300 transition duration-500 ease-in-out transform border border-transparent rounded-lg bg-gray-50 focus:outline-none focus:border-transparent focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300" type="email" name="username" placeholder="Ingrese su correo" />
                     {/* icono de un usuario */}
-                    </div>
+                  </div>
     
-                    <div className="w-full pt-3">
+                  <div className="w-full pt-3">
                     <span className="label-input-password">Contraseña</span>
-                    <input className="password-input w-full h-8" type="password" name="pass" placeholder="Ingrese su contraseña"/>
+                    <input className="w-full px-5 py-3 text-base text-neutral-600 placeholder-gray-300 transition duration-500 ease-in-out transform border border-transparent rounded-lg bg-gray-50 focus:outline-none focus:border-transparent focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300" type="password" name="pass" placeholder="Ingrese su contraseña"/>
                     {/* icono de un candado */}
-                    </div>
+                  </div>
     
-                    <div className="w-full pt-3">
-                    <span className="label-input-reapetpassword">Confirma la Contraseña</span>
-                    <input className="password-input w-full h-8" type="password" name="repassword" placeholder="Ingrese nuevamente su contraseña"/>
+                  <div className="w-full pt-3">
+                    <span className="label-input-reapetpassword">Confirma la contraseña</span>
+                    <input className="w-full px-5 py-3 text-base text-neutral-600 placeholder-gray-300 transition duration-500 ease-in-out transform border border-transparent rounded-lg bg-gray-50 focus:outline-none focus:border-transparent focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300" type="password" name="repassword" placeholder="Confirme su contraseña"/>
                     {/* icono de un candado */}
-                    </div>
+                  </div>
+
+                  <div className="mb-4 pt-5">
+                    <Link to={'/login'}>
+                       <a href="#" className="font-medium text-blue-600 hover:text-blue-500">¿Ya tienes cuenta?</a>
+                     </Link>
+                  </div>
     
-                    <div className="mb-4 pt-5">
-                    <a>¿Ya tienes cuenta?</a>
-                    </div>
-    
-                    <div className="contenedor">
-                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                        Registrarte
-                    </button>
-                    </div>
-                </form>
-                </div>
-            </div>
+                  <div className="contenedor">
+                    <button className="flex items-center justify-center w-full px-10 py-2.5 text-base font-medium text-center text-white transition duration-500 ease-in-out transform bg-blue-600 rounded-xl hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                         Registrarte
+                     </button>
+                  </div>
+              </form>
+          </div>
         </div>
       </>
     )
