@@ -1,8 +1,10 @@
 import express from 'express'
 import { randomUUID } from 'crypto'
+import bcrypt from 'bcrypt'
+
 import { connect } from '../utils/db'
 import { validateUser } from '../schemas/userSchema'
-import bcrypt from 'bcrypt'
+import authorizeRole from '../middleware/authorizeRole'
 
 const userRouter = express.Router()
 
@@ -30,7 +32,7 @@ userRouter.get('/', async (req, res) => {
     }
 })
 
-userRouter.post('/new', async (req, res) => {
+userRouter.post('/new', authorizeRole, async (req, res) => {
     const connection = connect()
 
     const result = validateUser(req.body)
@@ -72,7 +74,7 @@ userRouter.post('/new', async (req, res) => {
     }
 })
 
-userRouter.put('/update/:id', async (req, res) => {
+userRouter.put('/update/:id', authorizeRole, async (req, res) => {
     const userId = req.params.id
     const connection = connect()
 
@@ -118,7 +120,7 @@ userRouter.put('/update/:id', async (req, res) => {
     }
 })
 
-userRouter.delete('/delete/:id', async (req, res) => {
+userRouter.delete('/delete/:id', authorizeRole, async (req, res) => {
     const userId = req.params.id
     const connection = connect()
 

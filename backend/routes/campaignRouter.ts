@@ -2,6 +2,7 @@ import express from 'express'
 import { connect } from '../utils/db'
 import { randomUUID } from 'crypto'
 import { validateCampaign } from '../schemas/campaignSchema'
+import authorizeRole from '../middleware/authorizeRole'
 
 const campaignRouter = express.Router()
 
@@ -22,7 +23,7 @@ campaignRouter.get('/', async (req, res) => {
     }
 })
 
-campaignRouter.post('/new', async (req, res) => {
+campaignRouter.post('/new', authorizeRole, async (req, res) => {
     const connection = connect()
 
     const validateData = validateCampaign(req.body)
@@ -57,7 +58,7 @@ campaignRouter.post('/new', async (req, res) => {
     }
 })
 
-campaignRouter.put('/update/:id', async (req, res) => {
+campaignRouter.put('/update/:id', authorizeRole, async (req, res) => {
     const campaignId = req.params.id
     const connection = connect()
 
@@ -97,7 +98,7 @@ campaignRouter.put('/update/:id', async (req, res) => {
     }
 })
 
-campaignRouter.delete('/delete/:id', async (req, res) => {
+campaignRouter.delete('/delete/:id', authorizeRole, async (req, res) => {
     const campaignId = req.params.id
     const connection = connect()
 

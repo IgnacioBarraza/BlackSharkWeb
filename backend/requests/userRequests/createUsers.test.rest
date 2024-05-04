@@ -1,11 +1,12 @@
 POST http://localhost:3001/api/users/new
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkpvZWwgdGVzdCIsImlkZW50aWZpZXIiOiI3NDlhYTYyNC02NWRhLTQ0ZDQtYTNjZC1kNTYxNjdkZTFhNWIiLCJpYXQiOjE3MTQ3OTIwNDB9.QvmBCboIUrDhHrsNey-B_yua96BcTj3NulX2ts1E2Sw
 
 {
-    "username": "Test 2",
+    "username": "Test 4",
     "password": "9090pass",
-    "email": "test2@gmail.com",
-    "tipo_user": "user"
+    "email": "test4@gmail.com",
+    "tipo_user": "admin"
 }
 
 ###

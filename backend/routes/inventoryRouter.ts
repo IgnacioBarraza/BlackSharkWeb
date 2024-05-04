@@ -2,6 +2,7 @@ import express from 'express'
 import { connect } from '../utils/db'
 import { verifyInventory } from '../schemas/inventorySchema'
 import { randomUUID } from 'crypto'
+import authorizeRole from '../middleware/authorizeRole'
 
 const inventoryRouter = express.Router()
 
@@ -22,7 +23,7 @@ inventoryRouter.get('/', async (req, res) => {
     }
 })
 
-inventoryRouter.post('/new', async (req, res) => {
+inventoryRouter.post('/new', authorizeRole, async (req, res) => {
     const connection = connect()
 
     const verifyData = verifyInventory(req.body)
@@ -57,7 +58,7 @@ inventoryRouter.post('/new', async (req, res) => {
     }
 })
 
-inventoryRouter.put('/update/:id', async (req, res) => {
+inventoryRouter.put('/update/:id', authorizeRole, async (req, res) => {
     const inventoryId = req.params.id
     const connection = connect()
 
@@ -92,7 +93,7 @@ inventoryRouter.put('/update/:id', async (req, res) => {
     }
 })
 
-inventoryRouter.delete('/delete/:id', async (req, res) => {
+inventoryRouter.delete('/delete/:id', authorizeRole, async (req, res) => {
     const inventoryId = req.params.id
     const connection = connect()
 
