@@ -15,7 +15,7 @@ export const Register = () => {
         </div>
 
         <div className="flex justify-center items-center h-screen w-full">
-          <form className="font-myriad-pro flex flex-col items-center max-w-sm w-full px-4 md:px-0 py-8 rounded-lg ">
+          <form className="font-myriad-pro flex flex-col items-center max-w-sm w-full px-4 md:px-0 py-8 rounded-lg">
             <div>
               <h2 className="mt-5 pb-10 text-2xl font-extrabold text-center text-neutral-600">Registrarse</h2>
             </div>
