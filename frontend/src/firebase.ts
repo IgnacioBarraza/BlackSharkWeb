@@ -5,12 +5,12 @@ import { initializeApp } from "firebase/app";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyCJSE12d6lXA1lCvkPKLcXcKh-5I9Ytmts",
-  authDomain: "blacksharkweb-frontend.firebaseapp.com",
-  projectId: "blacksharkweb-frontend",
-  storageBucket: "blacksharkweb-frontend.appspot.com",
-  messagingSenderId: "539547711779",
-  appId: "1:539547711779:web:fa111e3128dc344454b496"
+  apiKey: "AIzaSyDue6DGYNAVbv-xhfFTQMgO5NsOdpQLMOs",
+  authDomain: "blacksharkstudiosweb.firebaseapp.com",
+  projectId: "blacksharkstudiosweb",
+  storageBucket: "blacksharkstudiosweb.appspot.com",
+  messagingSenderId: "1010271293448",
+  appId: "1:1010271293448:web:5111f4fb2a884ad13bc1bd"
 };
 
 // Initialize Firebase
