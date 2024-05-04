@@ -1,11 +1,12 @@
-PUT http://localhost:3001/api/users/update/7eef03ad-2757-4b7c-91ca-412731359067
+PUT http://localhost:3001/api/users/update/ac1ac77f-ad99-463d-9fcc-368f30c9b0b0
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkpvZWwgdGVzdCIsImlkZW50aWZpZXIiOiI3NDlhYTYyNC02NWRhLTQ0ZDQtYTNjZC1kNTYxNjdkZTFhNWIiLCJpYXQiOjE3MTQ3OTIwNDB9.QvmBCboIUrDhHrsNey-B_yua96BcTj3NulX2ts1E2Sw
 
 {
-    "username": "Joel",
+    "username": "Test 3",
     "password": "9090pass",
-    "email": "joelnew@test.com",
-    "tipo_user": "usuario"
+    "email": "test3@gmail.com",
+    "tipo_user": "user"
 }
 
 # Se deben mandar todos los campos para actualizar un usuario!
