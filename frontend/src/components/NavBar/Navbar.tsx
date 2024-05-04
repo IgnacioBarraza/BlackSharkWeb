@@ -13,12 +13,14 @@ export const Navbar = () => {
                 <a href="#" className="font-myriad-pro font-semibold text-white transition duration-500 transform hover:scale-110 text-base px-2">Servicios</a>
                 <a href="#" className="font-myriad-pro font-semibold text-white transition duration-500 transform hover:scale-110 text-base px-2">Galería</a>
                 <a href="#" className="font-myriad-pro font-semibold text-white transition duration-500 transform hover:scale-110 text-base px-2">Portafolio</a>
-                <a href="#" className="font-myriad-pro font-semibold text-white transition duration-500 transform hover:scale-110 text-base px-2">Contactos</a>
-                <Link to={'/login'}>
-                  <span className="font-myriad-pro font-semibold text-white transition duration-500 transform hover:scale-110 text-base px-2">Iniciar Sesión</span>
+                <Link to={'/contact'} className="font-myriad-pro font-semibold text-white transition duration-500 transform hover:scale-110 text-base px-2">
+                <a href="#" >Contactos</a>
                 </Link>
-                <Link to={'/signup'}>
-                  <span className="border px-4 py-1.5 rounded-md border-white font-myriad-pro font-semibold text-white transition duration-500 transform hover:scale-110 text-base">Registrarse</span>
+                <Link to={'/login'} className="font-myriad-pro font-semibold text-white transition duration-500 transform hover:scale-110 text-base px-2">
+                  <span>Iniciar Sesión</span>
+                </Link>
+                <Link to={'/signup'} className="border px-4 py-1.5 rounded-md border-white font-myriad-pro font-semibold text-white transition duration-500 transform hover:scale-110 text-base">
+                  <span >Registrarse</span>
                 </Link>
                 <div className="mr-0 flex justify-around content-center w-20">
                   <a href="https://web.facebook.com/ElLokojara/">
