@@ -6,8 +6,10 @@ export const Navbar = () => {
   return (
     <>
         <div className="flex items-center justify-center">
-            <div className="flex items-center space-x-16 ">   
-                <a href="#" className="font-myriad-pro font-medium transition duration-500 transform hover:scale-110 px-2 mr-7 text-2xl flex items-center justify-center">Servicios</a>
+            <div className="flex items-center space-x-16 ">
+                <Link to={'/servicios'}>   
+                <span className="font-myriad-pro font-medium transition duration-500 transform hover:scale-110 px-2 mr-7 text-2xl flex items-center justify-center">Servicios</span>
+                </Link>
                 <Link to={'/gallery'} className="font-myriad-pro font-medium transition duration-500 transform hover:scale-110 text-2xl px-2 mr-7 flex items-center justify-center">
                 <span>Galería</span>
                 </Link>

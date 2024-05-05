@@ -3,6 +3,7 @@ import { Register } from "../auth/register";
 import { Contact } from "../shared/contact";
 import { Gallery } from "../shared/gallery";
 import { Homepage } from "../shared/homepage";
+import { Servicios } from "../shared/servicios";
 
 export const routes = [
   {
@@ -24,5 +25,9 @@ export const routes = [
   {
     path: '/gallery',
     component: <Gallery />
+  },
+  {
+    path: '/servicios',
+    component: <Servicios />
   },
 ]
