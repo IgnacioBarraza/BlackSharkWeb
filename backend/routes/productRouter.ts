@@ -2,6 +2,7 @@ import express from 'express'
 import { connect } from '../utils/db'
 import { randomUUID } from 'crypto'
 import { verifyProduct } from '../schemas/productSchema'
+import authorizeRole from '../middleware/authorizeRole'
 
 const productRouter = express.Router()
 
@@ -22,7 +23,7 @@ productRouter.get('/', async (req, res) => {
     }
 })
 
-productRouter.post('/new', async (req, res) => {
+productRouter.post('/new', authorizeRole, async (req, res) => {
     const connection = connect()
 
     const verifyData = verifyProduct(req.body)
@@ -62,7 +63,7 @@ productRouter.post('/new', async (req, res) => {
     }
 })
 
-productRouter.put('/update/:id', async (req, res) => {
+productRouter.put('/update/:id', authorizeRole, async (req, res) => {
     const productId = req.params.id
     const connection = connect()
 
@@ -104,7 +105,7 @@ productRouter.put('/update/:id', async (req, res) => {
     }
 })
 
-productRouter.delete('/delete/:id', async (req, res) => {
+productRouter.delete('/delete/:id', authorizeRole, async (req, res) => {
     const productId = req.params.id
     const connection = connect()
 

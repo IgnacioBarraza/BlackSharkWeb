@@ -2,6 +2,7 @@ import express from 'express'
 import { connect } from '../utils/db'
 import { randomUUID } from 'crypto'
 import { validateProject } from '../schemas/projectSchema'
+import authorizeRole from '../middleware/authorizeRole'
 
 const projectRouter = express.Router()
 
@@ -22,7 +23,7 @@ projectRouter.get('/', async (req, res) => {
     }
 })
 
-projectRouter.post('/new', async (req, res) => {
+projectRouter.post('/new', authorizeRole, async (req, res) => {
     const connection = connect()
     
     const validateData = validateProject(req.body)
@@ -60,7 +61,7 @@ projectRouter.post('/new', async (req, res) => {
     }
 })
 
-projectRouter.put('/update/:id', async (req, res) => {
+projectRouter.put('/update/:id', authorizeRole, async (req, res) => {
     const projectId = req.params.id
     const connection = connect()
 
@@ -100,7 +101,7 @@ projectRouter.put('/update/:id', async (req, res) => {
     }
 })
 
-projectRouter.delete('/delete/:id', async (req, res) => {
+projectRouter.delete('/delete/:id', authorizeRole, async (req, res) => {
     const projectId = req.params.id
     const connection = connect()
 
