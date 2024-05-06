@@ -23,7 +23,7 @@ export const Gallery = () => {
         </div>
       </div>
       {/* <div className="w-full max-w-5xl p-5 pb-10 mx-auto mb-10 gap-5 grid grid-cols-3 space-y-5 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3"><div/> */}
-      <div className="p-5 md:p-10">
+      <div className=" p-5 md:p-10">
         <div className="columns-1 gap-5 lg:gap-8 sm:columns-2 lg:columns-3 xl:columns-4 [&>img:not(:first-child)]:mt-5 lg:[&>img:not(:first-child)]:mt-8">
           <img src="/paisaje1.jpg" alt=""/>
           <img src="/paisaje1.jpg" alt=""/>
