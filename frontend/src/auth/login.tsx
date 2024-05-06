@@ -1,8 +1,23 @@
 import { faChevronLeft, faLock, faUser } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { Link } from "react-router-dom"
+import { useAuth } from "../hooks/useAuth";
+import { userToVerify } from "../utils/interfaces";
 
 export const Login = () => {
+
+  const {login} = useAuth()
+
+  const handleSubmit = async(e) => {
+    e.preventDefault()
+    const userToVerify: userToVerify = {
+      email: 'test2@gmail.com',
+      password: '9090pass'
+    }
+    const res = await login(userToVerify)
+    console.log(res)
+  }
+
   return (
     <>
       <div className="bg-[url(/Background_Photo.jpg)] bg-cover bg-center w-full h-screen bg-no-repeat">
@@ -15,7 +30,7 @@ export const Login = () => {
         </div>
 
         <div className="flex justify-center items-center h-screen pb-10">
-          <form className="font-myriad-pro flex flex-col items-center max-w-md w-full md:px-0 pt-20 rounded-lg bg-black bg-opacity-60">
+          <form onSubmit={handleSubmit} className="font-myriad-pro flex flex-col items-center max-w-md w-full md:px-0 pt-20 rounded-lg bg-black bg-opacity-60">
             <div>
               <h2 className=" text-2xl font-extrabold text-white">Iniciar Sesión</h2>
             </div>
@@ -40,13 +55,13 @@ export const Login = () => {
 
             <div className="mb-4 pt-5 text-white">
               <Link to={'/signup'}>
-                <a href="#" className="font-medium blue-bs hover:text-blue-500 transition-colors duration-300">¿Has olvidado tu contraseña?</a>
+                <span className="font-medium blue-bs hover:text-blue-500 transition-colors duration-300">¿Has olvidado tu contraseña?</span>
               </Link>
             </div>
 
             <div className="pt-10 pb-5 text-white">
               <Link to={'/signup'}>
-                <a href="#" className="font-medium blue-bs hover:text-blue-500 transition-colors duration-300">¿No tienes una cuenta? Registrate</a>
+                <span className="font-medium blue-bs hover:text-blue-500 transition-colors duration-300">¿No tienes una cuenta? Registrate</span>
               </Link>
             </div>
 

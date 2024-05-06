@@ -1,11 +1,12 @@
 import axios from "axios";
 import { ReactNode, createContext } from "react";
+import { userToVerify } from "../utils/interfaces";
 
 const PROD_BACKEND_URL = 'https://blacksharkweb-backend.onrender.com/api'
 const DEV_BACKEND_URL = 'http://localhost:3000/api'
 
 type AuthContextType = {
-  login: (email: string, password: string) => void;
+  login: (userToVerify: userToVerify) => void;
 }
 
 type AuthProviderProps = {
@@ -17,13 +18,9 @@ export const AuthContext = createContext<AuthContextType>({
 })
 
 export const AuthProvider = ({children}) => {
-  const login = (email: string, password: string) => {
+  const login = (userToVerify: userToVerify) => {
     try {
-      const userToVerify = {
-        email: email,
-        password: password
-      }
-      const loginResponse = axios.post('localhost:3000/api/login/verify', userToVerify)
+      return axios.post(`${DEV_BACKEND_URL}/login/verify`, userToVerify)
     } catch (error) {
       console.log(error)
     }
