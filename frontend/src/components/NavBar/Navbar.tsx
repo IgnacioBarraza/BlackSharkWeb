@@ -27,14 +27,6 @@ export const Navbar = () => {
                 <Link to={'/signup'} className="border px-4 py-1.5 rounded-md border-black font-myriad-pro font-medium  transition duration-500 transform hover:scale-110 text-2xl mr-7 flex items-center justify-center">
                   <span >Registrarse</span>
                 </Link>
-                {/* <div className="mr-0 flex justify-around content-center w-20 pr-0 ">
-                  <a href="https://web.facebook.com/ElLokojara/">
-                    <FontAwesomeIcon icon={faFacebook} size="2xl" color="#4267B2" />
-                  </a>
-                  <a href="https://www.instagram.com/blackshark.studios/?hl=es-la">
-                    <FontAwesomeIcon icon={faInstagram} size="2xl" color="#F56040" />
-                  </a>
-                </div> */}
             </div>
         </div>
     </>
