@@ -1,0 +1,92 @@
+POST http://localhost:3001/api/users/new
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkpvZWwgdGVzdCIsImlkZW50aWZpZXIiOiI3NDlhYTYyNC02NWRhLTQ0ZDQtYTNjZC1kNTYxNjdkZTFhNWIiLCJpYXQiOjE3MTQ3OTIwNDB9.QvmBCboIUrDhHrsNey-B_yua96BcTj3NulX2ts1E2Sw
+
+{
+    "username": "Test 4",
+    "password": "9090pass",
+    "email": "test4@gmail.com",
+    "tipo_user": "admin"
+}
+
+###
+# --- Testing different cases: ---
+# Case 1: username not provided:
+POST http://localhost:3001/api/users/new
+Content-Type: application/json
+
+{
+    "password": "9090pass",
+    "email": "joel2@test.com",
+    "tipo_user": "user"
+}
+
+###
+# Case 2: username is too short:
+POST http://localhost:3001/api/users/new
+Content-Type: application/json
+
+{
+    "username": "",
+    "password": "9090pass",
+    "email": "joel2@test.com",
+    "tipo_user": "user"
+}
+
+###
+# Case 3: password too short:
+POST http://localhost:3001/api/users/new
+Content-Type: application/json
+
+{
+    "username": "Joel2",
+    "password": "",
+    "email": "joel2@test.com",
+    "tipo_user": "user"
+}
+
+###
+# Case 4: password not provided:
+POST http://localhost:3001/api/users/new
+Content-Type: application/json
+
+{
+    "username": "Joel2",
+    "email": "joel2@test.com",
+    "tipo_user": "user"
+}
+
+###
+# Case 5: email too short:
+POST http://localhost:3001/api/users/new
+Content-Type: application/json
+
+{
+    "username": "Joel2",
+    "password": "9090pass",
+    "email": "",
+    "tipo_user": "user"
+}
+
+###
+# Case 6: email not provided:
+POST http://localhost:3001/api/users/new
+Content-Type: application/json
+
+{
+    "username": "Joel2",
+    "password": "9090pass",
+    "tipo_user": "user"
+}
+
+###
+# Case 7: tipo_user not provided:
+POST http://localhost:3001/api/users/new
+Content-Type: application/json
+
+{
+    "username": "Joel2",
+    "password": "9090pass",
+    "email": "joel2@test.com",
+    "tipo_user": ""
+}

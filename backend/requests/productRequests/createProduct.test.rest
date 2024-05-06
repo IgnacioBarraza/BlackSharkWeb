@@ -1,0 +1,42 @@
+POST http://localhost:3001/api/product/new
+Content-Type: application/json
+
+{
+    "nombre": "Manejo de redes sociales extendido",
+    "precio": 50000,
+    "descripcion": "2 semanas de manejo de redes sociales, historias y publicaciones",
+    "id_inventario": "563009a9-4201-488f-9755-74aeada39d5b"
+}
+
+###
+# Case 1: nombre not provided:
+POST http://localhost:3001/api/product/new
+Content-Type: application/json
+
+{
+    "nombre": "",
+    "precio": "20000",
+    "descripcion": "1 semana de manejo de redes sociales, historias y publicaciones"
+}
+
+###
+# Case 2: precio not provided:
+POST http://localhost:3001/api/product/new
+Content-Type: application/json
+
+{
+    "nombre": "Manejo de redes sociales",
+    "precio": "",
+    "descripcion": "1 semana de manejo de redes sociales, historias y publicaciones"
+}
+
+###
+# Case 3: descripcion not provided:
+POST http://localhost:3001/api/product/new
+Content-Type: application/json
+
+{
+    "nombre": "Manejo de redes sociales",
+    "precio": "20000",
+    "descripcion": ""
+}
