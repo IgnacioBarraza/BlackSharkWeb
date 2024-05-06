@@ -14,9 +14,6 @@ export const Servicios = () => {
                 </span>
               </Link>
          </div>
-        {/* <div className="text-center text-6xl py-8">
-            <h1 className="font-myriad-pro z-40 text-white font-extralight font-size-500 ">Contactanos</h1> 
-        </div> */}
         <div className="px-64 py-1 bg-transparent z-100">
         <Navbar/>
         </div>

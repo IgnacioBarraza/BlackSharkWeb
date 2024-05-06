@@ -1,5 +1,3 @@
-//import BlackShark from './components/Images/BlackShark.png';
-
 import { Navbar } from "../components/NavBar/Navbar"
 
 export const Homepage = () => {
