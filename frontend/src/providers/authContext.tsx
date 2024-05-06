@@ -1,6 +1,9 @@
 import axios from "axios";
 import { ReactNode, createContext } from "react";
 
+const PROD_BACKEND_URL = 'https://blacksharkweb-backend.onrender.com/api'
+const DEV_BACKEND_URL = 'http://localhost:3000/api'
+
 type AuthContextType = {
   login: (email: string, password: string) => void;
 }
