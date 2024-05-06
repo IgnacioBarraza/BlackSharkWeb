@@ -67,7 +67,8 @@ export const Contact = () => {
                         </div>
                         <textarea className="font-normal px-12 py-6 text-xs block w-full  border border-gray-300 rounded-lg  focus:outline-none focus:border-blue-500" ></textarea>
                         <div className="pt-5">
-                        <button className="px-5 py-4 text-base font-medium text-center text-white transition duration-500 ease-in-out transform bg-blue-600 lg:px-10 rounded-xl hover:bg-blue-700">ENVIAR</button>
+                        {/* <button className="px-5 py-4 text-base font-medium text-center text-white transition duration-500 ease-in-out transform bg-blue-600 lg:px-10 rounded-xl hover:bg-blue-700">ENVIAR</button> */}
+                        <button className="bg-blue-500 hover:bg-blue-700 text-white font-light py-2 px-8 transition duration-300 ease-in-out transform hover:scale-105">Enviar</button>
                         </div>
                       </div>
                     </form>
