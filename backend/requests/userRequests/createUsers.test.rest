@@ -1,11 +1,12 @@
 POST http://localhost:3001/api/users/new
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkpvZWwgdGVzdCIsImlkZW50aWZpZXIiOiI3NDlhYTYyNC02NWRhLTQ0ZDQtYTNjZC1kNTYxNjdkZTFhNWIiLCJpYXQiOjE3MTQ3OTIwNDB9.QvmBCboIUrDhHrsNey-B_yua96BcTj3NulX2ts1E2Sw
 
 {
-    "username": "Test 2",
+    "username": "Test 4",
     "password": "9090pass",
-    "email": "test2@gmail.com",
-    "tipo_user": "usuario"
+    "email": "test4@gmail.com",
+    "tipo_user": "admin"
 }
 
 ###
@@ -17,7 +18,7 @@ Content-Type: application/json
 {
     "password": "9090pass",
     "email": "joel2@test.com",
-    "tipo_user": "usuario"
+    "tipo_user": "user"
 }
 
 ###
@@ -29,7 +30,7 @@ Content-Type: application/json
     "username": "",
     "password": "9090pass",
     "email": "joel2@test.com",
-    "tipo_user": "usuario"
+    "tipo_user": "user"
 }
 
 ###
@@ -41,7 +42,7 @@ Content-Type: application/json
     "username": "Joel2",
     "password": "",
     "email": "joel2@test.com",
-    "tipo_user": "usuario"
+    "tipo_user": "user"
 }
 
 ###
@@ -52,7 +53,7 @@ Content-Type: application/json
 {
     "username": "Joel2",
     "email": "joel2@test.com",
-    "tipo_user": "usuario"
+    "tipo_user": "user"
 }
 
 ###
@@ -64,7 +65,7 @@ Content-Type: application/json
     "username": "Joel2",
     "password": "9090pass",
     "email": "",
-    "tipo_user": "usuario"
+    "tipo_user": "user"
 }
 
 ###
@@ -75,7 +76,7 @@ Content-Type: application/json
 {
     "username": "Joel2",
     "password": "9090pass",
-    "tipo_user": "usuario"
+    "tipo_user": "user"
 }
 
 ###

@@ -2,6 +2,7 @@ import express from 'express'
 import { connect } from '../utils/db'
 import { randomUUID } from 'crypto'
 import { verifyMedia } from '../schemas/mediaSchema'
+import authorizeRole from '../middleware/authorizeRole'
 
 const mediaRouter = express.Router()
 
@@ -22,7 +23,7 @@ mediaRouter.get('/', async (req, res) => {
     }
 })
 
-mediaRouter.post('/new', async (req, res) => {
+mediaRouter.post('/new', authorizeRole, async (req, res) => {
     const connection = connect()
 
     const verifyData = verifyMedia(req.body)
@@ -58,7 +59,7 @@ mediaRouter.post('/new', async (req, res) => {
     }
 })
 
-mediaRouter.put('/update/:id', async (req, res) => {
+mediaRouter.put('/update/:id', authorizeRole, async (req, res) => {
     const mediaId = req.params.id
     const connection = connect()
 
@@ -98,7 +99,7 @@ mediaRouter.put('/update/:id', async (req, res) => {
     }
 })
 
-mediaRouter.delete('/delete/:id', async (req, res) => {
+mediaRouter.delete('/delete/:id', authorizeRole, async (req, res) => {
     const mediaId = req.params.id
     const connection = connect()
 

@@ -2,6 +2,7 @@ import express from 'express'
 import { connect } from '../utils/db'
 import { validateBudget } from '../schemas/budgetSchema'
 import { randomUUID } from 'crypto'
+import authorizeRole from '../middleware/authorizeRole'
 
 const budgetRouter = express.Router()
 
@@ -22,7 +23,7 @@ budgetRouter.get('/', async (req, res) => {
     }
 })
 
-budgetRouter.post('/new', async (req, res) => {
+budgetRouter.post('/new', authorizeRole, async (req, res) => {
     const connection = connect()
 
     const verifyData = validateBudget(req.body)
@@ -63,7 +64,7 @@ budgetRouter.post('/new', async (req, res) => {
     }
 })
 
-budgetRouter.put('/update/:id', async (req, res) => {
+budgetRouter.put('/update/:id', authorizeRole, async (req, res) => {
     const budgetId = req.params.id
     const connection = connect()
 
@@ -100,7 +101,7 @@ budgetRouter.put('/update/:id', async (req, res) => {
     }
 })
 
-budgetRouter.delete('/delete/:id', async (req, res) => {
+budgetRouter.delete('/delete/:id', authorizeRole, async (req, res) => {
     const budgetId = req.params.id
     const connection = connect()
 

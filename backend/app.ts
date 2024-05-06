@@ -11,12 +11,18 @@ import productRouter from './routes/productRouter'
 import projectRouter from './routes/projectRouter'
 import budgetRouter from './routes/budgetRouter'
 
+// Middleware:
+import verifyToken from './middleware/verifyToken'
+
 const app = express()
 
 app.use(express.json())
 app.use(cors())
 
 app.use('/api/login', loginRouter)
+
+app.use('', verifyToken)
+
 app.use('/api/users', userRouter)
 app.use('/api/campaign', campaignRouter)
 app.use('/api/inventory', inventoryRouter)
