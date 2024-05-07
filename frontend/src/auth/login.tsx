@@ -1,22 +1,34 @@
-import { faChevronLeft, faLock, faUser } from "@fortawesome/free-solid-svg-icons"
+import { faChevronLeft } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { useAuth } from "../hooks/useAuth";
 import { userToVerify } from "../utils/interfaces";
+import { useUser } from "../hooks/useUser";
 
 export const Login = () => {
 
-  const {login} = useAuth()
+  const navigate = useNavigate()
+  const { login } = useAuth()
+  const { setUserType, setTokenData, setUserName } = useUser()
 
-  const handleSubmit = async(e) => {
-    e.preventDefault()
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     const userToVerify: userToVerify = {
-      email: 'test2@gmail.com',
-      password: '9090pass'
+      email: "test2@gmail.com",
+      password: "9090pass",
+    };
+    try {
+      const res = await login(userToVerify);
+      if (res["statusText"] === "OK") {
+        setUserType(res["data"].tipo_user);
+        setTokenData(res["data"].token);
+        setUserName(res["data"].username);
+        navigate("/");
+      }
+    } catch (error) {
+      console.log(error)
     }
-    const res = await login(userToVerify)
-    console.log(res)
-  }
+  };
 
   return (
     <>

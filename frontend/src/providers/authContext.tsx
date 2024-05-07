@@ -18,13 +18,8 @@ export const AuthContext = createContext<AuthContextType>({
 })
 
 export const AuthProvider = ({children}) => {
-  const login = (userToVerify: userToVerify) => {
-    try {
-      return axios.post(`${DEV_BACKEND_URL}/login/verify`, userToVerify)
-    } catch (error) {
-      console.log(error)
-    }
-  }
+  const login = (userToVerify: userToVerify) => axios.post(`${DEV_BACKEND_URL}/login/verify`, userToVerify)
+  // const register = (userToRegister) => axios.post(`${DEV_BACKEND_URL}/login/register`, userToRegister)
 
   return (
     <AuthContext.Provider value={{login}}>{children}</AuthContext.Provider>

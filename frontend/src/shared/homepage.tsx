@@ -1,8 +1,15 @@
-//import BlackShark from './components/Images/BlackShark.png';
-
+import { useEffect } from "react"
 import { Navbar } from "../components/NavBar/Navbar"
+import { useUser } from "../hooks/useUser"
 
 export const Homepage = () => {
+  const { userType, userToken, userName } = useUser()
+
+  useEffect(() => {
+    console.log(userType)
+    console.log(userToken)
+    console.log(userName)
+  },[userType, userToken, userName])
     return (
       <>
       <div className=" bg-[url(/cielo5.jpg)] bg-cover bg-center w-full h-screen bg-no-repeat">
