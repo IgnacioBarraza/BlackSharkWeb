@@ -1,7 +1,6 @@
 import { Login } from "../auth/login";
 import { Register } from "../auth/register";
 import { Homepage } from "../shared/homepage";
-import { Gallery } from "../shared/gallery";
 
 export const routes = [
   {
@@ -15,9 +14,5 @@ export const routes = [
   {
     path: '/signup',
     component: <Register />
-  },
-  {
-    path: '/gallery',
-    component: <Gallery />
   }
 ]
