@@ -51,7 +51,7 @@ export const Register = () => {
 
             <div className="mb-4 pt-5">
               <Link to={'/login'}>
-                  <a className="font-medium text-white hover:text-blue-500">¿Ya tienes cuenta?</a>
+                  <span className="font-medium text-white hover:text-blue-500">¿Ya tienes cuenta?</span>
                 </Link>
             </div>
           </form>

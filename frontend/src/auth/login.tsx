@@ -40,13 +40,13 @@ export const Login = () => {
 
             <div className="mb-4 pt-5 text-white">
               <Link to={'/signup'}>
-                <a className="font-medium blue-bs hover:text-blue-500 transition-colors duration-300">¿Has olvidado tu contraseña?</a>
+                <span className="font-medium blue-bs hover:text-blue-500 transition-colors duration-300">¿Has olvidado tu contraseña?</span>
               </Link>
             </div>
 
             <div className="pt-10 pb-5 text-white">
               <Link to={'/signup'}>
-                <a className="font-medium blue-bs hover:text-blue-500 transition-colors duration-300">¿No tienes una cuenta? Registrate</a>
+                <span className="font-medium blue-bs hover:text-blue-500 transition-colors duration-300">¿No tienes una cuenta? Registrate</span>
               </Link>
             </div>
 
