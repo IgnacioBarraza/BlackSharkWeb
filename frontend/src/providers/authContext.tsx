@@ -17,9 +17,9 @@ export const AuthContext = createContext<AuthContextType>({
   login: () => {}
 })
 
-export const AuthProvider = ({children}) => {
+export const AuthProvider = ({children}: AuthProviderProps) => {
   const login = (userToVerify: userToVerify) => axios.post(`${DEV_BACKEND_URL}/login/verify`, userToVerify)
-  // const register = (userToRegister) => axios.post(`${DEV_BACKEND_URL}/login/register`, userToRegister)
+  const register = (userToRegister) => axios.post(`${DEV_BACKEND_URL}/login/register`, userToRegister)
 
   return (
     <AuthContext.Provider value={{login}}>{children}</AuthContext.Provider>
