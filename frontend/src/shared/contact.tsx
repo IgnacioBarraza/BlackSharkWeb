@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faSquareFacebook, faInstagram } from "@fortawesome/free-brands-svg-icons";
 import { Navbar } from "../components/NavBar/Navbar";
+import '../styles/contact.css';
 
 
 export const Contact = () => {
@@ -12,8 +13,8 @@ export const Contact = () => {
         <Navbar/>
         </div>
       </div>
-      <div className="flex-grow-0 h-screen bg-blue-900 p-16 grid grid-cols-2 -mt-10">
-          <div className="bg-blue-900 text-white text-center text-4xl py-4 rounded-lg flex justify-center items-center ">
+      <div className="flex-grow-0 h-screen contact-background p-16 grid grid-cols-2 -mt-10">
+          <div className="contact-background text-white text-center text-4xl py-4 rounded-lg flex justify-center items-center ">
             <div className="font-myriad-pro text-center items-center">
               <h1 className="pb-2">Contactanos</h1>
               <h2 className="pb-20">¡Trabaja con nosotros!</h2>
@@ -29,7 +30,7 @@ export const Contact = () => {
               </div>
             </div>
           </div>
-          <div className="bg-blue-900 text-center text-3xl py-4 rounded-lg">
+          <div className="contact-background text-center text-3xl py-4 rounded-lg">
             <div className=" items-center px-5 py-12 lg:px-20">
               <div className="flex flex-col w-full max-w-md p-10 mx-auto my-6 transition duration-500 ease-in-out transform bg-white rounded-lg md:mt-0">
                 <div className="mt-8">
