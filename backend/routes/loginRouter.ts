@@ -8,6 +8,7 @@ import { connect } from '../utils/db'
 import { validateLoginData } from '../schemas/loginSchema'
 import { SECRET } from '../utils/config'
 import { validateUserRegister } from '../schemas/registerSchema'
+import { validateIdAndEmail } from '../schemas/recoverSchema'
 
 const loginRouter = express.Router()
 
@@ -100,7 +101,36 @@ loginRouter.post('/register', async (req, res) => {
 })
 
 loginRouter.post('/recover', async (req, res) => {
+    const connection = connect()
 
+    const validateData = validateIdAndEmail(req.body)
+
+    if (validateData.error) {
+        return res.status(400).json({ message: JSON.parse(validateData.error.message)[0].message })
+    }
+
+    try {
+        const [row, fields] = await connection.query(`SELECT * FROM usuario WHERE correo = ?`, [validateData.data.email])
+
+        if (Array.isArray(row) && row.length > 0) {
+            if (!SECRET) {
+                throw new Error
+            }
+
+            const user = row as mysql.RowDataPacket[]
+
+            const expirationTime = '5m'
+            const token = jwt.sign({ id: user[0].id_usuario }, SECRET, { expiresIn: expirationTime })
+
+            // save the token here...
+            
+        } else {
+            return res.status(400).json({ message: 'No hay ningún usuario asociado a ese correo.' })
+        }
+    } catch (error) {
+        // console.log(error)
+        return res.status(500).json({ message: 'Hubo un error en el servidor al intentar recuperar la contraseña. Intente más tarde.' })
+    }
 })
 
 export default loginRouter
