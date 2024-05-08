@@ -99,4 +99,8 @@ loginRouter.post('/register', async (req, res) => {
     }
 })
 
+loginRouter.post('/recover', async (req, res) => {
+
+})
+
 export default loginRouter

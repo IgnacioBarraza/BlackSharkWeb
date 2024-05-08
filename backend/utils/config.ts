@@ -11,3 +11,6 @@ export const MYSQLPASSWORD = process.env.MYSQLPASSWORD
 export const MYSQLPORT = process.env.MYSQLPORT
 
 export const SECRET = process.env.SECRET
+
+export const EMAIL = process.env.EMAIL
+export const PASS = process.env.PASS
