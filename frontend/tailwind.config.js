@@ -11,7 +11,8 @@ export default {
       },
       colors:{
         'blue-bs': '#0186ff',
-        'light-blue-50': '#f0f9ff',
+        'blue-bs-black': '#10244c',
+        'bground-input': '#606060'
       },
     },
   },
