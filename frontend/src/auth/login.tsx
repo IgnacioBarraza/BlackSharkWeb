@@ -1,8 +1,35 @@
-import { faChevronLeft} from "@fortawesome/free-solid-svg-icons"
+import { faChevronLeft } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
+import { useAuth } from "../hooks/useAuth";
+import { userToVerify } from "../utils/interfaces";
+import { useUser } from "../hooks/useUser";
 
 export const Login = () => {
+
+  const navigate = useNavigate()
+  const { login } = useAuth()
+  const { setUserType, setTokenData, setUserName } = useUser()
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const userToVerify: userToVerify = {
+      email: "test2@gmail.com",
+      password: "9090pass",
+    };
+    try {
+      const res = await login(userToVerify);
+      if (res["statusText"] === "OK") {
+        setUserType(res["data"].tipo_user);
+        setTokenData(res["data"].token);
+        setUserName(res["data"].username);
+        navigate("/");
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  };
+
   return (
     <>
       <div className="bg-[url(/background-input-photo.jpg)] bg-cover bg-center w-full h-screen bg-no-repeat">
@@ -15,7 +42,7 @@ export const Login = () => {
         </div>
 
         <div className="flex justify-center items-center h-screen pb-10">
-          <form className="font-myriad-pro flex flex-col items-center max-w-md w-full md:px-0 pt-20 rounded-lg bg-black bg-opacity-60">
+          <form onSubmit={handleSubmit} className="font-myriad-pro flex flex-col items-center max-w-md w-full md:px-0 pt-20 rounded-lg bg-black bg-opacity-60">
             <div>
               <h2 className=" text-2xl font-extrabold text-white">Iniciar Sesión</h2>
             </div>

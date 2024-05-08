@@ -1,6 +1,15 @@
+import { useEffect } from "react"
 import { Navbar } from "../components/NavBar/Navbar"
+import { useUser } from "../hooks/useUser"
 
 export const Homepage = () => {
+  const { userType, userToken, userName } = useUser()
+
+  useEffect(() => {
+    console.log(userType)
+    console.log(userToken)
+    console.log(userName)
+  },[userType, userToken, userName])
     return (
       <>
       <header className="w-full flex justify-center items-center py-1 bg-transparent z-100">
