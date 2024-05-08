@@ -1,7 +1,5 @@
-import { faChevronLeft} from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faFacebook, faInstagram } from "@fortawesome/free-brands-svg-icons";
-import { Link } from "react-router-dom"
+import { faSquareFacebook, faInstagram } from "@fortawesome/free-brands-svg-icons";
 import { Navbar } from "../components/NavBar/Navbar";
 
 
@@ -9,15 +7,8 @@ export const Contact = () => {
   return (
     <>
     <div className="bg-white bg-cover bg-center w-full h-screen bg-no-repeat flex flex-col overflow-hidden">
-      <div className="flex-grow flex items-center justify-center pb-12 ">
-        <div className="imback fixed top-0 left-0 p-2">
-              <Link to={'/'}>
-                <span className="flex items-center justify-center rounded-full w-20 h-20">
-                  <FontAwesomeIcon icon={faChevronLeft} size="2xl"/>
-                </span>
-              </Link>
-        </div>
-        <div className="px-64 py-1 bg-transparent z-100">
+      <div className="flex-grow flex items-center justify-center pb-10 ">
+        <div className="w-full flex justify-center items-center py-1 bg-transparent z-100">
         <Navbar/>
         </div>
       </div>
@@ -27,13 +18,13 @@ export const Contact = () => {
               <h1 className="pb-2">Contactanos</h1>
               <h2 className="pb-20">¡Trabaja con nosotros!</h2>
               <h4 className="pt-10">Si deseas más información o colaborar con nosotros, estaremos encantados de ayudarte en todo lo que necesites.</h4>
-              <h4 className="pt-32">Búscanos en redes sociales</h4>
+              <h4 className="pt-36 pb-2">Búscanos en redes sociales</h4>
               <div className="items center justify-center">
-                  <a href="https://web.facebook.com/ElLokojara/">
-                    <FontAwesomeIcon icon={faFacebook} size="2xl" color="#4267B2" />
+                  <a href="https://web.facebook.com/ElLokojara/" className="pl-6 ">
+                    <FontAwesomeIcon icon={faSquareFacebook} color="#4267B2" fontSize="50px"/>
                   </a>
-                  <a href="https://www.instagram.com/blackshark.studios/?hl=es-la">
-                    <FontAwesomeIcon icon={faInstagram} size="2xl" color="#F56040" />
+                  <a href="https://www.instagram.com/blackshark.studios/?hl=es-la" className="pl-6">
+                    <FontAwesomeIcon icon={faInstagram} color="#F56040" fontSize="50px"/>
                   </a>
               </div>
             </div>
@@ -67,7 +58,6 @@ export const Contact = () => {
                         </div>
                         <textarea className="font-normal px-12 py-6 text-xs block w-full  border border-gray-300 rounded-lg  focus:outline-none focus:border-blue-500" ></textarea>
                         <div className="pt-5">
-                        {/* <button className="px-5 py-4 text-base font-medium text-center text-white transition duration-500 ease-in-out transform bg-blue-600 lg:px-10 rounded-xl hover:bg-blue-700">ENVIAR</button> */}
                         <button className="bg-blue-500 hover:bg-blue-700 text-white font-light py-2 px-8 transition duration-300 ease-in-out transform hover:scale-105">Enviar</button>
                         </div>
                       </div>

@@ -3,11 +3,11 @@ import { Navbar } from "../components/NavBar/Navbar"
 export const Homepage = () => {
     return (
       <>
-      <header className="px-64 py-1 bg-transparent z-100">
+      <header className="w-full flex justify-center items-center py-1 bg-transparent z-100">
         <Navbar/>
       </header>
       <div className="overflow-hidden">
-      <div className=" bg-[url(/cielo5.jpg)] bg-cover bg-center bg-no-repeat w-[1920px] h-[833px]">
+      <div className=" bg-[url(/cielo5.jpg)] bg-cover bg-center bg-no-repeat w-[1920px] h-[840px]">
         <div className="flex justify-center items-center px-64">
           <div className="pt-60">
               <div className="w-[450px]">
