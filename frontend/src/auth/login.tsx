@@ -20,8 +20,11 @@ export const Login = () => {
     setUser({ ...user, [name]: value });
   };
 
-  const handleSubmit = async (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
+    setUserType(null);
+    setTokenData(null);
+    setUserName(null);
     const userToVerify: userToVerify = {
       email: "test2@gmail.com",
       password: "9090pass",
@@ -52,7 +55,7 @@ export const Login = () => {
         </div>
 
         <div className="flex justify-center items-center h-screen pb-10">
-          <form onSubmit={handleSubmit} className="font-myriad-pro flex flex-col items-center max-w-md w-full md:px-0 pt-20 rounded-lg bg-black bg-opacity-60">
+          <form onSubmit={handleLogin} className="font-myriad-pro flex flex-col items-center max-w-md w-full md:px-0 pt-20 rounded-lg bg-black bg-opacity-60">
             <div>
               <h2 className=" text-2xl font-extrabold text-white">Iniciar Sesión</h2>
             </div>

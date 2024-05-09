@@ -3,6 +3,14 @@ export interface userToVerify {
   password: string
 }
 
+export interface userToRegister {
+  username: string,
+  password: string,
+  email: string,
+  phone?: string,
+  direction?: string
+}
+
 export interface LoginResponse {
   data: {
     message: string;

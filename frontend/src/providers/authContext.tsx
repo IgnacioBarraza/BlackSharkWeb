@@ -1,12 +1,13 @@
 import axios from "axios";
 import { ReactNode, createContext } from "react";
-import { LoginResponse, userToVerify } from "../utils/interfaces";
+import { LoginResponse, userToRegister, userToVerify } from "../utils/interfaces";
 
 const PROD_BACKEND_URL = 'https://blacksharkweb-backend.onrender.com/api'
 const DEV_BACKEND_URL = 'http://localhost:3000/api'
 
 type AuthContextType = {
   login: (userToVerify: userToVerify) => Promise<LoginResponse>;
+  register: (userToRegister: userToRegister) => void;
 }
 
 type AuthProviderProps = {
@@ -27,15 +28,16 @@ export const AuthContext = createContext<AuthContextType>({
       "content-length": "",
       "content-type": ""
     }
-  })
+  }),
+  register: () => {}
 });
 
 
 export const AuthProvider = ({children}: AuthProviderProps) => {
   const login = (userToVerify: userToVerify): Promise<LoginResponse> => axios.post(`${DEV_BACKEND_URL}/login/verify`, userToVerify)
-  const register = (userToRegister) => axios.post(`${DEV_BACKEND_URL}/login/register`, userToRegister)
+  const register = (userToRegister: userToRegister) => axios.post(`${DEV_BACKEND_URL}/login/register`, userToRegister)
 
   return (
-    <AuthContext.Provider value={{login}}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{ login, register }}>{children}</AuthContext.Provider>
   )
 }
