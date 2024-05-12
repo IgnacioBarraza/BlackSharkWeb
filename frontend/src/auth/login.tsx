@@ -26,8 +26,8 @@ export const Login = () => {
     setTokenData(null);
     setUserName(null);
     const userToVerify: userToVerify = {
-      email: "test2@gmail.com",
-      password: "9090pass",
+      email: user.email,
+      password: user.password,
     };
     try {
       const res = await login(userToVerify);
@@ -39,6 +39,7 @@ export const Login = () => {
         navigate("/");
       }
     } catch (error) {
+      alert('Usuario o contraseña no valido. Intente nuevamente')
       console.error(error)
     }
   };
