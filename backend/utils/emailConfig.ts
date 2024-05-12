@@ -1,11 +1,14 @@
 import { createTransport } from 'nodemailer'
-import { EMAIL, PASS } from './config'
+import { EMAIL, CLIENT_ID, CLIENT_SECRET, REFRESH_TOKEN } from './config'
 
 const transporter = createTransport({
     service: 'gmail',
     auth: {
+        type: 'OAuth2',
         user: EMAIL,
-        pass: PASS
+        clientId: CLIENT_ID,
+        clientSecret: CLIENT_SECRET,
+        refreshToken: REFRESH_TOKEN
     }
 })
 

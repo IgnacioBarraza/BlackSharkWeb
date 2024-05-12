@@ -9,6 +9,7 @@ import { validateLoginData } from '../schemas/loginSchema'
 import { SECRET } from '../utils/config'
 import { validateUserRegister } from '../schemas/registerSchema'
 import { validateIdAndEmail } from '../schemas/recoverSchema'
+import sendMessage from '../utils/emailConfig'
 
 const loginRouter = express.Router()
 
@@ -80,7 +81,7 @@ loginRouter.post('/register', async (req, res) => {
                 password: hashedPassword,
                 email: validateData.data.email,
                 phone: validateData.data.phone ?? null,
-                tipo_user: 'usuario',
+                tipo_user: 'user',
                 direction: validateData.data.direction ?? null
             }
 
@@ -122,7 +123,10 @@ loginRouter.post('/recover', async (req, res) => {
             const expirationTime = '5m'
             const token = jwt.sign({ id: user[0].id_usuario }, SECRET, { expiresIn: expirationTime })
 
-            // save the token here...
+            const text = 'test'
+            sendMessage(user[0].correo, text)
+
+            return res.status(200).json({ message: 'Correo enviado!' })
             
         } else {
             return res.status(400).json({ message: 'No hay ningún usuario asociado a ese correo.' })
