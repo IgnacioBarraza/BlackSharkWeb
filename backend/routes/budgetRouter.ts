@@ -55,7 +55,7 @@ budgetRouter.post('/new', authorizeRole, async (req, res) => {
             return res.status(201).json({ message: 'Presupuesto creado!' })
         }
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         return res.status(500).json({ message: 'Hubo un error al intentar añadir el presupuesto a la base de datos.' })
     } finally {
         if (connection) {
@@ -92,7 +92,7 @@ budgetRouter.put('/update/:id', authorizeRole, async (req, res) => {
             return res.status(200).json({ message: 'Presupuesto actualizado!' })
         }
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         return res.status(500).json({ message: 'Hubo un error al intetnar añadir el presupuesto a la base de datos.' })
     } finally {
         if (connection) {
