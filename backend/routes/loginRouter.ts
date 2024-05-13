@@ -1,6 +1,6 @@
 import express from 'express'
 import bcrypt from 'bcrypt'
-import jwt from 'jsonwebtoken'
+import jwt, { JsonWebTokenError } from 'jsonwebtoken'
 import mysql from 'mysql2/promise'
 import { randomUUID } from 'crypto'
 
@@ -123,7 +123,7 @@ loginRouter.post('/recover', async (req, res) => {
             const expirationTime = '5m'
             const token = jwt.sign({ id: user[0].id_usuario }, SECRET, { expiresIn: expirationTime })
 
-            const text = 'test'
+            const text = `${token}`
             sendMessage(user[0].correo, text)
 
             return res.status(200).json({ message: 'Correo enviado!' })
@@ -134,6 +134,35 @@ loginRouter.post('/recover', async (req, res) => {
     } catch (error) {
         // console.log(error)
         return res.status(500).json({ message: 'Hubo un error en el servidor al intentar recuperar la contraseña. Intente más tarde.' })
+    }
+})
+
+loginRouter.post('/decodeToken', async (req, res) => {
+    const connection = connect()
+    const token = req.query.token
+    
+    try {
+        if (!token || typeof token !== 'string') {
+            return res.status(401).json({ message: 'Token inválido. Inténtelo más tarde.', valid: false })
+        } else if (!SECRET) {
+            return res.status(500).json({ message: 'Hubo un error en el servidor. Inténtelo más tarde.', valid: false })
+        }
+
+        jwt.verify(token, SECRET)
+        return res.status(200).json({ message: 'Token correcto.', valid: true })
+    } catch (error) {
+        // console.log(error)
+        if (error instanceof jwt.TokenExpiredError) {
+            return res.status(401).json({ message: 'El token expiró. Vuelve a hacer el procedimiento de recuperar contraseña.', valid: false })
+        } else if (error instanceof jwt.JsonWebTokenError) {
+            return res.status(401).json({ message: 'Token inválido, vuelve a hacer el procedimiento de recuperar contraseña.', valid: false })
+        } else {
+            return res.status(500).json({ message: 'Hubo un error en el servidor. Intenta más tarde.', valid: false })
+        }
+    } finally {
+        if (connection) {
+            connection.end()
+        }
     }
 })
 
