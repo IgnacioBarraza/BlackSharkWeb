@@ -1,6 +1,6 @@
 import express from 'express'
 import bcrypt from 'bcrypt'
-import jwt, { JsonWebTokenError } from 'jsonwebtoken'
+import jwt from 'jsonwebtoken'
 import mysql from 'mysql2/promise'
 import { randomUUID } from 'crypto'
 
@@ -8,7 +8,7 @@ import { connect } from '../utils/db'
 import { validateLoginData } from '../schemas/loginSchema'
 import { SECRET } from '../utils/config'
 import { validateUserRegister } from '../schemas/registerSchema'
-import { validateIdAndEmail } from '../schemas/recoverSchema'
+import { validateIdAndEmail, validateNewPassword } from '../schemas/recoverSchema'
 import sendMessage from '../utils/emailConfig'
 
 const loginRouter = express.Router()
@@ -151,7 +151,7 @@ loginRouter.post('/decodeToken', async (req, res) => {
         jwt.verify(token, SECRET)
         return res.status(200).json({ message: 'Token correcto.', valid: true })
     } catch (error) {
-        // console.log(error)
+        console.log(error)
         if (error instanceof jwt.TokenExpiredError) {
             return res.status(401).json({ message: 'El token expiró. Vuelve a hacer el procedimiento de recuperar contraseña.', valid: false })
         } else if (error instanceof jwt.JsonWebTokenError) {
@@ -163,6 +163,45 @@ loginRouter.post('/decodeToken', async (req, res) => {
         if (connection) {
             connection.end()
         }
+    }
+})
+
+interface jwtPayload extends jwt.JwtPayload {
+    id?: string
+}
+
+loginRouter.patch('/newPassword', async (req, res) => {
+    const connection = connect()
+    
+    const validateData = validateNewPassword(req.body)
+
+    if (validateData.error) {
+        return res.status(401).json({ message: JSON.parse(validateData.error.message)[0].message })
+    } else if (!SECRET) {
+        return res.status(500).json({ message: 'Hubo un problema al actualizar la contraseña. Inténtalo más tarde.' })
+    }
+
+    try {
+        const token = jwt.verify(validateData.data.token, SECRET) as jwtPayload
+
+        if (token.id) {
+            const [row, fields] = await connection.query(`SELECT * FROM usuario WHERE id_usuario = ?`, [token.id])
+            
+            if (Array.isArray(row) && row.length === 0) {
+                return res.status(401).json({ message: 'No hay un usuario asociado al token.' })
+            }
+
+            const salt = 10
+            const hashedPassword = await bcrypt.hash(validateData.data.password, salt)
+
+            await connection.query(`UPDATE usuario SET contrasenha = ? WHERE id_usuario = ?`, [hashedPassword, token.id])
+            return res.status(200).json({ message: 'Contraseña actualizada!' })
+        } else {
+            return res.status(401).json({ message: 'Token inválido. Inténtalo nuevamente.' })
+        }
+    } catch (error) {
+        // console.log(error)
+        return res.status(500).json({ message: Error })
     }
 })
 
