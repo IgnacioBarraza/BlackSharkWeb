@@ -1,5 +1,6 @@
 import { Login } from "../auth/login";
 import { Register } from "../auth/register";
+import { Footer } from "../components/Footer/Footer";
 import { Contact } from "../shared/contact";
 import { Gallery } from "../shared/gallery";
 import { Homepage } from "../shared/homepage";
@@ -29,5 +30,9 @@ export const routes = [
   {
     path: '/servicios',
     component: <Servicios />
+  },
+  {
+    path: '/footer',
+    component: <Footer />
   },
 ]
