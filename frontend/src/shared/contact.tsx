@@ -39,28 +39,41 @@ export const Contact = () => {
                         <div className="text-left pl-5">
                         <label className="font-light text-lg pl-0"> Nombre </label>
                         </div>
+
                         <div className="mt-1">
-                          <input id="name" name="name" type="text" placeholder="Ingresa tu nombre" className="block w-full px-5 py-3 text-base border border-gray-300 rounded-lg  focus:outline-none focus:border-blue-500"/>
+                          <input 
+                            id="name" 
+                            name="name" 
+                            type="text" 
+                            placeholder="Ingresa tu nombre" 
+                            className="w-full pl-5 pr-20 py-3 text-base text-neutral-600 placeholder-gray-400 transition duration-500 ease-in-out transform border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:border-gray-400 focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300"
+                          />
                         </div>
+
                         <div className="text-left pl-5">
                         <label className="font-light text-lg pl-0"> Apellido </label>
                         </div>
+
                         <div className="mt-1">
                           <input id="apellido" name="apellido" type="text" placeholder="Ingresa tu apellido" className="block w-full px-5 py-3 text-base border border-gray-300 rounded-lg  focus:outline-none focus:border-blue-500"/>
                         </div>
+
                         <div className="text-left pl-5">
                         <label className="font-light text-lg pl-0"> Correo </label>
                         </div>
+
                         <div className="mt-1">
                           <input id="email" name="email" type="email" placeholder="Ingresa tu correo" className="block w-full px-5 py-3 text-base border border-gray-300 rounded-lg  focus:outline-none focus:border-blue-500"/>
                         </div>
                         <div className="text-left pl-5">
                         <label className="font-light text-lg pl-0"> Mensaje </label>
                         </div>
+
                         <textarea className="font-normal px-12 py-6 text-xs block w-full  border border-gray-300 rounded-lg  focus:outline-none focus:border-blue-500" ></textarea>
                         <div className="pt-5">
                         <button className="bg-blue-500 hover:bg-blue-700 text-white font-light py-2 px-8 transition duration-300 ease-in-out transform hover:scale-105">Enviar</button>
                         </div>
+                        
                       </div>
                     </form>
                 </div>
