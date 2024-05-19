@@ -1,6 +1,9 @@
+import { faList, faX } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 
 export const Navbar = () => {
+
   return (
     <>
         <div className="flex items-center justify-center">
