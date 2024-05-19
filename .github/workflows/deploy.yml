@@ -20,12 +20,12 @@ jobs:
 
     - name: Install Dependencies
       run: |
-        cd Proyecto_IngenieriaSoftware_SID/frontend
+        cd /frontend
         npm install
 
     - name: Build Project
       run: |
-        cd Proyecto_IngenieriaSoftware_SID/frontend
+        cd /frontend
         npm run build
 
     - name: Deploy to Firebase
