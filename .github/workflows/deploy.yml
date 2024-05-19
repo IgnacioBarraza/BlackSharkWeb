@@ -19,10 +19,14 @@ jobs:
         node-version: '20.x'
 
     - name: Install Dependencies
-      run: npm install
+      run: |
+        cd Proyecto_IngenieriaSoftware_SID/frontend
+        npm install
 
     - name: Build Project
-      run: npm run build
+      run: |
+        cd Proyecto_IngenieriaSoftware_SID/frontend
+        npm run build
 
     - name: Deploy to Firebase
       run: |
