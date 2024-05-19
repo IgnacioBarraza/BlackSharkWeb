@@ -32,5 +32,6 @@ jobs:
         npm run build
 
     - name: Deploy to Firebase
+      working-directory: ./frontend
       run: |
         npm run deploy
