@@ -54,7 +54,7 @@ productRouter.post('/new', authorizeRole, async (req, res) => {
             return res.status(201).json({ message: 'Producto guardado!' })
         }
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         res.status(500).json({ message: 'Hubo un error intentando añadir el producto a la base de datos!' })
     } finally {
         if (connection) {

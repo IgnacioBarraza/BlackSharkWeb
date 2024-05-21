@@ -49,7 +49,7 @@ inventoryRouter.post('/new', authorizeRole, async (req, res) => {
             return res.status(201).json({ message: 'Inventario creado!' })
         }
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         return res.status(500).json({ message: 'Hubo un error al intentar agregar el inventario a la base de datos.' })
     } finally {
         if (connection) {
