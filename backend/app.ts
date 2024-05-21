@@ -14,10 +14,14 @@ import budgetRouter from './routes/budgetRouter'
 // Middleware:
 import verifyToken from './middleware/verifyToken'
 
+// Utils:
+import { limiter } from './utils/rate-limiter'
+
 const app = express()
 
 app.use(express.json())
 app.use(cors())
+app.use(limiter)
 
 app.use('/api/login', loginRouter)
 
