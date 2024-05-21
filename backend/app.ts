@@ -15,13 +15,16 @@ import budgetRouter from './routes/budgetRouter'
 import verifyToken from './middleware/verifyToken'
 
 // Utils:
-import { limiter } from './utils/rate-limiter'
+import { rateLimiter } from './utils/rate-limiter'
+import { slowDownLimiter } from './utils/slow-down'
 
 const app = express()
 
 app.use(express.json())
 app.use(cors())
-app.use(limiter)
+
+app.use(rateLimiter)
+app.use(slowDownLimiter)
 
 app.use('/api/login', loginRouter)
 
