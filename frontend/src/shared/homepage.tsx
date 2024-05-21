@@ -12,7 +12,7 @@ export const Homepage = () => {
   },[userType, userToken, userName])
     return (
       <>
-      <header className="w-full flex justify-center items-center py-1 bg-transparent z-100">
+      <header className="w-full flex justify-center items-center py-1 bg-transparent">
         <Navbar/>
       </header>
       <div className="overflow-hidden">

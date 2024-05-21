@@ -36,15 +36,15 @@ export const Navbar = () => {
         <button id="menu-button" className="block md:hidden p-2 ml-auto" onClick={toggleMenu}>
         <FontAwesomeIcon icon={faList} style={{color: "#000000"}} size="2xl"/>
         </button>
-      </div>
-      {isOpen && (
-        <div className="absolute top-full right-0 mt-2 w-full bg-white shadow-lg md:hidden">
+        {isOpen && (
+        <div className=" absolute top-full mb-12 right-0  w-full bg-white shadow-lg md:hidden z-10">
           <Link to={'/servicios'} className="font-myriad-pro block px-4 py-2 text-black hover:bg-gray-200">Servicios</Link>
           <Link to={'/gallery'} className="font-myriad-pro block px-4 py-2 text-black hover:bg-gray-200">Galería</Link>
           <Link to={'/contact'} className="font-myriad-pro block px-4 py-2 text-black hover:bg-gray-200">Contacto</Link>
           <Link to={'/login'} className="font-myriad-pro block px-4 py-2 text-black hover:bg-gray-200">Iniciar Sesión</Link>
         </div>
       )}
+      </div>
     </>
   )
 }
