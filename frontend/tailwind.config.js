@@ -11,7 +11,7 @@ export default {
       },
       colors:{
         'blue-ligth-bs': '#0186ff',
-        'blue-strong-bs': '10243c',
+        'blue-strong-bs': '#10243c',
       },
     },
   },
