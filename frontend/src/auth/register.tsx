@@ -48,7 +48,7 @@ export const Register = () => {
     <>
       <div className="bg-[url(/background-input-photo.jpg)] bg-cover bg-center w-full h-screen bg-no-repeat">
         <div className="imback fixed top-0 left-0 p-2">
-          <Link to={"/"}>
+          <Link to={"/login"}>
             <span className="flex items-center justify-center rounded-full w-20 h-20 text-white">
               <FontAwesomeIcon icon={faChevronLeft} size="2xl" />
             </span>
