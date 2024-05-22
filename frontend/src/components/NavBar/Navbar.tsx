@@ -22,7 +22,7 @@ export const Navbar = () => {
               <span>Galería</span>
               </Link>
               <Link to={'/'}>
-              <div className="w-28 h-28 z-100 md:justify-center">
+              <div className="w-28 h-28 z-100">
               <img src="/BlackShark.png" alt="Blackshark logo" />
               </div>
               </Link>
@@ -37,11 +37,13 @@ export const Navbar = () => {
         <FontAwesomeIcon icon={faList} style={{color: "#000000"}} size="2xl"/>
         </button>
         {isOpen && (
-        <div className=" absolute top-full mb-12 right-0  w-full bg-white shadow-lg md:hidden z-10">
-          <Link to={'/servicios'} className="font-myriad-pro block px-4 py-2 text-black hover:bg-gray-200">Servicios</Link>
-          <Link to={'/gallery'} className="font-myriad-pro block px-4 py-2 text-black hover:bg-gray-200">Galería</Link>
-          <Link to={'/contact'} className="font-myriad-pro block px-4 py-2 text-black hover:bg-gray-200">Contacto</Link>
-          <Link to={'/login'} className="font-myriad-pro block px-4 py-2 text-black hover:bg-gray-200">Iniciar Sesión</Link>
+        <div className="absolute top-full mb-12 w-full bg-white shadow-lg md:hidden z-10 ">
+          <div>
+          <Link to={'/servicios'} className="font-myriad-pro block px-4 py-4 text-black text-center font-bold border-gray-300 border-b">Servicios</Link>
+          <Link to={'/gallery'} className="font-myriad-pro block px-4 py-4 text-black text-center font-bold  border-gray-300 border-b">Galería</Link>
+          <Link to={'/contact'} className="font-myriad-pro block px-4 py-4 text-black text-center font-bold  border-gray-300 border-b">Contacto</Link>
+          <Link to={'/login'} className="font-myriad-pro block px-4 py-4 text-black text-center font-bold">Iniciar Sesión</Link>
+          </div>
         </div>
       )}
       </div>
