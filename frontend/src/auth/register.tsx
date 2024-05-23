@@ -105,15 +105,15 @@ export const Register = () => {
             </div>
 
             <div className="contenedor pt-5">
-              <button className="flex items-center justify-center w-full px-[110px] py-2.5 text-base font-medium text-center text-white transition duration-500 ease-in-out transform bg-blue-600 rounded-xl hover:bg-blue-bs-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+              <button className="flex items-center justify-center w-full px-[110px] py-2.5 text-xl font-large text-center text-white transition duration-500 ease-in-out transform bg-blue-600 rounded-xl hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
                     Registrarte
                 </button>
             </div>
 
             <div className="mb-4 pt-5">
               <Link to={'/login'}>
-                  <span className="font-medium text-white hover:text-blue-500">¿Ya tienes cuenta?</span>
-                </Link>
+                <span className="font-medium text-white hover:text-blue-500">¿Ya tienes cuenta?</span>
+              </Link>
             </div>
           </form>
         </div>
