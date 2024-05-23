@@ -99,7 +99,7 @@ export const Register = () => {
                 className="w-full pl-5 pr-20 py-3 text-base text-neutral-600 placeholder-gray-300 transition duration-500 ease-in-out transform border border-transparent rounded-lg bg-gray-50 focus:outline-none focus:border-transparent focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300" 
                 type="password" 
                 name="repeat_password" 
-                placeholder="Ingrese su contraseña"
+                placeholder="Confirmar su contraseña"
                 onChange={handleFormInputs}/>
               </div> 
             </div>
