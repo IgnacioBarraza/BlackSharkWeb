@@ -110,9 +110,9 @@ export const Register = () => {
                 </button>
             </div>
 
-            <div className="mb-4 pt-5">
+            <div className="mb-4 pt-5 text-white">
               <Link to={'/login'}>
-                <span className="font-medium text-white hover:text-blue-500">¿Ya tienes cuenta?</span>
+                <span className="font-medium blue-bs hover:text-blue-500 transition-colors duration-300">¿Ya tienes cuenta?</span>
               </Link>
             </div>
           </form>
