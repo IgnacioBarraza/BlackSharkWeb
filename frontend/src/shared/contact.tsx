@@ -79,14 +79,14 @@ export const Contact = () => {
                         </div>
 
                         <div className="text-left pl-5">
-                        <label className="font-light text-lg pl-0"> Mensaje </label>
+                          <label className="font-light text-lg pl-0"> Mensaje </label>
                         </div>
 
                         <textarea className="w-full pl-5 py-3 text-base text-neutral-600 placeholder-gray-400 transition duration-500 ease-in-out transform border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:border-gray-400 focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300" ></textarea>
                         <div className="pt-5">
-                        <button className="bg-blue-500 hover:bg-blue-700 text-white font-light py-2 px-8 transition duration-300 ease-in-out transform hover:scale-105">Enviar</button>
+                          <button className="flex items-center justify-center w-full px-[110px] py-2.5 text-xl font-large text-center text-white transition duration-500 ease-in-out transform bg-blue-600 rounded-xl hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">Enviar</button>
                         </div>
-                        
+
                       </div>
                     </form>
                 </div>
