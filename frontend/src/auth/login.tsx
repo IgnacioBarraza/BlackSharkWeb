@@ -1,8 +1,49 @@
-import { faChevronLeft} from "@fortawesome/free-solid-svg-icons"
+import { faChevronLeft } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
+import { useAuth } from "../hooks/useAuth";
+import { userToVerify } from "../utils/interfaces";
+import { useUser } from "../hooks/useUser";
+import { useState } from "react";
 
 export const Login = () => {
+
+  const navigate = useNavigate()
+  const { login } = useAuth()
+  const { setUserType, setTokenData, setUserName } = useUser()
+  const [user, setUser] = useState<userToVerify>({
+    email: '',
+    password: ''
+  })
+
+  const handleFormInputs = ({ target: { name, value } }) => {
+    setUser({ ...user, [name]: value });
+  };
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    setUserType(null);
+    setTokenData(null);
+    setUserName(null);
+    const userToVerify: userToVerify = {
+      email: user.email,
+      password: user.password,
+    };
+    try {
+      const res = await login(userToVerify);
+      console.log(res.data)
+      if (res.statusText === "OK" && res.data.token && res.data.token != null) {
+        setUserType(res.data.tipo_user);
+        setTokenData(res.data.token);
+        setUserName(res.data.username);
+        navigate("/");
+      }
+    } catch (error) {
+      alert('Usuario o contraseña no valido. Intente nuevamente')
+      console.error(error)
+    }
+  };
+
   return (
     <>
       <div className="bg-[url(/background-input-photo.jpg)] bg-cover bg-center w-full h-screen bg-no-repeat">
@@ -15,20 +56,30 @@ export const Login = () => {
         </div>
 
         <div className="flex justify-center items-center h-screen pb-10">
-          <form className="font-myriad-pro flex flex-col items-center max-w-md w-full md:px-0 pt-20 rounded-lg bg-black bg-opacity-60">
+          <form onSubmit={handleLogin} className="font-myriad-pro flex flex-col items-center max-w-md w-full md:px-0 pt-20 rounded-lg bg-black bg-opacity-60">
             <div>
               <h2 className=" text-2xl font-extrabold text-white">Iniciar Sesión</h2>
             </div>
             
             <div className="email flex flex-col items-start mb-4 pt-10 text-white">
               <div className="flex items-center">
-                <input className="w-full pl-5 pr-20 py-3 text-base text-neutral-600 placeholder-gray-300 transition duration-500 ease-in-out transform border border-transparent rounded-lg bg-gray-50 focus:outline-none focus:border-transparent focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300" type="email" name="username" placeholder="Ingrese su correo" />
+                <input 
+                className="w-full pl-5 pr-20 py-3 text-base text-neutral-600 placeholder-gray-300 transition duration-500 ease-in-out transform border border-transparent rounded-lg bg-gray-50 focus:outline-none focus:border-transparent focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300" 
+                type="email" 
+                name="email" 
+                placeholder="Ingrese su correo"
+                onChange={handleFormInputs} />
               </div>
             </div>
 
             <div className="password flex flex-col items-start mb-4 text-white pt-5">
               <div className="flex items-center">
-                <input className="w-full pl-5 pr-20 py-3 text-base text-neutral-600 placeholder-gray-300 transition duration-500 ease-in-out transform border border-transparent rounded-lg bg-gray-50 focus:outline-none focus:border-transparent focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300" type="password" name="pass" placeholder="Ingrese su contraseña"/>
+                <input 
+                className="w-full pl-5 pr-20 py-3 text-base text-neutral-600 placeholder-gray-300 transition duration-500 ease-in-out transform border border-transparent rounded-lg bg-gray-50 focus:outline-none focus:border-transparent focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300" 
+                type="password" 
+                name="password" 
+                placeholder="Ingrese su contraseña"
+                onChange={handleFormInputs} />
               </div>
             </div>
 

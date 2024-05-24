@@ -5,11 +5,11 @@ import mysql from 'mysql2/promise'
 import { randomUUID } from 'crypto'
 
 import { connect } from '../utils/db'
-import { validateLoginData } from '../schemas/loginSchema'
 import { SECRET } from '../utils/config'
+import sendMessage from '../utils/emailConfig'
+import { validateLoginData } from '../schemas/loginSchema'
 import { validateUserRegister } from '../schemas/registerSchema'
 import { validateIdAndEmail, validateNewPassword } from '../schemas/recoverSchema'
-import sendMessage from '../utils/emailConfig'
 
 const loginRouter = express.Router()
 
@@ -49,6 +49,7 @@ loginRouter.post('/verify', async (req, res) => {
             return res.status(400).json({ message: 'Usuario no encontrado.' })
         }
     } catch (error) {
+        // console.log(error)
         return res.status(500).json({ message: 'Hubo un problema al intentar verificar el usuario. Inténtelo más tarde.' })
     } finally {
         if (connection) {

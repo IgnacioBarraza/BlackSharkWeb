@@ -1,6 +1,7 @@
 import express from 'express'
-import { connect } from '../utils/db'
 import { randomUUID } from 'crypto'
+
+import { connect } from '../utils/db'
 import { validateProject } from '../schemas/projectSchema'
 import authorizeRole from '../middleware/authorizeRole'
 
