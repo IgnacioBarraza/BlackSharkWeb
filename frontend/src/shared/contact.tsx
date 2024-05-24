@@ -13,8 +13,8 @@ export const Contact = () => {
         <Navbar/>
         </div>
       </div>
-      <div className="bg-blue-strong-bs flex-grow-0 h-screen grid grid-cols-2 -mt-10">
-          <div className="bg-transparent text-white text-center text-4xl py-4 rounded-lg flex justify-center items-center ">
+      <div className="md:pl-20 md:flex-grow-0 md:grid flex flex-col bg-blue-strong-bs md:h-screen grid-cols-2 -mt-10">
+          <div className="bg-transparent text-white text-center text-4xl py-4 rounded-lg flex justify-center items-center">
             <div className="font-myriad-pro text-center items-center">
               <h1 className="pb-2">Contactanos</h1>
               <h2 className="pb-20">¡Trabaja con nosotros!</h2>
@@ -30,11 +30,11 @@ export const Contact = () => {
               </div>
             </div>
           </div>
-          <div className="bg-transparent text-center text-3xl py-4 rounded-lg">
-            <div className=" items-center px-5 py-12 lg:px-20">
-              <div className="flex flex-col w-full max-w-md p-10 mx-auto my-6 transition duration-500 ease-in-out transform bg-white rounded-lg md:mt-0">
-                <div className="mt-8">
-                    <form action="#" method="POST" className="space-y-6">
+          <div className="flex flex-col md:pr-20 bg-transparent text-center text-3xl py-4 rounded-lg">
+            <div className="items-center pt-24">
+              <div className="w-full max-w-md p-10 mx-auto my-6 transition duration-500 ease-in-out transform bg-white rounded-lg md:mt-0">
+                <div className="mt-2">
+                    <form action="#" method="POST" className="">
                       <div>
                         <div className="text-left pl-5">
                         <label className="font-light text-lg pl-0"> Nombre </label>

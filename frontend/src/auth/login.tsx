@@ -58,7 +58,7 @@ export const Login = () => {
         <div className="flex justify-center items-center h-screen pb-10">
           <form onSubmit={handleLogin} className="font-myriad-pro flex flex-col items-center max-w-md w-full md:px-0 pt-20 rounded-lg bg-black bg-opacity-60">
             <div>
-              <h2 className=" text-2xl font-extrabold text-white">Iniciar Sesión</h2>
+              <h2 className="text-2xl font-extrabold text-white">Iniciar Sesión</h2>
             </div>
             
             <div className="email flex flex-col items-start mb-4 pt-10 text-white">
