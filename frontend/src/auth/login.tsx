@@ -46,7 +46,7 @@ export const Login = () => {
 
   return (
     <>
-      <div className="bg-[url(/background-input-photo.jpg)] bg-cover bg-center w-full h-screen bg-no-repeat">
+      <div className="bg-[url(/background-auth-photo.jpg)] bg-cover bg-center w-full h-screen bg-no-repeat">
         <div className="absolute top-0 left-0 p-2">
             <Link to={'/'}>
               <span className="flex items-center justify-center rounded-full w-20 h-20 text-white">
