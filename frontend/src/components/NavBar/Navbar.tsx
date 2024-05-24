@@ -14,15 +14,15 @@ export const Navbar = () => {
   return (
     <>
       <div className="flex items-center relative justify-between px-4 py-2">
-        <div className="flex items-center space-x-16 md:space-x-16">
-              <Link to={'/servicios'}>   
-              <span className="font-myriad-pro font-medium transition duration-500 transform hover:scale-110 px-2 mr-7 text-2xl items-center justify-center hidden md:flex">Servicios</span>
+        <div className="items-center space-x-16 hidden md:flex">
+              <Link to={'/servicios'} className="font-myriad-pro font-medium transition duration-500 transform hover:scale-110 px-2 mr-7 text-2xl items-center justify-center hidden md:flex">   
+              <span>Servicios</span>
               </Link>
               <Link to={'/gallery'} className="font-myriad-pro font-medium transition duration-500 transform hover:scale-110 text-2xl px-2 mr-7 items-center justify-center hidden md:flex">
               <span>Galería</span>
               </Link>
               <Link to={'/'}>
-              <div className="w-28 h-28 z-100">
+              <div className="w-28 h-28 z-100 hidden md:flex">
               <img src="/BlackShark.png" alt="Blackshark logo" />
               </div>
               </Link>
@@ -33,17 +33,22 @@ export const Navbar = () => {
                 <span>Iniciar Sesión</span>
               </Link>
         </div>
-        <button id="menu-button" className="block md:hidden p-2 ml-auto" onClick={toggleMenu}>
-        <FontAwesomeIcon icon={faList} style={{color: "#000000"}} size="2xl"/>
-        </button>
+        <div className="flex items-center md:hidden space-x-64">
+          <button id="menu-button" className="block h-8 w-8 md:hidden items-center justify-center absolute left-0 pl-4" onClick={toggleMenu}>
+          <FontAwesomeIcon icon={faList} style={{color: "#000000"}} size="2x"/>
+          </button>
+          <Link to={'/'}>
+              <div className="flex w-20 h-16 z-100 md:hidden justify-center items-center">
+                <img src="/BlackShark.png" alt="Blackshark logo" />
+              </div>
+          </Link>
+        </div>
         {isOpen && (
-        <div className="absolute top-full mb-12 w-full bg-white shadow-lg md:hidden z-10 ">
-          <div>
-          <Link to={'/servicios'} className="font-myriad-pro block px-4 py-4 text-black text-center font-bold border-gray-300 border-b">Servicios</Link>
-          <Link to={'/gallery'} className="font-myriad-pro block px-4 py-4 text-black text-center font-bold  border-gray-300 border-b">Galería</Link>
-          <Link to={'/contact'} className="font-myriad-pro block px-4 py-4 text-black text-center font-bold  border-gray-300 border-b">Contacto</Link>
-          <Link to={'/login'} className="font-myriad-pro block px-4 py-4 text-black text-center font-bold">Iniciar Sesión</Link>
-          </div>
+        <div className="absolute top-full w-2/3 bg-white rounded-lg md:hidden z-10 border-gray-300 px-12 py-4 left-0">
+          <Link to={'/servicios'} className="font-myriad-pro block px-8 py-4 text-black text-lg text-center font-bold pl-3"><span>Servicios</span></Link>
+          <Link to={'/gallery'} className="font-myriad-pro block px-8 py-4 text-black text-center text-lg justify-center font-bold pl-3"><span>Galería</span></Link>
+          <Link to={'/contact'} className="font-myriad-pro block px-8 py-4 text-black text-center text-lg justify-center font-bold pl-3"><span>Contacto</span></Link>
+          <Link to={'/login'} className="font-myriad-pro block px-8 py-4 text-black text-center text-lg justify-center font-bold pl-3"><span>Iniciar Sesión</span></Link>
         </div>
       )}
       </div>
