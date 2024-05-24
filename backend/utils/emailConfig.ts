@@ -20,9 +20,10 @@ const sendMessage = async (to: string, text: string) => {
             subject: 'Restablecimiento de contraseña Black Shark Web',
             text: text
         })
+
+        return { status: 200, message: 'Correo enviado!' }
     } catch (error) {
-        // console.log(error)
-        return error
+        return { status: 500, message: 'Hubo un error con el servidor. Inténtalo más tarde.' }
     }
 }
 

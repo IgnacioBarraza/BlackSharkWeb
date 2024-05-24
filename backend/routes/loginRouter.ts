@@ -124,9 +124,9 @@ loginRouter.post('/recover', async (req, res) => {
             const token = jwt.sign({ id: user[0].id_usuario }, SECRET, { expiresIn: expirationTime })
 
             const text = `${token}`
-            sendMessage(user[0].correo, text)
+            const response = await sendMessage(user[0].correo, text)
 
-            return res.status(200).json({ message: 'Correo enviado!' })
+            return res.status(response.status).json({ message: response.message })
             
         } else {
             return res.status(400).json({ message: 'No hay ningún usuario asociado a ese correo.' })
