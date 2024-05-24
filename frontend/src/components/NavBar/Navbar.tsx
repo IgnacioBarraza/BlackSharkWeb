@@ -1,4 +1,4 @@
-import { faList, faX } from "@fortawesome/free-solid-svg-icons";
+import { faList} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import { Link } from "react-router-dom";
@@ -33,7 +33,7 @@ export const Navbar = () => {
                 <span>Iniciar Sesión</span>
               </Link>
         </div>
-        <div className="flex items-center md:hidden space-x-64">
+        <div className="flex items-center md:hidden space-x-64 ">
           <button id="menu-button" className="block h-8 w-8 md:hidden items-center justify-center absolute left-0 pl-4" onClick={toggleMenu}>
           <FontAwesomeIcon icon={faList} style={{color: "#000000"}} size="2x"/>
           </button>
@@ -44,7 +44,7 @@ export const Navbar = () => {
           </Link>
         </div>
         {isOpen && (
-        <div className="absolute top-full w-2/3 bg-white rounded-lg md:hidden z-10 border-gray-300 px-12 py-4 left-0">
+        <div className="absolute top-full w-2/3 bg-white rounded-lg md:hidden z-10 border-gray-300 px-12 py-4 left-0 border">
           <Link to={'/servicios'} className="font-myriad-pro block px-8 py-4 text-black text-lg text-center font-bold pl-3"><span>Servicios</span></Link>
           <Link to={'/gallery'} className="font-myriad-pro block px-8 py-4 text-black text-center text-lg justify-center font-bold pl-3"><span>Galería</span></Link>
           <Link to={'/contact'} className="font-myriad-pro block px-8 py-4 text-black text-center text-lg justify-center font-bold pl-3"><span>Contacto</span></Link>
