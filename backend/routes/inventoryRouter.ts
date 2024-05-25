@@ -1,7 +1,8 @@
 import express from 'express'
+import { randomUUID } from 'crypto'
+
 import { connect } from '../utils/db'
 import { verifyInventory } from '../schemas/inventorySchema'
-import { randomUUID } from 'crypto'
 import authorizeRole from '../middleware/authorizeRole'
 
 const inventoryRouter = express.Router()
