@@ -68,7 +68,7 @@ export const Navbar = () => {
                 <span>{username}</span>
               </button>
               {isDropdownOpen && (
-                <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-300 rounded-lg shadow-lg z-50">
+                <div className="absolute left-1/2 transform -translate-x-1/2 mt-2 w-48 bg-white border border-gray-300 rounded-lg shadow-lg z-50">
                   <div className="flex items-center p-4">
                     <FontAwesomeIcon icon={faCircleUser} className="w-6 h-6 rounded-full"/>
                     <span className="ml-3 font-myriad-pro font-medium">Mi Cuenta</span>
@@ -117,7 +117,7 @@ export const Navbar = () => {
                   <span>{username}</span>
                 </button>
                 {isDropdownOpen && (
-                  <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-300 rounded-lg shadow-lg z-50">
+                  <div className="absolute left-1/2 transform -translate-x-1/2 mt-2 w-48 bg-white border border-gray-300 rounded-lg shadow-lg z-50">
                     <div className="flex items-center p-4">
                       <FontAwesomeIcon icon={faCircleUser} className="w-6 h-6 rounded-full"/>
                       <span className="ml-3 font-myriad-pro font-medium">Mi Cuenta</span>
