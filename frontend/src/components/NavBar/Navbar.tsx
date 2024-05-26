@@ -29,7 +29,7 @@ export const Navbar = () => {
   const handleLogout = () => {
     localStorage.removeItem('username');
     setUsername(null);
-    navigate('/login');
+    navigate('/');
   };
 
   return (
