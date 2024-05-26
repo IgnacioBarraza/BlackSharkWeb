@@ -113,7 +113,7 @@ export const Navbar = () => {
             <Link to={'/contact'} className="font-myriad-pro block py-4 text-black text-lg font-bold pl-4"><span>Contacto</span></Link>
             {username ? (
               <div className="relative">
-                <button onClick={toggleDropdown} className="font-myriad-pro block py-4 text-black text-lg font-bold pl-4">
+                <button onClick={toggleDropdown} className="font-myriad-pro block py-4 text-black text-lg font-bold pl-3.5">
                   <span>{username}</span>
                 </button>
                 {isDropdownOpen && (
