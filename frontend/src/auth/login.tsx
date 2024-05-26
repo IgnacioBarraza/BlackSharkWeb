@@ -36,6 +36,7 @@ export const Login = () => {
         setUserType(res.data.tipo_user);
         setTokenData(res.data.token);
         setUserName(res.data.username);
+        localStorage.setItem('username', res.data.username);
         navigate("/");
       }
     } catch (error) {
