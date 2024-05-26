@@ -30,7 +30,7 @@ export const Register = () => {
 
     const userToRegister: userToRegister = {
       email: user.email,
-      password: user.email,
+      password: user.password,
       username: user.username,
     }
 
