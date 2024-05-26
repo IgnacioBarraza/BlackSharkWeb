@@ -2,7 +2,7 @@ import { faList } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import '../../styles/navbar.css';
+import { faCircleUser } from "@fortawesome/free-regular-svg-icons/faCircleUser";
 
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -58,7 +58,7 @@ export const Navbar = () => {
               {isDropdownOpen && (
                 <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-300 rounded-lg shadow-lg z-50">
                   <div className="flex items-center p-4">
-                    <img className="w-10 h-10 rounded-full" src="/path/to/user-photo.jpg" alt="User"/>
+                    <FontAwesomeIcon icon={faCircleUser} className="w-8 h-8 rounded-full"/>
                     <span className="ml-3 font-myriad-pro font-medium">Mi Cuenta</span>
                   </div>
                   <hr className="border-t border-gray-300" />
@@ -107,7 +107,7 @@ export const Navbar = () => {
                 {isDropdownOpen && (
                   <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-300 rounded-lg shadow-lg z-50">
                     <div className="flex items-center p-4">
-                      <img className="w-10 h-10 rounded-full" src="/path/to/user-photo.jpg" alt="User"/>
+                      <FontAwesomeIcon icon={faCircleUser} className="w-8 h-8 rounded-full"/>
                       <span className="ml-3 font-myriad-pro font-medium">Mi Cuenta</span>
                     </div>
                     <hr className="border-t border-gray-300" />
