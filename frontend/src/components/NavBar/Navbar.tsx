@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { faCircleUser } from "@fortawesome/free-regular-svg-icons/faCircleUser";
+import '../../styles/navbar.css';
 
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
