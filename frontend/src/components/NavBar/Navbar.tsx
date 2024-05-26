@@ -14,6 +14,7 @@ export const Navbar = () => {
   return (
     <>
       <div className="flex items-center relative justify-between px-4 py-2">
+
         <div className="items-center space-x-16 hidden md:flex">
           <Link to={'/servicios'} className="font-myriad-pro font-medium transition duration-500 transform hover:scale-110 px-2 mr-7 text-2xl items-center justify-center hidden md:flex">   
             <span>Servicios</span>
@@ -33,24 +34,37 @@ export const Navbar = () => {
             <span>Iniciar Sesión</span>
           </Link>
         </div>
-        <div className="flex items-center md:hidden space-x-64 ">
-          <button id="menu-button" className="block h-8 w-8 md:hidden items-center justify-center absolute left-0" onClick={toggleMenu}>
-            <FontAwesomeIcon icon={faList} style={{color: "#000000"}} size="2x"/>
-          </button>
-          <Link to={'/'}>
-            <div className="flex w-20 h-16 z-100 md:hidden justify-center items-center">
-              <img src="/BlackShark.png" alt="Blackshark logo"/>
-            </div>
-          </Link>
+
+        <div className="flex flex-row items-center md:hidden justify-between w-full space-x-12">
+
+          <div>
+            <button id="menu-button" className="flex w-20 h-20 md:hidden items-center justify-start" onClick={toggleMenu}>
+              <FontAwesomeIcon icon={faList} style={{color: "#000000"}} size="2x"/>
+            </button>
+          </div>
+
+          <div className="flex justify-center items-center">
+            <Link to={'/'}>
+              <div className="flex w-20 h-20 z-100 md:hidden justify-center items-center">
+                <img src="/BlackShark.png" alt="Blackshark logo"/>
+              </div>
+            </Link>
+          </div>
+
+          <div className="w-20 h-20 md:hidden justify-center items-center">
+          </div>
+
         </div>
+
         {isOpen && (
-          <div className="absolute top-full w-2/3 bg-white rounded-lg md:hidden z-10 border-gray-300 left-0 border">
-            <Link to={'/servicios'} className="font-myriad-pro block py-4 text-black text-lg text-center font-bold"><span>Servicios</span></Link>
-            <Link to={'/gallery'} className="font-myriad-pro block py-4 text-black text-center text-lg justify-center font-bold"><span>Galería</span></Link>
-            <Link to={'/contact'} className="font-myriad-pro block py-4 text-black text-center text-lg justify-center font-bold"><span>Contacto</span></Link>
-            <Link to={'/login'} className="font-myriad-pro block py-4 text-black text-center text-lg justify-center font-bold"><span>Iniciar Sesión</span></Link>
+          <div className="absolute top-full w-2/3 bg-white rounded-lg md:hidden z-10 border-gray-300 left-0 border flex flex-col">
+            <Link to={'/servicios'} className="font-myriad-pro block py-4 text-black text-lg font-bold pl-4"><span>Servicios</span></Link>
+            <Link to={'/gallery'} className="font-myriad-pro block py-4 text-black text-lg font-bold pl-4"><span>Galería</span></Link>
+            <Link to={'/contact'} className="font-myriad-pro block py-4 text-black text-lg font-bold pl-4"><span>Contacto</span></Link>
+            <Link to={'/login'} className="font-myriad-pro block py-4 text-black text-lg font-bold pl-4"><span>Iniciar Sesión</span></Link>
           </div>
         )}
+
       </div>
     </>
   )
