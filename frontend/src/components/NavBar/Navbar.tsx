@@ -11,7 +11,6 @@ export const Navbar = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Leer el nombre de usuario de localStorage
     const user = localStorage.getItem('username');
     if (user) {
       setUsername(user);
