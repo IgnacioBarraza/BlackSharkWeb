@@ -45,7 +45,7 @@ export const Navbar = () => {
 
           <div className="flex justify-center items-center">
             <Link to={'/'}>
-              <div className="flex w-20 h-20 z-100 md:hidden justify-center items-center">
+              <div className="w-20 h-20 z-100 md:hidden justify-center items-center">
                 <img src="/BlackShark.png" alt="Blackshark logo"/>
               </div>
             </Link>
