@@ -1,6 +1,6 @@
 import { faList } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { faCircleUser } from "@fortawesome/free-regular-svg-icons/faCircleUser";
 
@@ -9,12 +9,25 @@ export const Navbar = () => {
   const [username, setUsername] = useState<string | null>(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const navigate = useNavigate();
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const user = localStorage.getItem('username');
     if (user) {
       setUsername(user);
     }
+
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
   }, []);
 
   const toggleMenu = () => {
@@ -50,14 +63,14 @@ export const Navbar = () => {
             <span>Contacto</span>
           </Link>
           {username ? (
-            <div className="relative">
+            <div className="relative" ref={dropdownRef}>
               <button onClick={toggleDropdown} className="font-myriad-pro font-medium transition duration-500 transform hover:scale-110 text-2xl px-2 mr-7 items-center justify-center hidden md:flex">
                 <span>{username}</span>
               </button>
               {isDropdownOpen && (
                 <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-300 rounded-lg shadow-lg z-50">
                   <div className="flex items-center p-4">
-                    <FontAwesomeIcon icon={faCircleUser} className="w-8 h-8 rounded-full"/>
+                    <FontAwesomeIcon icon={faCircleUser} className="w-6 h-6 rounded-full"/>
                     <span className="ml-3 font-myriad-pro font-medium">Mi Cuenta</span>
                   </div>
                   <hr className="border-t border-gray-300" />
@@ -106,7 +119,7 @@ export const Navbar = () => {
                 {isDropdownOpen && (
                   <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-300 rounded-lg shadow-lg z-50">
                     <div className="flex items-center p-4">
-                      <FontAwesomeIcon icon={faCircleUser} className="w-8 h-8 rounded-full"/>
+                      <FontAwesomeIcon icon={faCircleUser} className="w-6 h-6 rounded-full"/>
                       <span className="ml-3 font-myriad-pro font-medium">Mi Cuenta</span>
                     </div>
                     <hr className="border-t border-gray-300" />
