@@ -1,5 +1,6 @@
 import { Login } from "../auth/login";
 import { Register } from "../auth/register";
+import { Newpassword } from "../components/NewPassword/newpassword";
 import { Recoverpassword } from "../components/RecoverPasswordModal/recoverpassword";
 import { Contact } from "../shared/contact";
 import { Gallery } from "../shared/gallery";
@@ -35,4 +36,8 @@ export const routes = [
     path: '/recoverpassword',
     component: <Recoverpassword />
   },
+  {
+    path: '/newpassword',
+    component: <Newpassword />
+  }
 ]
