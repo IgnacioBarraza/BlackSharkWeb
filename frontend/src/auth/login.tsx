@@ -47,7 +47,7 @@ export const Login = () => {
 
   return (
     <>
-      <div className="bg-[url(/background-input-photo.jpg)] bg-cover bg-center w-full h-screen bg-no-repeat">
+      <div className="bg-[url(/background-auth-photo.jpg)] bg-cover bg-center w-full h-screen bg-no-repeat">
         <div className="absolute top-0 left-0 p-2">
             <Link to={'/'}>
               <span className="flex items-center justify-center rounded-full w-20 h-20 text-white">
@@ -59,7 +59,7 @@ export const Login = () => {
         <div className="flex justify-center items-center h-screen pb-10">
           <form onSubmit={handleLogin} className="font-myriad-pro flex flex-col items-center max-w-md w-full md:px-0 pt-20 rounded-lg bg-black bg-opacity-60">
             <div>
-              <h2 className=" text-2xl font-extrabold text-white">Iniciar Sesión</h2>
+              <h2 className="text-2xl font-extrabold text-white">Iniciar Sesión</h2>
             </div>
             
             <div className="email flex flex-col items-start mb-4 pt-10 text-white">
