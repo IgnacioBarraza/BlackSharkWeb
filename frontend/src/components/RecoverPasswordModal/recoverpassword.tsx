@@ -23,7 +23,9 @@ export const Recoverpassword = () => {
         email: user.email
       }
       const res = await recoverPassword(recoverEmail)
-      console.log(res)
+      if (res.statusText === 'OK' && res.status === 200) {
+        console.log(res)
+      }
     } catch (error) {
       console.error(error)
     }

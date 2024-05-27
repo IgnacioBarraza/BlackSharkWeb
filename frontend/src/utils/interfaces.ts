@@ -29,3 +29,15 @@ export interface LoginResponse {
 export interface RecoverPassword {
   email: string
 }
+
+export interface RecoverResponde {
+  data: {
+    message: string;
+  };
+  status: number;
+  statusText: string;
+  headers: {
+    "content-length": string;
+    "content-type": string;
+  };
+}
