@@ -90,7 +90,18 @@ loginRouter.post('/register', async (req, res) => {
                 [newUser.id_usuario, newUser.username, newUser.password, newUser.email, newUser.phone, newUser.tipo_user, newUser.direction]
             )
 
-            return res.status(201).json({ message: 'Registro exitoso!' })
+            const userToken = {
+                username: newUser.username,
+                identifier: newUser.id_usuario
+            }
+
+            if (SECRET) {
+                const token = jwt.sign(userToken, SECRET)
+                return res.status(201).json({ message: 'Registro exitoso!', username: newUser.username, tipo_user: newUser.tipo_user, token })
+            } else {
+                return res.status(500).json({ message: 'Hubo un error con el servidor. Inténtalo más tarde.' })
+            }
+
         }
     } catch (error) {
         // console.log(error)
