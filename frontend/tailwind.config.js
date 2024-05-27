@@ -10,9 +10,8 @@ export default {
         'myriad-pro': ['Myriad Pro', 'sans-serif'],
       },
       colors:{
-        'blue-bs': '#0186ff',
-        'light-blue-50': '#f0f9ff',
-        'blue-strong': '10243c',
+        'blue-ligth-bs': '#0186ff',
+        'blue-strong-bs': '#10243c',
       },
     },
   },
