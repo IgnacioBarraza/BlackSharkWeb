@@ -1,12 +1,37 @@
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { useState } from "react"
 import { Link } from "react-router-dom"
+import { useAuth } from "../../hooks/useAuth"
+import { RecoverPassword } from "../../utils/interfaces"
 
 export const Recoverpassword = () => {
 
+  const { recoverPassword } = useAuth()
+  const [user, setUser] =  useState<RecoverPassword>({
+    email: ''
+  })
+
+  const handleRecoverInput = ({target: {name, value}}) => {
+    setUser({ ...user, [name]: value })
+  }
+
+  const handleRecoverPassword = async (e) => {
+    e.preventDefault()
+    try {
+      const recoverEmail: RecoverPassword = {
+        email: user.email
+      }
+      const res = await recoverPassword(recoverEmail)
+      console.log(res)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   return (
     <>
-      <div className="bg-[url(/background-input-photo.jpg)] bg-cover bg-center w-full h-screen bg-no-repeat">
+      <div className="bg-[url(/background-auth-photo.jpg)] bg-cover bg-center w-full h-screen bg-no-repeat">
         <div className="absolute top-0 left-0 p-2">
             <Link to={'/'}>
               <span className="flex items-center justify-center rounded-full w-20 h-20 text-white">
@@ -16,7 +41,7 @@ export const Recoverpassword = () => {
         </div>
 
         <div className="flex justify-center items-center h-screen pb-10">
-          <form className="font-myriad-pro flex flex-col items-center max-w-md w-full md:px-0 pt-20 rounded-lg bg-black bg-opacity-60">
+          <form onSubmit={handleRecoverPassword} className="font-myriad-pro flex flex-col items-center max-w-md w-full md:px-0 pt-20 rounded-lg bg-black bg-opacity-60">
             <div>
               <h2 className=" text-2xl font-extrabold text-white">Restablecer la contraseña</h2>
             </div>
@@ -34,7 +59,7 @@ export const Recoverpassword = () => {
                 type="email" 
                 name="email" 
                 placeholder="Ingrese su correo"
-                />
+                onChange={handleRecoverInput} />
               </div>
             </div>
 

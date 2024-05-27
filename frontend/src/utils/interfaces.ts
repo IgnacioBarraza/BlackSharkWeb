@@ -25,3 +25,7 @@ export interface LoginResponse {
     "content-type": string;
   };
 }
+
+export interface RecoverPassword {
+  email: string
+}
