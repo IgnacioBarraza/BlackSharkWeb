@@ -10,7 +10,6 @@ import { UserContext } from "../../providers/userContext";
 
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  //const [username, setUsername] = useState<string | null>(null);
   const { userName, setUserName } = useContext(UserContext);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const navigate = useNavigate();
