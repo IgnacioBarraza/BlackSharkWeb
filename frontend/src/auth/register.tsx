@@ -46,7 +46,7 @@ export const Register = () => {
   }
   return (
     <>
-      <div className="bg-[url(/background-input-photo.jpg)] bg-cover bg-center w-full h-screen bg-no-repeat">
+      <div className="bg-[url(/background-auth-photo.jpg)] bg-cover bg-center w-full h-screen bg-no-repeat">
         <div className="imback fixed top-0 left-0 p-2">
           <Link to={"/"}>
             <span className="flex items-center justify-center rounded-full w-20 h-20 text-white">
@@ -99,21 +99,21 @@ export const Register = () => {
                 className="w-full pl-5 pr-20 py-3 text-base text-neutral-600 placeholder-gray-300 transition duration-500 ease-in-out transform border border-transparent rounded-lg bg-gray-50 focus:outline-none focus:border-transparent focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300" 
                 type="password" 
                 name="repeat_password" 
-                placeholder="Ingrese su contraseña"
+                placeholder="Confirmar su contraseña"
                 onChange={handleFormInputs}/>
               </div> 
             </div>
 
             <div className="contenedor pt-5">
-              <button className="flex items-center justify-center w-full px-[110px] py-2.5 text-base font-medium text-center text-white transition duration-500 ease-in-out transform bg-blue-600 rounded-xl hover:bg-blue-bs-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+              <button className="flex items-center justify-center w-full px-[110px] py-2.5 text-xl font-large text-center text-white transition duration-500 ease-in-out transform bg-blue-600 rounded-xl hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
                     Registrarte
                 </button>
             </div>
 
-            <div className="mb-4 pt-5">
+            <div className="mb-4 pt-5 text-white">
               <Link to={'/login'}>
-                  <span className="font-medium text-white hover:text-blue-500">¿Ya tienes cuenta?</span>
-                </Link>
+                <span className="font-medium blue-bs hover:text-blue-500 transition-colors duration-300">¿Ya tienes cuenta?</span>
+              </Link>
             </div>
           </form>
         </div>
