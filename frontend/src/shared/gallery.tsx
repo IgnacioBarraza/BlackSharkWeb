@@ -4,6 +4,16 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { UserContext } from "../providers/userContext";
 import { useContext } from "react";
 
+// {userType === "admin" &&  userToken &&(
+//   <>
+//   <div className="w-full flex flex-col items-center justify-center">
+//     <button className="w-full h-full flex items-center justify-center rounded-lg shadow-md border border-gray-300 transition duration-300 ease-in-out transform hover:scale-105">
+//       <FontAwesomeIcon icon={faPlus} style={{color: "#000000",}} size="10x"/>
+//       <h1 className="mt-2 text-center">Agregar Imagen</h1>
+//     </button>
+//   </div>
+//   </>
+
 
 export const Gallery = () => {
 
@@ -19,16 +29,14 @@ export const Gallery = () => {
       </div>
       <div className=" p-5 md:p-10">
         <div className="columns-1 gap-5 lg:gap-8 sm:columns-2 lg:columns-3 xl:columns-4 [&>img:not(:first-child)]:mt-5 lg:[&>img:not(:first-child)]:mt-8">
-          {userType === "admin" &&  userToken &&(
-            <>
-            <div className="w-full flex flex-col items-center justify-center">
-              <button className="w-full h-full flex items-center justify-center rounded-lg shadow-md border border-gray-300 transition duration-300 ease-in-out transform hover:scale-105">
-                <FontAwesomeIcon icon={faPlus} style={{color: "#000000",}} size="10x"/>
-                <h1 className="mt-2 text-center">Agregar Imagen</h1>
-              </button>
-            </div>
-            </>
-          )}
+
+            <button className="w-full h-64 flex items-center justify-center rounded-lg shadow-md border border-gray-300 transition duration-300 ease-in-out transform hover:scale-105">
+              <div className="flex flex-col items-center justify-center space-y-4">
+                <FontAwesomeIcon icon={faPlus} style={{color: "#000000",}} size="8x"/>
+                <h1 className="font-myriad-pro font-medium text-xl mt-2 text-center">Agregar Nueva Imagen</h1>
+              </div>
+            </button>
+
           <img src="/paisaje1.jpg" alt="" className="rounded-lg shadow-md border border-gray-300 transition duration-300 ease-in-out transform hover:scale-105"/>
           <img src="/paisaje1.jpg" alt="" className="rounded-lg shadow-md border border-gray-300 transition duration-300 ease-in-out transform hover:scale-105"/>
           <img src="/paisaje1.jpg" alt="" className="rounded-lg shadow-md border border-gray-300 transition duration-300 ease-in-out transform hover:scale-105"/>
