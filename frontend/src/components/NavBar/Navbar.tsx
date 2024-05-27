@@ -4,20 +4,19 @@ import { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { faCircleUser } from "@fortawesome/free-regular-svg-icons/faCircleUser";
 import '../../styles/navbar.css';
+import React, {useContext} from "react";
+import { UserContext } from "../../providers/userContext";
+
 
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [username, setUsername] = useState<string | null>(null);
+  //const [username, setUsername] = useState<string | null>(null);
+  const { userName, setUserName } = useContext(UserContext);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const navigate = useNavigate();
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const user = localStorage.getItem('username');
-    if (user) {
-      setUsername(user);
-    }
-
     const handleClickOutside = (event: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setIsDropdownOpen(false);
@@ -40,8 +39,7 @@ export const Navbar = () => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('username');
-    setUsername(null);
+    setUserName(null);
     navigate('/');
   };
 
@@ -63,10 +61,10 @@ export const Navbar = () => {
           <Link to={'/contact'} className="font-myriad-pro font-medium  transition duration-500 transform hover:scale-110 text-2xl px-2 mr-7 items-center justify-center hidden md:flex">
             <span>Contacto</span>
           </Link>
-          {username ? (
+          {userName ? (
             <div className="relative" ref={dropdownRef}>
               <button onClick={toggleDropdown} className="font-myriad-pro font-medium transition duration-500 transform hover:scale-110 text-2xl px-2 mr-7 items-center justify-center hidden md:flex">
-                <span>{username}</span>
+                <span>{userName}</span>
               </button>
               {isDropdownOpen && (
                 <div className="absolute left-1/2 transform -translate-x-1/2 mt-2 w-48 bg-white border border-gray-300 rounded-lg shadow-lg z-50">
@@ -112,10 +110,10 @@ export const Navbar = () => {
             <Link to={'/servicios'} className="font-myriad-pro block py-4 text-black text-lg font-bold pl-4"><span>Servicios</span></Link>
             <Link to={'/gallery'} className="font-myriad-pro block py-4 text-black text-lg font-bold pl-4"><span>Galería</span></Link>
             <Link to={'/contact'} className="font-myriad-pro block py-4 text-black text-lg font-bold pl-4"><span>Contacto</span></Link>
-            {username ? (
+            {userName ? (
               <div className="relative">
                 <button onClick={toggleDropdown} className="font-myriad-pro block py-4 text-black text-lg font-bold pl-3.5">
-                  <span>{username}</span>
+                  <span>{userName}</span>
                 </button>
                 {isDropdownOpen && (
                   <div className="absolute left-1/2 transform -translate-x-1/2 mt-2 w-48 bg-white border border-gray-300 rounded-lg shadow-lg z-50">
