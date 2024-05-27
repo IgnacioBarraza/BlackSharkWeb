@@ -90,7 +90,7 @@ export const Login = () => {
             </div>
 
             <div className="mb-4 pt-5 text-white">
-              <Link to={'/signup'}>
+              <Link to={'/recoverpassword'}>
                 <span className="font-medium blue-bs hover:text-blue-500 transition-colors duration-300">¿Has olvidado tu contraseña?</span>
               </Link>
             </div>
