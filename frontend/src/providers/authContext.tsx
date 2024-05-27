@@ -8,6 +8,7 @@ const DEV_BACKEND_URL = 'http://localhost:3000/api'
 type AuthContextType = {
   login: (userToVerify: userToVerify) => Promise<LoginResponse>;
   register: (userToRegister: userToRegister) => void;
+  recoverPassword: (email: string) => void
 }
 
 type AuthProviderProps = {
@@ -29,15 +30,17 @@ export const AuthContext = createContext<AuthContextType>({
       "content-type": ""
     }
   }),
-  register: () => {}
+  register: () => {},
+  recoverPassword: () => {}
 });
 
 
 export const AuthProvider = ({children}: AuthProviderProps) => {
   const login = (userToVerify: userToVerify): Promise<LoginResponse> => axios.post(`${DEV_BACKEND_URL}/login/verify`, userToVerify)
   const register = (userToRegister: userToRegister) => axios.post(`${DEV_BACKEND_URL}/login/register`, userToRegister)
+  const recoverPassword = (email: string) => axios.post(`${DEV_BACKEND_URL}/login/recover`, email)
 
   return (
-    <AuthContext.Provider value={{ login, register }}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{ login, register, recoverPassword }}>{children}</AuthContext.Provider>
   )
 }
