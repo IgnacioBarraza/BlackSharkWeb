@@ -90,7 +90,7 @@ export const Servicios = () => {
           {userType === "admin" &&  userToken && (
             <>
                 <div className="bg-white rounded-lg shadow-lg transition-shadow hover:shadow-xl">
-                    <button className="w-full h-64 flex items-center justify-center rounded-lg shadow-md border border-gray-300 transition duration-300 ease-in-out transform hover:scale-105">
+                    <button className="w-full h-64 flex items-center justify-center rounded-lg shadow-md border hover:bg-gray-200 border-gray-300 transition duration-300 ease-in-out transform hover:scale-105">
                         <div className="flex flex-col items-center justify-center space-y-4">
                             <FontAwesomeIcon icon={faPlus} style={{color: "#000000",}} size="8x"/>
                         </div>
