@@ -1,5 +1,8 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Navbar } from "../components/NavBar/Navbar";
+import { UserContext } from "../providers/userContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 const serviciosData = [
   {
@@ -56,6 +59,7 @@ const serviciosData = [
     title: "Servicio 9",
     description: "Descripción del servicio 9."
   },
+
 ];
 
 export const Servicios = () => {
@@ -69,6 +73,8 @@ export const Servicios = () => {
     setSelectedServicio(null);
   };
 
+
+  const { userType, userToken } = useContext(UserContext);
   
   return (
     <>
@@ -80,6 +86,22 @@ export const Servicios = () => {
         </div>
         <div className="mx-auto mt-8 mb-20">
           <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 ml-4 mr-4 md:ml-24 md:mr-24">
+
+          {userType === "admin" &&  userToken && (
+            <>
+                <div className="bg-white rounded-lg shadow-lg transition-shadow hover:shadow-xl">
+                    <button className="w-full h-64 flex items-center justify-center rounded-lg shadow-md border border-gray-300 transition duration-300 ease-in-out transform hover:scale-105">
+                        <div className="flex flex-col items-center justify-center space-y-4">
+                            <FontAwesomeIcon icon={faPlus} style={{color: "#000000",}} size="8x"/>
+                        </div>
+                    </button>
+                    <div className="p-4 flex-grow flex items-center justify-center">
+                        <h2 className="text-lg font-bold mb-2 text-center">Agregar Servicio</h2>
+                    </div>
+                </div>
+            </>
+            )} 
+
             {serviciosData.map((servicio) => (
               <div
                 key={servicio.id}
