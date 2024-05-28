@@ -15,29 +15,11 @@ export const Navbar = () => {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const dropdownRef = useRef(null);
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      event.preventDefault()
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node)
-      ) {
-        setDropdownOpen(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
+  const mobileMenuRef = useRef(null);
 
   const firstName = userName ? userName.split(' ')[0] : '';
 
   const handleLogout = () => {
-    console.log('first')
     setUserName(null);
     setTokenData(null);
     setUserType(null);
@@ -46,8 +28,22 @@ export const Navbar = () => {
   };
 
   const toggleDropdown = () => setDropdownOpen(!isDropdownOpen)
-  const toggleMobileMenu = () => setMobileMenuOpen(!isMobileMenuOpen);
+  
+  const handleClickOutside = (event) => {
+    if (mobileMenuRef.current && !mobileMenuRef.current.contains(event.target)) {
+      setMobileMenuOpen(false);
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+  };
 
+  const toggleMobileMenu = () => {
+    if (!isMobileMenuOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+    setMobileMenuOpen(!isMobileMenuOpen);
+  };
 
   return (
     <div className="flex flex-col items-center p-2 bg-white w-full">
@@ -145,7 +141,7 @@ export const Navbar = () => {
 
         {/* Mobile Dropdown Menu */}
         {isMobileMenuOpen && (
-          <div className="absolute top-[105px] left-[2%] p-4 bg-white z-50 rounded-lg md:hidden shadow-md">
+          <div ref={mobileMenuRef} className="absolute top-[105px] left-[2%] p-4 bg-white z-50 rounded-lg md:hidden shadow-md">
             <Link
               to="/servicios"
               className="block font-myriad-pro font-medium text-2xl py-2 px-4"
