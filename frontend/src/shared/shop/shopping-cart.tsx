@@ -12,7 +12,12 @@ export const Cart = () => {
     { service: 'Nombre del servicio 3', price: 200 },
     { service: 'Nombre del servicio 4', price: 250 },
     { service: 'Nombre del servicio 4', price: 250 },
-    { service: 'Nombre del servicio 4', price: 250 }
+    { service: 'Nombre del servicio 4', price: 250 },
+    { service: 'Nombre del servicio 4', price: 250 },
+    { service: 'Nombre del servicio 4', price: 250 },
+    { service: 'Nombre del servicio 4', price: 250 },
+    { service: 'Nombre del servicio 4', price: 250 },
+    { service: 'Nombre del servicio 4', price: 250 },
   ]);
 
   const removeItem = (index: number) => {
@@ -20,7 +25,7 @@ export const Cart = () => {
   };
 
   return (
-    <div className="bg-white bg-cover bg-center w-full h-screen bg-no-repeat flex flex-col overflow-hidden overflow-y-auto">
+    <div className="bg-white bg-cover bg-center w-full h-full bg-no-repeat flex flex-col overflow-hidden overflow-y-auto">
       <div className="flex-grow md:flex md:justify-center pb-10">
         <Navbar />
       </div>
