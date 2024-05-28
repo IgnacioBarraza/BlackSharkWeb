@@ -6,7 +6,7 @@ import { Contact } from "../shared/contact";
 import { Gallery } from "../shared/gallery";
 import { Homepage } from "../shared/homepage";
 import { Servicios } from "../shared/servicios";
-import { Cart } from "../shared/shopping-cart";
+import { Cart } from "../shared/shop/shopping-cart";
 
 export const routes = [
   {
