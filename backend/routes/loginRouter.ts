@@ -90,7 +90,18 @@ loginRouter.post('/register', async (req, res) => {
                 [newUser.id_usuario, newUser.username, newUser.password, newUser.email, newUser.phone, newUser.tipo_user, newUser.direction]
             )
 
-            return res.status(201).json({ message: 'Registro exitoso!' })
+            const userToken = {
+                username: newUser.username,
+                identifier: newUser.id_usuario
+            }
+
+            if (SECRET) {
+                const token = jwt.sign(userToken, SECRET)
+                return res.status(201).json({ message: 'Registro exitoso!', username: newUser.username, tipo_user: newUser.tipo_user, token })
+            } else {
+                return res.status(500).json({ message: 'Hubo un error con el servidor. Inténtalo más tarde.' })
+            }
+
         }
     } catch (error) {
         // console.log(error)
@@ -125,9 +136,9 @@ loginRouter.post('/recover', async (req, res) => {
             const token = jwt.sign({ id: user[0].id_usuario }, SECRET, { expiresIn: expirationTime })
 
             const text = `${token}`
-            sendMessage(user[0].correo, text)
+            const response = await sendMessage(user[0].correo, text)
 
-            return res.status(200).json({ message: 'Correo enviado!' })
+            return res.status(response.status).json({ message: response.message })
             
         } else {
             return res.status(400).json({ message: 'No hay ningún usuario asociado a ese correo.' })
