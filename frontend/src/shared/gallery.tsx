@@ -32,8 +32,8 @@ export const Gallery = () => {
 
             <button className="w-full h-64 flex items-center justify-center rounded-lg shadow-md border border-gray-300 transition duration-300 ease-in-out transform hover:scale-105">
               <div className="flex flex-col items-center justify-center space-y-4">
-                <FontAwesomeIcon icon={faPlus} style={{color: "#000000",}} size="8x"/>
-                <h1 className="font-myriad-pro font-medium text-xl mt-2 text-center">Agregar Nueva Imagen</h1>
+              <FontAwesomeIcon icon={faPlus} style={{color: "#000000",}} size="8x"/>
+                <h1 className="font-myriad-pro font-light text-xl mt-2 text-center">Agregar Nueva Imagen</h1>
               </div>
             </button>
 
