@@ -174,7 +174,7 @@ export const Navbar = () => {
               <FontAwesomeIcon icon={faCircleUser} size="xl" />
             </button>
             {isDropdownOpen && (
-              <div className="absolute top-[77px] right-[-40px] bg-white z-50 border-gray-300 shadow-md w-[240px] rounded-lg p-4" onClick={handleLogout}>
+              <div className="absolute top-[77px] right-[-40px] bg-white z-50 border-gray-300 shadow-md w-[240px] rounded-lg p-4">
                 <Link
                   to="/orders"
                   className="block font-myriad-pro text-xl py-2 px-4"
