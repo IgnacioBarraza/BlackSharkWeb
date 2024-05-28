@@ -26,7 +26,7 @@ export const Cart = () => {
 
   return (
     <div className="bg-white bg-cover bg-center w-full h-full bg-no-repeat flex flex-col overflow-hidden overflow-y-auto">
-      <div className="flex-grow md:flex md:justify-center pb-10">
+      <div className="flex-grow md:flex md:justify-center">
         <Navbar />
       </div>
       <div className="md:flex md:flex-row flex-col bg-blue-strong-bs h-full p-4 gap-4">
