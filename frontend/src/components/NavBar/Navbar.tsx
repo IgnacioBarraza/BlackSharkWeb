@@ -1,140 +1,217 @@
-import { faList } from "@fortawesome/free-solid-svg-icons";
+import { faBars, faList, faRightToBracket, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { faCircleUser } from "@fortawesome/free-regular-svg-icons/faCircleUser";
-import '../../styles/navbar.css';
+import "../../styles/navbar.css";
 import { useContext } from "react";
 import { UserContext } from "../../providers/userContext";
 
 export const Navbar = () => {
+  const navigate = useNavigate();
+
   const [isOpen, setIsOpen] = useState(false);
   const { userName, setUserName, setTokenData, setUserType } = useContext(UserContext);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const navigate = useNavigate();
-  const dropdownRef = useRef<HTMLDivElement>(null);
+  const [isDropdownOpen, setDropdownOpen] = useState(false);
+  const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const dropdownRef = useRef(null);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setIsDropdownOpen(false);
+      event.preventDefault()
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setDropdownOpen(false);
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
 
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
 
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
-    if (isDropdownOpen) {
-      setIsDropdownOpen(false);
-    }
-  };
-
-  const toggleDropdown = () => {
-    setIsDropdownOpen(!isDropdownOpen);
-  };
+  const firstName = userName ? userName.split(' ')[0] : '';
 
   const handleLogout = () => {
+    console.log('first')
     setUserName(null);
     setTokenData(null);
     setUserType(null);
-    navigate('/');
-    setIsOpen(false); // Ensure the menu is closed after logging out
+    navigate("/");
+    setIsOpen(false);
   };
 
+  const toggleDropdown = () => setDropdownOpen(!isDropdownOpen)
+  const toggleMobileMenu = () => setMobileMenuOpen(!isMobileMenuOpen);
+
+
   return (
-    <div className="flex items-center relative justify-between px-4 py-2">
-      <div className="items-center space-x-16 hidden md:flex">
-        <Link to={'/servicios'} className="font-myriad-pro font-medium transition duration-500 transform hover:scale-110 px-2 mr-7 text-2xl items-center justify-center hidden md:flex">   
+    <div className="flex flex-col items-center p-2 bg-white w-full">
+      {/* Desktop Menu */}
+      <div className="hidden md:flex items-center justify-between space-x-16 w-2/4">
+        <Link
+          to="/servicios"
+          className="font-myriad-pro font-medium transition duration-500 transform hover:scale-110 px-2 mr-7 text-2xl"
+        >
           <span>Servicios</span>
         </Link>
-        <Link to={'/gallery'} className="font-myriad-pro font-medium transition duration-500 transform hover:scale-110 text-2xl px-2 mr-7 items-center justify-center hidden md:flex">
+        <Link
+          to="/gallery"
+          className="font-myriad-pro font-medium transition duration-500 transform hover:scale-110 text-2xl px-2 mr-7"
+        >
           <span>Galería</span>
         </Link>
-        <Link to={'/'}>
-          <div className="w-28 h-28 z-100 hidden md:flex">
-            <img src="/BlackShark.png" alt="Blackshark logo"/>
+        <Link to="/" className="flex items-center">
+          <div className="w-28 h-28">
+            <img src="/BlackShark.png" alt="Blackshark logo" />
           </div>
         </Link>
-        <Link to={'/contact'} className="font-myriad-pro font-medium transition duration-500 transform hover:scale-110 text-2xl px-2 mr-7 items-center justify-center hidden md:flex">
+        <Link
+          to="/contact"
+          className="font-myriad-pro font-medium transition duration-500 transform hover:scale-110 text-2xl px-2 mr-7"
+        >
           <span>Contacto</span>
         </Link>
         {userName ? (
           <div className="relative" ref={dropdownRef}>
-            <button onClick={toggleDropdown} className="font-myriad-pro font-medium transition duration-500 transform hover:scale-110 text-2xl px-2 mr-7 items-center justify-center hidden md:flex">
-              <span>{userName}</span>
+            <button
+              onClick={toggleDropdown}
+              className="font-myriad-pro font-medium transition duration-500 transform hover:scale-110 text-2xl px-2 mr-7"
+            >
+              <span>{firstName}</span>
             </button>
             {isDropdownOpen && (
               <div className="absolute left-1/2 transform -translate-x-1/2 mt-2 w-48 bg-white border border-gray-300 rounded-lg shadow-lg z-50">
                 <div className="flex items-center p-4">
-                  <FontAwesomeIcon icon={faCircleUser} className="w-6 h-6 rounded-full"/>
-                  <span className="ml-3 font-myriad-pro font-medium">Mi Cuenta</span>
+                  <FontAwesomeIcon
+                    icon={faCircleUser}
+                    className="w-6 h-6 rounded-full"
+                  />
+                  <span className="ml-3 font-myriad-pro font-medium">
+                    Mi Cuenta
+                  </span>
                 </div>
                 <hr className="border-t border-gray-300" />
-                <Link to={'/orders'} className="block px-4 py-2 text-black font-myriad-pro hover:bg-gray-100">Mis pedidos</Link>
-                <Link to={'/cart'} className="block px-4 py-2 text-black font-myriad-pro hover:bg-gray-100">Carrito de compras</Link>
-                <button onClick={handleLogout} className="w-full text-left px-4 py-2 text-black font-myriad-pro hover:bg-gray-100">Cerrar Sesión</button>
+                <Link
+                  to="/orders"
+                  className="block px-4 py-2 text-black font-myriad-pro hover:bg-gray-100"
+                >
+                  Mis pedidos
+                </Link>
+                <Link
+                  to="/cart"
+                  className="block px-4 py-2 text-black font-myriad-pro hover:bg-gray-100"
+                >
+                  Carrito de compras
+                </Link>
+                <button
+                  onClick={handleLogout}
+                  className="w-full text-left px-4 py-2 text-black font-myriad-pro hover:bg-gray-100"
+                >
+                  Cerrar Sesión
+                </button>
               </div>
             )}
           </div>
         ) : (
-          <Link to={'/login'} className="font-myriad-pro font-medium transition duration-500 transform hover:scale-110 text-2xl px-2 mr-7 items-center justify-center hidden md:flex">
+          <Link
+            to="/login"
+            className="font-myriad-pro font-medium transition duration-500 transform hover:scale-110 text-2xl px-2 mr-7"
+          >
             <span>Iniciar Sesión</span>
           </Link>
         )}
       </div>
 
-      <div className="flex flex-row items-center md:hidden justify-between w-full">
-        <button id="menu-button" className="flex w-20 h-20 items-center justify-start" onClick={toggleMenu}>
-          <FontAwesomeIcon icon={faList} style={{ color: "#000000" }} size="2x" />
-        </button>
-        <Link to={'/'}>
-          <div className="w-20 h-20 z-100 justify-center items-center">
+      {/* Mobile Menu Button */}
+      <div className="w-full flex justify-around items-center">
+        <div className="md:hidden flex items-center">
+          <button onClick={toggleMobileMenu} className="text-2xl mr-2">
+            <FontAwesomeIcon
+              icon={isMobileMenuOpen ? faTimes : faBars}
+              size="lg"
+            />
+          </button>
+        </div>
+        <Link to="/" className="flex items-center md:hidden">
+          <div className="w-20 h-20">
             <img src="/BlackShark.png" alt="Blackshark logo" />
           </div>
         </Link>
+
+        {/* Mobile Dropdown Menu */}
+        {isMobileMenuOpen && (
+          <div className="absolute top-[105px] left-[2%] p-4 bg-white z-50 rounded-lg md:hidden shadow-md">
+            <Link
+              to="/servicios"
+              className="block font-myriad-pro font-medium text-2xl py-2 px-4"
+              onClick={toggleMobileMenu}
+            >
+              Servicios
+            </Link>
+            <Link
+              to="/gallery"
+              className="block font-myriad-pro font-medium text-2xl py-2 px-4"
+              onClick={toggleMobileMenu}
+            >
+              Galería
+            </Link>
+            <Link
+              to="/contact"
+              className="block font-myriad-pro font-medium text-2xl py-2 px-4"
+              onClick={toggleMobileMenu}
+            >
+              Contacto
+            </Link>
+          </div>
+        )}
         {userName ? (
-          <div className="relative" ref={dropdownRef}>
-            <button onClick={toggleDropdown} className="flex items-center justify-center w-20 h-20">
-              <FontAwesomeIcon icon={faCircleUser} style={{ color: "#000000" }} size="2x" />
+          <div className="relative md:hidden">
+            <button
+              onClick={toggleDropdown}
+              className="block font-myriad-pro font-medium text-2xl"
+            >
+              <FontAwesomeIcon icon={faCircleUser} size="xl" />
             </button>
             {isDropdownOpen && (
-              <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-300 rounded-lg shadow-lg z-50">
-                <div className="flex items-center p-4">
-                  <FontAwesomeIcon icon={faCircleUser} className="w-6 h-6 rounded-full"/>
-                  <span className="ml-3 font-myriad-pro font-medium">Mi Cuenta</span>
-                </div>
-                <hr className="border-t border-gray-300" />
-                <Link to={'/orders'} className="block px-4 py-2 text-black font-myriad-pro hover:bg-gray-100">Mis pedidos</Link>
-                <Link to={'/cart'} className="block px-4 py-2 text-black font-myriad-pro hover:bg-gray-100">Carrito de compras</Link>
-                <button onClick={handleLogout} className="w-full text-left px-4 py-2 text-black font-myriad-pro hover:bg-gray-100">Cerrar Sesión</button>
+              <div className="absolute top-[77px] right-[-40px] bg-white z-50 border-gray-300 shadow-md w-[240px] rounded-lg p-4" onClick={handleLogout}>
+                <Link
+                  to="/orders"
+                  className="block font-myriad-pro text-xl py-2 px-4"
+                  onClick={toggleMobileMenu}
+                >
+                  Mis pedidos
+                </Link>
+                <Link
+                  to="/cart"
+                  className="block font-myriad-pro text-xl py-2 px-4"
+                  onClick={toggleMobileMenu}
+                >
+                  Carrito de compras
+                </Link>
+                <button
+                  onClick={handleLogout}
+                  className=" w-full text-left font-myriad-pro text-xl py-2 px-4"
+                >
+                  Cerrar Sesión
+                </button>
               </div>
             )}
           </div>
         ) : (
-          <Link to={'/login'} className="font-myriad-pro font-medium transition duration-500 transform hover:scale-110 text-2xl px-2 mr-7 items-center justify-center hidden md:flex">
-            <span>Iniciar Sesión</span>
+          <Link
+            to="/login"
+            className="block font-myriad-pro font-medium text-2xl md:hidden"
+            onClick={toggleMobileMenu}
+          >
+            <FontAwesomeIcon icon={faRightToBracket} size="xl" />
           </Link>
         )}
       </div>
-
-      {isOpen && (
-        <div className="absolute top-full w-full bg-white rounded-lg md:hidden z-10 border-gray-300 left-0 border flex flex-col">
-          <Link to={'/servicios'} className="font-myriad-pro block py-4 text-black text-lg font-bold pl-4"><span>Servicios</span></Link>
-          <Link to={'/gallery'} className="font-myriad-pro block py-4 text-black text-lg font-bold pl-4"><span>Galería</span></Link>
-          <Link to={'/contact'} className="font-myriad-pro block py-4 text-black text-lg font-bold pl-4"><span>Contacto</span></Link>
-          {userName ? (
-            <div></div>
-          ) : (
-            <Link to={'/login'} className="font-myriad-pro block py-4 text-black text-lg font-bold pl-4"><span>Iniciar Sesión</span></Link>
-          )}
-        </div>
-      )}
     </div>
   );
 };
