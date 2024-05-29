@@ -37,7 +37,6 @@ export const Navbar = () => {
       toggleButtonRef.current &&
       !toggleButtonRef.current.contains(event.target)
     ) {
-      console.log("Clicked outside the mobile menu");
       setMobileMenuOpen(false);
       document.removeEventListener("mousedown", handleClickOutsideMobileMenu);
     }
@@ -45,7 +44,6 @@ export const Navbar = () => {
 
   const handleClickOutsideDropdown = (event) => {
     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-      console.log("Clicked outside the user dropdown");
       setDropdownOpen(false);
       document.removeEventListener("mousedown", handleClickOutsideDropdown);
     }
@@ -57,7 +55,6 @@ export const Navbar = () => {
     } else {
       document.removeEventListener("mousedown", handleClickOutsideMobileMenu);
     }
-    console.log("Toggling mobile menu:", !isMobileMenuOpen);
     setMobileMenuOpen(!isMobileMenuOpen);
   };
 
