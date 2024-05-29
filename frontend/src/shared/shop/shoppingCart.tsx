@@ -25,12 +25,12 @@ export const Cart = () => {
   };
 
   return (
-    <div className="bg-white bg-cover bg-center w-full h-full bg-no-repeat flex flex-col overflow-hidden overflow-y-auto">
-      <div className="flex-grow md:flex md:justify-center">
+    <div className="bg-blue-strong-bs bg-cover bg-center w-full h-screen bg-no-repeat lg:flex flex-col">
+      <div className="md:flex-grow lg:flex justify-center item-center">
         <Navbar />
       </div>
-      <div className="md:flex md:flex-row flex-col bg-blue-strong-bs h-full p-4 gap-4">
-        <div className="md:w-2/3 w-full">
+      <div className="md:flex md:flex-row flex-col h-full w-full p-4 gap-4">
+        <div className="w-full">
           {cartItems.map((item, index) => (
             <CartItem
               key={index}
@@ -40,7 +40,7 @@ export const Cart = () => {
             />
           ))}
         </div>
-        <div className="md:w-1/3 w-full">
+        <div className="lg:w-1/3 w-full">
           <CartSummary items={cartItems} />
         </div>
       </div>
