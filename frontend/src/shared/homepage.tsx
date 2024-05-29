@@ -12,9 +12,9 @@ export const Homepage = () => {
   },[userType, userToken, userName])
     return (
       <>
-      <header className="w-full flex justify-center items-center py-1 bg-transparent">
+      <div className="flex justify-center items-center bg-transparent">
         <Navbar/>
-      </header>
+      </div>
       <div className="overflow-hidden">
         <div className=" bg-[url(/cielo5.jpg)] bg-cover bg-center bg-no-repeat w-full h-screen">
           <div className="flex justify-center items-center px-64">
