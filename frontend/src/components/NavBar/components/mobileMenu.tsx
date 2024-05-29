@@ -46,7 +46,7 @@ export const MobileMenu = () => {
       </Link>
 
       {isMobileMenuOpen && (
-        <div ref={mobileMenuRef} className="absolute top-[105px] left-[2%] p-4 bg-white z-50 rounded-lg md:hidden shadow-md">
+        <div ref={mobileMenuRef} className="absolute top-[90px] left-[0%] p-2 bg-white z-50 rounded-lg md:hidden shadow-md w-[180px]">
           <Link
             to="/servicios"
             className="block font-myriad-pro font-medium text-2xl py-2 px-4"
