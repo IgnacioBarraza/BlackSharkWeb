@@ -2,12 +2,22 @@ import { Navbar } from "../components/NavBar/Navbar";
 import { faPlus } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { UserContext } from "../providers/userContext";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import '../styles/gallery.css';
 
 export const Gallery = () => {
 
   const { userType, userToken } = useContext(UserContext);
+
+  const [showModal, setShowModal] = useState(false);
+
+  const handleButtonClick = () => {
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
 
   return (
     <>
@@ -22,7 +32,7 @@ export const Gallery = () => {
 
           {userType === "admin" &&  userToken &&(
             <>
-              <button className="w-full height flex p-4 sm:p-6 md:p-8 lg:p-10 items-center justify-center bg-transparent hover:bg-gray-200 py-2 px-4 border border-gray-200 hover:border-transparent rounded transition duration-300 ease-in-out transform hover:scale-105">
+              <button  onClick={handleButtonClick} className="w-full height flex p-4 sm:p-6 md:p-8 lg:p-10 items-center justify-center bg-transparent hover:bg-gray-200 py-2 px-4 border border-gray-200 hover:border-transparent rounded transition duration-300 ease-in-out transform hover:scale-105">
                 <div className="flex flex-col items-center justify-center space-y-4">
                   <FontAwesomeIcon icon={faPlus} style={{color: "#000000",}} size="4x"/>
                   <h1 className="font-myriad-pro font-light text-xl mt-2 text-center">Agregar Nueva Imagen</h1>
@@ -45,6 +55,29 @@ export const Gallery = () => {
           <img src="/paisaje1.jpg" alt="" className="rounded-lg shadow-md border border-gray-300 transition duration-300 ease-in-out transform hover:scale-105"/>
           <img src="/paisaje1.jpg" alt="" className="rounded-lg shadow-md border border-gray-300 transition duration-300 ease-in-out transform hover:scale-105"/>
           <img src="/paisaje1.jpg" alt="" className="rounded-lg shadow-md border border-gray-300 transition duration-300 ease-in-out transform hover:scale-105"/>
+
+          {showModal && (
+          <div className="fixed inset-0 bg-gray-600 bg-opacity-75 flex items-center justify-center z-50 sm:p-8">
+            <div className="bg-white p-8 rounded-lg shadow-lg w-11/12 max-w-md sm:p-8">
+              <h2 className="font-myriad-pro text-2xl mb-4 text-center">Subir nueva imagen</h2>
+              <div className="border-dashed border-4 border-gray-200 rounded-lg p-4 flex flex-col items-center justify-center space-y-4">
+                <input type="file" className="hidden" id="file-upload" />
+                <label className="font-myriad-pro cursor-pointer p-2 bg-gray-100 rounded hover:bg-gray-200 transition">
+                  Arrastra el archivo aquí o haz clic para subir
+                </label>
+              </div>
+              <div className="flex justify-center mt-4">
+                <button
+                  onClick={handleCloseModal}
+                  className="font-myriad-pro mt-4 bg-blue-800 text-white py-2 px-4 rounded hover:bg-blue-900 transition flex flex-col items-center"
+                >
+                  Cerrar
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
         </div>
       </div>
     </div>
