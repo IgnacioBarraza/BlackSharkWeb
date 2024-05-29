@@ -1,6 +1,6 @@
-import { faBars, faList, faRightToBracket, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { faBars, faRightToBracket, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { faCircleUser } from "@fortawesome/free-regular-svg-icons/faCircleUser";
 import "../../styles/navbar.css";
@@ -16,6 +16,7 @@ export const Navbar = () => {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const dropdownRef = useRef(null);
   const mobileMenuRef = useRef(null);
+  const toggleButtonRef = useRef(null);
 
   const firstName = userName ? userName.split(' ')[0] : '';
 
@@ -27,23 +28,50 @@ export const Navbar = () => {
     setIsOpen(false);
   };
 
-  const toggleDropdown = () => setDropdownOpen(!isDropdownOpen)
-  
-  const handleClickOutside = (event) => {
-    if (mobileMenuRef.current && !mobileMenuRef.current.contains(event.target)) {
+  const toggleDropdown = () => setDropdownOpen(!isDropdownOpen);
+
+  const handleClickOutsideMobileMenu = (event) => {
+    if (
+      mobileMenuRef.current &&
+      !mobileMenuRef.current.contains(event.target) &&
+      toggleButtonRef.current &&
+      !toggleButtonRef.current.contains(event.target)
+    ) {
+      console.log("Clicked outside the mobile menu");
       setMobileMenuOpen(false);
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutsideMobileMenu);
+    }
+  };
+
+  const handleClickOutsideDropdown = (event) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      console.log("Clicked outside the user dropdown");
+      setDropdownOpen(false);
+      document.removeEventListener("mousedown", handleClickOutsideDropdown);
     }
   };
 
   const toggleMobileMenu = () => {
     if (!isMobileMenuOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
+      document.addEventListener("mousedown", handleClickOutsideMobileMenu);
     } else {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutsideMobileMenu);
     }
+    console.log("Toggling mobile menu:", !isMobileMenuOpen);
     setMobileMenuOpen(!isMobileMenuOpen);
   };
+
+  useEffect(() => {
+    if (isDropdownOpen) {
+      document.addEventListener("mousedown", handleClickOutsideDropdown);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutsideDropdown);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutsideDropdown);
+    };
+  }, [isDropdownOpen]);
 
   return (
     <div className="flex flex-col items-center p-2 bg-white w-full">
@@ -126,7 +154,7 @@ export const Navbar = () => {
       {/* Mobile Menu Button */}
       <div className="w-full flex justify-around items-center">
         <div className="md:hidden flex items-center">
-          <button onClick={toggleMobileMenu} className="text-2xl mr-2">
+          <button ref={toggleButtonRef} onClick={toggleMobileMenu} className="text-2xl mr-2">
             <FontAwesomeIcon
               icon={isMobileMenuOpen ? faTimes : faBars}
               size="lg"
@@ -166,7 +194,7 @@ export const Navbar = () => {
           </div>
         )}
         {userName ? (
-          <div className="relative md:hidden">
+          <div className="relative md:hidden" ref={dropdownRef}>
             <button
               onClick={toggleDropdown}
               className="block font-myriad-pro font-medium text-2xl"
@@ -191,7 +219,7 @@ export const Navbar = () => {
                 </Link>
                 <button
                   onClick={handleLogout}
-                  className=" w-full text-left font-myriad-pro text-xl py-2 px-4"
+                  className="w-full text-left font-myriad-pro text-xl py-2 px-4"
                 >
                   Cerrar Sesión
                 </button>
