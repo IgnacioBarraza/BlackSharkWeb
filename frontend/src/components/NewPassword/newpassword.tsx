@@ -1,6 +1,6 @@
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import { Token, NewPassword, UpdatePassword } from "../../utils/interfaces";
@@ -63,14 +63,6 @@ export const Newpassword = () => {
   return (
     <>
       <div className="bg-[url(/background-auth-photo.jpg)] bg-cover bg-center w-full h-screen bg-no-repeat">
-        <div className="absolute top-0 left-0 p-2">
-          <Link to={"/"}>
-            <span className="flex items-center justify-center rounded-full w-20 h-20 text-white">
-              <FontAwesomeIcon icon={faChevronLeft} size="2xl" />
-            </span>
-          </Link>
-        </div>
-
         <div className="flex justify-center items-center h-screen pb-10">
           <form onSubmit={createNewPassword} className="font-myriad-pro flex flex-col items-center max-w-md w-full md:px-0 pt-20 rounded-lg bg-black bg-opacity-60">
             <div>
