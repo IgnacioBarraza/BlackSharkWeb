@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import { RecoverPassword } from "../../utils/interfaces";
-import { RecoverModal } from "../recoverModal/recoverModal";
+import { RecoverModal } from "./components/recoverModal";
 
 export const Recoverpassword = () => {
   const { recoverPassword } = useAuth();
