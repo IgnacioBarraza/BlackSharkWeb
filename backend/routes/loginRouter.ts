@@ -151,7 +151,7 @@ loginRouter.post('/recover', async (req, res) => {
 
 loginRouter.post('/decodeToken', async (req, res) => {
     const connection = connect()
-    const token = req.query.token
+    const token = req.body.token
     
     try {
         if (!token || typeof token !== 'string') {
