@@ -11,12 +11,8 @@ export const Gallery = () => {
 
   const [showModal, setShowModal] = useState(false);
 
-  const handleButtonClick = () => {
-    setShowModal(true);
-  };
-
-  const handleCloseModal = () => {
-    setShowModal(false);
+  const handleModal = () => {
+    setShowModal(prevState => !prevState);
   };
 
   return (
@@ -32,7 +28,7 @@ export const Gallery = () => {
 
           {userType === "admin" &&  userToken &&(
             <>
-              <button  onClick={handleButtonClick} className="w-full height-button-admin flex p-4 sm:p-6 md:p-8 lg:p-10 items-center justify-center bg-transparent hover:bg-gray-200 py-2 px-4 border border-gray-200 hover:border-transparent rounded transition duration-300 ease-in-out transform hover:scale-105">
+              <button  onClick={handleModal} className="w-full height-button-admin flex p-4 sm:p-6 md:p-8 lg:p-10 items-center justify-center bg-transparent hover:bg-gray-200 py-2 px-4 border border-gray-200 hover:border-transparent rounded transition duration-300 ease-in-out transform hover:scale-105">
                 <div className="flex flex-col items-center justify-center space-y-4">
                   <FontAwesomeIcon icon={faPlus} style={{color: "#000000",}} size="4x"/>
                   <h1 className="font-myriad-pro font-light text-xl mt-2 text-center">Agregar Nueva Imagen</h1>
@@ -68,7 +64,7 @@ export const Gallery = () => {
               </div>
               <div className="flex justify-center mt-4">
                 <button
-                  onClick={handleCloseModal}
+                  onClick={handleModal}
                   className="font-myriad-pro mt-4 bg-blue-800 text-white py-2 px-4 rounded hover:bg-blue-900 transition flex flex-col items-center"
                 >
                   Cerrar

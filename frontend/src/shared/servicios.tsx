@@ -78,12 +78,8 @@ export const Servicios = () => {
 
   const [showInterface, setShowInterface] = useState(false);
 
-  const handleOpenInterface = () => {
-    setShowInterface(true);
-  };
-
-  const handleCloseInterface = () => {
-    setShowInterface(false);
+  const handleInterface = () => {
+    setShowInterface(prevState => !prevState);
   };
   
   return (
@@ -100,7 +96,7 @@ export const Servicios = () => {
           {userType === "admin" &&  userToken && (
             <>
                 <div className="bg-white rounded-lg shadow-lg transition-shadow hover:shadow-xl">
-                    <button onClick={handleOpenInterface} className="w-full h-64 flex items-center justify-center rounded-lg shadow-md border hover:bg-gray-200 border-gray-300 transition duration-300 ease-in-out transform hover:scale-105">
+                    <button onClick={handleInterface} className="w-full h-64 flex items-center justify-center rounded-lg shadow-md border hover:bg-gray-200 border-gray-300 transition duration-300 ease-in-out transform hover:scale-105">
                         <div className="flex flex-col items-center justify-center space-y-4">
                             <FontAwesomeIcon icon={faPlus} style={{color: "#000000",}} size="8x"/>
                         </div>
@@ -154,7 +150,7 @@ export const Servicios = () => {
                     <div className="flex justify-center mt-4">
                       <button
                         type="button"
-                        onClick={handleCloseInterface}
+                        onClick={handleInterface}
                         className=" hover:text-gray-900 text-medium"
                       >
                         Cancelar
