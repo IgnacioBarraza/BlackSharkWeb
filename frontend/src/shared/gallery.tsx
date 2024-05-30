@@ -61,11 +61,18 @@ export const Gallery = () => {
                 className="font-myriad-pro cursor-pointer p-2 bg-gray-100 rounded hover:bg-gray-200 transition ">
                   Arrastra la imagen aquí o haz clic para subirla
                 </label>
+                <div className="flex justify-center mt-4">
               </div>
-              <div className="flex justify-center mt-4">
+              </div>
+              <div className="flex justify-center mt-4 flex-col">
+                <button
+                  className="font-myriad-pro mt-4 bg-blue-800 text-white py-2 px-4 rounded hover:bg-blue-900 transition flex flex-col items-center"
+                >
+                  Guardar
+                </button>
                 <button
                   onClick={handleModal}
-                  className="font-myriad-pro mt-4 bg-blue-800 text-white py-2 px-4 rounded hover:bg-blue-900 transition flex flex-col items-center"
+                  className=" hover:text-gray-900 text-medium mt-4"
                 >
                   Cerrar
                 </button>
