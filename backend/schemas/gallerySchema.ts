@@ -1,6 +1,6 @@
-import { z } from 'zod'
+import { object, z } from 'zod'
 
-const gallerySchema = z.object({
+const imageSchema = z.object({
     id_servicios: z
         .string({
             required_error: 'Debes indicar la id de los servicios a los cuales esta imagen está asociada!',
@@ -19,6 +19,26 @@ const gallerySchema = z.object({
         })
 })
 
+const updateImage = z.object({
+    id_servicios: z
+        .string({
+            invalid_type_error: 'Debes ingresar una nueva id válida!'
+        })
+        .optional(),
+    imagen_link: z
+        .string({
+            invalid_type_error: 'El nuevo link debe ser un link válido!!'
+        })
+        .url({
+            message: 'Por favor, ingresa un link válido.'
+        })
+        .optional()
+})
+
 export const validateImage = (object: Object) => {
-    return gallerySchema.safeParse(object)
+    return imageSchema.safeParse(object)
+}
+
+export const validateUpdateImage = (object: Object) => {
+    return updateImage.safeParse(object)
 }
