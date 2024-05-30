@@ -21,6 +21,7 @@ export const Homepage = () => {
             <div className="pt-60">
                 <div className="w-[450px]">
                     <div className="flex items-center">
+                        <img src="/BlackShark.png" alt=""/>
                         <p className=" items-center text-center font-myriad-pro text-2xl text-white font-medium font-size-100 block ">Welcome to </p>
                         <h1 className="pl-2 items-center text-center font-myriad-pro text-2xl text-white font-bold font-size-7xl block ">Black Shark Studios</h1>
                     </div>
