@@ -97,4 +97,28 @@ galleryRouter.put('/update/:id', async (req, res) => {
     }
 })
 
+galleryRouter.delete('/delete/:id', async (req, res) => {
+    const connection = connect()
+    const id = req.params.id
+
+    try {
+        const [row, fields] = await connection.query(`SELECT * FROM gallery WHERE id_imagen = ?`, [id])
+        const image = row as mysql.RowDataPacket[]
+
+        if (Array.isArray(image) && image.length > 0) {
+            await connection.query(`DELETE FROM gallery WHERE id_imagen = ?`, [id])
+            return res.status(200).json({ message: 'La imagen se ha eliminado de la galería.' })
+        } else {
+            return res.status(400).json({ message: 'No hay ninguna imagen asociada a esa id.' })
+        }
+    } catch (error) {
+        // console.log(error)
+        return res.status(500).json({ message: 'Hubo un error en el servidor al intentar eliminar la imagen. Intentelo más tarde.' })
+    } finally {
+        if (connection) {
+            connection.end()
+        }
+    }
+})
+
 export default galleryRouter
