@@ -101,6 +101,28 @@ serviceRouter.put('/update/:id', async (req, res) => {
     }
 })
 
+serviceRouter.delete('/delete/:id', async (req, res) => {
+    const connection = connect()
+    const id = req.params.id
 
+    try {
+        const [row, fields] = await connection.query(`SELECT * FROM servicios WHERE id_servicios = ?`, [id])
+        const user = row as mysql.RowDataPacket[]
+
+        if (Array.isArray(user) && user.length > 0) {
+            await connection.query(`DELETE FROM servicios WHERE id_servicios = ?`, [id])
+            return res.status(200).json({ message: 'Servicio eliminado correctamente!' })
+        } else {
+            return res.status(400).json({ message: 'No hay ningún servicio asociado a esa id.' })
+        }
+    } catch (error) {
+        // console.log(error)
+        return res.status(500).json({ message: 'Hubo un error con el servidor al intentar eliminar el servicio. Inténtalo más tarde.' })
+    } finally {
+        if (connection) {
+            connection.end()
+        }
+    }
+})
 
 export default serviceRouter
