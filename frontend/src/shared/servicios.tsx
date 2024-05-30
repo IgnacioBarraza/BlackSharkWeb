@@ -140,8 +140,9 @@ export const Servicios = () => {
                     </div>
 
                     <div className="border-dashed border-4 border-gray-200 rounded-lg p-4 flex flex-col items-center justify-center space-y-4 mt-4">
-                      <input type="file" className="hidden" id="file-upload" />
-                      <label className="font-myriad-pro cursor-pointer p-2 bg-gray-100 rounded hover:bg-gray-200 transition">
+                      <input type="file" className="hidden" id="image-upload" />
+                      <label htmlFor="image-upload" 
+                        className="font-myriad-pro cursor-pointer p-2 bg-gray-100 rounded hover:bg-gray-200 transition">
                         Arrastra la imagen aquí o haz clic para subirla
                       </label>
                     </div>
