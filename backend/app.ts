@@ -7,7 +7,7 @@ import userRouter from './routes/userRouter'
 import campaignRouter from './routes/campaignRouter'
 import inventoryRouter from './routes/inventoryRouter'
 import mediaRouter from './routes/mediaRouter'
-import productRouter from './routes/productRouter'
+import serviceRouter from './routes/serviceRouter'
 import projectRouter from './routes/projectRouter'
 import budgetRouter from './routes/budgetRouter'
 
@@ -34,7 +34,7 @@ app.use('/api/users', userRouter)
 app.use('/api/campaign', campaignRouter)
 app.use('/api/inventory', inventoryRouter)
 app.use('/api/media', mediaRouter)
-app.use('/api/product', productRouter)
+app.use('/api/service', serviceRouter)
 app.use('/api/project', projectRouter)
 app.use('/api/budget', budgetRouter)
 
