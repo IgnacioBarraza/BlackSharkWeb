@@ -19,4 +19,3 @@ const ImageModal = ({ src, onClose }) => {
 
 
 export default ImageModal;
-// {`absolute top-4 right-4 text-white text-4xl ${isHovered ? 'animate-beat-fade' : ''}`}
