@@ -62,7 +62,7 @@ export const Gallery = () => {
               <div className="border-dashed border-4 border-gray-200 rounded-lg p-4 flex flex-col items-center justify-center space-y-4">
                 <input type="file" className="hidden" id="file-upload" />
                 <label className="font-myriad-pro cursor-pointer p-2 bg-gray-100 rounded hover:bg-gray-200 transition">
-                  Arrastra el archivo aquí o haz clic para subir
+                  Arrastra la imagen aquí o haz clic para subirla
                 </label>
               </div>
               <div className="flex justify-center mt-4">
