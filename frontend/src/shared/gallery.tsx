@@ -1,10 +1,10 @@
-import { Navbar } from "../../components/NavBar/Navbar";
+import { Navbar } from "../components/NavBar/Navbar";
 import { faPlus } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { UserContext } from "../../providers/userContext";
+import { UserContext } from "../providers/userContext";
 import { useContext, useState } from "react";
-import '../../styles/gallery.css';
-import ImageModal from "./imagemodal";
+import '../styles/gallery.css';
+import ImageModal from "./galleryComponents/imagemodal";
 
 const images = [
   "/image_gallery (1).jpeg",
