@@ -15,7 +15,7 @@ const serviceSchema = z.object({
             invalid_type_error: 'Ingresa un precio válido.'
         })
         .min(0, {
-            message: 'Por favor, ingresa un correo válido.'
+            message: 'Por favor, ingresa un precio válido.'
         })
         .int({
             message: 'El precio no puede ser un decimal!'
@@ -24,7 +24,15 @@ const serviceSchema = z.object({
         .string({
             required_error: 'Por favor, indica una descripción para el servicio.',
             invalid_type_error: 'Ingresa una descripción válida!'
+        }),
+    imagen: z
+        .string({
+            invalid_type_error: 'Por favor, indica una url válida.'
         })
+        .url({
+            message: 'Debes indicar una url válida!'   
+        })
+        .optional()
 })
 
 const updateServiceSchema = z.object({
@@ -41,7 +49,7 @@ const updateServiceSchema = z.object({
             invalid_type_error: 'Ingresa un precio válido.'
         })
         .min(0, {
-            message: 'Por favor, ingresa un correo válido.'
+            message: 'Por favor, ingresa un precio válido.'
         })
         .int({
             message: 'El precio no puede ser un decimal!'
@@ -51,7 +59,16 @@ const updateServiceSchema = z.object({
         .string({
             invalid_type_error: 'Ingresa una descripción válida!'
         })
+        .optional(),
+    imagen: z
+        .string({
+            invalid_type_error: 'Por favor, indica una url válida.'
+        })
+        .url({
+            message: 'Debes indicar una url válida!'   
+        })
         .optional()
+    
 })
 
 export const validateService = (object: Object) => {

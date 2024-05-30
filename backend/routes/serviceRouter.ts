@@ -43,10 +43,11 @@ serviceRouter.post('/new', async (req, res) => {
             id_servicios: randomUUID(),
             nombre: verifyData.data.nombre,
             precio: verifyData.data.precio,
-            descripcion: verifyData.data.descripcion
+            descripcion: verifyData.data.descripcion,
+            imagen: verifyData.data.imagen
         }
 
-        await connection.query(`INSERT INTO servicios (id_servicios, nombre, precio, descripcion) VALUES (?, ?, ?, ?)`, [newService.id_servicios, newService.nombre, newService.precio, newService.descripcion])
+        await connection.query(`INSERT INTO servicios (id_servicios, nombre, precio, descripcion, imagen_link) VALUES (?, ?, ?, ?, ?)`, [newService.id_servicios, newService.nombre, newService.precio, newService.descripcion, newService.imagen])
         return res.status(201).json({ message: 'Servicio creado!' })
     } catch (error) {
         // console.log(error)
@@ -76,16 +77,18 @@ serviceRouter.put('/update/:id', async (req, res) => {
             const updatedProduct = {
                 nombre: verifyData.data.nombre ?? user[0].nombre,
                 precio: verifyData.data.precio ?? user[0].precio,
-                descripcion: verifyData.data.descripcion ?? user[0].descripcion
+                descripcion: verifyData.data.descripcion ?? user[0].descripcion,
+                imagen: verifyData.data.imagen ?? user[0].imagen_link
             }
 
             await connection.query(`
                 UPDATE servicios
                 SET nombre = ?,
                 precio = ?,
-                descripcion = ?
+                descripcion = ?,
+                imagen_link = ?
                 WHERE id_servicios = ?
-            `, [updatedProduct.nombre, updatedProduct.precio, updatedProduct.descripcion, id])
+            `, [updatedProduct.nombre, updatedProduct.precio, updatedProduct.descripcion, updatedProduct.imagen, id])
 
             return res.status(200).json({ message: 'Servicio actualizado!' })
         } else {
