@@ -123,8 +123,8 @@ export const Servicios = () => {
 
                     <div className="mt-6">
                       <input 
-                        id="name" 
-                        name="name" 
+                        id="nameservice" 
+                        name="nameservice" 
                         type="text" 
                         placeholder="Ingresa el nombre del servicio" 
                         className="w-full pl-5 py-3 text-base text-neutral-600 placeholder-gray-400 transition duration-500 ease-in-out transform border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:border-gray-400 focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300"
@@ -133,11 +133,18 @@ export const Servicios = () => {
 
                     <div className="mt-4">
                       <input 
-                        id="apellido" 
-                        name="apellido" 
+                        id="price" 
+                        name="price" 
                         type="text" 
                         placeholder="Ingresa el precio" 
                         className="w-full pl-5 py-3 text-base text-neutral-600 placeholder-gray-400 transition duration-500 ease-in-out transform border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:border-gray-400 focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300"
+                      />
+                    </div>
+                    
+                    <div className="mt-4">
+                      <textarea 
+                        className="w-full pl-5 py-3 text-base text-neutral-600 placeholder-gray-400 transition duration-500 ease-in-out transform border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:border-gray-400 focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300"
+                        placeholder="Ingrese el descripción" 
                       />
                     </div>
 
