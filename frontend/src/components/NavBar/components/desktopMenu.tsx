@@ -6,7 +6,7 @@ import { UserContext } from "../../../providers/userContext";
 
 export const DesktopMenu = () => {
   const navigate = useNavigate();
-  const { userName, setUserName, setTokenData, setUserType } = useContext(UserContext);
+  const { userName, userType, userToken, setUserName, setTokenData, setUserType } = useContext(UserContext);
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
   
@@ -86,6 +86,26 @@ export const DesktopMenu = () => {
                 </span>
               </div>
               <hr className="border-t border-gray-300" />
+
+              {userType === 'admin' && userToken ? (
+            <>
+              <Link
+                to="/manageOrders"
+                className="block px-4 py-2 text-black font-myriad-pro hover:bg-gray-100"
+                onClick={toggleDropdown}
+              >
+                Gestionar pedidos
+              </Link>
+              <Link
+                to="/inventary"
+                className="block px-4 py-2 text-black font-myriad-pro hover:bg-gray-100"
+                onClick={toggleDropdown}
+              >
+                Inventario
+              </Link>
+            </>
+          ) : (
+            <>
               <Link
                 to="/orders"
                 className="block px-4 py-2 text-black font-myriad-pro hover:bg-gray-100"
@@ -98,6 +118,8 @@ export const DesktopMenu = () => {
               >
                 Carrito de compras
               </Link>
+            </>
+            )}
               <button
                 onClick={handleLogout}
                 className="w-full text-left px-4 py-2 text-black font-myriad-pro hover:bg-gray-100"
