@@ -6,6 +6,7 @@ import { Contact } from "../shared/contact";
 import { Gallery } from "../shared/gallery";
 import { Homepage } from "../shared/homepage";
 import { Servicios } from "../shared/servicios";
+import { Cart } from "../shared/shop/shoppingCart";
 
 export const routes = [
   {
@@ -39,5 +40,9 @@ export const routes = [
   {
     path: '/newpassword',
     component: <Newpassword />
+  },
+  {
+    path: '/cart',
+    component: <Cart />
   }
 ]
