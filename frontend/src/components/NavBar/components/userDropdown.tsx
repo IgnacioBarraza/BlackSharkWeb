@@ -7,7 +7,7 @@ import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
 
 export const UserDropdown = () => {
   const navigate = useNavigate();
-  const { userName, userToken, setUserName, setTokenData, setUserType } = useContext(UserContext);
+  const { userName, userToken, userType, setUserName, setTokenData, setUserType } = useContext(UserContext);
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
 
@@ -67,6 +67,26 @@ export const UserDropdown = () => {
             <span className="font-myriad-pro text-xl py-2 px-4 font-bold">{firstName}</span>
           </div>
           <hr className="border-t-2 border-gray-300 mt-2" />
+          
+          {userType === 'admin' && userToken ? (
+        <>
+          <Link
+            to="/manageOrders"
+            className="block font-myriad-pro text-xl py-2 px-4"
+            onClick={toggleDropdown}
+          >
+            Gestionar pedidos
+          </Link>
+          <Link
+            to="/inventary"
+            className="block font-myriad-pro text-xl py-2 px-4"
+            onClick={toggleDropdown}
+          >
+            Inventario
+          </Link>
+        </>
+        ) : (
+        <>
           <Link
             to="/orders"
             className="block font-myriad-pro text-xl py-2 px-4"
@@ -81,6 +101,8 @@ export const UserDropdown = () => {
           >
             Carrito de compras
           </Link>
+        </>
+        )}
           <button
             onClick={handleLogout}
             className="w-full text-left font-myriad-pro text-xl py-2 px-4"
