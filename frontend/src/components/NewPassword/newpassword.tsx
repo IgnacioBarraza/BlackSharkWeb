@@ -1,9 +1,8 @@
-import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import { Token, NewPassword, UpdatePassword } from "../../utils/interfaces";
+import { Modal } from "./components/modal";
 
 export const Newpassword = () => {
   const navigate = useNavigate()
@@ -18,6 +17,9 @@ export const Newpassword = () => {
     newPassword: "",
     repeatNewPassword: ""
   })
+
+  const [showModal, setShowModal] = useState(false);
+  const [success, setSuccess] = useState(false);
 
   useEffect(() => {
     decodeToken()
@@ -46,19 +48,23 @@ export const Newpassword = () => {
         }
         const res = await updatePassword(updateNewPassword)
         if (res.status === 200) {
-          alert("Puedes cerrar esta ventana e iniciar sesión")
+          setShowModal(true)
+          setSuccess(true)
         }
       } catch (error) {
         console.error(error)
       }
     } else {
-      alert("Contraseñas no coinciden")
+      setSuccess(false)
+      setShowModal(true)
     }
   }
 
   const handleNewPasswordInput = ({ target: { name, value } }) => {
     setNewPassword({...newPassword, [name]: value});
   }
+
+  const closeModal = () => setShowModal(false)
 
   return (
     <>
@@ -107,6 +113,11 @@ export const Newpassword = () => {
           </form>
         </div>
       </div>
+      {showModal && (
+          <div className="succes-recover-password-modal absolute top-0 left-0 w-full h-full flex justify-center items-center bg-black bg-opacity-75">
+            <Modal success={success} closeModal={closeModal}/>
+          </div>
+      )}
     </>
   );
 };
