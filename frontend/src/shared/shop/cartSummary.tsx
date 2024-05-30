@@ -1,10 +1,4 @@
-import React from 'react';
-
-interface CartSummaryProps {
-  items: { service: string; price: number }[];
-}
-
-const CartSummary: React.FC<CartSummaryProps> = ({ items }) => {
+const CartSummary = ({ items }) => {
   const total = items.reduce((sum, item) => sum + item.price, 0);
 
   return (
