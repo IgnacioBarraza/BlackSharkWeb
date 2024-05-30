@@ -27,6 +27,37 @@ const serviceSchema = z.object({
         })
 })
 
+const updateServiceSchema = z.object({
+    nombre: z
+        .string({
+            invalid_type_error: 'Ingresa un nombre válido.'
+        })
+        .refine(value => /^.{0,250}$/.test(value ?? ""), {
+            message: 'Por favor, ingresa un nombre más corto!'
+        })
+        .optional(),
+    precio: z
+        .number({
+            invalid_type_error: 'Ingresa un precio válido.'
+        })
+        .min(0, {
+            message: 'Por favor, ingresa un correo válido.'
+        })
+        .int({
+            message: 'El precio no puede ser un decimal!'
+        })
+        .optional(),
+    descripcion: z
+        .string({
+            invalid_type_error: 'Ingresa una descripción válida!'
+        })
+        .optional()
+})
+
 export const validateService = (object: Object) => {
     return serviceSchema.safeParse(object)
+}
+
+export const validateUpdateService = (object: Object) => {
+    return updateServiceSchema.safeParse(object)
 }

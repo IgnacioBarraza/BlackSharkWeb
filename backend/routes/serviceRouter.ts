@@ -1,8 +1,9 @@
 import express from 'express'
 import { randomUUID } from 'crypto'
+import mysql from 'mysql2/promise'
 
 import { connect } from '../utils/db'
-import { validateService } from '../schemas/serviceSchema'
+import { validateService, validateUpdateService } from '../schemas/serviceSchema'
 
 const serviceRouter = express.Router()
 
@@ -50,7 +51,56 @@ serviceRouter.post('/new', async (req, res) => {
     } catch (error) {
         // console.log(error)
         return res.status(500).json({ message: 'Hubo un error en el servidor al intentar guardar el servicio. Inténtalo más tarde.' })
+    } finally {
+        if (connection) {
+            connection.end()
+        }
     }
 })
+
+serviceRouter.put('/update/:id', async (req, res) => {
+    const connection = connect()
+    const id = req.params.id
+
+    const verifyData = validateUpdateService(req.body)
+
+    if (verifyData.error) {
+        return res.status(400).json({ message: JSON.parse(verifyData.error.message)[0].message })
+    }
+
+    try {
+        const [row, fields] = await connection.query(`SELECT * FROM servicios WHERE id_servicios = ?`, [id])
+        const user = row as mysql.RowDataPacket[]
+
+        if (Array.isArray(user) && user.length > 0) {
+            const updatedProduct = {
+                nombre: verifyData.data.nombre ?? user[0].nombre,
+                precio: verifyData.data.precio ?? user[0].precio,
+                descripcion: verifyData.data.descripcion ?? user[0].descripcion
+            }
+
+            await connection.query(`
+                UPDATE servicios
+                SET nombre = ?,
+                precio = ?,
+                descripcion = ?
+                WHERE id_servicios = ?
+            `, [updatedProduct.nombre, updatedProduct.precio, updatedProduct.descripcion, id])
+
+            return res.status(200).json({ message: 'Servicio actualizado!' })
+        } else {
+            return res.status(400).json({ message: 'No hay ningún servicio con ese identificador.' })
+        }
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({ message: 'Hubo un error con el servidor al intentar actualziar el servicio. Inténtalo más tarde.' })
+    } finally {
+        if (connection) {
+            connection.end()
+        }
+    }
+})
+
+
 
 export default serviceRouter
