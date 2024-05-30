@@ -15,21 +15,18 @@ export const Homepage = () => {
       <div className="flex justify-center items-center bg-transparent">
         <Navbar/>
       </div>
-      <div className="overflow-hidden">
         <div className=" bg-[url(/cielo5.jpg)] bg-cover bg-center bg-no-repeat w-full h-screen">
           <div className="flex justify-center items-center px-64">
-            <div className="pt-60">
-                <div className="w-[450px]">
-                    <div className="flex items-center">
-                        <img src="/BlackShark.png" alt=""/>
-                        <p className=" items-center text-center font-myriad-pro text-2xl text-white font-medium font-size-100 block ">Welcome to </p>
-                        <h1 className="pl-2 items-center text-center font-myriad-pro text-2xl text-white font-bold font-size-7xl block ">Black Shark Studios</h1>
-                    </div>
-                </div>
+            <div className="grid grid-cols-2">
+              <div className="flex justify-center">
+                <img className="w-128 h-128" src="/BlackShark.png" alt="logo"/>
+              </div>
+              <div className="flex flex-col justify-center">
+                <h1 className="items-center text-center font-myriad-pro text-white font-bold font-size-100 block text-8xl">Welcome to BlackShark Studios </h1>
+              </div>
             </div>
           </div>
         </div>
-      </div>
       </>
     )
   }
