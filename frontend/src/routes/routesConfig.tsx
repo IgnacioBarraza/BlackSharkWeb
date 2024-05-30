@@ -1,7 +1,7 @@
 import { Login } from "../auth/login";
 import { Register } from "../auth/register";
 import { Newpassword } from "../components/NewPassword/newpassword";
-import { Recoverpassword } from "../components/RecoverPasswordModal/recoverpassword";
+import { Recoverpassword } from "../components/RecoverPassword/recoverpassword";
 import { Contact } from "../shared/contact";
 import { Gallery } from "../shared/gallery";
 import { Homepage } from "../shared/homepage";

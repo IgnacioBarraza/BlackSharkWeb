@@ -132,7 +132,7 @@ loginRouter.post('/recover', async (req, res) => {
 
             const user = row as mysql.RowDataPacket[]
 
-            const expirationTime = '5m'
+            const expirationTime = '30m'
             const token = jwt.sign({ id: user[0].id_usuario }, SECRET, { expiresIn: expirationTime })
 
             const text = `${token}`
@@ -151,7 +151,7 @@ loginRouter.post('/recover', async (req, res) => {
 
 loginRouter.post('/decodeToken', async (req, res) => {
     const connection = connect()
-    const token = req.query.token
+    const token = req.body.token
     
     try {
         if (!token || typeof token !== 'string') {

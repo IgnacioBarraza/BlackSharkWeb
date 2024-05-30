@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { userToRegister } from "../utils/interfaces";
 import { useAuth } from "../hooks/useAuth";
 import { useState } from "react";
+import { ShowPassword } from "./components/showpassword";
 
 export const Register = () => {
 
@@ -44,6 +45,18 @@ export const Register = () => {
       console.log(error)
     }
   }
+
+  const [isPasswordVisible, setIsPasswordVisible, ] = useState(false);
+  const [isRepeatPasswordVisible, setIsRepeatPasswordVisible] = useState(false);
+
+  function togglePasswordVisibility() {
+      setIsPasswordVisible((prevState) => !prevState);
+  }
+
+  function toggleRepeatPasswordVisibility() {
+    setIsRepeatPasswordVisible((prevState) => !prevState);
+  }
+
   return (
     <>
       <div className="bg-[url(/background-auth-photo.jpg)] bg-cover bg-center w-full h-screen bg-no-repeat">
@@ -86,10 +99,11 @@ export const Register = () => {
               <div className="flex items-center">
                 <input 
                 className="w-full pl-5 pr-20 py-3 text-base text-neutral-600 placeholder-gray-300 transition duration-500 ease-in-out transform border border-transparent rounded-lg bg-gray-50 focus:outline-none focus:border-transparent focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300" 
-                type="password" 
+                type={isPasswordVisible ? "text" : "password"}
                 name="password" 
                 placeholder="Ingrese su contraseña"
                 onChange={handleFormInputs}/>
+                <ShowPassword isPasswordVisible={isPasswordVisible} togglePasswordVisibility={togglePasswordVisibility} />
               </div>       
             </div>
 
@@ -97,11 +111,12 @@ export const Register = () => {
               <div className="flex items-center">
                 <input 
                 className="w-full pl-5 pr-20 py-3 text-base text-neutral-600 placeholder-gray-300 transition duration-500 ease-in-out transform border border-transparent rounded-lg bg-gray-50 focus:outline-none focus:border-transparent focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300" 
-                type="password" 
+                type={isRepeatPasswordVisible ? "text" : "password"}
                 name="repeat_password" 
                 placeholder="Confirmar su contraseña"
                 onChange={handleFormInputs}/>
-              </div> 
+                <ShowPassword isPasswordVisible={isRepeatPasswordVisible} togglePasswordVisibility={toggleRepeatPasswordVisibility} />
+              </div>
             </div>
 
             <div className="contenedor pt-5">
