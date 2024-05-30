@@ -1,21 +1,16 @@
 import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
 
 
 const ImageModal = ({ src, onClose }) => {
-    const [isHovered, setIsHovered] = useState(false);
-    
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75 p-4">
             <div className="relative max-w-full max-h-full">
                 <img src={src} alt="" className="max-w-full max-h-screen object-contain" />
                 <FontAwesomeIcon
                     icon={faCircleXmark}
-                    className={`absolute top-4 right-4 text-white text-4xl ${isHovered ? 'animate-beat-fade' : ''}`}
+                    className="absolute top-4 right-4 text-white text-4xl hover:animate-beat-fade"
                     onClick={onClose}
-                    onMouseEnter={() => setIsHovered(true)}
-                    onMouseLeave={() => setIsHovered(false)}
                 />
             </div>
         </div>
@@ -24,3 +19,4 @@ const ImageModal = ({ src, onClose }) => {
 
 
 export default ImageModal;
+// {`absolute top-4 right-4 text-white text-4xl ${isHovered ? 'animate-beat-fade' : ''}`}
