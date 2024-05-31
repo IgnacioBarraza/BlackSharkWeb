@@ -4,8 +4,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { UserContext } from "../providers/userContext";
 import { useContext, useState } from "react";
 import '../styles/gallery.css';
-// import ImageModal from "./galleryComponents/imagemodal";
 import { UploadModal } from "./galleryComponents/uploadModal";
+import ImageModal from "./galleryComponents/imagemodal";
 
 const images = [
   "/image_gallery (1).jpeg",
@@ -60,23 +60,19 @@ export const Gallery = () => {
   
             </>
           )} 
-
-          <img src="/image_gallery (1).jpeg" alt="" className="rounded-lg shadow-md border border-gray-300 transition duration-300 ease-in-out transform hover:scale-105"/>
-          <img src="/image_gallery (2).jpeg" alt="" className="rounded-lg shadow-md border border-gray-300 transition duration-300 ease-in-out transform hover:scale-105"/>
-          <img src="/image_gallery (3).jpeg" alt="" className="rounded-lg shadow-md border border-gray-300 transition duration-300 ease-in-out transform hover:scale-105"/>
-          <img src="/image_gallery (4).jpeg" alt="" className="rounded-lg shadow-md border border-gray-300 transition duration-300 ease-in-out transform hover:scale-105"/>
-          <img src="/image_gallery (5).jpeg" alt="" className="rounded-lg shadow-md border border-gray-300 transition duration-300 ease-in-out transform hover:scale-105"/>
-          <img src="/image_gallery (6).jpeg" alt="" className="rounded-lg shadow-md border border-gray-300 transition duration-300 ease-in-out transform hover:scale-105"/>
-          <img src="/image_gallery (7).jpeg" alt="" className="rounded-lg shadow-md border border-gray-300 transition duration-300 ease-in-out transform hover:scale-105"/>
-          <img src="/image_gallery (8).jpeg" alt="" className="rounded-lg shadow-md border border-gray-300 transition duration-300 ease-in-out transform hover:scale-105"/>
-          <img src="/image_gallery (9).jpeg" alt="" className="rounded-lg shadow-md border border-gray-300 transition duration-300 ease-in-out transform hover:scale-105"/>
-          <img src="/image_gallery (10).jpeg" alt="" className="rounded-lg shadow-md border border-gray-300 transition duration-300 ease-in-out transform hover:scale-105"/>
-          <img src="/image_gallery (11).jpeg" alt="" className="rounded-lg shadow-md border border-gray-300 transition duration-300 ease-in-out transform hover:scale-105"/>
-          <img src="/image_gallery (12).jpeg" alt="" className="rounded-lg shadow-md border border-gray-300 transition duration-300 ease-in-out transform hover:scale-105"/>
-          <img src="/image_gallery (13).jpeg" alt="" className="rounded-lg shadow-md border border-gray-300 transition duration-300 ease-in-out transform hover:scale-105"/>
-          <img src="/image_gallery (14).jpeg" alt="" className="rounded-lg shadow-md border border-gray-300 transition duration-300 ease-in-out transform hover:scale-105"/>
-          <img src="/image_gallery (15).jpeg" alt="" className="rounded-lg shadow-md border border-gray-300 transition duration-300 ease-in-out transform hover:scale-105"/>
-
+          {images.map((src, index) => (
+                <img
+                    key={index}
+                    src={src}
+                    alt=""
+                    className="rounded-lg shadow-md border border-gray-300 transition duration-300 ease-in-out transform hover:scale-105 cursor-pointer"
+                    onClick={() => setSelectedImage(src)}
+                />
+            ))}
+            {selectedImage && (
+                <ImageModal src={selectedImage} onClose={() => setSelectedImage(null)} />
+            )}
+            
           {showModal && (
             <UploadModal handleModal={handleModal} />
           )}
