@@ -33,6 +33,13 @@ cartRouter.post('/new', async (req, res) => {
     }
 
     try {
+        const [row, fields] = await connection.query(`SELECT * FROM usuario WHERE id_usuario = ?`, validateData.data.id_usuario)
+        const user = row as mysql.RowDataPacket[]
+
+        if (Array.isArray(user) && user.length === 0) {
+            return res.status(400).json({ message: 'No hay ningún usuario con esa id.' })
+        }
+
         const newOrder = {
             id_shopping_cart: randomUUID(),
             id_usuario: validateData.data.id_usuario,
