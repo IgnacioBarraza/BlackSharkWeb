@@ -4,12 +4,35 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { UserContext } from "../providers/userContext";
 import { useContext, useState } from "react";
 import '../styles/gallery.css';
+// import ImageModal from "./galleryComponents/imagemodal";
+import { UploadModal } from "./galleryComponents/uploadModal";
+
+const images = [
+  "/image_gallery (1).jpeg",
+  "/image_gallery (2).jpeg",
+  "/image_gallery (3).jpeg",
+  "/image_gallery (4).jpeg",
+  "/image_gallery (5).jpeg",
+  "/image_gallery (6).jpeg",
+  "/image_gallery (7).jpeg",
+  "/image_gallery (8).jpeg",
+  "/image_gallery (9).jpeg",
+  "/image_gallery (10).jpeg",
+  "/image_gallery (11).jpeg",
+  "/image_gallery (12).jpeg",
+  "/image_gallery (13).jpeg",
+  "/image_gallery (14).jpeg",
+  "/image_gallery (15).jpeg"
+];
+
 
 export const Gallery = () => {
 
   const { userType, userToken } = useContext(UserContext);
 
   const [showModal, setShowModal] = useState(false);
+
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   const handleModal = () => {
     setShowModal(prevState => !prevState);
@@ -55,35 +78,8 @@ export const Gallery = () => {
           <img src="/image_gallery (15).jpeg" alt="" className="rounded-lg shadow-md border border-gray-300 transition duration-300 ease-in-out transform hover:scale-105"/>
 
           {showModal && (
-          <div className="fixed inset-0 bg-gray-600 bg-opacity-75 flex items-center justify-center z-50 sm:p-8">
-            <div className="bg-white p-8 rounded-lg shadow-lg w-11/12 max-w-md sm:p-8">
-              <h2 className="font-myriad-pro text-2xl mb-4 text-center">Subir nueva imagen</h2>
-              <div className="border-dashed border-4 border-gray-200 rounded-lg p-4 flex flex-col items-center justify-center space-y-4">
-                <input type="file" className="hidden" id="image-upload" />
-                <label htmlFor="image-upload"
-                className="font-myriad-pro cursor-pointer p-2 bg-gray-100 rounded hover:bg-gray-200 transition ">
-                  Arrastra la imagen aquí o haz clic para subirla
-                </label>
-                <div className="flex justify-center mt-4">
-              </div>
-              </div>
-              <div className="flex justify-center mt-4 flex-col">
-                <button
-                  className="font-myriad-pro mt-4 bg-blue-800 text-white py-2 px-4 rounded hover:bg-blue-900 transition flex flex-col items-center"
-                >
-                  Guardar
-                </button>
-                <button
-                  onClick={handleModal}
-                  className=" hover:text-gray-900 text-medium mt-4"
-                >
-                  Cerrar
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
-
+            <UploadModal handleModal={handleModal} />
+          )}
         </div>
       </div>
     </div>
