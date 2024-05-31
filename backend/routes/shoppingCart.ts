@@ -72,8 +72,12 @@ cartRouter.put('/update/:id', async (req, res) => {
     try {
         const [row, fields] = await connection.query(`SELECT * FROM shopping_cart WHERE id_shopping_cart = ?`, [id])
         const order = row as mysql.RowDataPacket[]
-        console.log(order)
-        
+        const [row2, field2] = await connection.query(`SELECT * FROM usuario WHERE id_usuario = ?`, [validateData.data.id_usuario])
+        const user = row2 as mysql.RowDataPacket[]
+
+        if (Array.isArray(user) && user.length === 0) {
+            return res.status(400).json({ message: 'No hay ningún usuario asociado a esa id.' })
+        }
 
         if (Array.isArray(row) && row.length > 0) {
             const updatedOrder = {
