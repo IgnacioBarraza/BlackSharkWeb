@@ -4,10 +4,7 @@ const imageSchema = z.object({
     id_servicios: z
         .string({
             required_error: 'Debes indicar la id de los servicios a los cuales esta imagen está asociada!',
-            invalid_type_error: 'Ingresa una id válida!'
-        })
-        .refine(value => /^.{36}$/.test(value ?? ""), {
-            message: 'La id del servicio solo puede contener 36 caracteres!'
+            invalid_type_error: 'Ingresa ids válidos!'
         }),
     imagen_link: z
         .string({

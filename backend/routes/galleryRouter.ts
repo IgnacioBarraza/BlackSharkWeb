@@ -71,13 +71,6 @@ galleryRouter.put('/update/:id', async (req, res) => {
         const [row, fields] = await connection.query(`SELECT * FROM gallery WHERE id_imagen = ?`, [id])
         const image = row as mysql.RowDataPacket[]
 
-        const [newRow, newFields] = await connection.query(`SELECT * FROM servicios WHERE id_servicios = ?`, [validateData.data.id_servicios])
-        const servicio = newRow as mysql.RowDataPacket[]
-
-        if (Array.isArray(servicio) && servicio.length === 0) {
-            return res.status(400).json({ message: 'No hay ningún servicio asociado a esa id.' })
-        }
-
         if (Array.isArray(image) && image.length > 0) {
             const newImage = {
                 id_servicios: validateData.data.id_servicios ?? image[0].id_servicios,
