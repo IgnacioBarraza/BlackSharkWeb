@@ -2,7 +2,8 @@ import { Navbar } from "../components/NavBar/Navbar";
 import { faPlus } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { UserContext } from "../providers/userContext";
-import { useContext, useState } from "react";
+import { useFirebase } from "../hooks/useFirebase";
+import { useContext, useEffect, useState } from "react";
 import '../styles/gallery.css';
 import ImageModal from "./galleryComponents/imagemodal";
 
@@ -28,14 +29,45 @@ const images = [
 export const Gallery = () => {
 
   const { userType, userToken } = useContext(UserContext);
+  const { uploadGalleryImage } = useFirebase()
 
   const [showModal, setShowModal] = useState(false);
 
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [image, setImage] = useState(null);
+  const [progress, setProgress] = useState(0);
+  const [error, setError] = useState(null);
+  const [url, setUrl] = useState('');
 
   const handleModal = () => {
     setShowModal(prevState => !prevState);
   };
+
+  const handleUpload = () => {
+    if (image) {
+      uploadGalleryImage(
+        image,
+        (progress) => setProgress(progress),
+        (error) => setError(error),
+        (downloadURL) => setUrl(downloadURL)
+      );
+      setImage(null)
+    } else {
+      alert('No image uploaded')
+    }
+  }
+
+  const handleImageFileUpload = (e) => {
+    if (e.target.files[0]) {
+      setImage(e.target.files[0])
+    }
+  }
+
+  useEffect(() => {
+    console.log(progress)
+    console.log(error)
+    console.log(url)
+  }, [progress, error, url])
 
   return (
     <>
@@ -77,7 +109,7 @@ export const Gallery = () => {
             <div className="bg-white p-8 rounded-lg shadow-lg w-11/12 max-w-md sm:p-8">
               <h2 className="font-myriad-pro text-2xl mb-4 text-center">Subir nueva imagen</h2>
               <div className="border-dashed border-4 border-gray-200 rounded-lg p-4 flex flex-col items-center justify-center space-y-4">
-                <input type="file" className="hidden" id="image-upload" />
+                <input type="file" className="hidden" id="image-upload" onChange={handleImageFileUpload}/>
                 <label htmlFor="image-upload"
                 className="font-myriad-pro cursor-pointer p-2 bg-gray-100 rounded hover:bg-gray-200 transition ">
                   Arrastra la imagen aquí o haz clic para subirla
@@ -87,6 +119,7 @@ export const Gallery = () => {
               </div>
               <div className="flex justify-center mt-4 flex-col">
                 <button
+                  onClick={handleUpload}
                   className="font-myriad-pro mt-4 bg-blue-800 text-white py-2 px-4 rounded hover:bg-blue-900 transition flex flex-col items-center"
                 >
                   Guardar
@@ -101,7 +134,6 @@ export const Gallery = () => {
             </div>
           </div>
         )}
-
         </div>
       </div>
     </div>
