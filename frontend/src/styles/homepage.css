@@ -13,7 +13,10 @@
     animation: fadeIn 1s ease-out forwards;
   }
 
-  .fade-in-delayed {
-    animation: fadeIn 1s ease-out forwards;
-    animation-delay: 0.5s;
-  }
+.color-bsw{
+    color:#10243c;
+}
+
+.bsw-background{
+    background-color:#10243c;
+}
