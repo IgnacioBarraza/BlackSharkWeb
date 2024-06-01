@@ -1,8 +1,0 @@
-PUT http://localhost:3001/api/product/update/a1c18839-6983-4ea0-ad77-e1953510dacb
-Content-Type: application/json
-
-{
-    "nombre": "Manejo de redes sociales",
-    "precio": "20000",
-    "descripcion": "3 días de manejo de redes sociales, publicaciones e historias"
-}
