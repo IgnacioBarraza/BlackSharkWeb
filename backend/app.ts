@@ -11,6 +11,7 @@ import mediaRouter from './routes/mediaRouter'
 import serviceRouter from './routes/serviceRouter'
 import projectRouter from './routes/projectRouter'
 import budgetRouter from './routes/budgetRouter'
+import cartRouter from './routes/shoppingCart'
 
 // Middleware:
 import verifyToken from './middleware/verifyToken'
@@ -39,5 +40,6 @@ app.use('/api/media', mediaRouter)
 app.use('/api/service', serviceRouter)
 app.use('/api/project', projectRouter)
 app.use('/api/budget', budgetRouter)
+app.use('/api/cart', cartRouter)
 
 export default app
