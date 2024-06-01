@@ -24,18 +24,23 @@ export const Homepage = () => {
             </div>
         </div>
       </div>
-      <div className="bg-white bg-cover bg-center bg-no-repeat w-full h-screen">
+      <div className="hp-background bg-cover bg-center bg-no-repeat w-full h-screen">
         <header className="bsw-background py-16">
           <h1 className="font-myriad-pro text-3xl text-center text-white font-bold">Servicios Principales</h1>
         </header>
-        <div>
-          Servicio 1
-        </div>
-        <div>
-          Servicio 2
-        </div>
-        <div>
-          Servicios
+        <div className="grid grid-cols-4 gap-2">
+          <div className="flex justify-center items-center">
+            <h1>Servicio 1</h1>
+          </div>
+          <div className="flex justify-center items-center">
+            <h1>Servicio 2</h1>
+          </div>
+          <div className="flex justify-center items-center">
+            <h1>Servicio 3</h1>
+          </div>
+          <div className="flex justify-center items-center">
+            <h1>Servicio 4</h1>
+          </div>
         </div>
       </div>
       </>
