@@ -81,6 +81,12 @@ export const Servicios = () => {
   const handleInterface = () => {
     setShowInterface(prevState => !prevState);
   };
+
+  const handleClickOutside = (event) => {
+    if (event.target.classList.contains('modal-container')) {
+      handleCloseModal();
+    }
+  };
   
   return (
     <>
@@ -117,8 +123,8 @@ export const Servicios = () => {
 
                     <div className="mt-6">
                       <input 
-                        id="name" 
-                        name="name" 
+                        id="nameservice" 
+                        name="nameservice" 
                         type="text" 
                         placeholder="Ingresa el nombre del servicio" 
                         className="w-full pl-5 py-3 text-base text-neutral-600 placeholder-gray-400 transition duration-500 ease-in-out transform border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:border-gray-400 focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300"
@@ -127,11 +133,18 @@ export const Servicios = () => {
 
                     <div className="mt-4">
                       <input 
-                        id="apellido" 
-                        name="apellido" 
+                        id="price" 
+                        name="price" 
                         type="text" 
                         placeholder="Ingresa el precio" 
                         className="w-full pl-5 py-3 text-base text-neutral-600 placeholder-gray-400 transition duration-500 ease-in-out transform border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:border-gray-400 focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300"
+                      />
+                    </div>
+                    
+                    <div className="mt-4">
+                      <textarea 
+                        className="w-full pl-5 py-3 text-base text-neutral-600 placeholder-gray-400 transition duration-500 ease-in-out transform border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:border-gray-400 focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300"
+                        placeholder="Ingrese el descripción" 
                       />
                     </div>
 
@@ -183,19 +196,16 @@ export const Servicios = () => {
         </div>
 
         {selectedServicio && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-            <div className="bg-white w-11/12 md:w-3/4 lg:w-2/3 h-3/4 md:h-auto rounded-lg p-4 md:p-8 flex flex-col md:flex-row overflow-y-auto">
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 modal-container" onClick={handleClickOutside}>
+            <div className=" bg-white w-11/12 md:w-3/4 lg:w-2/3 h-3/4 md:h-auto rounded-lg p-4 md:p-8 flex flex-col md:flex-row overflow-y-auto" >
               <div className="w-full md:w-1/2 h-64 md:h-auto flex items-center justify-center">
-                <div>
-
-                </div>
                 <img
                   src={selectedServicio.imgSrc}
                   alt={selectedServicio.title}
                   className="w-full h-full object-cover rounded-lg"
                 />
               </div>
-              <div className="md:w-1/2 p-4 md:p-8">
+              <div className="md:w-1/2 p-4 md:p-8 ">
                 <h2 className="text-2xl font-bold mb-4">{selectedServicio.title}</h2>
                 <p>{selectedServicio.description}</p>
                 <button
