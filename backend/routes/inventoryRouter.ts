@@ -52,7 +52,7 @@ inventoryRouter.post('/new', authorizeRole, async (req, res) => {
             return res.status(201).json({ message: 'Inventario creado!' })
         }
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         return res.status(500).json({ message: 'Hubo un error al intentar agregar el inventario a la base de datos.' })
     } finally {
         if (connection) {
@@ -86,7 +86,7 @@ inventoryRouter.put('/update/:id', authorizeRole, async (req, res) => {
                 UPDATE inventario
                 SET nombre_inventario = ?,
                 id_equipos = ?,
-                id_servicios = ?,
+                id_servicios = ?
                 WHERE id_inventario = ?
             `, [updatedInventory.nombre, updatedInventory.id_equipos, updatedInventory.id_servicios, inventoryId])
 
