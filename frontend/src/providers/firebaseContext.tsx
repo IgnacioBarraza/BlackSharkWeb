@@ -12,11 +12,11 @@ export const FirebaseContext = createContext<FirebaseContextType>({
 })
 
 export const FirebaseProvider = ({ children }) => {
-
-  const { userToken, userType } = useUser()
+  const { userToken, userType} = useUser()
 
   const uploadGalleryImage = (image, onProgress, onError, onComplete) => {
     if (image) {
+
       if (!userToken && userType === 'admin') return alert('Permisos insuficientes para subir imagenes.')
 
       const storageRef = ref(storage, `gallery/${image.name}`);
