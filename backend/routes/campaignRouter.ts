@@ -1,10 +1,11 @@
 import express from 'express'
-import { connect } from '../utils/db'
 import { randomUUID } from 'crypto'
+
+import { connect } from '../utils/db'
 import { validateCampaign } from '../schemas/campaignSchema'
 import authorizeRole from '../middleware/authorizeRole'
 
-const campaignRouter = express.Router()
+const campaignRouter = express.Router();
 
 campaignRouter.get('/', async (req, res) => {
     const connection = connect()

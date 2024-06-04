@@ -1,29 +1,14 @@
-import { Link } from "react-router-dom";
+import "../../styles/navbar.css";
+import { DesktopMenu } from "./components/desktopMenu";
+import { MobileMenu } from "./components/mobileMenu";
+import { UserDropdown } from "./components/userDropdown";
 
 export const Navbar = () => {
   return (
-    <>
-        <div className="flex items-center justify-center">
-            <div className="flex items-center space-x-16 ">
-                <Link to={'/servicios'}>   
-                <span className="font-myriad-pro font-medium transition duration-500 transform hover:scale-110 px-2 mr-7 text-2xl flex items-center justify-center">Servicios</span>
-                </Link>
-                <Link to={'/gallery'} className="font-myriad-pro font-medium transition duration-500 transform hover:scale-110 text-2xl px-2 mr-7 flex items-center justify-center">
-                <span>Galería</span>
-                </Link>
-                <Link to={'/'}>
-                <div className="w-28 h-28 z-100">
-                <img src="/BlackShark.png" alt="Blackshark logo" />
-                </div>
-                </Link>
-                <Link to={'/contact'} className="font-myriad-pro font-medium  transition duration-500 transform hover:scale-110 text-2xl px-2 mr-7 flex items-center justify-center">
-                <span >Contacto</span>
-                </Link>
-                <Link to={'/login'} className="font-myriad-pro font-medium  transition duration-500 transform hover:scale-110 text-2xl px-2 mr-7 flex items-center justify-center">
-                  <span>Iniciar Sesión</span>
-                </Link>
-            </div>
-        </div>
-    </>
-  )
-}
+    <div className="flex flex-row md:flex-col items-center justify-around p-2 bg-white w-full ">
+      <DesktopMenu />
+      <MobileMenu />
+      <UserDropdown />
+    </div>
+  );
+};

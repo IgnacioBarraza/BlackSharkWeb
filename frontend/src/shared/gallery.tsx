@@ -1,6 +1,75 @@
 import { Navbar } from "../components/NavBar/Navbar";
+import { faPlus } from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { UserContext } from "../providers/userContext";
+import { useFirebase } from "../hooks/useFirebase";
+import { useContext, useEffect, useState } from "react";
+import '../styles/gallery.css';
+import { UploadModal } from "./galleryComponents/uploadModal";
+import ImageModal from "./galleryComponents/imagemodal";
+
+const images = [
+  "/image_gallery (1).jpeg",
+  "/image_gallery (2).jpeg",
+  "/image_gallery (3).jpeg",
+  "/image_gallery (4).jpeg",
+  "/image_gallery (5).jpeg",
+  "/image_gallery (6).jpeg",
+  "/image_gallery (7).jpeg",
+  "/image_gallery (8).jpeg",
+  "/image_gallery (9).jpeg",
+  "/image_gallery (10).jpeg",
+  "/image_gallery (11).jpeg",
+  "/image_gallery (12).jpeg",
+  "/image_gallery (13).jpeg",
+  "/image_gallery (14).jpeg",
+  "/image_gallery (15).jpeg"
+];
+
 
 export const Gallery = () => {
+
+  const { userType, userToken } = useContext(UserContext);
+  const { uploadGalleryImage } = useFirebase()
+
+  const [showModal, setShowModal] = useState(false);
+
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [image, setImage] = useState(null);
+  const [progress, setProgress] = useState(0);
+  const [error, setError] = useState(null);
+  const [url, setUrl] = useState('');
+
+  const handleModal = () => {
+    setShowModal(prevState => !prevState);
+  };
+
+  const handleUpload = () => {
+    if (image) {
+      uploadGalleryImage(
+        image,
+        (progress) => setProgress(progress),
+        (error) => setError(error),
+        (downloadURL) => setUrl(downloadURL)
+      );
+      setImage(null)
+    } else {
+      alert('No image uploaded')
+    }
+  }
+
+  const handleImageFileUpload = (e) => {
+    if (e.target.files[0]) {
+      setImage(e.target.files[0])
+    }
+  }
+
+  useEffect(() => {
+    console.log(progress)
+    console.log(error)
+    console.log(url)
+  }, [progress, error, url])
+
   return (
     <>
     <div className="bg-white bg-cover bg-center w-full h-screen bg-no-repeat flex flex-col overflow-y-auto">
@@ -11,18 +80,34 @@ export const Gallery = () => {
       </div>
       <div className=" p-5 md:p-10">
         <div className="columns-1 gap-5 lg:gap-8 sm:columns-2 lg:columns-3 xl:columns-4 [&>img:not(:first-child)]:mt-5 lg:[&>img:not(:first-child)]:mt-8">
-          <img src="/paisaje1.jpg" alt="" className="rounded-lg shadow-md border border-gray-300 transition duration-300 ease-in-out transform hover:scale-105"/>
-          <img src="/paisaje1.jpg" alt="" className="rounded-lg shadow-md border border-gray-300 transition duration-300 ease-in-out transform hover:scale-105"/>
-          <img src="/paisaje1.jpg" alt="" className="rounded-lg shadow-md border border-gray-300 transition duration-300 ease-in-out transform hover:scale-105"/>
-          <img src="/paisaje1.jpg" alt="" className="rounded-lg shadow-md border border-gray-300 transition duration-300 ease-in-out transform hover:scale-105"/>
-          <img src="/paisaje1.jpg" alt="" className="rounded-lg shadow-md border border-gray-300 transition duration-300 ease-in-out transform hover:scale-105"/>
-          <img src="/paisaje1.jpg" alt="" className="rounded-lg shadow-md border border-gray-300 transition duration-300 ease-in-out transform hover:scale-105"/>
-          <img src="/paisaje1.jpg" alt="" className="rounded-lg shadow-md border border-gray-300 transition duration-300 ease-in-out transform hover:scale-105"/>
-          <img src="/paisaje1.jpg" alt="" className="rounded-lg shadow-md border border-gray-300 transition duration-300 ease-in-out transform hover:scale-105"/>
-          <img src="/paisaje1.jpg" alt="" className="rounded-lg shadow-md border border-gray-300 transition duration-300 ease-in-out transform hover:scale-105"/>
-          <img src="/paisaje1.jpg" alt="" className="rounded-lg shadow-md border border-gray-300 transition duration-300 ease-in-out transform hover:scale-105"/>
-          <img src="/paisaje1.jpg" alt="" className="rounded-lg shadow-md border border-gray-300 transition duration-300 ease-in-out transform hover:scale-105"/>
-          <img src="/paisaje1.jpg" alt="" className="rounded-lg shadow-md border border-gray-300 transition duration-300 ease-in-out transform hover:scale-105"/>
+
+          {userType === "admin" &&  userToken &&(
+            <>
+              <button  onClick={handleModal} className="w-full height-button-admin flex p-4 sm:p-6 md:p-8 lg:p-10 items-center justify-center bg-transparent hover:bg-gray-200 py-2 px-4 border border-gray-200 hover:border-transparent rounded transition duration-300 ease-in-out transform hover:scale-105">
+                <div className="flex flex-col items-center justify-center space-y-4">
+                  <FontAwesomeIcon icon={faPlus} style={{color: "#000000",}} size="4x"/>
+                  <h1 className="font-myriad-pro font-light text-xl mt-2 text-center">Agregar Nueva Imagen</h1>
+                </div>
+              </button>
+  
+            </>
+          )} 
+          {images.map((src, index) => (
+                <img
+                    key={index}
+                    src={src}
+                    alt=""
+                    className="rounded-lg shadow-md border border-gray-300 transition duration-300 ease-in-out transform hover:scale-105 cursor-pointer"
+                    onClick={() => setSelectedImage(src)}
+                />
+            ))}
+            {selectedImage && (
+                <ImageModal src={selectedImage} onClose={() => setSelectedImage(null)} />
+            )}
+            
+          {showModal && (
+            <UploadModal handleModal={handleModal} />
+          )}
         </div>
       </div>
     </div>
