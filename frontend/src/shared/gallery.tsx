@@ -5,6 +5,7 @@ import { UserContext } from "../providers/userContext";
 import { useFirebase } from "../hooks/useFirebase";
 import { useContext, useEffect, useState } from "react";
 import '../styles/gallery.css';
+import { UploadModal } from "./galleryComponents/uploadModal";
 import ImageModal from "./galleryComponents/imagemodal";
 
 const images = [
@@ -105,35 +106,8 @@ export const Gallery = () => {
             )}
             
           {showModal && (
-          <div className="fixed inset-0 bg-gray-600 bg-opacity-75 flex items-center justify-center z-50 sm:p-8">
-            <div className="bg-white p-8 rounded-lg shadow-lg w-11/12 max-w-md sm:p-8">
-              <h2 className="font-myriad-pro text-2xl mb-4 text-center">Subir nueva imagen</h2>
-              <div className="border-dashed border-4 border-gray-200 rounded-lg p-4 flex flex-col items-center justify-center space-y-4">
-                <input type="file" className="hidden" id="image-upload" onChange={handleImageFileUpload}/>
-                <label htmlFor="image-upload"
-                className="font-myriad-pro cursor-pointer p-2 bg-gray-100 rounded hover:bg-gray-200 transition ">
-                  Arrastra la imagen aquí o haz clic para subirla
-                </label>
-                <div className="flex justify-center mt-4">
-              </div>
-              </div>
-              <div className="flex justify-center mt-4 flex-col">
-                <button
-                  onClick={handleUpload}
-                  className="font-myriad-pro mt-4 bg-blue-800 text-white py-2 px-4 rounded hover:bg-blue-900 transition flex flex-col items-center"
-                >
-                  Guardar
-                </button>
-                <button
-                  onClick={handleModal}
-                  className=" hover:text-gray-900 text-medium mt-4"
-                >
-                  Cerrar
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
+            <UploadModal handleModal={handleModal} />
+          )}
         </div>
       </div>
     </div>
