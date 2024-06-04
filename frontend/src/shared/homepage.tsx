@@ -28,18 +28,24 @@ export const Homepage = () => {
         <header className="bsw-background py-16">
           <h1 className="font-myriad-pro text-3xl text-center text-white font-bold">Servicios Principales</h1>
         </header>
-        <div className="grid grid-cols-4 gap-2">
-          <div className="flex justify-center items-center">
-            <h1>Servicio 1</h1>
+        <div className="grid grid-cols-3 gap-2 h-screen hp-background">
+          <div className="flex justify-center items-center flex-col">
+            <div className="max-w-sm rounded overflow-hidden shadow-lg">
+              <img className="w-full h-full" src="servicio1.jpg" alt="servicio"/>
+            </div>
+            <h1 className="font-myriad-pro text-white font-bold text-4xl mt-10">Fotografías</h1>
           </div>
-          <div className="flex justify-center items-center">
-            <h1>Servicio 2</h1>
+          <div className="flex justify-center items-center flex-col">
+            <div className="max-w-sm rounded overflow-hidden shadow-lg">
+              <img className="w-full h-full" src="servicio1.jpg" alt="servicio"/>
+            </div>
+            <h1 className="font-myriad-pro text-white font-bold text-4xl mt-10">Marketing Digital</h1>
           </div>
-          <div className="flex justify-center items-center">
-            <h1>Servicio 3</h1>
-          </div>
-          <div className="flex justify-center items-center">
-            <h1>Servicio 4</h1>
+          <div className="flex justify-center items-center flex-col">
+            <div className="max-w-sm rounded overflow-hidden shadow-lg">
+              <img className="w-full h-full" src="servicio1.jpg" alt="servicio"/>
+            </div>
+            <h1 className="font-myriad-pro text-white font-bold text-4xl mt-10">Diseño Gráfico</h1>
           </div>
         </div>
       </div>
