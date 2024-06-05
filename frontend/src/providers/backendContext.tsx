@@ -26,11 +26,11 @@ export const BackendContext = createContext<BackendContextType>({
 export const BackendProvider = ({children}: BackendProviderProps) => {
 
   /* Service endpoints*/
-  const getServices = () => axios.get(`${BACKEND_URL}/service`)
+  const getServices = () => axios.get(`${BACKEND_URL}/get/services`)
   const createService = (service: NewService) => axios.post(`${BACKEND_URL}`, service)
   
   /* Gallery endpoints*/
-  const getGallery = () => axios.get(`${BACKEND_URL}/gallery`)
+  const getGallery = () => axios.get(`${BACKEND_URL}/get/gallery`)
   const createGallery = (gallery: NewGallery) => axios.post(`${BACKEND_URL}`, gallery)
 
   return (

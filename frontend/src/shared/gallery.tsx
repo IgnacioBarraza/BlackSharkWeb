@@ -7,6 +7,8 @@ import { useContext, useEffect, useState } from "react";
 import '../styles/gallery.css';
 import { UploadModal } from "./galleryComponents/uploadModal";
 import ImageModal from "./galleryComponents/imagemodal";
+import { useUser } from "../hooks/useUser";
+import { useBackend } from "../hooks/useBackend";
 
 const images = [
   "/image_gallery (1).jpeg",
@@ -29,46 +31,30 @@ const images = [
 
 export const Gallery = () => {
 
-  const { userType, userToken } = useContext(UserContext);
-  const { uploadGalleryImage } = useFirebase()
+  const { userType, userToken } = useUser();
+  const { getGallery } = useBackend();
 
   const [showModal, setShowModal] = useState(false);
 
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const [image, setImage] = useState(null);
-  const [progress, setProgress] = useState(0);
-  const [error, setError] = useState(null);
-  const [url, setUrl] = useState('');
+
 
   const handleModal = () => {
     setShowModal(prevState => !prevState);
   };
 
-  const handleUpload = () => {
-    if (image) {
-      uploadGalleryImage(
-        image,
-        (progress) => setProgress(progress),
-        (error) => setError(error),
-        (downloadURL) => setUrl(downloadURL)
-      );
-      setImage(null)
-    } else {
-      alert('No image uploaded')
-    }
-  }
-
-  const handleImageFileUpload = (e) => {
-    if (e.target.files[0]) {
-      setImage(e.target.files[0])
+  const getGalleryData = async () => {
+    try {
+      const res = await getGallery()
+      console.log(res)
+    } catch (error) {
+      console.error(error)
     }
   }
 
   useEffect(() => {
-    console.log(progress)
-    console.log(error)
-    console.log(url)
-  }, [progress, error, url])
+    getGalleryData()
+  },[])
 
   return (
     <>
