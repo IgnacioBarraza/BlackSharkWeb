@@ -15,9 +15,6 @@ export const Footer = () => {
             <a href="https://www.instagram.com/blackshark.studios/" aria-label="Instagram" className="text-white hover:text-gray-400" target="_blank">
               <FontAwesomeIcon icon={faInstagram} size="2x" />
             </a>
-            <a href="https://www.whatsapp.com" aria-label="WhatsApp" className="text-white hover:text-gray-400" target="_blank">
-              <FontAwesomeIcon icon={faWhatsapp} size="2x" />
-            </a>
             <div className="absolute right-0 top-1/2 transform -translate-y-1/2 w-1/3 md:w-2/5 border-t border-white" />
           </div>
           <div className="text-center text-2xl md:text-3xl lg:text-4xl">
