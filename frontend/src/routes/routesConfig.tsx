@@ -1,6 +1,5 @@
 import { Login } from "../auth/login";
 import { Register } from "../auth/register";
-import { Footer } from "../components/Footer/Footer";
 import { Newpassword } from "../components/NewPassword/newpassword";
 import { Recoverpassword } from "../components/RecoverPassword/recoverpassword";
 import { Contact } from "../shared/contact";
@@ -33,10 +32,6 @@ export const routes = [
   {
     path: '/servicios',
     component: <Servicios />
-  },
-  {
-    path: '/footer',
-    component: <Footer />
   },
   {
     path: '/recoverpassword',
