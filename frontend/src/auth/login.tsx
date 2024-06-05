@@ -32,11 +32,14 @@ export const Login = () => {
     };
     try {
       const res = await login(userToVerify);
-      console.log(res.data)
-      if (res.statusText === "OK" && res.data.token && res.data.token != null) {
-        setUserType(res.data.tipo_user);
-        setTokenData(res.data.token);
-        setUserName(res.data.username);
+      if (res.status === 200) {
+        const { token, tipo_user, username } = res.data;
+        localStorage.setItem("token", token);
+        localStorage.setItem("userType", tipo_user);
+        localStorage.setItem("userName", username);
+        setUserType(tipo_user);
+        setTokenData(token);
+        setUserName(username);
         navigate("/");
       }
     } catch (error) {
