@@ -80,3 +80,7 @@ export interface NewPasswordResponse {
     "content-type": string;
   };
 }
+
+export interface NewService {
+  
+}
