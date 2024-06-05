@@ -82,5 +82,13 @@ export interface NewPasswordResponse {
 }
 
 export interface NewService {
-  
+  nombre: string;
+  precio: number;
+  descripcion: string;
+  imagen: string[];
+}
+
+export interface NewGallery {
+  id_servicios: string[];
+  imagen_link: string[];
 }
