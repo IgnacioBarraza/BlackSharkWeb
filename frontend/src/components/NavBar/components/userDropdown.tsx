@@ -17,6 +17,9 @@ export const UserDropdown = () => {
     setUserName(null);
     setTokenData(null);
     setUserType(null);
+    localStorage.setItem("token", null);
+    localStorage.setItem("userType", null);
+    localStorage.setItem("userName", null);
     navigate("/");
     setDropdownOpen(false);
   };
