@@ -1,15 +1,6 @@
-import { useEffect } from "react"
 import { Navbar } from "../components/NavBar/Navbar"
-import { useUser } from "../hooks/useUser"
 
 export const Homepage = () => {
-  const { userType, userToken, userName } = useUser()
-
-  useEffect(() => {
-    console.log(userType)
-    console.log(userToken)
-    console.log(userName)
-  },[userType, userToken, userName])
     return (
       <>
       <div className="flex justify-center items-center bg-transparent">

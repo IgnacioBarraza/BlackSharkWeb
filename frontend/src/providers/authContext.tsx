@@ -2,8 +2,7 @@ import axios from "axios";
 import { ReactNode, createContext } from "react";
 import { LoginResponse, RecoverPassword, RecoverResponde, TokenResponse, Token, userToRegister, userToVerify, NewPassword, NewPasswordResponse, UpdatePassword } from "../utils/interfaces";
 
-const PROD_BACKEND_URL = 'https://blacksharkweb-backend.onrender.com/api'
-const DEV_BACKEND_URL = 'http://localhost:3000/api'
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 type AuthContextType = {
   login: (userToVerify: userToVerify) => Promise<LoginResponse>;
@@ -71,11 +70,11 @@ export const AuthContext = createContext<AuthContextType>({
 
 
 export const AuthProvider = ({children}: AuthProviderProps) => {
-  const login = (userToVerify: userToVerify): Promise<LoginResponse> => axios.post(`${DEV_BACKEND_URL}/login/verify`, userToVerify)
-  const register = (userToRegister: userToRegister) => axios.post(`${DEV_BACKEND_URL}/login/register`, userToRegister)
-  const recoverPassword = (email: RecoverPassword): Promise<RecoverResponde> => axios.post(`${DEV_BACKEND_URL}/login/recover`, email)
-  const verifyToken = (token: Token): Promise<TokenResponse> => axios.post(`${DEV_BACKEND_URL}/login/decodeToken`, token)
-  const updatePassword = (passwordAndToken: UpdatePassword): Promise<NewPasswordResponse> => axios.patch(`${DEV_BACKEND_URL}/login/newPassword`, passwordAndToken)
+  const login = (userToVerify: userToVerify): Promise<LoginResponse> => axios.post(`${BACKEND_URL}/login/verify`, userToVerify)
+  const register = (userToRegister: userToRegister) => axios.post(`${BACKEND_URL}/login/register`, userToRegister)
+  const recoverPassword = (email: RecoverPassword): Promise<RecoverResponde> => axios.post(`${BACKEND_URL}/login/recover`, email)
+  const verifyToken = (token: Token): Promise<TokenResponse> => axios.post(`${BACKEND_URL}/login/decodeToken`, token)
+  const updatePassword = (passwordAndToken: UpdatePassword): Promise<NewPasswordResponse> => axios.patch(`${BACKEND_URL}/login/newPassword`, passwordAndToken)
 
   return (
     <AuthContext.Provider value={{ login, register, recoverPassword, verifyToken, updatePassword }}>{children}</AuthContext.Provider>
