@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
+import { useUser } from "../hooks/useUser";
 
 interface ProtectedRouteProps {
   roles?: string[];
@@ -7,15 +8,22 @@ interface ProtectedRouteProps {
 
 function ProtectedRoute({ roles }: ProtectedRouteProps) {
   const navigate = useNavigate();
-  const [userRole, setUserRole] = useState<string | null>(null);
-  const isAuthenticated = localStorage.getItem("token");
-  const userId = localStorage.getItem("userId");
-
+  const { userToken, userType } = useUser();
+  const isAuthenticated = localStorage.getItem("token") || userToken;
+  const storedUserRole = localStorage.getItem("userType") || userType;
+  
   useEffect(() => {
+    if (roles && storedUserRole && !roles.includes(storedUserRole)) {
+      navigate("/");
+      return
+    }
+    
     if (!isAuthenticated) {
       navigate("/");
-    } 
-  }, [isAuthenticated, userId, roles, userRole, navigate]);
+
+      return;
+    }
+  }, [isAuthenticated, roles, navigate, userType]);
 
   return <Outlet />;
 }
