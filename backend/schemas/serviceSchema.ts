@@ -29,9 +29,6 @@ const serviceSchema = z.object({
         .string({
             invalid_type_error: 'Por favor, indica una url válida.'
         })
-        .url({
-            message: 'Debes indicar una url válida!'   
-        })
         .optional()
 })
 
@@ -63,9 +60,6 @@ const updateServiceSchema = z.object({
     imagen: z
         .string({
             invalid_type_error: 'Por favor, indica una url válida.'
-        })
-        .url({
-            message: 'Debes indicar una url válida!'   
         })
         .optional()
     

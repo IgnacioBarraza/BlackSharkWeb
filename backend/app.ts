@@ -11,6 +11,7 @@ import mediaRouter from './routes/mediaRouter'
 import serviceRouter from './routes/serviceRouter'
 import projectRouter from './routes/projectRouter'
 import budgetRouter from './routes/budgetRouter'
+import cartRouter from './routes/shoppingCart'
 
 // Middleware:
 import verifyToken from './middleware/verifyToken'
@@ -18,6 +19,7 @@ import verifyToken from './middleware/verifyToken'
 // Utils:
 import { rateLimiter } from './utils/rate-limiter'
 import { slowDownLimiter } from './utils/slow-down'
+import dataRouter from './routes/getData'
 
 const app = express()
 
@@ -28,6 +30,7 @@ app.use(rateLimiter)
 app.use(slowDownLimiter)
 
 app.use('/api/login', loginRouter)
+app.use('/api/get', dataRouter)
 
 app.use('', verifyToken)
 
@@ -39,5 +42,6 @@ app.use('/api/media', mediaRouter)
 app.use('/api/service', serviceRouter)
 app.use('/api/project', projectRouter)
 app.use('/api/budget', budgetRouter)
+app.use('/api/cart', cartRouter)
 
 export default app

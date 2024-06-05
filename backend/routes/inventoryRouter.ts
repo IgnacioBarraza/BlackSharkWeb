@@ -8,23 +8,6 @@ import authorizeRole from '../middleware/authorizeRole'
 
 const inventoryRouter = express.Router()
 
-inventoryRouter.get('/', async (req, res) => {
-    const connection = connect()
-
-    try {
-        const [row, fields] = await connection.query(`SELECT * FROM inventario`)
-
-        res.status(200).json(row)
-    } catch (error) {
-        // console.log(error)
-        res.status(500).json({ message: 'Hubo un error intentando obtener los artículos del inventario.' })
-    } finally {
-        if (connection) {
-            connection.end()
-        }
-    }
-})
-
 inventoryRouter.post('/new', authorizeRole, async (req, res) => {
     const connection = connect()
 

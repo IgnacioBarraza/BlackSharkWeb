@@ -1,8 +1,9 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { Navbar } from "../components/NavBar/Navbar";
-import { UserContext } from "../providers/userContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { useUser } from "../hooks/useUser";
+import { UploadServiceModal } from "./serviceComponents/uploadServiceModal";
 
 const serviciosData = [
   {
@@ -63,7 +64,14 @@ const serviciosData = [
 ];
 
 export const Servicios = () => {
+  const { userType, userToken } = useUser();
+
+  const [showInterface, setShowInterface] = useState(false);
   const [selectedServicio, setSelectedServicio] = useState(null);
+
+  const handleInterface = () => {
+    setShowInterface(prevState => !prevState);
+  };
 
   const handleServicioClick = (servicio) => {
     setSelectedServicio(servicio);
@@ -73,13 +81,10 @@ export const Servicios = () => {
     setSelectedServicio(null);
   };
 
-
-  const { userType, userToken } = useContext(UserContext);
-
-  const [showInterface, setShowInterface] = useState(false);
-
-  const handleInterface = () => {
-    setShowInterface(prevState => !prevState);
+  const handleClickOutside = (event) => {
+    if (event.target.classList.contains('modal-container')) {
+      handleCloseModal();
+    }
   };
   
   return (
@@ -109,58 +114,7 @@ export const Servicios = () => {
             )} 
 
             {showInterface && (
-            <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75 sm:px-0">
-              <div className="bg-white rounded-lg shadow-lg p-6 w-96 max-w-md">
-                <h2 className="font-myriad-pro text-xl font-bold mb-4 text-center">Agregar Nuevo Servicio</h2>
-                <form action="#" method="POST" className="">
-                  <div>
-
-                    <div className="mt-6">
-                      <input 
-                        id="name" 
-                        name="name" 
-                        type="text" 
-                        placeholder="Ingresa el nombre del servicio" 
-                        className="w-full pl-5 py-3 text-base text-neutral-600 placeholder-gray-400 transition duration-500 ease-in-out transform border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:border-gray-400 focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300"
-                      />
-                    </div>
-
-                    <div className="mt-4">
-                      <input 
-                        id="apellido" 
-                        name="apellido" 
-                        type="text" 
-                        placeholder="Ingresa el precio" 
-                        className="w-full pl-5 py-3 text-base text-neutral-600 placeholder-gray-400 transition duration-500 ease-in-out transform border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:border-gray-400 focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300"
-                      />
-                    </div>
-
-                    <div className="border-dashed border-4 border-gray-200 rounded-lg p-4 flex flex-col items-center justify-center space-y-4 mt-4">
-                      <input type="file" className="hidden" id="image-upload" />
-                      <label htmlFor="image-upload" 
-                        className="font-myriad-pro cursor-pointer p-2 bg-gray-100 rounded hover:bg-gray-200 transition">
-                        Arrastra la imagen aquí o haz clic para subirla
-                      </label>
-                    </div>
-                        
-                    <div className="pt-5">
-                      <button className="flex items-center justify-center w-full px-[110px] py-2.5 text-xl font-large text-center text-white transition duration-500 ease-in-out transform bg-blue-600 rounded-xl hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">Guardar</button>
-                    </div>
-                        
-                    <div className="flex justify-center mt-4">
-                      <button
-                        type="button"
-                        onClick={handleInterface}
-                        className=" hover:text-gray-900 text-medium"
-                      >
-                        Cancelar
-                      </button> 
-                    </div>
-
-                  </div>
-                </form>
-              </div>
-            </div>
+              <UploadServiceModal handleInterface={handleInterface} />
             )}
 
             {serviciosData.map((servicio) => (
@@ -183,19 +137,16 @@ export const Servicios = () => {
         </div>
 
         {selectedServicio && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-            <div className="bg-white w-11/12 md:w-3/4 lg:w-2/3 h-3/4 md:h-auto rounded-lg p-4 md:p-8 flex flex-col md:flex-row overflow-y-auto">
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 modal-container" onClick={handleClickOutside}>
+            <div className=" bg-white w-11/12 md:w-3/4 lg:w-2/3 h-3/4 md:h-auto rounded-lg p-4 md:p-8 flex flex-col md:flex-row overflow-y-auto" >
               <div className="w-full md:w-1/2 h-64 md:h-auto flex items-center justify-center">
-                <div>
-
-                </div>
                 <img
                   src={selectedServicio.imgSrc}
                   alt={selectedServicio.title}
                   className="w-full h-full object-cover rounded-lg"
                 />
               </div>
-              <div className="md:w-1/2 p-4 md:p-8">
+              <div className="md:w-1/2 p-4 md:p-8 ">
                 <h2 className="text-2xl font-bold mb-4">{selectedServicio.title}</h2>
                 <p>{selectedServicio.description}</p>
                 <button
