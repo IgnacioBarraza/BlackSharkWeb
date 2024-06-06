@@ -6,10 +6,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmarkCircle } from "@fortawesome/free-solid-svg-icons";
 import { useUser } from "../../hooks/useUser";
 
-export const UploadModal = ({ handleModal }) => {
+export const UploadModal = ({ handleModal, services }) => {
 
   const { uploadGalleryImage } = useFirebase();
-  const { getServices, createGallery } = useBackend();
+  const { createGallery } = useBackend();
   const { userToken } = useUser();
 
   const [image, setImage] = useState(null);
@@ -17,7 +17,6 @@ export const UploadModal = ({ handleModal }) => {
   const [error, setError] = useState(null);
   const [progress, setProgress] = useState(0);
   const [url, setUrl] = useState("");
-  const [services, setServices] = useState<Services[]>([]);
   const [selectedServices, setSelectedServices] = useState<string[]>([]);
   const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
 
@@ -46,15 +45,6 @@ export const UploadModal = ({ handleModal }) => {
   const removeImage = () => {
     setImage(null);
     setPreview(null);
-  };
-
-  const getServicesData = async () => {
-    try {
-      const res = await getServices();
-      setServices(res.data);
-    } catch (error) {
-      console.error(error);
-    }
   };
 
   const handleServiceSelection = (serviceId: string) => {
@@ -88,7 +78,6 @@ export const UploadModal = ({ handleModal }) => {
   };
 
   useEffect(() => {
-    getServicesData();
     newGallery();
   }, [url]);
 
@@ -105,7 +94,7 @@ export const UploadModal = ({ handleModal }) => {
                 onClick={() => setDropdownOpen(!dropdownOpen)}
                 className="w-full px-4 py-2 text-left bg-gray-200 rounded-md"
               >
-                Select a service
+                Selecciona un servicio
               </button>
               {dropdownOpen && (
                 <div className="absolute z-10 w-full mt-2 bg-white border border-gray-200 rounded-md shadow-lg">
