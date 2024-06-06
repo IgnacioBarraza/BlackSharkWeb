@@ -1,9 +1,4 @@
 import { Navbar } from "../components/NavBar/Navbar"
-<<<<<<< HEAD
-import { useUser } from "../hooks/useUser"
-import '../styles/homepage.css';
-=======
->>>>>>> 363a3243ce10c80ed41a4a184d1147d6538a8578
 
 export const Homepage = () => {
     return (
