@@ -55,6 +55,12 @@ const serviciosData = [
     imgSrc: "/servicio1.jpg",
     title: "Servicio 8",
     description: "Descripción del servicio 8."
+  },
+  {
+    id: 9,
+    imgSrc: "/servicio1.jpg",
+    title: "Servicio 9",
+    description: "Descripción del servicio 9."
   }
 
 ];
@@ -85,14 +91,14 @@ export const Servicios = () => {
   
   return (
     <>
-      <div className="bg-white bg-cover bg-center w-full h-screen bg-no-repeat flex flex-col">
+      <div className="bg-white bg-cover bg-center w-full flex-grow bg-no-repeat flex flex-col">
         <div className="flex-grow flex items-center justify-center pb-10">
           <div className="w-full flex justify-center items-center py-1 bg-transparent z-100 border-b border-gray-300">
             <Navbar />
           </div>
         </div>
-        <div className="mx-auto mt-10 mb-20">
-          <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 ml-4 mr-4 md:ml-24 md:mr-24">
+        <div className="mx-auto mt-10 mb-20 ">
+          <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 ml-4 mr-4 md:ml-24 md:mr-24 sm:ml-24 sm:mr-24">
 
           {userType === "admin" &&  userToken && (
             <>
