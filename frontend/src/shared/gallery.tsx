@@ -7,6 +7,7 @@ import { useContext, useEffect, useState } from "react";
 import '../styles/gallery.css';
 import { UploadModal } from "./galleryComponents/uploadModal";
 import ImageModal from "./galleryComponents/imagemodal";
+import { Footer } from "../components/Footer/Footer";
 
 const images = [
   "/image_gallery (1).jpeg",
@@ -110,6 +111,7 @@ export const Gallery = () => {
           )}
         </div>
       </div>
+      <Footer/>
     </div>
     </>
   )

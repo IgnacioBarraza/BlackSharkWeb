@@ -4,6 +4,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { useUser } from "../hooks/useUser";
 import { UploadServiceModal } from "./serviceComponents/uploadServiceModal";
+import { Footer } from "../components/Footer/Footer";
+
 
 const serviciosData = [
   {
@@ -53,13 +55,7 @@ const serviciosData = [
     imgSrc: "/servicio1.jpg",
     title: "Servicio 8",
     description: "Descripción del servicio 8."
-  },
-  {
-    id: 9,
-    imgSrc: "/servicio1.jpg",
-    title: "Servicio 9",
-    description: "Descripción del servicio 9."
-  },
+  }
 
 ];
 
@@ -95,8 +91,8 @@ export const Servicios = () => {
             <Navbar />
           </div>
         </div>
-        <div className="mx-auto mt-8 mb-20">
-          <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 ml-4 mr-4 md:ml-24 md:mr-24">
+        <div className="mx-auto mt-10 mb-20">
+          <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 ml-4 mr-4 md:ml-24 md:mr-24">
 
           {userType === "admin" &&  userToken && (
             <>
@@ -160,6 +156,7 @@ export const Servicios = () => {
           </div>
         )}
       </div>
+      <Footer/>
     </>
   );
 };
