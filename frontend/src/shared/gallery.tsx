@@ -1,14 +1,11 @@
 import { Navbar } from "../components/NavBar/Navbar";
 import { faPlus } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { UserContext } from "../providers/userContext";
-import { useFirebase } from "../hooks/useFirebase";
-import { useContext, useEffect, useState } from "react";
+import { useState } from "react";
 import '../styles/gallery.css';
 import { UploadModal } from "./galleryComponents/uploadModal";
 import ImageModal from "./galleryComponents/imagemodal";
 import { useUser } from "../hooks/useUser";
-import { useBackend } from "../hooks/useBackend";
 
 const images = [
   "/image_gallery (1).jpeg",
@@ -32,7 +29,6 @@ const images = [
 export const Gallery = () => {
 
   const { userType, userToken } = useUser();
-  const { getGallery } = useBackend();
 
   const [showModal, setShowModal] = useState(false);
 
@@ -43,18 +39,6 @@ export const Gallery = () => {
     setShowModal(prevState => !prevState);
   };
 
-  const getGalleryData = async () => {
-    try {
-      const res = await getGallery()
-      console.log(res)
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  useEffect(() => {
-    getGalleryData()
-  },[])
 
   return (
     <>
