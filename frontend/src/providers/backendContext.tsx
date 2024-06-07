@@ -5,7 +5,7 @@ import { CreateGalleryResponse, GetServicesResponse, NewGallery, NewService } fr
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 type BackendContextType = {
-  createService: (service: NewService) => void;
+  createService: (service: NewService, token: string) => void;
   createGallery: (gallery: NewGallery, token: string) => Promise<CreateGalleryResponse>;
   getServices: () => Promise<GetServicesResponse>;
   getGallery: () => void;
@@ -46,7 +46,11 @@ export const BackendProvider = ({children}: BackendProviderProps) => {
 
   /* Service endpoints*/
   const getServices = (): Promise<GetServicesResponse> => axios.get(`${BACKEND_URL}/get/services`)
-  const createService = (service: NewService) => axios.post(`${BACKEND_URL}`, service)
+  const createService = (service: NewService, token: string) => axios.post(`${BACKEND_URL}/service/new`, service, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
   
   /* Gallery endpoints*/
   const getGallery = () => axios.get(`${BACKEND_URL}/get/gallery`)

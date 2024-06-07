@@ -100,7 +100,7 @@ export interface NewService {
   nombre: string;
   precio: number;
   descripcion: string;
-  imagen: string[];
+  imagen: string;
 }
 
 export interface NewGallery {
@@ -123,7 +123,7 @@ export interface Services {
   precio: number;
   descripcion: string;
   id_servicios: string;
-  imagen_link: string[];
+  imagen_link: string;
 }
 
 export interface CreateGalleryResponse {

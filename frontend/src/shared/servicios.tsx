@@ -1,73 +1,19 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Navbar } from "../components/NavBar/Navbar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { useUser } from "../hooks/useUser";
 import { UploadServiceModal } from "./serviceComponents/uploadServiceModal";
-
-const serviciosData = [
-  {
-    id: 1,
-    imgSrc: "/servicio1.jpg",
-    title: "Servicio 1",
-    description: "Descripción del servicio 1."
-  },
-  {
-    id: 2,
-    imgSrc: "/servicio1.jpg",
-    title: "Servicio 2",
-    description: "Descripción del servicio 2."
-  },
-  {
-    id: 3,
-    imgSrc: "/servicio1.jpg",
-    title: "Servicio 3",
-    description: "Descripción del servicio 3."
-  },
-  {
-    id: 4,
-    imgSrc: "/servicio1.jpg",
-    title: "Servicio 4",
-    description: "Descripción del servicio 4."
-  },
-  {
-    id: 5,
-    imgSrc: "/servicio1.jpg",
-    title: "Servicio 5",
-    description: "Descripción del servicio 5."
-  },
-  {
-    id: 6,
-    imgSrc: "/servicio1.jpg",
-    title: "Servicio 6",
-    description: "Descripción del servicio 6."
-  },
-  {
-    id: 7,
-    imgSrc: "/servicio1.jpg",
-    title: "Servicio 7",
-    description: "Descripción del servicio 7."
-  },
-  {
-    id: 8,
-    imgSrc: "/servicio1.jpg",
-    title: "Servicio 8",
-    description: "Descripción del servicio 8."
-  },
-  {
-    id: 9,
-    imgSrc: "/servicio1.jpg",
-    title: "Servicio 9",
-    description: "Descripción del servicio 9."
-  },
-
-];
+import { useBackend } from "../hooks/useBackend";
+import { Services } from "../utils/interfaces";
 
 export const Servicios = () => {
   const { userType, userToken } = useUser();
+  const { getServices } = useBackend()
 
   const [showInterface, setShowInterface] = useState(false);
-  const [selectedServicio, setSelectedServicio] = useState(null);
+  const [selectedServicio, setSelectedServicio] = useState<Services>(null);
+  const [services, setServices] = useState<Services[]>([]);
 
   const handleInterface = () => {
     setShowInterface(prevState => !prevState);
@@ -86,15 +32,27 @@ export const Servicios = () => {
       handleCloseModal();
     }
   };
+  const getServicesData = async () => {
+    try {
+      const res = await getServices();
+      const servicesData = res.data.map(service => ({
+        ...service,
+        imagen_link: JSON.parse(service.imagen_link.replace(/'/g, '"'))[0] // Parse the string and get the first link
+      }));
+      setServices(servicesData);
+    } catch (error) {
+      console.error(error)
+    }
+  };
+
+  useEffect(() => {
+    getServicesData();
+  }, [])
   
   return (
     <>
       <div className="bg-white bg-cover bg-center w-full h-screen bg-no-repeat flex flex-col">
-        <div className="flex-grow flex items-center justify-center pb-10">
-          <div className="w-full flex justify-center items-center py-1 bg-transparent z-100 border-b border-gray-300">
-            <Navbar />
-          </div>
-        </div>
+        <Navbar />
         <div className="mx-auto mt-8 mb-20">
           <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 ml-4 mr-4 md:ml-24 md:mr-24">
 
@@ -117,19 +75,19 @@ export const Servicios = () => {
               <UploadServiceModal handleInterface={handleInterface} />
             )}
 
-            {serviciosData.map((servicio) => (
+            {services.map((servicio) => (
               <div
-                key={servicio.id}
+                key={servicio.id_servicios}
                 className="bg-white rounded-lg shadow-lg transition-shadow hover:shadow-xl cursor-pointer"
                 onClick={() => handleServicioClick(servicio)}
               >
                 <img
-                  src={servicio.imgSrc}
-                  alt={servicio.title}
+                  src={servicio.imagen_link}
+                  alt={servicio.nombre}
                   className="w-full h-48 sm:h-64 md:h-64 object-cover"
                 />
                 <div className="p-4">
-                  <h2 className="text-lg font-bold mb-2">{servicio.title}</h2>
+                  <h2 className="text-lg font-bold mb-2">{servicio.nombre}</h2>
                 </div>
               </div>
             ))}
@@ -141,14 +99,14 @@ export const Servicios = () => {
             <div className=" bg-white w-11/12 md:w-3/4 lg:w-2/3 h-3/4 md:h-auto rounded-lg p-4 md:p-8 flex flex-col md:flex-row overflow-y-auto" >
               <div className="w-full md:w-1/2 h-64 md:h-auto flex items-center justify-center">
                 <img
-                  src={selectedServicio.imgSrc}
-                  alt={selectedServicio.title}
+                  src={selectedServicio.imagen_link}
+                  alt={selectedServicio.nombre}
                   className="w-full h-full object-cover rounded-lg"
                 />
               </div>
               <div className="md:w-1/2 p-4 md:p-8 ">
-                <h2 className="text-2xl font-bold mb-4">{selectedServicio.title}</h2>
-                <p>{selectedServicio.description}</p>
+                <h2 className="text-2xl font-bold mb-4">{selectedServicio.nombre}</h2>
+                <p>{selectedServicio.descripcion}</p>
                 <button
                   className="mt-8 px-4 py-2 bg-blue-500 text-white rounded-lg"
                   onClick={handleCloseModal}

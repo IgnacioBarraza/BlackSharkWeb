@@ -1,8 +1,13 @@
 import { useEffect, useState } from "react";
 import { useFirebase } from "../../hooks/useFirebase";
+import { useBackend } from "../../hooks/useBackend";
+import { NewService } from "../../utils/interfaces";
+import { useUser } from "../../hooks/useUser";
 
 export const UploadServiceModal = ({ handleInterface }) => {
   const { uploadServiceImage } = useFirebase();
+  const { createService } = useBackend();
+  const { userToken } = useUser();
 
   const [image, setImage] = useState(null);
   const [preview, setPreview] = useState(null);
@@ -30,6 +35,7 @@ export const UploadServiceModal = ({ handleInterface }) => {
       const file = e.target.files[0];
       setImage(file);
       setPreview(URL.createObjectURL(file));
+      console.log(service)
     }
   };
 
@@ -42,14 +48,20 @@ export const UploadServiceModal = ({ handleInterface }) => {
     setService({...service, [name]: value})
   }
 
-  const uploadService = () => {
-    const newService = {
-      serviceName: service.serviceName,
-      price: service.price,
-      description: service.description,
-      url: url
+  const uploadService = async () => {
+    const newService: NewService = {
+      nombre: service.serviceName,
+      precio: service.price,
+      descripcion: service.description,
+      imagen: url
     }
-    console.log(newService)
+    try {
+      const res = await createService(newService, userToken)
+      console.log(res)
+      console.log(newService)
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   useEffect(() => {
