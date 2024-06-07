@@ -54,10 +54,10 @@ export const Gallery = () => {
 
   useEffect(() => {
     if (services.length == 0) {
-      console.log('Getting services...')
+      console.log('Getting services...') // No borrar console.log
       getServicesData();
     } else {
-      console.log('Services are ready to go ')
+      console.log('Services are ready to go ') // No borrar console.log
     }
   }, [services])
 
