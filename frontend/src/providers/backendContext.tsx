@@ -1,12 +1,12 @@
 import axios from "axios"
 import { ReactNode, createContext } from "react"
-import { CreateGalleryResponse, GetServicesResponse, NewGallery, NewService } from "../utils/interfaces";
+import { CreateGalleryServiceResponse, GetServicesResponse, NewGallery, NewService } from "../utils/interfaces";
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 type BackendContextType = {
-  createService: (service: NewService, token: string) => void;
-  createGallery: (gallery: NewGallery, token: string) => Promise<CreateGalleryResponse>;
+  createService: (service: NewService, token: string) => Promise<CreateGalleryServiceResponse>;
+  createGallery: (gallery: NewGallery, token: string) => Promise<CreateGalleryServiceResponse>;
   getServices: () => Promise<GetServicesResponse>;
   getGallery: () => void;
 }
@@ -17,7 +17,17 @@ type BackendProviderProps = {
 
 
 export const BackendContext = createContext<BackendContextType>({
-  createService: () => {},
+  createService: () => Promise.resolve({
+    data: {
+      message: ""
+    },
+    status: 0,
+    statusText: "",
+    headers: {
+      "content-length": "",
+      "content-type": ""
+    }
+  }),
   createGallery: () => Promise.resolve({
     data: {
       message: ""
@@ -46,7 +56,7 @@ export const BackendProvider = ({children}: BackendProviderProps) => {
 
   /* Service endpoints*/
   const getServices = (): Promise<GetServicesResponse> => axios.get(`${BACKEND_URL}/get/services`)
-  const createService = (service: NewService, token: string) => axios.post(`${BACKEND_URL}/service/new`, service, {
+  const createService = (service: NewService, token: string): Promise<CreateGalleryServiceResponse> => axios.post(`${BACKEND_URL}/service/new`, service, {
     headers: {
       Authorization: `Bearer ${token}`
     }
@@ -54,7 +64,7 @@ export const BackendProvider = ({children}: BackendProviderProps) => {
   
   /* Gallery endpoints*/
   const getGallery = () => axios.get(`${BACKEND_URL}/get/gallery`)
-  const createGallery = (gallery: NewGallery, token: string): Promise<CreateGalleryResponse> => axios.post(`${BACKEND_URL}/gallery/new`, gallery, {
+  const createGallery = (gallery: NewGallery, token: string): Promise<CreateGalleryServiceResponse> => axios.post(`${BACKEND_URL}/gallery/new`, gallery, {
     headers: {
       Authorization: `Bearer ${token}`
     }

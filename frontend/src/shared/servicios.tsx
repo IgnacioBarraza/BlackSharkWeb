@@ -35,11 +35,7 @@ export const Servicios = () => {
   const getServicesData = async () => {
     try {
       const res = await getServices();
-      const servicesData = res.data.map(service => ({
-        ...service,
-        imagen_link: JSON.parse(service.imagen_link.replace(/'/g, '"'))[0] // Parse the string and get the first link
-      }));
-      setServices(servicesData);
+      setServices(res.data);
     } catch (error) {
       console.error(error)
     }
@@ -72,7 +68,7 @@ export const Servicios = () => {
             )} 
 
             {showInterface && (
-              <UploadServiceModal handleInterface={handleInterface} />
+              <UploadServiceModal handleInterface={handleInterface} refreshServices={getServicesData}/>
             )}
 
             {services.map((servicio) => (
@@ -84,7 +80,7 @@ export const Servicios = () => {
                 <img
                   src={servicio.imagen_link}
                   alt={servicio.nombre}
-                  className="w-full h-48 sm:h-64 md:h-64 object-cover"
+                  className="w-full h-48 sm:h-64 md:h-64 object-cover rounded-t-lg"
                 />
                 <div className="p-4">
                   <h2 className="text-lg font-bold mb-2">{servicio.nombre}</h2>

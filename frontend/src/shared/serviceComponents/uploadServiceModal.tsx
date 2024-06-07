@@ -4,7 +4,7 @@ import { useBackend } from "../../hooks/useBackend";
 import { NewService } from "../../utils/interfaces";
 import { useUser } from "../../hooks/useUser";
 
-export const UploadServiceModal = ({ handleInterface }) => {
+export const UploadServiceModal = ({ handleInterface, refreshServices }) => {
   const { uploadServiceImage } = useFirebase();
   const { createService } = useBackend();
   const { userToken } = useUser();
@@ -21,6 +21,9 @@ export const UploadServiceModal = ({ handleInterface }) => {
   })
 
   const handleUpload = () => {
+    if (service.serviceName === '') return alert("Debe ingresar un nombre para el servicio");
+    if (service.price === 0) return alert("Debe ingresar un precio para el servicio");
+    if (service.description === '') return alert("Debe ingresar una descripción para el servicio");
     uploadServiceImage(
       image,
       (progress) => setProgress(progress),
@@ -35,7 +38,6 @@ export const UploadServiceModal = ({ handleInterface }) => {
       const file = e.target.files[0];
       setImage(file);
       setPreview(URL.createObjectURL(file));
-      console.log(service)
     }
   };
 
@@ -51,16 +53,22 @@ export const UploadServiceModal = ({ handleInterface }) => {
   const uploadService = async () => {
     const newService: NewService = {
       nombre: service.serviceName,
-      precio: service.price,
+      precio: Number(service.price),
       descripcion: service.description,
       imagen: url
     }
     try {
       const res = await createService(newService, userToken)
       console.log(res)
-      console.log(newService)
+      const { status, data } = res
+      if (status === 201) {
+        alert(data.message)
+        refreshServices();
+        handleInterface();
+      }
     } catch (error) {
       console.error(error)
+      alert(error.response.data.message)
     }
   }
 
@@ -141,12 +149,14 @@ export const UploadServiceModal = ({ handleInterface }) => {
             </div>
 
             <div className="pt-5">
-              <button
-                onClick={handleUpload}
-                className="flex items-center justify-center w-full px-[110px] py-2.5 text-xl font-large text-center text-white transition duration-500 ease-in-out transform bg-blue-600 rounded-xl hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-              >
-                Guardar
-              </button>
+              {progress !== 100 && (
+                <button
+                  onClick={handleUpload}
+                  className="flex items-center justify-center w-full px-[110px] py-2.5 text-xl font-large text-center text-white transition duration-500 ease-in-out transform bg-blue-600 rounded-xl hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                >
+                  Guardar
+                </button>
+              )}
             </div>
 
             <div className="flex justify-center mt-4">
