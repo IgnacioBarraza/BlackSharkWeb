@@ -1,11 +1,13 @@
 import { Navbar } from "../components/NavBar/Navbar";
 import { faPlus } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import '../styles/gallery.css';
 import { UploadModal } from "./galleryComponents/uploadModal";
 import ImageModal from "./galleryComponents/imagemodal";
 import { useUser } from "../hooks/useUser";
+import { useBackend } from "../hooks/useBackend";
+import { Services } from "../utils/interfaces";
 
 const images = [
   "/image_gallery (1).jpeg",
@@ -29,15 +31,35 @@ const images = [
 export const Gallery = () => {
 
   const { userType, userToken } = useUser();
+  const { getServices } = useBackend();
 
   const [showModal, setShowModal] = useState(false);
 
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [services, setServices] = useState<Services[]>([]);
 
 
   const handleModal = () => {
     setShowModal(prevState => !prevState);
   };
+
+  const getServicesData = async () => {
+    try {
+      const res = await getServices();
+      setServices(res.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    if (services.length == 0) {
+      console.log('Getting services...') // No borrar console.log
+      getServicesData();
+    } else {
+      console.log('Services are ready to go ') // No borrar console.log
+    }
+  }, [services])
 
 
   return (
@@ -76,7 +98,7 @@ export const Gallery = () => {
             )}
             
           {showModal && (
-            <UploadModal handleModal={handleModal} />
+            <UploadModal handleModal={handleModal} services={services}/>
           )}
         </div>
       </div>
