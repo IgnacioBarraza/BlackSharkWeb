@@ -8,7 +8,7 @@ import { useBackend } from "../hooks/useBackend";
 import { Services } from "../utils/interfaces";
 
 export const Servicios = () => {
-  const { userType, userToken } = useUser();
+  const { userType, userToken, setServicesData, servicesData } = useUser();
   const { getServices } = useBackend()
 
   const [showInterface, setShowInterface] = useState(false);
@@ -36,12 +36,17 @@ export const Servicios = () => {
     try {
       const res = await getServices();
       setServices(res.data);
+      setServicesData(res.data);
     } catch (error) {
       console.error(error)
     }
   };
 
   useEffect(() => {
+    if (servicesData.length > 0) {
+      setServices(servicesData);
+      return console.log("Servicios ya obtenidos...");
+    }
     getServicesData();
   }, [])
   
@@ -103,6 +108,7 @@ export const Servicios = () => {
               <div className="md:w-1/2 p-4 md:p-8 ">
                 <h2 className="text-2xl font-bold mb-4">{selectedServicio.nombre}</h2>
                 <p>{selectedServicio.descripcion}</p>
+                <p>{selectedServicio.precio}</p>
                 <button
                   className="mt-8 px-4 py-2 bg-blue-500 text-white rounded-lg"
                   onClick={handleCloseModal}

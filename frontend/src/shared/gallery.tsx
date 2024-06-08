@@ -30,7 +30,7 @@ const images = [
 
 export const Gallery = () => {
 
-  const { userType, userToken } = useUser();
+  const { userType, userToken, setServicesData, servicesData } = useUser();
   const { getServices } = useBackend();
 
   const [showModal, setShowModal] = useState(false);
@@ -53,13 +53,12 @@ export const Gallery = () => {
   };
 
   useEffect(() => {
-    if (services.length == 0) {
-      console.log('Getting services...') // No borrar console.log
-      getServicesData();
-    } else {
-      console.log('Services are ready to go ') // No borrar console.log
+    if (servicesData.length > 0) {
+      setServices(servicesData);
+      return console.log("Servicios ya obtenidos...");
     }
-  }, [services])
+    getServicesData();
+  }, [])
 
 
   return (
