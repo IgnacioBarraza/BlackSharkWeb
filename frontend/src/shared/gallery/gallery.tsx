@@ -1,14 +1,14 @@
-import { Navbar } from "../components/NavBar/Navbar";
+import { Navbar } from "../../components/NavBar/Navbar";
 import { faPlus } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useEffect, useState } from "react";
 import '../styles/gallery.css';
-import { UploadModal } from "./galleryComponents/uploadModal";
-import ImageModal from "./galleryComponents/imagemodal";
-import { useUser } from "../hooks/useUser";
-import { useBackend } from "../hooks/useBackend";
-import { Services } from "../utils/interfaces";
-import { Footer } from "../components/Footer/Footer";
+import { UploadModal } from "./components/uploadModal";
+import ImageModal from "./components/imagemodal";
+import { useUser } from "../../hooks/useUser";
+import { useBackend } from "../../hooks/useBackend";
+import { Services } from "../../utils/interfaces";
+import { Footer } from "../../components/Footer/Footer";
 
 const images = [
   "/image_gallery (1).jpeg",
@@ -48,6 +48,7 @@ export const Gallery = () => {
     try {
       const res = await getServices();
       setServices(res.data);
+      setServicesData(res.data)
     } catch (error) {
       console.error(error);
     }

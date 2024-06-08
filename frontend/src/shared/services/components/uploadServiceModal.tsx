@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { useFirebase } from "../../hooks/useFirebase";
-import { useBackend } from "../../hooks/useBackend";
-import { NewService } from "../../utils/interfaces";
-import { useUser } from "../../hooks/useUser";
+import { useFirebase } from "../../../hooks/useFirebase";
+import { useBackend } from "../../../hooks/useBackend";
+import { NewService } from "../../../utils/interfaces";
+import { useUser } from "../../../hooks/useUser";
 
 export const UploadServiceModal = ({ handleInterface, refreshServices }) => {
   const { uploadServiceImage } = useFirebase();
