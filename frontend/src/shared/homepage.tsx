@@ -1,3 +1,4 @@
+import { Footer } from "../components/Footer/Footer"
 import { Navbar } from "../components/NavBar/Navbar"
 
 export const Homepage = () => {
@@ -20,6 +21,7 @@ export const Homepage = () => {
           </div>
         </div>
       </div>
+      <Footer />
       </>
     )
   }
