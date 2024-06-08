@@ -10,7 +10,7 @@ import { SelectedServiceModal } from "./components/selectedServiceModal";
 
 export const Servicios = () => {
   const { userType, userToken, setServicesData, servicesData } = useUser();
-  const { getServices } = useBackend();
+  const { getServices, deleteService } = useBackend();
 
   const [showInterface, setShowInterface] = useState(false);
   const [selectedService, setSelectedService] = useState<Services>(null);
@@ -40,6 +40,22 @@ export const Servicios = () => {
       setServicesData(res.data);
     } catch (error) {
       console.error(error);
+    }
+  };
+
+  const handleDeleteService = async (id_servicios) => {
+    try {
+      const res = await deleteService(id_servicios, userToken)
+      const {status, data} = res
+      if (status === 200) {
+        alert(data.message)
+        setSelectedService(null)
+        const updatedServices = services.filter(service => service.id_servicios !== id_servicios);
+        setServices(updatedServices);
+        setServicesData(updatedServices);
+      }
+    } catch (error) {
+      alert(error.response.data.message)
     }
   };
 
@@ -85,7 +101,12 @@ export const Servicios = () => {
           </div>
         </div>
         {selectedService && (
-          <SelectedServiceModal handleClickOutside={handleClickOutside} handleCloseModal={handleCloseModal} selectedService={selectedService}/>
+          <SelectedServiceModal
+            handleClickOutside={handleClickOutside}
+            handleCloseModal={handleCloseModal}
+            selectedService={selectedService}
+            handleDeleteService={handleDeleteService}
+          />
         )}
         <Footer />
       </div>

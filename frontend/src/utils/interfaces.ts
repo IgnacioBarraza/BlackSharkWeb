@@ -126,7 +126,7 @@ export interface Services {
   imagen_link: string;
 }
 
-export interface CreateGalleryServiceResponse {
+export interface ApiResponse {
   data: {
     message: string
   };
