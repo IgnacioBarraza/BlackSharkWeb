@@ -1,8 +1,9 @@
 import express from 'express'
 import { randomUUID } from 'crypto'
+import mysql from 'mysql2/promise'
 
 import { connect } from '../utils/db'
-import { validateItem } from '../schemas/equipmentSchema'
+import { validateItem, validateUpdateItem } from '../schemas/equipmentSchema'
 
 const equipmentRouter = express.Router()
 
@@ -34,6 +35,49 @@ equipmentRouter.post('/new', async (req, res) => {
     } catch (error) {
         // console.log(error)
         return res.status(500).json({ message: 'Hubo un error al intentar guardar el equipo. Intente más tarde.' })
+    } finally {
+        if (connection) {
+            connection.end()
+        }
+    }
+})
+
+equipmentRouter.put('/update/:id', async (req, res) => {
+    const connection = connect()
+    const id = req.params.id
+
+    const validateData = validateUpdateItem(req.body)
+
+    if (validateData.error) {
+        return res.status(400).json({ message: JSON.parse(validateData.error.message)[0].message })
+    }
+
+    try {
+        const [row, fields] = await connection.query(`SELECT * FROM equipment WHERE id_equipo = ?`, [id])
+        const item = row as mysql.RowDataPacket[]
+
+        if (Array.isArray(item) && item.length > 0) {
+            const updatedItem = {
+                nombre_equipo: validateData.data.nombre_equipo ?? item[0].nombre_equipo,
+                tipo_equipo: validateData.data.tipo_equipo ?? item[0].tipo_equipo,
+                id_servicios: validateData.data.id_servicios ?? item[0].id_servicios
+            }
+
+            await connection.query(`
+                UPDATE equipment
+                SET nombre_equipo = ?,
+                tipo_equipo = ?,
+                id_servicios = ?
+                WHERE id_equipo = ?
+            `, [updatedItem.nombre_equipo, updatedItem.tipo_equipo, updatedItem.id_servicios, id])
+
+            return res.status(200).json({ message: 'El equipo se ha actualizado con éxito.' })
+        } else {
+            return res.status(400).json({ message: 'No hay ningún equipo asociado!' })
+        }
+    } catch (error) {
+        // console.log(error)
+        return res.status(500).json({ message: 'Hubo un error con el servidor al intentar actualizar el equipo. Intenta más tarde.' })
     } finally {
         if (connection) {
             connection.end()
