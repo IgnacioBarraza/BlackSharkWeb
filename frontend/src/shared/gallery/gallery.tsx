@@ -2,9 +2,9 @@ import { Navbar } from "../../components/NavBar/Navbar";
 import { faPlus } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useEffect, useState } from "react";
-import '../styles/gallery.css';
+import '../../styles/gallery.css';
 import { UploadModal } from "./components/uploadModal";
-import ImageModal from "./components/imagemodal";
+import { ImageModal } from "./components/imagemodal";
 import { useUser } from "../../hooks/useUser";
 import { useBackend } from "../../hooks/useBackend";
 import { Services } from "../../utils/interfaces";
