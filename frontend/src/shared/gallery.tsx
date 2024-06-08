@@ -1,12 +1,13 @@
 import { Navbar } from "../components/NavBar/Navbar";
 import { faPlus } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { UserContext } from "../providers/userContext";
-import { useFirebase } from "../hooks/useFirebase";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import '../styles/gallery.css';
 import { UploadModal } from "./galleryComponents/uploadModal";
 import ImageModal from "./galleryComponents/imagemodal";
+import { useUser } from "../hooks/useUser";
+import { useBackend } from "../hooks/useBackend";
+import { Services } from "../utils/interfaces";
 import { Footer } from "../components/Footer/Footer";
 
 const images = [
@@ -30,46 +31,37 @@ const images = [
 
 export const Gallery = () => {
 
-  const { userType, userToken } = useContext(UserContext);
-  const { uploadGalleryImage } = useFirebase()
+  const { userType, userToken } = useUser();
+  const { getServices } = useBackend();
 
   const [showModal, setShowModal] = useState(false);
 
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const [image, setImage] = useState(null);
-  const [progress, setProgress] = useState(0);
-  const [error, setError] = useState(null);
-  const [url, setUrl] = useState('');
+  const [services, setServices] = useState<Services[]>([]);
+
 
   const handleModal = () => {
     setShowModal(prevState => !prevState);
   };
 
-  const handleUpload = () => {
-    if (image) {
-      uploadGalleryImage(
-        image,
-        (progress) => setProgress(progress),
-        (error) => setError(error),
-        (downloadURL) => setUrl(downloadURL)
-      );
-      setImage(null)
-    } else {
-      alert('No image uploaded')
+  const getServicesData = async () => {
+    try {
+      const res = await getServices();
+      setServices(res.data);
+    } catch (error) {
+      console.error(error);
     }
-  }
-
-  const handleImageFileUpload = (e) => {
-    if (e.target.files[0]) {
-      setImage(e.target.files[0])
-    }
-  }
+  };
 
   useEffect(() => {
-    console.log(progress)
-    console.log(error)
-    console.log(url)
-  }, [progress, error, url])
+    if (services.length == 0) {
+      console.log('Getting services...') // No borrar console.log
+      getServicesData();
+    } else {
+      console.log('Services are ready to go ') // No borrar console.log
+    }
+  }, [services])
+
 
   return (
     <>
@@ -107,7 +99,7 @@ export const Gallery = () => {
             )}
             
           {showModal && (
-            <UploadModal handleModal={handleModal} />
+            <UploadModal handleModal={handleModal} services={services}/>
           )}
         </div>
       </div>

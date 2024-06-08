@@ -44,7 +44,7 @@ export const FirebaseProvider = ({ children }: FirebaseProviderProps) => {
         }
       );
     } else {
-      alert('No image uploaded');
+      alert('Debe cargar una imagen para continuar...');
     }
   };
 
@@ -71,7 +71,7 @@ export const FirebaseProvider = ({ children }: FirebaseProviderProps) => {
         }
       );
     } else {
-      alert('No image uploaded');
+      alert('Debe cargar una imagen para continuar...');
     }
   }
   return (
