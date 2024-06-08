@@ -26,6 +26,21 @@ export interface LoginResponse {
   };
 }
 
+export interface RegisterResponse {
+  data: {
+    message: string;
+    token: string;
+    username: string;
+    tipo_user: string;
+  };
+  status: number;
+  statusText: string;
+  headers: {
+    "content-length": string;
+    "content-type": string;
+  };
+}
+
 export interface RecoverPassword {
   email: string
 }
@@ -82,5 +97,43 @@ export interface NewPasswordResponse {
 }
 
 export interface NewService {
-  
+  nombre: string;
+  precio: number;
+  descripcion: string;
+  imagen: string[];
+}
+
+export interface NewGallery {
+  id_servicios: string;
+  imagen_link: string;
+}
+
+export interface GetServicesResponse {
+  data: Services[];
+  status: number;
+  statusText: string;
+  headers: {
+    "content-length": string;
+    "content-type": string;
+  };
+}
+
+export interface Services {
+  nombre: string;
+  precio: number;
+  descripcion: string;
+  id_servicios: string;
+  imagen_link: string[];
+}
+
+export interface CreateGalleryResponse {
+  data: {
+    message: string
+  };
+  status: number;
+  statusText: string;
+  headers: {
+    "content-length": string;
+    "content-type": string;
+  };
 }

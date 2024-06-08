@@ -2,6 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faSquareFacebook, faInstagram } from "@fortawesome/free-brands-svg-icons";
 import { Navbar } from "../components/NavBar/Navbar";
 import '../styles/contact.css';
+import { Footer } from "../components/Footer/Footer";
 
 
 export const Contact = () => {
@@ -17,9 +18,9 @@ export const Contact = () => {
           <div className="bg-transparent text-white text-center text-4xl py-4 rounded-lg flex justify-center items-center">
             <div className="font-myriad-pro text-center items-center">
               <h1 className="pb-2">Contactanos</h1>
-              <h2 className="pb-20">¡Trabaja con nosotros!</h2>
-              <h4 className="pt-10">Si deseas más información o colaborar con nosotros, estaremos encantados de ayudarte en todo lo que necesites.</h4>
-              <h4 className="pt-36 pb-2">Búscanos en redes sociales</h4>
+              <h2 className="pb-10">¡Trabaja con nosotros!</h2>
+              <h4 className="pt-10">Si tienes habilidades que crees que podrían complementar nuestro equipo, tienes alguna duda o necesitas contactarte con nosotros, no dudes en ponerte en contacto. Estamos comprometidos en brindar una buena solución a cualquier inquietud. ¡Esperamos escuchar de ti pronto y explorar juntos las oportunidades que tenemos para ofrecer!</h4>
+              <h4 className="pt-24 pb-2">Búscanos en redes sociales</h4>
               <div className="items center justify-center">
                   <a href="https://web.facebook.com/ElLokojara/" className="pl-6 ">
                     <FontAwesomeIcon icon={faSquareFacebook} color="#4267B2" fontSize="50px"/>
@@ -95,6 +96,7 @@ export const Contact = () => {
           </div>
       </div>
     </div>
+    <Footer/>
     </>
   )
 }
