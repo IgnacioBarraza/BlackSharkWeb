@@ -8,6 +8,7 @@ import ImageModal from "./galleryComponents/imagemodal";
 import { useUser } from "../hooks/useUser";
 import { useBackend } from "../hooks/useBackend";
 import { Services } from "../utils/interfaces";
+import { Footer } from "../components/Footer/Footer";
 
 const images = [
   "/image_gallery (1).jpeg",
@@ -101,6 +102,7 @@ export const Gallery = () => {
           )}
         </div>
       </div>
+      <Footer/>
     </div>
     </>
   )

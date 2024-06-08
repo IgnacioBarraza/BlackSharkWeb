@@ -6,6 +6,7 @@ import { useUser } from "../hooks/useUser";
 import { UploadServiceModal } from "./serviceComponents/uploadServiceModal";
 import { useBackend } from "../hooks/useBackend";
 import { Services } from "../utils/interfaces";
+import { Footer } from "../components/Footer/Footer";
 
 export const Servicios = () => {
   const { userType, userToken, setServicesData, servicesData } = useUser();
@@ -120,6 +121,7 @@ export const Servicios = () => {
           </div>
         )}
       </div>
+      <Footer/>
     </>
   );
 };
