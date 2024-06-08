@@ -85,7 +85,7 @@ export const UserDropdown = () => {
             className="block font-myriad-pro text-xl py-2 px-4"
             onClick={toggleDropdown}
           >
-            Inventario
+            Equipos
           </Link>
         </>
         ) : (
