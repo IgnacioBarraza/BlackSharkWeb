@@ -4,7 +4,7 @@ import { useBackend } from "../../../hooks/useBackend";
 import { NewService } from "../../../utils/interfaces";
 import { useUser } from "../../../hooks/useUser";
 
-export const UploadServiceModal = ({ handleInterface, refreshServices }) => {
+export const UploadServiceModal = ({ handleInterface, addService }) => {
   const { uploadServiceImage } = useFirebase();
   const { createService } = useBackend();
   const { userToken } = useUser();
@@ -59,10 +59,16 @@ export const UploadServiceModal = ({ handleInterface, refreshServices }) => {
     }
     try {
       const res = await createService(newService, userToken)
+      console.log(res)
       const { status, data } = res
       if (status === 201) {
         alert(data.message)
-        refreshServices();
+        const transformedService = {
+          ...newService,
+          imagen_link: newService.imagen, // Transform imagen to imagen_link
+          id_servicios: data.id // Add id_servicios to the services
+        };
+        addService(transformedService);
         handleInterface();
       }
     } catch (error) {

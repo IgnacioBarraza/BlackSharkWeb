@@ -124,11 +124,13 @@ export interface Services {
   descripcion: string;
   id_servicios: string;
   imagen_link: string;
+  id?: string
 }
 
 export interface ApiResponse {
   data: {
-    message: string
+    message: string;
+    id?: string
   };
   status: number;
   statusText: string;

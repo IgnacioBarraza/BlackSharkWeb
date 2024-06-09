@@ -7,10 +7,12 @@ import { Services } from "../../utils/interfaces";
 import { Footer } from "../../components/Footer/Footer";
 import { UploadButton } from "./components/uploadButton";
 import { SelectedServiceModal } from "./components/selectedServiceModal";
+import { useFirebase } from "../../hooks/useFirebase";
 
 export const Servicios = () => {
-  const { userType, userToken, setServicesData, servicesData } = useUser();
+  const { userType, userToken, servicesData, setServicesData } = useUser();
   const { getServices, deleteService } = useBackend();
+  const { deleteImageFromServices } = useFirebase()
 
   const [showInterface, setShowInterface] = useState(false);
   const [selectedService, setSelectedService] = useState<Services>(null);
@@ -21,7 +23,12 @@ export const Servicios = () => {
   };
 
   const handleServiceClick = (servicio) => {
-    setSelectedService(servicio);
+    console.log(servicio)
+    const transformedService = {
+      ...servicio,
+      id_servicios: servicio.id_servicios // Add id_servicios to selectedService
+    };
+    setSelectedService(transformedService);
   };
 
   const handleCloseModal = () => {
@@ -43,12 +50,23 @@ export const Servicios = () => {
     }
   };
 
+  const extractImageNameFromURL = (url) => {
+    const decodedURL = decodeURIComponent(url);
+    const parts = decodedURL.split('/');
+    const fileNameWithToken = parts.pop();
+    const fileName = fileNameWithToken.split('?')[0];
+    return fileName;
+  };
+
   const handleDeleteService = async (id_servicios) => {
+    const serviceToDelete = services.filter(service => service.id_servicios === id_servicios)
+    const imageName = extractImageNameFromURL(serviceToDelete[0].imagen_link);
     try {
       const res = await deleteService(id_servicios, userToken)
       const {status, data} = res
       if (status === 200) {
         alert(data.message)
+        deleteImageFromServices(imageName)
         setSelectedService(null)
         const updatedServices = services.filter(service => service.id_servicios !== id_servicios);
         setServices(updatedServices);
@@ -59,10 +77,20 @@ export const Servicios = () => {
     }
   };
 
+  const handleAddService = (newService) => {
+    setServices((prevServices) => {
+      const updatedServices = prevServices ? [...prevServices, newService] : [newService];
+      setServicesData(updatedServices); // Set the new state directly
+      console.log(updatedServices); // Log the updated state here
+      return updatedServices;
+    });
+    console.log("Checking for duplicate id_servicios:", services.some((service, index, self) => self.findIndex(s => s.id_servicios === service.id_servicios) !== index));
+  };
+
   useEffect(() => {
     if (servicesData.length > 0) {
       setServices(servicesData);
-      return console.log("Servicios ya obtenidos...");
+      return console.log("Servicios ya obtenidos..."); // Don't delete!
     }
     getServicesData();
   }, []);
@@ -79,24 +107,24 @@ export const Servicios = () => {
             {showInterface && (
               <UploadServiceModal
                 handleInterface={handleInterface}
-                refreshServices={getServicesData}
+                addService={handleAddService}
               />
             )}
             {services.map((service) => (
               <div
-                key={service.id_servicios}
-                className="bg-white rounded-lg shadow-lg transition-shadow hover:shadow-xl cursor-pointer"
-                onClick={() => handleServiceClick(service)}
-              >
-                <img
-                  src={service.imagen_link}
-                  alt={service.nombre}
-                  className="w-full h-48 sm:h-64 md:h-64 object-cover rounded-t-lg"
-                />
-                <div className="p-4">
-                  <h2 className="text-lg font-bold mb-2">{service.nombre}</h2>
-                </div>
+              key={service.id_servicios}
+              className="bg-white rounded-lg shadow-lg transition-shadow hover:shadow-xl cursor-pointer"
+              onClick={() => handleServiceClick(service)}
+            >
+              <img
+                src={service.imagen_link}
+                alt={service.nombre}
+                className="w-full h-48 sm:h-64 md:h-64 object-cover rounded-t-lg"
+              />
+              <div className="p-4">
+                <h2 className="text-lg font-bold mb-2">{service.nombre}</h2>
               </div>
+            </div>
             ))}
           </div>
         </div>
