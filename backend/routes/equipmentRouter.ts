@@ -85,4 +85,27 @@ equipmentRouter.put('/update/:id', async (req, res) => {
     }
 })
 
+equipmentRouter.delete('/delete/:id', async (req, res) => {
+    const connection = connect()
+    const id = req.params.id
+
+    try {
+        const [row, fields] = await connection.query(`SELECT * FROM equipment WHERE id_equipo = ?`, [id])
+
+        if (Array.isArray(row) && row.length > 0) {
+            await connection.query(`DELETE FROM equipment WHERE id_equipo = ?`, [id])
+            return res.status(200).json({ message: 'El equipo se ha eliminado con éxito.' })
+        } else {
+            return res.status(400).json({ message: 'No se ha encontrado el equipo.' })
+        }
+    } catch (error) {
+        // console.log(error)
+        return res.status(500).json({ message: 'Hubo un problema con el servidor al intentar eliminar el equipo. Inténtalo más tarde.' })
+    } finally {
+        if (connection) {
+            connection.end()
+        }
+    }
+})
+
 export default equipmentRouter
