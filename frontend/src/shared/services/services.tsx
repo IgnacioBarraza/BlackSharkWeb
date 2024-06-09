@@ -23,7 +23,6 @@ export const Servicios = () => {
   };
 
   const handleServiceClick = (servicio) => {
-    console.log(servicio)
     const transformedService = {
       ...servicio,
       id_servicios: servicio.id_servicios // Add id_servicios to selectedService
