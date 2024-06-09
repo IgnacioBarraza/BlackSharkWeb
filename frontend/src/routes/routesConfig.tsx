@@ -1,3 +1,4 @@
+import { Component } from "react";
 import { Login } from "../auth/login";
 import { Register } from "../auth/register";
 import { Newpassword } from "../components/NewPassword/newpassword";
@@ -7,6 +8,7 @@ import { Gallery } from "../shared/gallery";
 import { Homepage } from "../shared/homepage";
 import { Servicios } from "../shared/servicios";
 import { Cart } from "../shared/shop/shoppingCart";
+import { Tools } from "../shared/tools";
 
 export const routes = [
   {
@@ -44,5 +46,9 @@ export const routes = [
   {
     path: '/cart',
     component: <Cart />
+  },
+  {
+    path: '/tools',
+    Component: <Tools />
   }
 ]
