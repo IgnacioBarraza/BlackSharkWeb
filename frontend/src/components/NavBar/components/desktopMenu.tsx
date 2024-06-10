@@ -1,22 +1,20 @@
 import { faCircleUser } from "@fortawesome/free-regular-svg-icons/faCircleUser";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useContext, useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { UserContext } from "../../../providers/userContext";
+import { useUser } from "../../../hooks/useUser";
 
 export const DesktopMenu = () => {
   const navigate = useNavigate();
-  const { userName, userType, userToken, setUserName, setTokenData, setUserType } = useContext(UserContext);
+  const { userName, userType, userToken, logout } = useUser();
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
   
   const firstName = userName ? userName.split(' ')[0] : '';
 
   const handleLogout = () => {
-    setUserName(null);
-    setTokenData(null);
-    setUserType(null);
-    navigate("/");
+    logout()
+    navigate("/")
     setDropdownOpen(false);
   };
 
@@ -42,7 +40,7 @@ export const DesktopMenu = () => {
   }, [isDropdownOpen]);
 
   return (
-    <div className="hidden md:flex items-center justify-between space-x-16 w-2/4">
+    <div className="hidden md:flex items-center justify-between w-2/4">
       <Link
         to="/servicios"
         className="font-myriad-pro font-medium transition duration-500 transform hover:scale-110 px-2 mr-7 text-2xl"

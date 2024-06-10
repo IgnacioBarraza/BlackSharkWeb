@@ -37,7 +37,7 @@ loginRouter.post('/verify', async (req, res) => {
                 }
 
                 if (SECRET) {
-                    const token = jwt.sign(userToken, SECRET)
+                    const token = jwt.sign(userToken, SECRET, {expiresIn: "6h"})
                     return res.status(200).json({ message: 'Usuario verificado', token, username: user[0].username, tipo_user: user[0].tipo_user })
                 } else {
                     return res.status(500).json({ message: 'No se pudo generar el token de autenticación.' })
@@ -96,7 +96,7 @@ loginRouter.post('/register', async (req, res) => {
             }
 
             if (SECRET) {
-                const token = jwt.sign(userToken, SECRET)
+                const token = jwt.sign(userToken, SECRET, {expiresIn: "6h"})
                 return res.status(201).json({ message: 'Registro exitoso!', username: newUser.username, tipo_user: newUser.tipo_user, token })
             } else {
                 return res.status(500).json({ message: 'Hubo un error con el servidor. Inténtalo más tarde.' })

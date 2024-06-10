@@ -7,6 +7,7 @@ type UserDataProviderType = {
   userToken: string | null
   setUserName: (username: string) => void
   userName: string | null
+  logout: () => void
 }
 
 export const UserContext = createContext<UserDataProviderType>({
@@ -15,7 +16,8 @@ export const UserContext = createContext<UserDataProviderType>({
   setTokenData: () => {},
   userToken: null,
   setUserName: () => {},
-  userName: null
+  userName: null,
+  logout: () => {}
 })
 
 export const UserDataProvider = ({children}) => {
@@ -38,7 +40,16 @@ export const UserDataProvider = ({children}) => {
     setTokenData(token)
   }
 
+  const logout = () => {
+    setUserName(null);
+    setTokenData(null);
+    setUserType(null);
+    localStorage.setItem("token", null);
+    localStorage.setItem("userType", null);
+    localStorage.setItem("userName", null);
+  }
+
   return (
-    <UserContext.Provider value={{userType, setUserType, userToken, setTokenData, userName, setUserName}}>{children}</UserContext.Provider>
+    <UserContext.Provider value={{userType, setUserType, userToken, setTokenData, userName, setUserName, logout}}>{children}</UserContext.Provider>
   )
 }
