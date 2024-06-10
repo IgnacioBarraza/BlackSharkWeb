@@ -49,6 +49,6 @@ export const routes = [
   },
   {
     path: '/tools',
-    Component: <Tools />
+    component: <Tools />
   }
 ]
