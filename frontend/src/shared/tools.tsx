@@ -62,7 +62,7 @@ export const Tools = () => {
                         <UploadToolsModal handleInterface={handleInterface} />
                     )}
                     
-                    <div className="">
+                    <div>
                     {toolsItems.length > 0 ? (
                         toolsItems.map((item, index) => (
                         <ToolsItem

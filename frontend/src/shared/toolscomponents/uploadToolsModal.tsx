@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useFirebase } from "../../hooks/useFirebase";
 
 export const UploadToolsModal = ({ handleInterface }) => {
-  const { uploadServiceImage } = useFirebase();
+  const { uploadServiceImage } = useFirebase(); //Cambiar esto para el equipo
 
   const [image, setImage] = useState(null);
   const [preview, setPreview] = useState(null);
@@ -14,7 +14,7 @@ export const UploadToolsModal = ({ handleInterface }) => {
   })
 
   const handleUpload = () => {
-    uploadServiceImage(
+    uploadServiceImage( //Cambiar esto para el equipo
       image,
       (progress) => setProgress(progress),
       (error) => setError(error),
@@ -42,7 +42,7 @@ export const UploadToolsModal = ({ handleInterface }) => {
 
   const uploadTool = () => {
     const newTool = {
-      serviceName: tool.toolName,
+      toolName: tool.toolName,
       url: url
     }
     console.log(newTool)
