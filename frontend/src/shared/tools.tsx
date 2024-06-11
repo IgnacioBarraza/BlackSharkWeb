@@ -72,7 +72,7 @@ export const Tools = () => {
                         />
                         ))
                     ) : (
-                        <div className="text-center text-white text-xl">No hay Equipos de Trabajos</div>
+                        <div className="text-center text-white text-xl">No hay equipos de trabajos</div>
                     )}
                     </div>
                 </div>
