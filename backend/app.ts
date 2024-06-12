@@ -21,6 +21,7 @@ import { rateLimiter } from './utils/rate-limiter'
 import { slowDownLimiter } from './utils/slow-down'
 import dataRouter from './routes/getData'
 import equipmentRouter from './routes/equipmentRouter'
+import collabsRouter from './routes/collabsRouter'
 
 const app = express()
 
@@ -45,5 +46,6 @@ app.use('/api/project', projectRouter)
 app.use('/api/budget', budgetRouter)
 app.use('/api/cart', cartRouter)
 app.use('/api/equipment', equipmentRouter)
+app.use('/api/collaborations', collabsRouter)
 
 export default app
