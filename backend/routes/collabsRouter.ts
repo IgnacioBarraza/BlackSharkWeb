@@ -79,4 +79,28 @@ collabsRouter.put('/update/:id', async (req, res) => {
     }
 })
 
+collabsRouter.delete('/delete/:id', async (req, res) => {
+    const connection = connect()
+    const id = req.params.id
+
+    try {
+        const [row, fields] = await connection.query(`SELECT * FROM colaborations WHERE id_colaboration = ?`, [id])
+        const collab = row as mysql.RowDataPacket[]
+
+        if (Array.isArray(collab) && collab.length > 0) {
+            await connection.query(`DELETE FROM colaborations WHERE id_colaboration = ?`, [id])
+            return res.status(200).json({ message: 'Los datos de la colaboración se han eliminado con éxito.' })
+        } else {
+            return res.status(400).json({ message: 'No hay ninguna colaboración asociada a esa id. Inténtalo nuevamente.' })
+        }
+    } catch (error) {
+        // console.log(error)
+        return res.status(500).json({ message: 'Hubo un error en el servidor al intentar eliminar la colaboración. Inténtalo más tarde.' })
+    } finally {
+        if (connection) {
+            connection.end()
+        }
+    }
+})
+
 export default collabsRouter
