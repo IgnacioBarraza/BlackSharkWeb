@@ -10,6 +10,7 @@ type BackendContextType = {
   getServices: () => Promise<GetServicesResponse>;
   getGallery: () => Promise<GetGalleryResponse>;
   deleteService: (id_servicio: string, token: string) => Promise<ApiResponse>
+  deleteGallery: (id_imagen: string, token: string) => Promise<ApiResponse>
 }
 
 type BackendProviderProps = {
@@ -68,6 +69,17 @@ export const BackendContext = createContext<BackendContextType>({
       "content-length": "",
       "content-type": ""
     }
+  }),
+  deleteGallery: () => Promise.resolve({
+    data: {
+      message: ""
+    },
+    status: 0,
+    statusText: "",
+    headers: {
+      "content-length": "",
+      "content-type": ""
+    }
   })
 })
 
@@ -92,8 +104,13 @@ export const BackendProvider = ({children}: BackendProviderProps) => {
       Authorization: `Bearer ${token}`
     }
   })
+  const deleteGallery = (id_imagen: string, token: string): Promise<ApiResponse> => axios.delete(`${BACKEND_URL}/gallery/delete/${id_imagen}`, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
 
   return (
-    <BackendContext.Provider value={{ createService, createGallery, getServices, getGallery, deleteService }}>{children}</BackendContext.Provider>
+    <BackendContext.Provider value={{ createService, createGallery, getServices, getGallery, deleteService, deleteGallery }}>{children}</BackendContext.Provider>
   )
 }

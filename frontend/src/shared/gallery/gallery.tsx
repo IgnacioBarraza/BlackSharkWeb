@@ -1,6 +1,4 @@
 import { Navbar } from "../../components/NavBar/Navbar";
-import { faPlus } from "@fortawesome/free-solid-svg-icons"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useEffect, useState } from "react";
 import '../../styles/gallery.css';
 import { UploadModal } from "./components/uploadModal";
@@ -10,15 +8,17 @@ import { useBackend } from "../../hooks/useBackend";
 import { GalleryData, Services } from "../../utils/interfaces";
 import { Footer } from "../../components/Footer/Footer";
 import { UploadGalleryButton } from "./components/uploadGalleryButton";
+import { useFirebase } from "../../hooks/useFirebase";
 
 export const Gallery = () => {
 
   const { userType, userToken, setServicesData, servicesData, setGalleryData, galleryData } = useUser();
-  const { getServices, getGallery } = useBackend();
+  const { getServices, getGallery, deleteGallery } = useBackend();
+  const { deleteImageFromGallery } = useFirebase()
 
   const [showModal, setShowModal] = useState(false);
 
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [selectedImage, setSelectedImage] = useState<GalleryData | null>(null);
   const [services, setServices] = useState<Services[]>([]);
   const [gallery, setGallery] = useState<GalleryData[]>([]);
 
@@ -50,12 +50,39 @@ export const Gallery = () => {
   }
 
   const addGalleryImage = (newImage) => {
-    setGallery((prevServices) => {
-      const updatedGallery = prevServices ? [...prevServices, newImage] : [newImage];
+    setGallery((prevGallery) => {
+      const updatedGallery = prevGallery ? [...prevGallery, newImage] : [newImage];
       setGalleryData(updatedGallery); // Set the new state directly
       return updatedGallery;
     });
   }
+
+  const extractImageNameFromURL = (url) => {
+    const decodedURL = decodeURIComponent(url);
+    const parts = decodedURL.split('/');
+    const fileNameWithToken = parts.pop();
+    const fileName = fileNameWithToken.split('?')[0];
+    return fileName;
+  };
+
+  const deleteGalleryImage = async (id_imagen) => {
+    const galleryToDelete = gallery.filter(gallery => gallery.id_imagen === id_imagen)
+    const imagename = extractImageNameFromURL(galleryToDelete[0].imagen_link)
+    try {
+      const res = await deleteGallery(id_imagen, userToken)
+      const {status, data} = res
+      if (status === 200) {
+        alert(data.message)
+        deleteImageFromGallery(imagename)
+        setSelectedImage(null)
+        const updatedGallery = gallery.filter(gallery => gallery.id_imagen !== id_imagen)
+        setGallery(updatedGallery);
+        setGalleryData(updatedGallery);
+      }
+    } catch (error) {
+      alert(error.response.data.message)
+    }
+  };
 
   useEffect(() => {
     if (galleryData.length > 0) {
@@ -88,14 +115,26 @@ export const Gallery = () => {
               src={image.imagen_link}
               alt=""
               className="rounded-lg shadow-md border border-gray-300 transition duration-300 ease-in-out transform hover:scale-105 cursor-pointer"
-              onClick={() => setSelectedImage(image.imagen_link)}
+              onClick={() => setSelectedImage(image)}
             />
           ))}
-          {selectedImage && <ImageModal src={selectedImage} onClose={() => setSelectedImage(null)} />}
-          {showModal && <UploadModal handleModal={handleModal} services={services} addGalleryImage={addGalleryImage} />}
+          {selectedImage && (
+            <ImageModal
+              image={selectedImage}
+              onClose={() => setSelectedImage(null)}
+              deleteImage={deleteGalleryImage}
+            />
+          )}
+          {showModal && (
+            <UploadModal
+              handleModal={handleModal}
+              services={services}
+              addGalleryImage={addGalleryImage}
+            />
+          )}
         </div>
       </div>
       <Footer />
     </div>
-  )
+  );
 }
