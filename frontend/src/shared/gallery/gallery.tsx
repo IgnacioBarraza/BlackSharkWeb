@@ -7,7 +7,7 @@ import { UploadModal } from "./components/uploadModal";
 import { ImageModal } from "./components/imagemodal";
 import { useUser } from "../../hooks/useUser";
 import { useBackend } from "../../hooks/useBackend";
-import { Galeria, Services } from "../../utils/interfaces";
+import { GalleryData, Services } from "../../utils/interfaces";
 import { Footer } from "../../components/Footer/Footer";
 
 export const Gallery = () => {
@@ -19,7 +19,7 @@ export const Gallery = () => {
 
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [services, setServices] = useState<Services[]>([]);
-  const [gallery, setGallery] = useState<Galeria[]>([]);
+  const [gallery, setGallery] = useState<GalleryData[]>([]);
 
 
   const handleModal = () => {

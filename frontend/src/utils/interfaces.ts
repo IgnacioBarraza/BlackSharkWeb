@@ -119,7 +119,7 @@ export interface GetServicesResponse {
 }
 
 export interface GetGalleryResponse {
-  data: Galeria[];
+  data: GalleryData[];
   status: number;
   statusText: string;
   headers: {
@@ -128,7 +128,7 @@ export interface GetGalleryResponse {
   };
 }
 
-export interface Galeria {
+export interface GalleryData {
   id_imagen: string;
   id_servicios: string;
   imagen_link: string;

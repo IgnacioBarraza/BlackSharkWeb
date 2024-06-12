@@ -1,5 +1,5 @@
 import { useState, createContext, useEffect } from "react"
-import { Galeria, Services } from "../utils/interfaces"
+import { GalleryData, Services } from "../utils/interfaces"
 
 type UserDataProviderType = {
   setUserType: (userType: string) => void
@@ -12,7 +12,7 @@ type UserDataProviderType = {
   setServicesData: (servicesData: Services[]) => void
   servicesData: Services[] | null
   setGalleryData: (galleyData) => void
-  galleryData: Galeria[] | null
+  galleryData: GalleryData[] | null
 }
 
 export const UserContext = createContext<UserDataProviderType>({
@@ -34,7 +34,7 @@ export const UserDataProvider = ({children}) => {
   const [userToken, setTokenData] = useState<string | null>(localStorage.getItem("token"));
   const [userName, setUserName] = useState<string | null>(localStorage.getItem("userName"));
   const [servicesData, setServices] = useState<Services[] | null>([]);
-  const [galleryData, setGallery] = useState<Galeria[] | null>([]);
+  const [galleryData, setGallery] = useState<GalleryData[] | null>([]);
 
   useEffect(() => {
     localStorage.setItem("userType", userType || "");
@@ -61,7 +61,7 @@ export const UserDataProvider = ({children}) => {
   }
 
   const setServicesData = (servicesData: Services[]) => setServices(servicesData)
-  const setGalleryData = (galleryDataData: Galeria[]) => setGallery(galleryDataData)
+  const setGalleryData = (galleryDataData: GalleryData[]) => setGallery(galleryDataData)
 
   return (
     <UserContext.Provider value={{ userType, setUserType, userToken, setTokenData, userName, setUserName, servicesData, setServicesData, logout, galleryData, setGalleryData }}>{children}</UserContext.Provider>
