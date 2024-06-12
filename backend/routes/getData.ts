@@ -42,10 +42,27 @@ dataRouter.get('/inventory', async (req, res) => {
     try {
         const [row, fields] = await connection.query(`SELECT * FROM inventario`)
 
-        res.status(200).json(row)
+        return res.status(200).json(row)
     } catch (error) {
         // console.log(error)
         res.status(500).json({ message: 'Hubo un error intentando obtener los artículos del inventario.' })
+    } finally {
+        if (connection) {
+            connection.end()
+        }
+    }
+})
+
+dataRouter.get('/equipment', async (req, res) => {
+    const connection = connect()
+
+    try {
+        const [row, fields] = await connection.query('Select * FROM equipment')
+
+        return res.status(200).json(row)
+    } catch (error) {
+        // console.log(error)
+        return res.status(500).json({ message: 'Hubo un error al intentar conseguir los equipos. Intente más tarde.' })
     } finally {
         if (connection) {
             connection.end()

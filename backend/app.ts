@@ -20,6 +20,7 @@ import verifyToken from './middleware/verifyToken'
 import { rateLimiter } from './utils/rate-limiter'
 import { slowDownLimiter } from './utils/slow-down'
 import dataRouter from './routes/getData'
+import equipmentRouter from './routes/equipmentRouter'
 
 const app = express()
 
@@ -43,5 +44,6 @@ app.use('/api/service', serviceRouter)
 app.use('/api/project', projectRouter)
 app.use('/api/budget', budgetRouter)
 app.use('/api/cart', cartRouter)
+app.use('/api/equipment', equipmentRouter)
 
 export default app

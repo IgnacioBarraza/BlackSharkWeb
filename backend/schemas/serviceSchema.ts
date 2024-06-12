@@ -6,7 +6,7 @@ const serviceSchema = z.object({
             required_error: 'Debes indicar un nombre para el servicio!',
             invalid_type_error: 'Ingresa un nombre válido.'
         })
-        .refine(value => /^.{0,250}$/.test(value ?? ""), {
+        .refine(value => /^.{0,250}$/.test(value), {
             message: 'Por favor, ingresa un nombre más corto!'
         }),
     precio: z
