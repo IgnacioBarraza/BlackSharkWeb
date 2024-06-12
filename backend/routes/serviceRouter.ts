@@ -32,7 +32,7 @@ serviceRouter.post('/new', async (req, res) => {
         }
 
         await connection.query(`INSERT INTO servicios (id_servicios, nombre, precio, descripcion, imagen_link) VALUES (?, ?, ?, ?, ?)`, [newService.id_servicios, newService.nombre, newService.precio, newService.descripcion, newService.imagen])
-        return res.status(201).json({ message: 'Servicio creado!' })
+        return res.status(201).json({ message: 'Servicio creado!', id: newService.id_servicios })
     } catch (error) {
         // console.log(error)
         return res.status(500).json({ message: 'Hubo un error en el servidor al intentar guardar el servicio. Inténtalo más tarde.' })
