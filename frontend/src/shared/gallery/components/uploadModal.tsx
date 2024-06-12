@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { useFirebase } from "../../../hooks/useFirebase";
 import { useBackend } from "../../../hooks/useBackend";
-import { NewGallery, Services } from "../../../utils/interfaces";
+import { NewGallery } from "../../../utils/interfaces";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmarkCircle } from "@fortawesome/free-solid-svg-icons";
 import { useUser } from "../../../hooks/useUser";
 
-export const UploadModal = ({ handleModal, services }) => {
+export const UploadModal = ({ handleModal, services, addGalleryImage }) => {
 
   const { uploadGalleryImage } = useFirebase();
   const { createGallery } = useBackend();
@@ -21,17 +21,14 @@ export const UploadModal = ({ handleModal, services }) => {
   const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
 
   const handleUpload = () => {
-    if (selectedServices.length > 0) {
-      uploadGalleryImage(
-        image,
-        (progress) => setProgress(progress),
-        (error) => setError(error),
-        (downloadURL) => setUrl(downloadURL)
-      );
-      setImage(null);
-    } else {
-      alert("Debes seleccionar al menos un servicio para asociarlo a la imagen...");
-    }
+    if (selectedServices.length === 0) return alert("Debes seleccionar al menos un servicio para asociarlo a la imagen...");
+    uploadGalleryImage(
+      image,
+      (progress) => setProgress(progress),
+      (error) => setError(error),
+      (downloadURL) => setUrl(downloadURL)
+    );
+    setImage(null);
   };
 
   const handleImageFileUpload = (e) => {
@@ -58,7 +55,7 @@ export const UploadModal = ({ handleModal, services }) => {
     setSelectedServices((prev) => prev.filter((serviceId) => serviceId !== id));
   };
 
-  const newGallery = async () => {
+  const uploadGallery = async () => {
     if (url) {
       const formattedIds = JSON.stringify(selectedServices);
       const NewGallery: NewGallery = {
@@ -70,6 +67,12 @@ export const UploadModal = ({ handleModal, services }) => {
         const { status, data } = res;
         if (status === 201) {
           alert(data.message);
+          const newGalleryImage = {
+            ...NewGallery,
+            id_imagen: data.id
+          }
+          addGalleryImage(newGalleryImage)
+          handleModal()
         }
       } catch (error) {
         alert(error.response.data.message);
@@ -78,7 +81,9 @@ export const UploadModal = ({ handleModal, services }) => {
   };
 
   useEffect(() => {
-    newGallery();
+    if (url && progress === 100) {
+      uploadGallery();
+    }
   }, [url]);
 
   return (

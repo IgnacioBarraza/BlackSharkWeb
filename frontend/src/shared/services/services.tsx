@@ -80,10 +80,8 @@ export const Servicios = () => {
     setServices((prevServices) => {
       const updatedServices = prevServices ? [...prevServices, newService] : [newService];
       setServicesData(updatedServices); // Set the new state directly
-      console.log(updatedServices); // Log the updated state here
       return updatedServices;
     });
-    console.log("Checking for duplicate id_servicios:", services.some((service, index, self) => self.findIndex(s => s.id_servicios === service.id_servicios) !== index));
   };
 
   useEffect(() => {
