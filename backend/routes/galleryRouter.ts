@@ -70,6 +70,8 @@ galleryRouter.put('/update/:id', async (req, res) => {
             )
 
             return res.status(200).json({ message: 'Los datos de la imagen se han actualizado con éxito.' })
+        } else {
+            return res.status(400).json({ message: 'No hay ninguna imagen asociada.' })
         }
     } catch (error) {
         // console.log(error)

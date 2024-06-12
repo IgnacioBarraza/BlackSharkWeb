@@ -1,26 +1,21 @@
 import { faCircleUser } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useContext, useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { UserContext } from "../../../providers/userContext";
 import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
+import { useUser } from "../../../hooks/useUser";
 
 export const UserDropdown = () => {
   const navigate = useNavigate();
-  const { userName, userToken, userType, setUserName, setTokenData, setUserType } = useContext(UserContext);
+  const { userName, userToken, userType, logout } = useUser();
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
 
   const firstName = userName ? userName.split(' ')[0] : '';
 
   const handleLogout = () => {
-    setUserName(null);
-    setTokenData(null);
-    setUserType(null);
-    localStorage.setItem("token", null);
-    localStorage.setItem("userType", null);
-    localStorage.setItem("userName", null);
-    navigate("/");
+    logout()
+    navigate("/")
     setDropdownOpen(false);
   };
 
@@ -81,7 +76,7 @@ export const UserDropdown = () => {
             Gestionar pedidos
           </Link>
           <Link
-            to="/inventary"
+            to="/tools"
             className="block font-myriad-pro text-xl py-2 px-4"
             onClick={toggleDropdown}
           >

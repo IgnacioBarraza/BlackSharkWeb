@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { useFirebase } from "../../hooks/useFirebase";
-import { useBackend } from "../../hooks/useBackend";
-import { NewGallery, Services } from "../../utils/interfaces";
+import { useFirebase } from "../../../hooks/useFirebase";
+import { useBackend } from "../../../hooks/useBackend";
+import { NewGallery, Services } from "../../../utils/interfaces";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmarkCircle } from "@fortawesome/free-solid-svg-icons";
-import { useUser } from "../../hooks/useUser";
+import { useUser } from "../../../hooks/useUser";
 
 export const UploadModal = ({ handleModal, services }) => {
 

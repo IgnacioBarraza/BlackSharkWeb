@@ -1,22 +1,20 @@
 import { useEffect, useState } from "react";
 import { useFirebase } from "../../hooks/useFirebase";
 
-export const UploadServiceModal = ({ handleInterface }) => {
-  const { uploadServiceImage } = useFirebase();
+export const UploadToolsModal = ({ handleInterface }) => {
+  const { uploadServiceImage } = useFirebase(); //Cambiar esto para el equipo
 
   const [image, setImage] = useState(null);
   const [preview, setPreview] = useState(null);
   const [progress, setProgress] = useState(0);
   const [error, setError] = useState(null);
   const [url, setUrl] = useState("");
-  const [service, setService] = useState({
-    serviceName: '',
-    price: 0,
-    description: '',
+  const [tool, setTool] = useState({
+    toolName: ''
   })
 
   const handleUpload = () => {
-    uploadServiceImage(
+    uploadServiceImage( //Cambiar esto para el equipo
       image,
       (progress) => setProgress(progress),
       (error) => setError(error),
@@ -38,23 +36,21 @@ export const UploadServiceModal = ({ handleInterface }) => {
     setPreview(null);
   };
 
-  const handleUploadServiceInput = ({ target: { name, value } }) => {
-    setService({...service, [name]: value})
+  const handleUploadToolInput = ({ target: { name, value } }) => {
+    setTool({...tool, [name]: value})
   }
 
-  const uploadService = () => {
-    const newService = {
-      serviceName: service.serviceName,
-      price: service.price,
-      description: service.description,
+  const uploadTool = () => {
+    const newTool = {
+      toolName: tool.toolName,
       url: url
     }
-    console.log(newService)
+    console.log(newTool)
   }
 
   useEffect(() => {
     if (url && progress === 100) {
-      uploadService();
+      uploadTool();
     }
   }, [progress, url]);
 
@@ -62,38 +58,18 @@ export const UploadServiceModal = ({ handleInterface }) => {
     <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75 sm:px-0">
       <div className="bg-white rounded-lg shadow-lg p-6 w-96 max-w-md">
         <h2 className="font-myriad-pro text-xl font-bold mb-4 text-center">
-          Agregar Nuevo Servicio
+          Agregar nuevo equipo
         </h2>
         <div>
           <div>
             <div className="mt-6">
               <input
-                id="serviceName"
-                name="serviceName"
+                id="toolName"
+                name="toolName"
                 type="text"
-                placeholder="Ingresa el nombre del servicio"
+                placeholder="Ingresa el nombre del equipo"
                 className="w-full pl-5 py-3 text-base text-neutral-600 placeholder-gray-400 transition duration-500 ease-in-out transform border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:border-gray-400 focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300"
-                onChange={handleUploadServiceInput}
-              />
-            </div>
-
-            <div className="mt-4">
-              <input
-                id="price"
-                name="price"
-                type="text"
-                placeholder="Ingresa el precio"
-                className="w-full pl-5 py-3 text-base text-neutral-600 placeholder-gray-400 transition duration-500 ease-in-out transform border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:border-gray-400 focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300"
-                onChange={handleUploadServiceInput}
-              />
-            </div>
-
-            <div className="mt-4">
-              <textarea
-                className="w-full pl-5 py-3 text-base text-neutral-600 placeholder-gray-400 transition duration-500 ease-in-out transform border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:border-gray-400 focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300"
-                placeholder="Ingrese el descripción"
-                name="description"
-                onChange={handleUploadServiceInput}
+                onChange={handleUploadToolInput}
               />
             </div>
 
@@ -138,12 +114,12 @@ export const UploadServiceModal = ({ handleInterface }) => {
             </div>
 
             <div className="flex justify-center mt-4">
-              <div
+              <button
                 onClick={handleInterface}
                 className=" hover:text-gray-900 text-medium"
               >
                 Cancelar
-              </div>
+              </button>
             </div>
             {progress > 0 && (
               <div className="mt-4">

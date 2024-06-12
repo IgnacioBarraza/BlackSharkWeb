@@ -1,12 +1,14 @@
+import { Component } from "react";
 import { Login } from "../auth/login";
 import { Register } from "../auth/register";
 import { Newpassword } from "../components/NewPassword/newpassword";
 import { Recoverpassword } from "../components/RecoverPassword/recoverpassword";
 import { Contact } from "../shared/contact";
-import { Gallery } from "../shared/gallery";
+import { Gallery } from "../shared/gallery/gallery";
 import { Homepage } from "../shared/homepage";
-import { Servicios } from "../shared/servicios";
+import { Servicios } from "../shared/services/services";
 import { Cart } from "../shared/shop/shoppingCart";
+import { Tools } from "../shared/tools";
 
 export const routes = [
   {
@@ -44,5 +46,9 @@ export const routes = [
   {
     path: '/cart',
     component: <Cart />
+  },
+  {
+    path: '/tools',
+    component: <Tools />
   }
 ]
