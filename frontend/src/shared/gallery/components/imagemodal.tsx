@@ -1,15 +1,23 @@
 import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
+import "../../../styles/gallery.css";
+import { useEffect } from "react";
 
 export const ImageModal = ({ src, onClose }) => {
-    const handleClickOutside = (event) => {
-        if (event.target.classList.contains('modal-container')) {
-          onClose();
-        }
-      };
+  const handleClickOutside = (event) => {
+    if (event.target.classList.contains('modal-container')) {
+      onClose();
+    }
+  };
 
-    return (
+  useEffect(() => {
+    document.body.classList.add('no-scroll');
+    return () => {
+      document.body.classList.remove('no-scroll');
+    };
+  }, []);
+
+  return (
     <div
       className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75 p-4 modal-container"
       onClick={handleClickOutside}
