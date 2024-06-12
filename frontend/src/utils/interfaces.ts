@@ -132,7 +132,6 @@ export interface GalleryData {
   id_imagen: string;
   id_servicios: string;
   imagen_link: string;
-  id?: string
 }
 
 export interface Services {
@@ -141,7 +140,6 @@ export interface Services {
   descripcion: string;
   id_servicios: string;
   imagen_link: string;
-  id?: string
 }
 
 export interface ApiResponse {

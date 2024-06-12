@@ -30,7 +30,7 @@ galleryRouter.post('/new', async (req, res) => {
         }
 
         await connection.query(`INSERT INTO gallery (id_imagen, id_servicios, imagen_link) VALUES (?, ?, ?)`, [newImage.id_image, newImage.id_servicios, newImage.imagen_link])
-        return res.status(201).json({ message: 'La imagen se ha agregado con éxito.' })
+        return res.status(201).json({ message: 'La imagen se ha agregado con éxito.',  id: newImage.id_image  })
     } catch (error) {
         // console.log(error)
         return res.status(500).json({ message: 'Hubo un error con el servidor. Inténtalo más tarde.' })

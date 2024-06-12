@@ -48,17 +48,28 @@ export const Gallery = () => {
     }
   }
 
+  const addGalleryImage = (newImage) => {
+    setGallery((prevServices) => {
+      const updatedGallery = prevServices ? [...prevServices, newImage] : [newImage];
+      setGalleryData(updatedGallery); // Set the new state directly
+      return updatedGallery;
+    });
+  }
+
   useEffect(() => {
     if (galleryData.length > 0) {
       setGallery(galleryData);
-      return console.log("Galeria ya obtenida...");
+      console.log("Galeria ya obtenida...");
+    } else {
+      getGalleryData();
     }
-    getGalleryData()
+
     if (servicesData.length > 0) {
       setServices(servicesData);
-      return console.log("Servicios ya obtenidos...");
+      console.log("Servicios ya obtenidos...");
+    } else {
+      getServicesData();
     }
-    getServicesData();
   }, [])
 
 
@@ -80,9 +91,9 @@ export const Gallery = () => {
               </button>
             </>
           )}
-          {gallery.map((image, index) => (
+          {gallery.map((image) => (
             <img
-              key={index}
+              key={image.id_imagen}
               src={image.imagen_link}
               alt=""
               className="rounded-lg shadow-md border border-gray-300 transition duration-300 ease-in-out transform hover:scale-105 cursor-pointer"
@@ -90,7 +101,7 @@ export const Gallery = () => {
             />
           ))}
           {selectedImage && <ImageModal src={selectedImage} onClose={() => setSelectedImage(null)} />}
-          {showModal && <UploadModal handleModal={handleModal} services={services} />}
+          {showModal && <UploadModal handleModal={handleModal} services={services} addGalleryImage={addGalleryImage} />}
         </div>
       </div>
       <Footer />
