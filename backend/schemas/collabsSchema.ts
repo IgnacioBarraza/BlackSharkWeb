@@ -13,6 +13,23 @@ const newCollabSchema = z.object({
         })
 })
 
+const updateCollabSchema = z.object({
+    nombre_empresa: z
+        .string({
+            invalid_type_error: 'Ingresa un nombre válido.'
+        })
+        .optional(),
+    id_servicios: z
+        .string({
+            invalid_type_error: 'Ingresa ids válidos!'
+        })
+        .optional()
+})
+
 export const validateCollab = (object: Object) => {
     return newCollabSchema.safeParse(object)
+}
+
+export const validateUpdateCollab = (object: Object) => {
+    return updateCollabSchema.safeParse(object)
 }
