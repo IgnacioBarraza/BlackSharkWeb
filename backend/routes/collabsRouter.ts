@@ -49,13 +49,13 @@ collabsRouter.put('/update/:id', async (req, res) => {
     }
 
     try {
-        const [row, fields] = await connection.query(`SELECT * FROM colabortions WHERE id_colaboration = ?`, [id])
+        const [row, fields] = await connection.query(`SELECT * FROM colaborations WHERE id_colaboration = ?`, [id])
         const collab = row as mysql.RowDataPacket[]
 
         if (Array.isArray(collab) && collab.length > 0) {
             const updatedCollab = {
-                nombre_empresa: validateData.data.nombre_empresa,
-                id_servicios: validateData.data.id_servicios
+                nombre_empresa: validateData.data.nombre_empresa ?? collab[0].nombre_empresa,
+                id_servicios: validateData.data.id_servicios ?? collab[0].id_servicios
             }
 
             await connection.query(`
@@ -70,8 +70,8 @@ collabsRouter.put('/update/:id', async (req, res) => {
             return res.status(400).json({ message: 'No hay ninguna colaboración con esa id. Inténtalo nuevamente.' })
         }
     } catch (error) {
-        // console.log(error)
-        return res.status(500).json({ message: 'Hubo un error en el servidor al intentar actualizar los datos de la colaboración. Inténtalo de nuvo más tarde.' })
+        console.log(error)
+        return res.status(500).json({ message: 'Hubo un error en el servidor al intentar actualizar los datos de la colaboración. Inténtalo de nuevo más tarde.' })
     } finally {
         if (connection) {
             connection.end()
