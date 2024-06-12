@@ -1,8 +1,13 @@
 import { useEffect, useState } from "react";
-import { useFirebase } from "../../hooks/useFirebase";
+import { useFirebase } from "../../../hooks/useFirebase";
+import { useBackend } from "../../../hooks/useBackend";
+import { NewService } from "../../../utils/interfaces";
+import { useUser } from "../../../hooks/useUser";
 
-export const UploadServiceModal = ({ handleInterface }) => {
+export const UploadServiceModal = ({ handleInterface, addService }) => {
   const { uploadServiceImage } = useFirebase();
+  const { createService } = useBackend();
+  const { userToken } = useUser();
 
   const [image, setImage] = useState(null);
   const [preview, setPreview] = useState(null);
@@ -16,6 +21,9 @@ export const UploadServiceModal = ({ handleInterface }) => {
   })
 
   const handleUpload = () => {
+    if (service.serviceName === '') return alert("Debe ingresar un nombre para el servicio");
+    if (service.price === 0) return alert("Debe ingresar un precio para el servicio");
+    if (service.description === '') return alert("Debe ingresar una descripción para el servicio");
     uploadServiceImage(
       image,
       (progress) => setProgress(progress),
@@ -42,14 +50,31 @@ export const UploadServiceModal = ({ handleInterface }) => {
     setService({...service, [name]: value})
   }
 
-  const uploadService = () => {
-    const newService = {
-      serviceName: service.serviceName,
-      price: service.price,
-      description: service.description,
-      url: url
+  const uploadService = async () => {
+    const newService: NewService = {
+      nombre: service.serviceName,
+      precio: Number(service.price),
+      descripcion: service.description,
+      imagen: url
     }
-    console.log(newService)
+    try {
+      const res = await createService(newService, userToken)
+      console.log(res)
+      const { status, data } = res
+      if (status === 201) {
+        alert(data.message)
+        const transformedService = {
+          ...newService,
+          imagen_link: newService.imagen, // Transform imagen to imagen_link
+          id_servicios: data.id // Add id_servicios to the services
+        };
+        addService(transformedService);
+        handleInterface();
+      }
+    } catch (error) {
+      console.error(error)
+      alert(error.response.data.message)
+    }
   }
 
   useEffect(() => {
@@ -59,7 +84,7 @@ export const UploadServiceModal = ({ handleInterface }) => {
   }, [progress, url]);
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75 sm:px-0">
+    <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75 sm:px-0 z-10">
       <div className="bg-white rounded-lg shadow-lg p-6 w-96 max-w-md">
         <h2 className="font-myriad-pro text-xl font-bold mb-4 text-center">
           Agregar Nuevo Servicio
@@ -129,12 +154,14 @@ export const UploadServiceModal = ({ handleInterface }) => {
             </div>
 
             <div className="pt-5">
-              <button
-                onClick={handleUpload}
-                className="flex items-center justify-center w-full px-[110px] py-2.5 text-xl font-large text-center text-white transition duration-500 ease-in-out transform bg-blue-600 rounded-xl hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-              >
-                Guardar
-              </button>
+              {progress !== 100 && (
+                <button
+                  onClick={handleUpload}
+                  className="flex items-center justify-center w-full px-[110px] py-2.5 text-xl font-large text-center text-white transition duration-500 ease-in-out transform bg-blue-600 rounded-xl hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                >
+                  Guardar
+                </button>
+              )}
             </div>
 
             <div className="flex justify-center mt-4">

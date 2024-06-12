@@ -1,14 +1,14 @@
-import { Navbar } from "../components/NavBar/Navbar";
+import { Navbar } from "../../components/NavBar/Navbar";
 import { faPlus } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useEffect, useState } from "react";
-import '../styles/gallery.css';
-import { UploadModal } from "./galleryComponents/uploadModal";
-import ImageModal from "./galleryComponents/imagemodal";
-import { useUser } from "../hooks/useUser";
-import { useBackend } from "../hooks/useBackend";
-import { Services } from "../utils/interfaces";
-import { Footer } from "../components/Footer/Footer";
+import '../../styles/gallery.css';
+import { UploadModal } from "./components/uploadModal";
+import { ImageModal } from "./components/imagemodal";
+import { useUser } from "../../hooks/useUser";
+import { useBackend } from "../../hooks/useBackend";
+import { Services } from "../../utils/interfaces";
+import { Footer } from "../../components/Footer/Footer";
 
 const images = [
   "/image_gallery (1).jpeg",
@@ -31,7 +31,7 @@ const images = [
 
 export const Gallery = () => {
 
-  const { userType, userToken } = useUser();
+  const { userType, userToken, setServicesData, servicesData } = useUser();
   const { getServices } = useBackend();
 
   const [showModal, setShowModal] = useState(false);
@@ -48,19 +48,19 @@ export const Gallery = () => {
     try {
       const res = await getServices();
       setServices(res.data);
+      setServicesData(res.data)
     } catch (error) {
       console.error(error);
     }
   };
 
   useEffect(() => {
-    if (services.length == 0) {
-      console.log('Getting services...') // No borrar console.log
-      getServicesData();
-    } else {
-      console.log('Services are ready to go ') // No borrar console.log
+    if (servicesData.length > 0) {
+      setServices(servicesData);
+      return console.log("Servicios ya obtenidos...");
     }
-  }, [services])
+    getServicesData();
+  }, [])
 
 
   return (

@@ -1,11 +1,12 @@
 import { ReactNode, createContext } from "react"
 import { storage } from "../firebase";
-import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { ref, uploadBytesResumable, getDownloadURL, deleteObject } from "firebase/storage";
 import { useUser } from "../hooks/useUser";
 
 type FirebaseContextType = {
   uploadGalleryImage: (image, onProgress, onError, onComplete) => void;
   uploadServiceImage: (image, onProgress, onError, onComplete) => void;
+  deleteImageFromServices: (image_name: string) => Promise<void>;
 }
 
 type FirebaseProviderProps = {
@@ -14,7 +15,8 @@ type FirebaseProviderProps = {
 
 export const FirebaseContext = createContext<FirebaseContextType>({
   uploadGalleryImage: () => {},
-  uploadServiceImage: () => {}
+  uploadServiceImage: () => {},
+  deleteImageFromServices: async () => {}
 })
 
 export const FirebaseProvider = ({ children }: FirebaseProviderProps) => {
@@ -74,7 +76,12 @@ export const FirebaseProvider = ({ children }: FirebaseProviderProps) => {
       alert('Debe cargar una imagen para continuar...');
     }
   }
+
+  const deleteImageFromServices = async (image_name: string): Promise<void> => {
+    const imageRef = ref(storage, `service/${image_name}`)
+    await deleteObject(imageRef)
+  }
   return (
-    <FirebaseContext.Provider value={{ uploadGalleryImage, uploadServiceImage }}>{children}</FirebaseContext.Provider>
+    <FirebaseContext.Provider value={{ uploadGalleryImage, uploadServiceImage, deleteImageFromServices }}>{children}</FirebaseContext.Provider>
   )
 }

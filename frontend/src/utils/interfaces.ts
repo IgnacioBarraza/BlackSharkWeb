@@ -100,7 +100,7 @@ export interface NewService {
   nombre: string;
   precio: number;
   descripcion: string;
-  imagen: string[];
+  imagen: string;
 }
 
 export interface NewGallery {
@@ -123,12 +123,14 @@ export interface Services {
   precio: number;
   descripcion: string;
   id_servicios: string;
-  imagen_link: string[];
+  imagen_link: string;
+  id?: string
 }
 
-export interface CreateGalleryResponse {
+export interface ApiResponse {
   data: {
-    message: string
+    message: string;
+    id?: string
   };
   status: number;
   statusText: string;
