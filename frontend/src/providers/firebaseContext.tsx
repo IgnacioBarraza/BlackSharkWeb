@@ -7,6 +7,7 @@ type FirebaseContextType = {
   uploadGalleryImage: (image, onProgress, onError, onComplete) => void;
   uploadServiceImage: (image, onProgress, onError, onComplete) => void;
   deleteImageFromServices: (image_name: string) => Promise<void>;
+  deleteImageFromGallery: (image_name:string) => Promise<void>
 }
 
 type FirebaseProviderProps = {
@@ -16,7 +17,8 @@ type FirebaseProviderProps = {
 export const FirebaseContext = createContext<FirebaseContextType>({
   uploadGalleryImage: () => {},
   uploadServiceImage: () => {},
-  deleteImageFromServices: async () => {}
+  deleteImageFromServices: async () => {},
+  deleteImageFromGallery: async () => {}
 })
 
 export const FirebaseProvider = ({ children }: FirebaseProviderProps) => {
@@ -81,7 +83,12 @@ export const FirebaseProvider = ({ children }: FirebaseProviderProps) => {
     const imageRef = ref(storage, `service/${image_name}`)
     await deleteObject(imageRef)
   }
+
+  const deleteImageFromGallery = async (image_name: string): Promise<void> => {
+    const imageRef = ref(storage, `gallery/${image_name}`)
+    await deleteObject(imageRef)
+  }
   return (
-    <FirebaseContext.Provider value={{ uploadGalleryImage, uploadServiceImage, deleteImageFromServices }}>{children}</FirebaseContext.Provider>
+    <FirebaseContext.Provider value={{ uploadGalleryImage, uploadServiceImage, deleteImageFromServices, deleteImageFromGallery }}>{children}</FirebaseContext.Provider>
   )
 }
