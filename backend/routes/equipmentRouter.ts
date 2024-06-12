@@ -96,7 +96,7 @@ equipmentRouter.delete('/delete/:id', async (req, res) => {
             await connection.query(`DELETE FROM equipment WHERE id_equipo = ?`, [id])
             return res.status(200).json({ message: 'El equipo se ha eliminado con éxito.' })
         } else {
-            return res.status(400).json({ message: 'No se ha encontrado el equipo.' })
+            return res.status(400).json({ message: 'No se ha podido encontrado el equipo.' })
         }
     } catch (error) {
         // console.log(error)
