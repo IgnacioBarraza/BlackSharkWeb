@@ -118,6 +118,23 @@ export interface GetServicesResponse {
   };
 }
 
+export interface GetGalleryResponse {
+  data: Galeria[];
+  status: number;
+  statusText: string;
+  headers: {
+    "content-length": string;
+    "content-type": string;
+  };
+}
+
+export interface Galeria {
+  id_imagen: string;
+  id_servicios: string;
+  imagen_link: string;
+  id?: string
+}
+
 export interface Services {
   nombre: string;
   precio: number;

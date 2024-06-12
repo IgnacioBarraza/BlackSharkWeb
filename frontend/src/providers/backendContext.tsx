@@ -1,6 +1,6 @@
 import axios from "axios"
 import { ReactNode, createContext } from "react"
-import { ApiResponse, GetServicesResponse, NewGallery, NewService } from "../utils/interfaces";
+import { ApiResponse, GetGalleryResponse, GetServicesResponse, NewGallery, NewService } from "../utils/interfaces";
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
@@ -8,7 +8,7 @@ type BackendContextType = {
   createService: (service: NewService, token: string) => Promise<ApiResponse>;
   createGallery: (gallery: NewGallery, token: string) => Promise<ApiResponse>;
   getServices: () => Promise<GetServicesResponse>;
-  getGallery: () => void;
+  getGallery: () => Promise<GetGalleryResponse>;
   deleteService: (id_servicio: string, token: string) => Promise<ApiResponse>
 }
 
@@ -49,7 +49,15 @@ export const BackendContext = createContext<BackendContextType>({
       "content-type": ""
     }
   }),
-  getGallery: () => {},
+  getGallery: () => Promise.resolve({
+    data: [],
+    status: 0,
+    statusText: "",
+    headers: {
+      "content-length": "",
+      "content-type": ""
+    }
+  }),
   deleteService: () => Promise.resolve({
     data: {
       message: ""
@@ -78,7 +86,7 @@ export const BackendProvider = ({children}: BackendProviderProps) => {
   })
   
   /* Gallery endpoints*/
-  const getGallery = () => axios.get(`${BACKEND_URL}/get/gallery`)
+  const getGallery = (): Promise<GetGalleryResponse> => axios.get(`${BACKEND_URL}/get/gallery`)
   const createGallery = (gallery: NewGallery, token: string): Promise<ApiResponse> => axios.post(`${BACKEND_URL}/gallery/new`, gallery, {
     headers: {
       Authorization: `Bearer ${token}`
