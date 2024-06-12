@@ -1,4 +1,5 @@
 import "./App.css";
+import { AutoLogout } from "./auth/components/autoLogout";
 import { AuthProvider } from "./providers/authContext";
 import { BackendProvider } from "./providers/backendContext";
 import { FirebaseProvider } from "./providers/firebaseContext";
@@ -12,6 +13,7 @@ function App() {
       <BackendProvider>
         <UserDataProvider>
           <FirebaseProvider>
+            <AutoLogout />
             <Router routes={routes} />
           </FirebaseProvider>
         </UserDataProvider>

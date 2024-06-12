@@ -2,7 +2,7 @@ import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 
-const ImageModal = ({ src, onClose }) => {
+export const ImageModal = ({ src, onClose }) => {
     const handleClickOutside = (event) => {
         if (event.target.classList.contains('modal-container')) {
           onClose();
@@ -25,6 +25,3 @@ const ImageModal = ({ src, onClose }) => {
     </div>
   );
 };
-
-
-export default ImageModal;
