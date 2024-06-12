@@ -59,7 +59,6 @@ export const UploadServiceModal = ({ handleInterface, addService }) => {
     }
     try {
       const res = await createService(newService, userToken)
-      console.log(res)
       const { status, data } = res
       if (status === 201) {
         alert(data.message)
