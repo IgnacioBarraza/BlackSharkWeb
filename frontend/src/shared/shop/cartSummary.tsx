@@ -10,8 +10,8 @@ const CartSummary = ({ items }) => {
   return (
     <div className="p-4 bg-white rounded shadow">
       <h2 className="text-xl font-bold mb-4 font-myriad-pro">Resumen de compra</h2>
-      {items.map((item) => (
-        <div key={item.id_servicios} className="flex justify-between mb-2">
+      {items.map((item, index) => (
+        <div key={index} className="flex justify-between mb-2">
           <span className="font-myriad-pro text-lg">{item.nombre}</span>
           <span className="font-myriad-pro text-xl">{formatPrice(item.precio)}</span>
         </div>

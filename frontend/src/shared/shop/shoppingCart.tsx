@@ -22,20 +22,28 @@ export const Cart = () => {
   };
 
   const filterServicesById = (shoppingCart: ShoppingCart[], services: Services[]): Services[] => {
-    // Extract unique service IDs from the shopping cart
-    const serviceIds = new Set(shoppingCart.map(item => item.id_servicios));
-  
+    // Count occurrences of each service ID in the shopping cart
+    const serviceIdCounts: Record<string, number> = {};
+    shoppingCart.forEach(item => {
+        serviceIdCounts[item.id_servicios] = (serviceIdCounts[item.id_servicios] || 0) + 1;
+    });
+
     // Filter services based on the extracted IDs
-    const filteredServices = services.filter(service => serviceIds.has(service.id_servicios));
-  
+    const filteredServices = services.flatMap(service => {
+        const count = serviceIdCounts[service.id_servicios] || 0;
+        return Array.from({ length: count }, () => service);
+    });
+
     return filteredServices;
-  }
+}
 
   const getShoppingCartData = async () => {
     try {
       const res = await getShoppingCart(userId, userToken)
       const { status, data } = res
       const filteredServices = filterServicesById(data, servicesData)
+      // console.log('data', data)
+      // console.log('servicios filtrados', filteredServices)
       if (status === 200) {
         setCartItems(filteredServices)
         setShoppingCartData(filteredServices)
@@ -79,9 +87,9 @@ export const Cart = () => {
       <div className="flex-grow flex flex-col md:flex-row bg-blue-strong-bs p-4 gap-4">
         <div className="md:w-2/3 w-full">
           {cartItems.length > 0 ? (
-            cartItems.map((item) => (
+            cartItems.map((item, index) => (
               <CartItem
-                key={item.id_servicios}
+                key={index}
                 service={item}
                 onRemove={() => removeItem(item.id_servicios)}
               />
