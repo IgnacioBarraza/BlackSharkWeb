@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Navbar } from '../../components/NavBar/Navbar';
 import { CartItem } from './cartItem';
 import CartSummary from './cartSummary';
-import { Services, ShoppingCart } from '../../utils/interfaces';
+import { Services, ServicesShoppingCart, ShoppingCart } from '../../utils/interfaces';
 import { useProps } from '../../hooks/useProps';
 import { Link } from 'react-router-dom';
 import { useBackend } from '../../hooks/useBackend';
@@ -10,41 +10,42 @@ import { useBackend } from '../../hooks/useBackend';
 
 export const Cart = () => {
   const { shoppingCartData, setShoppingCartData, userToken, userId, servicesData, setServicesData } = useProps()
-  const { getShoppingCart, getServices } = useBackend()
+  const { getShoppingCart, getServices, deleteShoppingCart } = useBackend()
 
-  const [cartItems, setCartItems] = useState<Services[]>([]);
+  const [cartItems, setCartItems] = useState<ServicesShoppingCart[]>([]);
   const [services, setServices] = useState<Services[]>([]);
+  const [shoppingCart, setShoppingCart] = useState<ShoppingCart[]>([])
 
-  const removeItem = (id_servicio: string) => {
-    const removeItem = cartItems.filter(service => service.id_servicios !== id_servicio)
-    setCartItems(removeItem);
-    setShoppingCartData(removeItem)
+  const removeItem = async (id_shopping_cart: string) => {
+    const removeItem = cartItems.filter(service => service.id_shopping_cart !== id_shopping_cart)
+    try {
+      const res = await deleteShoppingCart(id_shopping_cart, userToken)
+      const {status, data} = res
+      if (status === 200) {
+        alert(data.message)
+        setCartItems(removeItem);
+        setShoppingCartData(removeItem);
+      }
+    } catch (error) {
+      alert(error.response.data.message)
+    }
   };
 
-  const filterServicesById = (shoppingCart: ShoppingCart[], services: Services[]): Services[] => {
-    // Count occurrences of each service ID in the shopping cart
-    const serviceIdCounts: Record<string, number> = {};
-    shoppingCart.forEach(item => {
-        serviceIdCounts[item.id_servicios] = (serviceIdCounts[item.id_servicios] || 0) + 1;
+  const filterServicesById = (shoppingCart: ShoppingCart[], services: Services[]): ServicesShoppingCart[] => {
+    return shoppingCart.flatMap(item => {
+        const service = services.find(service => service.id_servicios === item.id_servicios);
+        if (!service) return [];
+        return { ...service, id_shopping_cart: item.id_shopping_cart };
     });
-
-    // Filter services based on the extracted IDs
-    const filteredServices = services.flatMap(service => {
-        const count = serviceIdCounts[service.id_servicios] || 0;
-        return Array.from({ length: count }, () => service);
-    });
-
-    return filteredServices;
-}
+  }
 
   const getShoppingCartData = async () => {
     try {
       const res = await getShoppingCart(userId, userToken)
       const { status, data } = res
       const filteredServices = filterServicesById(data, servicesData)
-      // console.log('data', data)
-      // console.log('servicios filtrados', filteredServices)
       if (status === 200) {
+        setShoppingCart(data)
         setCartItems(filteredServices)
         setShoppingCartData(filteredServices)
       }
@@ -91,7 +92,7 @@ export const Cart = () => {
               <CartItem
                 key={index}
                 service={item}
-                onRemove={() => removeItem(item.id_servicios)}
+                onRemove={() => removeItem(item.id_shopping_cart)}
               />
             ))
           ) : (

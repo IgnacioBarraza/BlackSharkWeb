@@ -2,7 +2,6 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons/faTimes';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export const CartItem = ({ service, onRemove }) => {
-
   const formatPrice = (price) => {
     return new Intl.NumberFormat("es-CL", {
       style: "currency",

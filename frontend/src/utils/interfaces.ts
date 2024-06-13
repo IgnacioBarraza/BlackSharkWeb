@@ -144,6 +144,15 @@ export interface Services {
   imagen_link: string;
 }
 
+export interface ServicesShoppingCart {
+  nombre: string;
+  precio: number;
+  descripcion: string;
+  id_servicios: string;
+  imagen_link: string;
+  id_shopping_cart: string;
+}
+
 export interface ApiResponse {
   data: {
     message: string;

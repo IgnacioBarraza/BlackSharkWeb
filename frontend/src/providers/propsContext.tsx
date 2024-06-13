@@ -1,5 +1,5 @@
 import { useState, createContext, useEffect } from "react"
-import { GalleryData, Services, ShoppingCart } from "../utils/interfaces"
+import { GalleryData, Services, ServicesShoppingCart, ShoppingCart } from "../utils/interfaces"
 
 type UserDataProviderType = {
   setUserType: (userType: string) => void
@@ -14,7 +14,7 @@ type UserDataProviderType = {
   setGalleryData: (galleyData: GalleryData[]) => void
   galleryData: GalleryData[] | null
   setShoppingCartData: (shoppingCartData: Services[]) => void
-  shoppingCartData: Services[] | null
+  shoppingCartData: ServicesShoppingCart[] | null
   setUserId: (id_usuario: string) => void
   userId: string | null
 }
@@ -44,7 +44,7 @@ export const PropsDataProvider = ({ children }) => {
   const [userId, setUserId] = useState<string | null>(localStorage.getItem("userid") || "");
   const [servicesData, setServices] = useState<Services[] | null>([]);
   const [galleryData, setGallery] = useState<GalleryData[] | null>([]);
-  const [shoppingCartData, setShoppingCart] = useState<Services[]>([]);
+  const [shoppingCartData, setShoppingCart] = useState<ServicesShoppingCart[]>([]);
 
   useEffect(() => {
     localStorage.setItem("userType", userType || "");
@@ -76,7 +76,7 @@ export const PropsDataProvider = ({ children }) => {
 
   const setServicesData = (servicesData: Services[]) => setServices(servicesData);
   const setGalleryData = (galleryDataData: GalleryData[]) => setGallery(galleryDataData);
-  const setShoppingCartData = (shoppingCartData: Services[]) => setShoppingCart(shoppingCartData);
+  const setShoppingCartData = (shoppingCartData: ServicesShoppingCart[]) => setShoppingCart(shoppingCartData);
 
   return (
     <PropsContext.Provider value={{ 
