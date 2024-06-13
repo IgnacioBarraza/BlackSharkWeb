@@ -196,7 +196,7 @@ export interface CreateEquipment {
 }
 
 export interface Equipment {
-  id_equipo: string,
+  id_equipo?: string,
   nombre_equipo: string,
   tipo_equipo: string,
   id_servicios: string

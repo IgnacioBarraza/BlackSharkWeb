@@ -1,8 +1,15 @@
 import { useEffect, useState } from "react";
 import { useFirebase } from "../../hooks/useFirebase";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faXmarkCircle } from "@fortawesome/free-solid-svg-icons";
+import { useBackend } from "../../hooks/useBackend";
+import { useProps } from "../../hooks/useProps";
+import { CreateEquipment } from "../../utils/interfaces";
 
-export const UploadToolsModal = ({ handleInterface }) => {
+export const UploadToolsModal = ({ handleInterface, services, addTool }) => {
+  const {userToken} = useProps()
   const { uploadServiceImage } = useFirebase(); //Cambiar esto para el equipo
+  const { createEquipment } = useBackend()
 
   const [image, setImage] = useState(null);
   const [preview, setPreview] = useState(null);
@@ -10,26 +17,11 @@ export const UploadToolsModal = ({ handleInterface }) => {
   const [error, setError] = useState(null);
   const [url, setUrl] = useState("");
   const [tool, setTool] = useState({
-    toolName: ''
+    toolName: '',
+    toolType: ''
   })
-
-  const handleUpload = () => {
-    uploadServiceImage( //Cambiar esto para el equipo
-      image,
-      (progress) => setProgress(progress),
-      (error) => setError(error),
-      (downloadURL) => setUrl(downloadURL)
-    );
-    setImage(null);
-  };
-
-  const handleImageFileUpload = (e) => {
-    if (e.target.files[0]) {
-      const file = e.target.files[0];
-      setImage(file);
-      setPreview(URL.createObjectURL(file));
-    }
-  };
+  const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
+  const [selectedServices, setSelectedServices] = useState<string[]>([]);
 
   const removeImage = () => {
     setImage(null);
@@ -40,19 +32,36 @@ export const UploadToolsModal = ({ handleInterface }) => {
     setTool({...tool, [name]: value})
   }
 
-  const uploadTool = () => {
-    const newTool = {
-      toolName: tool.toolName,
-      url: url
+  const uploadTool = async () => {
+    const formattedIds = JSON.stringify(selectedServices);
+    const newTool: CreateEquipment = {
+      nombre_equipo: tool.toolName,
+      tipo_equipo: tool.toolType,
+      id_servicios: formattedIds
     }
-    console.log(newTool)
+    try {
+      const res = await createEquipment(newTool, userToken)
+      const {status, data} = res
+      if (status === 201) {
+        addTool(newTool)
+        handleInterface()
+      }
+    } catch (error) {
+      console.error(error)
+    }
+    
   }
 
-  useEffect(() => {
-    if (url && progress === 100) {
-      uploadTool();
+  const handleServiceSelection = (serviceId: string) => {
+    if (!selectedServices.includes(serviceId)) {
+      setSelectedServices((prev) => [...prev, serviceId]);
     }
-  }, [progress, url]);
+    setDropdownOpen(false);
+  };
+
+  const removeSelectedService = (id: string) => {
+    setSelectedServices((prev) => prev.filter((serviceId) => serviceId !== id));
+  };
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75 sm:px-0">
@@ -62,6 +71,56 @@ export const UploadToolsModal = ({ handleInterface }) => {
         </h2>
         <div>
           <div>
+          {services.length > 0 && (
+          <>
+            <div className="relative">
+              <button
+                onClick={() => setDropdownOpen(!dropdownOpen)}
+                className="w-full px-4 py-2 text-left bg-gray-200 rounded-md"
+              >
+                Selecciona un servicio
+              </button>
+              {dropdownOpen && (
+                <div className="absolute z-10 w-full mt-2 bg-white border border-gray-200 rounded-md shadow-lg">
+                  {services.map((service) => (
+                    <div
+                      key={service.id_servicios}
+                      onClick={() =>
+                        handleServiceSelection(service.id_servicios)
+                      }
+                      className="px-4 py-2 cursor-pointer hover:bg-gray-100"
+                    >
+                      {service.nombre}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+            <div className="mt-4">
+              {selectedServices.map((serviceId) => {
+                const service = services.find(
+                  (s) => s.id_servicios === serviceId
+                );
+                return (
+                  <div
+                    key={serviceId}
+                    className="flex items-center justify-between mb-2 p-2 bg-gray-200 rounded"
+                  >
+                    <span>{service?.nombre}</span>
+                    {progress !== 100 && (
+                      <button
+                        onClick={() => removeSelectedService(serviceId)}
+                        className="text-red-500"
+                      >
+                        <FontAwesomeIcon icon={faXmarkCircle} size="xl" />
+                      </button>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          </>
+        )}
             <div className="mt-6">
               <input
                 id="toolName"
@@ -71,42 +130,18 @@ export const UploadToolsModal = ({ handleInterface }) => {
                 className="w-full pl-5 py-3 text-base text-neutral-600 placeholder-gray-400 transition duration-500 ease-in-out transform border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:border-gray-400 focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300"
                 onChange={handleUploadToolInput}
               />
+              <input
+                id="toolType"
+                name="toolType"
+                type="text"
+                placeholder="Ingresa el tipo de equipo"
+                className="mt-4 w-full pl-5 py-3 text-base text-neutral-600 placeholder-gray-400 transition duration-500 ease-in-out transform border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:border-gray-400 focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300"
+                onChange={handleUploadToolInput}
+              />
             </div>
-
-            <div className="border-dashed border-4 border-gray-200 rounded-lg p-4 flex flex-col items-center justify-center space-y-4 mt-4">
-              {!preview ? (
-                <>
-                  <input
-                    type="file"
-                    className="hidden"
-                    id="image-upload"
-                    onChange={handleImageFileUpload}
-                  />
-                  <label
-                    htmlFor="image-upload"
-                    className="font-myriad-pro cursor-pointer p-2 bg-gray-100 rounded hover:bg-gray-200 transition"
-                  >
-                    Arrastra la imagen aquí o haz clic para subirla
-                  </label>
-                </>
-              ) : (
-                <div className="relative">
-                  <img src={preview} alt="Preview" className="w-full h-auto" />
-                  {progress !== 100 && (
-                    <button
-                      onClick={removeImage}
-                      className="absolute top-0 right-0 mt-2 mr-2 bg-red-600 text-white py-1 px-2 rounded hover:bg-red-700 transition"
-                    >
-                      Eliminar
-                    </button>
-                  )}
-                </div>
-              )}
-            </div>
-
             <div className="pt-5">
               <button
-                onClick={handleUpload}
+                onClick={uploadTool}
                 className="flex items-center justify-center w-full px-[110px] py-2.5 text-xl font-large text-center text-white transition duration-500 ease-in-out transform bg-blue-600 rounded-xl hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
               >
                 Guardar

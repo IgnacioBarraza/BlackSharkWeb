@@ -13,7 +13,7 @@ export const ToolsItem = ({ tool, onRemove }) => {
                     <FontAwesomeIcon icon={faImage} className="mr-4" size='2x'/>
                     <span>{tool}</span>
                 </div>
-                {userType === "admin" &&  userToken && (
+                {/* {userType === "admin" &&  userToken && (
                 <>
                     <div className="flex items-center">
                         <button onClick={onRemove} className="text-red-500">
@@ -21,7 +21,7 @@ export const ToolsItem = ({ tool, onRemove }) => {
                         </button>
                     </div>
                 </>
-                )}
+                )} */}
             </div>
         </>
     );
