@@ -13,3 +13,20 @@
     animation: fadeIn 2s ease-out forwards;
   }
 
+  .background-image {
+    background-image: url('/homepage1.jpeg');
+  }
+  @media (max-width: 1024px) {
+    .background-image {
+      background-image: url('/homepage1.jpeg');
+    }
+  }
+  @media (max-width: 640px) {
+    .background-image {
+      background-image: url('homepage1.jpeg');
+    }
+  }
+
+  /* .width-container{
+    width: ;
+  } */
