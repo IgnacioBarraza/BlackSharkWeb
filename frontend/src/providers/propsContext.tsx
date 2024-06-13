@@ -67,9 +67,11 @@ export const PropsDataProvider = ({children}) => {
     setUserName(null);
     setTokenData(null);
     setUserType(null);
+    setUserId(null)
     localStorage.setItem("token", null);
     localStorage.setItem("userType", null);
     localStorage.setItem("userName", null);
+    localStorage.setItem("userId", null);
   }
 
   const setServicesData = (servicesData: Services[]) => setServices(servicesData)
