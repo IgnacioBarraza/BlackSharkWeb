@@ -3,14 +3,29 @@ import { Navbar } from '../../components/NavBar/Navbar';
 import CartItem from './cartItem';
 import CartSummary from './cartSummary';
 import { ShoppingCart } from '../../utils/interfaces';
+import { useProps } from '../../hooks/useProps';
+import { Link } from 'react-router-dom';
+import { useBackend } from '../../hooks/useBackend';
 
 
 export const Cart = () => {
+  const { shoppingCartData, setShoppingCartData, userToken } = useProps()
+  const { getShoppingCart } = useBackend()
+
   const [cartItems, setCartItems] = useState<ShoppingCart[]>([]);
 
   const removeItem = (index: number) => {
     setCartItems(cartItems.filter((_, i) => i !== index));
   };
+
+  const getShoppingCartData = async () => {
+    try {
+      const res = await getShoppingCart("", userToken)
+      console.log(res)
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
   return (
     <div className="min-h-screen bg-white bg-cover bg-center w-full bg-no-repeat flex flex-col overflow-hidden">
@@ -29,7 +44,12 @@ export const Cart = () => {
               />
             ))
           ) : (
-            <div className="text-center text-white">No hay servicios en el carrito.</div>
+            <div className='w-full h-full flex flex-col items-center justify-center'>
+              <span className="text-center text-white font-myriad-pro text-xl">No hay servicios en el carrito.</span>
+              <Link to={'/servicios'}>
+                <span className='text-center text-white font-myriad-pro text-xl hover:animate-beat-fade'>Agrega Servicios a tu carrito de compras</span>
+              </Link>
+            </div>
           )}
         </div>
         <div className="md:w-1/3 w-full">

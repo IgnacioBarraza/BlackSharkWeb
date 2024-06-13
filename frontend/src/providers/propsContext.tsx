@@ -1,5 +1,5 @@
 import { useState, createContext, useEffect } from "react"
-import { GalleryData, Services } from "../utils/interfaces"
+import { GalleryData, Services, ShoppingCart } from "../utils/interfaces"
 
 type UserDataProviderType = {
   setUserType: (userType: string) => void
@@ -11,8 +11,12 @@ type UserDataProviderType = {
   logout: () => void
   setServicesData: (servicesData: Services[]) => void
   servicesData: Services[] | null
-  setGalleryData: (galleyData) => void
+  setGalleryData: (galleyData: GalleryData[]) => void
   galleryData: GalleryData[] | null
+  setShoppingCartData: (shoppingCartData: ShoppingCart) => void
+  shoppingCartData: ShoppingCart | null
+  setUserId: (id_usuario: string) => void
+  userId: string | null
 }
 
 export const PropsContext = createContext<UserDataProviderType>({
@@ -26,25 +30,33 @@ export const PropsContext = createContext<UserDataProviderType>({
   setServicesData: () => {},
   servicesData: null,
   setGalleryData: () => {},
-  galleryData: null
+  galleryData: null,
+  setShoppingCartData: () => {},
+  shoppingCartData: null,
+  setUserId: () => {},
+  userId: null
 })
 
 export const PropsDataProvider = ({children}) => {
   const [userType, setUserType] = useState<string | null>(localStorage.getItem("userType"));
   const [userToken, setTokenData] = useState<string | null>(localStorage.getItem("token"));
   const [userName, setUserName] = useState<string | null>(localStorage.getItem("userName"));
+  const [userId, setUserId] = useState<string | null>(localStorage.getItem("userId"));
   const [servicesData, setServices] = useState<Services[] | null>([]);
   const [galleryData, setGallery] = useState<GalleryData[] | null>([]);
+  const [shoppingCartData, setShoppingCart] = useState<ShoppingCart>(null)
 
   useEffect(() => {
     localStorage.setItem("userType", userType || "");
     localStorage.setItem("token", userToken || "");
     localStorage.setItem("userName", userName || "");
+    localStorage.setItem("userid", userId || "");
   }, [userType, userToken, userName]);
   
-  const setUserData = (userType: string, username: string) => {
+  const setUserData = (userType: string, username: string, id_user: string) => {
     setUserType(userType)
     setUserName(username)
+    setUserId(id_user)
   }
 
   const setUserToken = (token: string) => {
@@ -62,8 +74,9 @@ export const PropsDataProvider = ({children}) => {
 
   const setServicesData = (servicesData: Services[]) => setServices(servicesData)
   const setGalleryData = (galleryDataData: GalleryData[]) => setGallery(galleryDataData)
+  const setShoppingCartData = (shoppingCartData: ShoppingCart) => setShoppingCart(shoppingCartData)
 
   return (
-    <PropsContext.Provider value={{ userType, setUserType, userToken, setTokenData, userName, setUserName, servicesData, setServicesData, logout, galleryData, setGalleryData }}>{children}</PropsContext.Provider>
+    <PropsContext.Provider value={{ userType, setUserType, userToken, setTokenData, userName, setUserName, servicesData, setServicesData, logout, galleryData, setGalleryData, shoppingCartData, setShoppingCartData, userId, setUserId }}>{children}</PropsContext.Provider>
   )
 }

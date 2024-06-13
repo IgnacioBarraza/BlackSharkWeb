@@ -17,6 +17,7 @@ export interface LoginResponse {
     token: string;
     username: string;
     tipo_user: string;
+    user_id: string
   };
   status: number;
   statusText: string;
@@ -32,6 +33,7 @@ export interface RegisterResponse {
     token: string;
     username: string;
     tipo_user: string;
+    user_id: string
   };
   status: number;
   statusText: string;
