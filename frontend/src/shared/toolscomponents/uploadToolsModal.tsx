@@ -33,11 +33,10 @@ export const UploadToolsModal = ({ handleInterface, services, addTool }) => {
   }
 
   const uploadTool = async () => {
-    const formattedIds = JSON.stringify(selectedServices);
     const newTool: CreateEquipment = {
       nombre_equipo: tool.toolName,
       tipo_equipo: tool.toolType,
-      id_servicios: formattedIds
+      id_servicios: selectedServices[0]
     }
     try {
       const res = await createEquipment(newTool, userToken)
@@ -49,7 +48,6 @@ export const UploadToolsModal = ({ handleInterface, services, addTool }) => {
     } catch (error) {
       console.error(error)
     }
-    
   }
 
   const handleServiceSelection = (serviceId: string) => {
