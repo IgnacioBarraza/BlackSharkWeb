@@ -1,6 +1,6 @@
 import axios from "axios"
 import { ReactNode, createContext } from "react"
-import { ApiResponse, GetGalleryResponse, GetServicesResponse, NewGallery, NewService } from "../utils/interfaces";
+import { ApiResponse, CreateShoppingCart, GetGalleryResponse, GetServicesResponse, GetShoppingCartResponse, NewGallery, NewService, UpdateShoppingCart } from "../utils/interfaces";
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
@@ -11,6 +11,10 @@ type BackendContextType = {
   getGallery: () => Promise<GetGalleryResponse>;
   deleteService: (id_servicio: string, token: string) => Promise<ApiResponse>
   deleteGallery: (id_imagen: string, token: string) => Promise<ApiResponse>
+  getShoppingCart: (id_usuario: string, token: string) => Promise<GetShoppingCartResponse>
+  createShoppingCart: (token: string, shopping_cart: CreateShoppingCart) => Promise<ApiResponse>
+  deleteShoppingCart: (id_shopping_cart: string, token: string) => Promise<ApiResponse>
+  updateShoppingCart: (token: string, updateCart: UpdateShoppingCart, id_shopping_cart: string) => Promise<ApiResponse>
 }
 
 type BackendProviderProps = {
@@ -80,6 +84,48 @@ export const BackendContext = createContext<BackendContextType>({
       "content-length": "",
       "content-type": ""
     }
+  }),
+  getShoppingCart : () => Promise.resolve({
+    data: [],
+    status: 0,
+    statusText: "",
+    headers: {
+      "content-length": "",
+      "content-type": ""
+    }
+  }),
+  createShoppingCart: () =>  Promise.resolve({
+    data: {
+      message: ""
+    },
+    status: 0,
+    statusText: "",
+    headers: {
+      "content-length": "",
+      "content-type": ""
+    }
+  }),
+  deleteShoppingCart: () =>  Promise.resolve({
+    data: {
+      message: ""
+    },
+    status: 0,
+    statusText: "",
+    headers: {
+      "content-length": "",
+      "content-type": ""
+    }
+  }),
+  updateShoppingCart: () => Promise.resolve({
+    data: {
+      message: ""
+    },
+    status: 0,
+    statusText: "",
+    headers: {
+      "content-length": "",
+      "content-type": ""
+    }
   })
 })
 
@@ -110,7 +156,32 @@ export const BackendProvider = ({children}: BackendProviderProps) => {
     }
   })
 
+  /* Shopping Cart endpoints */
+  const getShoppingCart = (id_usuario: string, token: string): Promise<GetShoppingCartResponse> => axios.get(`${BACKEND_URL}/cart/${id_usuario}`, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
+
+  const createShoppingCart = (token: string, shopping_cart: CreateShoppingCart): Promise<ApiResponse> => axios.post(`${BACKEND_URL}/cart/new`, shopping_cart, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
+
+  const updateShoppingCart = (token: string, updateCart: UpdateShoppingCart, id_shopping_cart: string): Promise<ApiResponse> => axios.put(`${BACKEND_URL}/cart/update/${id_shopping_cart}`, updateCart, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
+
+  const deleteShoppingCart = (id_shopping_cart: string, token: string): Promise<ApiResponse> => axios.delete(`${BACKEND_URL}/cart/delete/${id_shopping_cart}`, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
+
   return (
-    <BackendContext.Provider value={{ createService, createGallery, getServices, getGallery, deleteService, deleteGallery }}>{children}</BackendContext.Provider>
+    <BackendContext.Provider value={{ createService, createGallery, getServices, getGallery, deleteService, deleteGallery, getShoppingCart, createShoppingCart, deleteShoppingCart, updateShoppingCart }}>{children}</BackendContext.Provider>
   )
 }

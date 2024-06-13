@@ -154,3 +154,31 @@ export interface ApiResponse {
     "content-type": string;
   };
 }
+
+export interface ShoppingCart {
+  id_shopping_cart: string,
+  id_usuario: string,
+  valor_total: string,
+  id_servicios: string
+}
+export interface CreateShoppingCart {
+  id_usuario: string,
+  valor_total: number,
+  id_servicios: string
+}
+
+export interface GetShoppingCartResponse {
+  data: ShoppingCart[];
+  status: number;
+  statusText: string;
+  headers: {
+    "content-length": string;
+    "content-type": string;
+  };
+}
+
+export interface UpdateShoppingCart {
+  id_usuario?: string,
+  valor_total?: number,
+  id_servicios?: string
+}

@@ -7,11 +7,12 @@ import { validateCart, validateUpdateCart } from '../schemas/cartSchema'
 
 const cartRouter = express.Router()
 
-cartRouter.get('/', async (req, res) => {
+cartRouter.get('/:id', async (req, res) => {
     const connection = connect()
+    const id = req.params.id
 
     try {
-        const [row, fields] = await connection.query(`SELECT * FROM shopping_cart`)
+        const [row, fields] = await connection.query(`SELECT * FROM shopping_cart WHERE id_usuario = ?`, [id])
         return res.status(200).json(row)
     } catch (error) {
         // console.log(error)
