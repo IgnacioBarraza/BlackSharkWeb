@@ -3,11 +3,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRef, useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
-import { useUser } from "../../../hooks/useUser";
+import { useProps } from "../../../hooks/useProps";
 
 export const UserDropdown = () => {
   const navigate = useNavigate();
-  const { userName, userToken, userType, logout } = useUser();
+  const { userName, userToken, userType, logout } = useProps();
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
 

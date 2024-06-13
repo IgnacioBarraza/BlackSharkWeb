@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { Link, useNavigate } from "react-router-dom"
 import { useAuth } from "../hooks/useAuth";
 import { userToVerify } from "../utils/interfaces";
-import { useUser } from "../hooks/useUser";
+import { useProps } from "../hooks/useProps";
 import { useState } from "react";
 import { ShowPassword } from "./components/showpassword";
 
@@ -11,7 +11,7 @@ export const Login = () => {
 
   const navigate = useNavigate()
   const { login } = useAuth()
-  const { setUserType, setTokenData, setUserName } = useUser()
+  const { setUserType, setTokenData, setUserName } = useProps()
   const [user, setUser] = useState<userToVerify>({
     email: '',
     password: ''

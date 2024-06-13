@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { Navbar } from "../components/NavBar/Navbar";
 import { ToolsItem } from "./toolscomponents/toolsItem";
-import { useUser } from "../hooks/useUser";
+import { useProps } from "../hooks/useProps";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { UploadToolsModal } from "./toolscomponents/uploadToolsModal";
 
 export const Tools = () => {
-    const { userType, userToken } = useUser();
+    const { userType, userToken } = useProps();
 
     const [showInterface, setShowInterface] = useState(false);
     

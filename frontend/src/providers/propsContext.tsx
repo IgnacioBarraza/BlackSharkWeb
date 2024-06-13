@@ -15,7 +15,7 @@ type UserDataProviderType = {
   galleryData: GalleryData[] | null
 }
 
-export const UserContext = createContext<UserDataProviderType>({
+export const PropsContext = createContext<UserDataProviderType>({
   setUserType: () => {},
   userType: null,
   setTokenData: () => {},
@@ -29,7 +29,7 @@ export const UserContext = createContext<UserDataProviderType>({
   galleryData: null
 })
 
-export const UserDataProvider = ({children}) => {
+export const PropsDataProvider = ({children}) => {
   const [userType, setUserType] = useState<string | null>(localStorage.getItem("userType"));
   const [userToken, setTokenData] = useState<string | null>(localStorage.getItem("token"));
   const [userName, setUserName] = useState<string | null>(localStorage.getItem("userName"));
@@ -64,6 +64,6 @@ export const UserDataProvider = ({children}) => {
   const setGalleryData = (galleryDataData: GalleryData[]) => setGallery(galleryDataData)
 
   return (
-    <UserContext.Provider value={{ userType, setUserType, userToken, setTokenData, userName, setUserName, servicesData, setServicesData, logout, galleryData, setGalleryData }}>{children}</UserContext.Provider>
+    <PropsContext.Provider value={{ userType, setUserType, userToken, setTokenData, userName, setUserName, servicesData, setServicesData, logout, galleryData, setGalleryData }}>{children}</PropsContext.Provider>
   )
 }

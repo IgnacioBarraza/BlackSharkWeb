@@ -5,13 +5,13 @@ import { userToRegister } from "../utils/interfaces";
 import { useAuth } from "../hooks/useAuth";
 import { useState } from "react";
 import { ShowPassword } from "./components/showpassword";
-import { useUser } from "../hooks/useUser";
+import { useProps } from "../hooks/useProps";
 
 export const Register = () => {
 
   const navigate = useNavigate()
   const { register } = useAuth()
-  const { setUserType, setTokenData, setUserName } = useUser()
+  const { setUserType, setTokenData, setUserName } = useProps()
 
   const [user, setUser] = useState({
     email: '',

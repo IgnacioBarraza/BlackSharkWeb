@@ -2,10 +2,10 @@ import { faCircleXmark, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "../../../styles/gallery.css";
 import { useEffect } from "react";
-import { useUser } from "../../../hooks/useUser";
+import { useProps } from "../../../hooks/useProps";
 
 export const ImageModal = ({ image, onClose, deleteImage }) => {
-  const { userType, userToken } = useUser();
+  const { userType, userToken } = useProps();
 
   const handleClickOutside = (event) => {
     if (event.target.classList.contains("modal-container")) {

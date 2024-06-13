@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useUser } from "../../../hooks/useUser";
+import { useProps } from "../../../hooks/useProps";
 import { faXmarkCircle } from "@fortawesome/free-solid-svg-icons";
 
 export const SelectedServiceModal = ({
@@ -8,7 +8,7 @@ export const SelectedServiceModal = ({
   handleClickOutside,
   handleDeleteService,
 }) => {
-  const { userType } = useUser();
+  const { userType } = useProps();
 
   const formatPrice = (price) => {
     return new Intl.NumberFormat("es-CL", {

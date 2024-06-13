@@ -2,22 +2,11 @@ import { useState } from 'react';
 import { Navbar } from '../../components/NavBar/Navbar';
 import CartItem from './cartItem';
 import CartSummary from './cartSummary';
+import { ShoppingCart } from '../../utils/interfaces';
 
 
 export const Cart = () => {
-  const [cartItems, setCartItems] = useState<{ service: string; price: number }[]>([
-    { service: 'Nombre del servicio 1', price: 100 },
-    { service: 'Nombre del servicio 2', price: 150 },
-    { service: 'Nombre del servicio 3', price: 200 },
-    { service: 'Nombre del servicio 4', price: 250 },
-    { service: 'Nombre del servicio 4', price: 250 },
-    { service: 'Nombre del servicio 4', price: 250 },
-    { service: 'Nombre del servicio 4', price: 250 },
-    { service: 'Nombre del servicio 4', price: 250 },
-    { service: 'Nombre del servicio 4', price: 250 },
-    { service: 'Nombre del servicio 4', price: 250 },
-    { service: 'Nombre del servicio 4', price: 250 },
-  ]);
+  const [cartItems, setCartItems] = useState<ShoppingCart[]>([]);
 
   const removeItem = (index: number) => {
     setCartItems(cartItems.filter((_, i) => i !== index));
@@ -34,8 +23,8 @@ export const Cart = () => {
             cartItems.map((item, index) => (
               <CartItem
                 key={index}
-                service={item.service}
-                price={item.price}
+                service={item.id_servicios}
+                price={item.valor_total}
                 onRemove={() => removeItem(index)}
               />
             ))

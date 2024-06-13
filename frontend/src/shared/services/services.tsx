@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Navbar } from "../../components/NavBar/Navbar";
-import { useUser } from "../../hooks/useUser";
+import { useProps } from "../../hooks/useProps";
 import { UploadServiceModal } from "./components/uploadServiceModal";
 import { useBackend } from "../../hooks/useBackend";
 import { Services } from "../../utils/interfaces";
@@ -10,7 +10,7 @@ import { SelectedServiceModal } from "./components/selectedServiceModal";
 import { useFirebase } from "../../hooks/useFirebase";
 
 export const Servicios = () => {
-  const { userType, userToken, servicesData, setServicesData } = useUser();
+  const { userType, userToken, servicesData, setServicesData } = useProps();
   const { getServices, deleteService } = useBackend();
   const { deleteImageFromServices } = useFirebase()
 
