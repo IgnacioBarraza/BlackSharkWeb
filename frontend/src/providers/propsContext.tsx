@@ -1,5 +1,5 @@
 import { useState, createContext, useEffect } from "react"
-import { GalleryData, Services, ServicesShoppingCart, ShoppingCart } from "../utils/interfaces"
+import { Equipment, GalleryData, Services, ServicesShoppingCart, ShoppingCart } from "../utils/interfaces"
 
 type UserDataProviderType = {
   setUserType: (userType: string) => void
@@ -17,6 +17,8 @@ type UserDataProviderType = {
   shoppingCartData: ServicesShoppingCart[] | null
   setUserId: (id_usuario: string) => void
   userId: string | null
+  setToolsData: (toolsData: Equipment[]) => void
+  toolsData: Equipment[] | null
 }
 
 export const PropsContext = createContext<UserDataProviderType>({
@@ -34,7 +36,9 @@ export const PropsContext = createContext<UserDataProviderType>({
   setShoppingCartData: () => {},
   shoppingCartData: null,
   setUserId: () => {},
-  userId: null
+  userId: null,
+  setToolsData: () => {},
+  toolsData: null
 })
 
 export const PropsDataProvider = ({ children }) => {
@@ -45,6 +49,7 @@ export const PropsDataProvider = ({ children }) => {
   const [servicesData, setServices] = useState<Services[] | null>([]);
   const [galleryData, setGallery] = useState<GalleryData[] | null>([]);
   const [shoppingCartData, setShoppingCart] = useState<ServicesShoppingCart[]>([]);
+  const [toolsData, setTools] = useState<Equipment[]>([]);
 
   useEffect(() => {
     localStorage.setItem("userType", userType || "");
@@ -77,6 +82,7 @@ export const PropsDataProvider = ({ children }) => {
   const setServicesData = (servicesData: Services[]) => setServices(servicesData);
   const setGalleryData = (galleryDataData: GalleryData[]) => setGallery(galleryDataData);
   const setShoppingCartData = (shoppingCartData: ServicesShoppingCart[]) => setShoppingCart(shoppingCartData);
+  const setToolsData = (toolsData: Equipment[]) => setTools(toolsData);
 
   return (
     <PropsContext.Provider value={{ 
@@ -87,7 +93,8 @@ export const PropsDataProvider = ({ children }) => {
       logout, 
       galleryData, setGalleryData, 
       shoppingCartData, setShoppingCartData, 
-      userId, setUserId
+      userId, setUserId,
+      toolsData, setToolsData
     }}>{children}</PropsContext.Provider>
   );
 };

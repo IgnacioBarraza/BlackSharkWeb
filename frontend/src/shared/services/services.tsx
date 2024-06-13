@@ -3,20 +3,21 @@ import { Navbar } from "../../components/NavBar/Navbar";
 import { useProps } from "../../hooks/useProps";
 import { UploadServiceModal } from "./components/uploadServiceModal";
 import { useBackend } from "../../hooks/useBackend";
-import { CreateShoppingCart, Services, ShoppingCart } from "../../utils/interfaces";
+import { CreateShoppingCart, Equipment, Services, ShoppingCart } from "../../utils/interfaces";
 import { Footer } from "../../components/Footer/Footer";
 import { UploadButton } from "./components/uploadButton";
 import { SelectedServiceModal } from "./components/selectedServiceModal";
 import { useFirebase } from "../../hooks/useFirebase";
 
 export const Servicios = () => {
-  const { userType, userToken, servicesData, setServicesData, shoppingCartData, setShoppingCartData, userId } = useProps();
-  const { getServices, deleteService, createShoppingCart } = useBackend();
+  const { userType, userToken, servicesData, setServicesData, shoppingCartData, setShoppingCartData, userId, toolsData, setToolsData } = useProps();
+  const { getServices, deleteService, createShoppingCart, getEquipments } = useBackend();
   const { deleteImageFromServices } = useFirebase()
 
   const [showInterface, setShowInterface] = useState(false);
   const [selectedService, setSelectedService] = useState<Services>(null);
   const [services, setServices] = useState<Services[]>([]);
+  const [toolsItems, setToolsItems] = useState<Equipment[]>([]);
 
   const handleInterface = () => {
     setShowInterface((prevState) => !prevState);
@@ -106,9 +107,27 @@ export const Servicios = () => {
     }
   }
 
+  const getEquipmentsData = async () => {
+    if (toolsData.length > 0) {
+      setToolsItems(toolsData);
+      return console.log("Equipos ya obtenidos..."); // Don't delete!
+    }
+    try {
+      const res = await getEquipments()
+      const {status, data} = res
+      if (status === 200) {
+        setToolsItems(data)
+        setToolsData(data)
+      }
+    } catch (error) {
+      console.error(error)
+    }
+    }
+
   useEffect(() => {
     getServicesData();
-  }, [services, shoppingCartData]);
+    getEquipmentsData();
+  }, [services, shoppingCartData, toolsData]);
 
   return (
     <>
@@ -150,6 +169,7 @@ export const Servicios = () => {
             selectedService={selectedService}
             handleDeleteService={handleDeleteService}
             handleShoppingCart={handleShoppingCart}
+            tools={toolsData}
           />
         )}
         <Footer />

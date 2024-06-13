@@ -159,11 +159,6 @@ export interface ApiResponse {
     id?: string
   };
   status: number;
-  statusText: string;
-  headers: {
-    "content-length": string;
-    "content-type": string;
-  };
 }
 
 export interface ShoppingCart {
@@ -192,4 +187,27 @@ export interface UpdateShoppingCart {
   id_usuario?: string,
   valor_total?: number,
   id_servicios?: string
+}
+
+export interface CreateEquipment {
+  nombre_equipo: string,
+  tipo_equipo: string,
+  id_servicios: string
+}
+
+export interface Equipment {
+  id_equipo?: string,
+  nombre_equipo: string,
+  tipo_equipo: string,
+  id_servicios: string
+}
+
+export interface GetEquipmentResponse {
+  data: Equipment[];
+  status: number;
+  statusText: string;
+  headers: {
+    "content-length": string;
+    "content-type": string;
+  };
 }

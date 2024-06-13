@@ -1,13 +1,15 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useProps } from "../../../hooks/useProps";
 import { faXmarkCircle } from "@fortawesome/free-solid-svg-icons";
+import { Equipment } from "../../../utils/interfaces";
 
 export const SelectedServiceModal = ({
   selectedService,
   handleCloseModal,
   handleClickOutside,
   handleDeleteService,
-  handleShoppingCart
+  handleShoppingCart,
+  tools
 }) => {
   const { userType } = useProps();
 
@@ -17,6 +19,12 @@ export const SelectedServiceModal = ({
       currency: "CLP",
     }).format(price);
   };
+
+  const filterToolsByServiceId = (tools: Equipment[], serviceId: string): Equipment[] => {
+    return tools.filter(tool => tool.id_servicios === serviceId);
+  }
+
+  const filteredTools = filterToolsByServiceId(tools, selectedService.id_servicios);
 
   return (
     <div
@@ -46,15 +54,14 @@ export const SelectedServiceModal = ({
             {formatPrice(selectedService.precio)}
           </p>
           <button
-              className="mt-8 px-4 py-2 rounded-lg bg-blue-600"
-              onClick={(e) => {
-                e.stopPropagation(); // Prevent the card click event
-                handleShoppingCart(selectedService);
-              }}
-            >
-              
-              <span className="font-myriad-pro text-lg text-white">Agregar al carrito</span>
-            </button>
+            className="mt-8 px-4 py-2 rounded-lg bg-blue-600"
+            onClick={(e) => {
+              e.stopPropagation(); // Prevent the card click event
+              handleShoppingCart(selectedService);
+            }}
+          >
+            <span className="font-myriad-pro text-lg text-white">Agregar al carrito</span>
+          </button>
           {userType === "admin" && (
             <button
               className="mt-8 px-4 py-2 bg-red-600 text-white rounded-lg"
@@ -66,6 +73,29 @@ export const SelectedServiceModal = ({
               Eliminar
             </button>
           )}
+          <div className="mt-8">
+            <h3 className="text-xl font-bold mb-4">Herramientas Asociadas</h3>
+            {filteredTools.length > 0 ? (
+              <table className="min-w-full bg-white border">
+                <thead>
+                  <tr>
+                    <th className="py-2 px-4 border-b">Nombre</th>
+                    <th className="py-2 px-4 border-b">Tipo</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {filteredTools.map((tool) => (
+                    <tr key={tool.id_equipo}>
+                      <td className="py-2 px-4 border-b">{tool.nombre_equipo}</td>
+                      <td className="py-2 px-4 border-b">{tool.tipo_equipo}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            ) : (
+              <p>No hay herramientas asociadas a este servicio.</p>
+            )}
+          </div>
         </div>
       </div>
     </div>

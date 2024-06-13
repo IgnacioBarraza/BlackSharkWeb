@@ -11,7 +11,7 @@ export const ToolsItem = ({ tool, onRemove }) => {
             <div className="flex items-center justify-between p-4 bg-white rounded shadow mb-4">
                 <div className="flex items-center">
                     <FontAwesomeIcon icon={faImage} className="mr-4" size='2x'/>
-                    <span>{tool}</span>
+                    <span>{tool.nombre_equipo}</span>
                 </div>
                 {userType === "admin" &&  userToken && (
                 <>

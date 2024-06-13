@@ -1,6 +1,6 @@
 import axios from "axios"
 import { ReactNode, createContext } from "react"
-import { ApiResponse, CreateShoppingCart, GetGalleryResponse, GetServicesResponse, GetShoppingCartResponse, NewGallery, NewService, UpdateShoppingCart } from "../utils/interfaces";
+import { ApiResponse, CreateEquipment, CreateShoppingCart, GetEquipmentResponse, GetGalleryResponse, GetServicesResponse, GetShoppingCartResponse, NewGallery, NewService, UpdateShoppingCart } from "../utils/interfaces";
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
@@ -15,6 +15,9 @@ type BackendContextType = {
   createShoppingCart: (token: string, shopping_cart: CreateShoppingCart) => Promise<ApiResponse>
   deleteShoppingCart: (id_shopping_cart: string, token: string) => Promise<ApiResponse>
   updateShoppingCart: (token: string, updateCart: UpdateShoppingCart, id_shopping_cart: string) => Promise<ApiResponse>
+  getEquipments: () => Promise<GetEquipmentResponse>
+  createEquipment: (newEquipment: CreateEquipment, token: string) => Promise<ApiResponse>
+  deleteEquipment: (id_equipment: string, token: string) => Promise<ApiResponse>
 }
 
 type BackendProviderProps = {
@@ -28,22 +31,12 @@ export const BackendContext = createContext<BackendContextType>({
       message: ""
     },
     status: 0,
-    statusText: "",
-    headers: {
-      "content-length": "",
-      "content-type": ""
-    }
   }),
   createGallery: () => Promise.resolve({
     data: {
       message: ""
     },
     status: 0,
-    statusText: "",
-    headers: {
-      "content-length": "",
-      "content-type": ""
-    }
   }),
   getServices: () => Promise.resolve({
     data: [],
@@ -68,22 +61,12 @@ export const BackendContext = createContext<BackendContextType>({
       message: ""
     },
     status: 0,
-    statusText: "",
-    headers: {
-      "content-length": "",
-      "content-type": ""
-    }
   }),
   deleteGallery: () => Promise.resolve({
     data: {
       message: ""
     },
     status: 0,
-    statusText: "",
-    headers: {
-      "content-length": "",
-      "content-type": ""
-    }
   }),
   getShoppingCart : () => Promise.resolve({
     data: [],
@@ -99,34 +82,40 @@ export const BackendContext = createContext<BackendContextType>({
       message: ""
     },
     status: 0,
-    statusText: "",
-    headers: {
-      "content-length": "",
-      "content-type": ""
-    }
   }),
   deleteShoppingCart: () =>  Promise.resolve({
     data: {
       message: ""
     },
     status: 0,
-    statusText: "",
-    headers: {
-      "content-length": "",
-      "content-type": ""
-    }
   }),
   updateShoppingCart: () => Promise.resolve({
     data: {
       message: ""
     },
     status: 0,
+  }),
+  getEquipments: () => Promise.resolve({
+    data: [],
+    status: 0,
     statusText: "",
     headers: {
       "content-length": "",
       "content-type": ""
     }
-  })
+  }),
+  createEquipment: () => Promise.resolve({
+    data: {
+      message: ""
+    },
+    status: 0,
+  }),
+  deleteEquipment: () => Promise.resolve({
+    data: {
+      message: ""
+    },
+    status: 0,
+  }),
 })
 
 export const BackendProvider = ({children}: BackendProviderProps) => {
@@ -162,26 +151,41 @@ export const BackendProvider = ({children}: BackendProviderProps) => {
       Authorization: `Bearer ${token}`
     }
   })
-
   const createShoppingCart = (token: string, shopping_cart: CreateShoppingCart): Promise<ApiResponse> => axios.post(`${BACKEND_URL}/cart/new`, shopping_cart, {
     headers: {
       Authorization: `Bearer ${token}`
     }
   })
-
   const updateShoppingCart = (token: string, updateCart: UpdateShoppingCart, id_shopping_cart: string): Promise<ApiResponse> => axios.put(`${BACKEND_URL}/cart/update/${id_shopping_cart}`, updateCart, {
     headers: {
       Authorization: `Bearer ${token}`
     }
   })
-
   const deleteShoppingCart = (id_shopping_cart: string, token: string): Promise<ApiResponse> => axios.delete(`${BACKEND_URL}/cart/delete/${id_shopping_cart}`, {
     headers: {
       Authorization: `Bearer ${token}`
     }
   })
 
+  /* Equipments endpoints */
+  const getEquipments = (): Promise<GetEquipmentResponse> => axios.get(`${BACKEND_URL}/get/equipment`)
+  const createEquipment = (newEquipment: CreateEquipment, token: string): Promise<ApiResponse> => axios.post(`${BACKEND_URL}/equipment/new`, newEquipment, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
+  const deleteEquipment = (id_equipment: string, token: string): Promise<ApiResponse> => axios.delete(`${BACKEND_URL}/equipment/delete/${id_equipment}`, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
+
   return (
-    <BackendContext.Provider value={{ createService, createGallery, getServices, getGallery, deleteService, deleteGallery, getShoppingCart, createShoppingCart, deleteShoppingCart, updateShoppingCart }}>{children}</BackendContext.Provider>
+    <BackendContext.Provider value={{ 
+      getGallery ,createGallery, deleteService,
+      getServices, createService,  deleteGallery,
+      getShoppingCart, createShoppingCart, deleteShoppingCart, updateShoppingCart,
+      getEquipments, createEquipment, deleteEquipment
+    }}>{children}</BackendContext.Provider>
   )
 }
