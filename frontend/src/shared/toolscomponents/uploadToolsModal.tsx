@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmarkCircle } from "@fortawesome/free-solid-svg-icons";
 import { useBackend } from "../../hooks/useBackend";
 import { useProps } from "../../hooks/useProps";
-import { CreateEquipment } from "../../utils/interfaces";
+import { CreateEquipment, Equipment } from "../../utils/interfaces";
 
 export const UploadToolsModal = ({ handleInterface, services, addTool }) => {
   const {userToken} = useProps()
@@ -41,8 +41,14 @@ export const UploadToolsModal = ({ handleInterface, services, addTool }) => {
     try {
       const res = await createEquipment(newTool, userToken)
       const {status, data} = res
+      console.log(data)
       if (status === 201) {
-        addTool(newTool)
+        const formmattedNewTool: Equipment = {
+          ...newTool,
+          id_equipo: data.id
+        }
+        alert(data.message)
+        addTool(formmattedNewTool)
         handleInterface()
       }
     } catch (error) {

@@ -17,8 +17,20 @@ export const Tools = () => {
 
   const [toolsItems, setToolsItems] = useState<Equipment[]>([]);
 
-  const removeItem = (index: number) => {
-    setToolsItems(toolsItems.filter((_, i) => i !== index));
+  const removeItem = async (id_tool: string) => {
+    const updateItems = toolsItems.filter(tool => tool.id_equipo !== id_tool)
+    try {
+      // Call the backend service to delete the tool
+      const res = await deleteEquipment(id_tool, userToken);
+      const {status, data} = res
+      if (status === 200) {
+        alert(data.message)
+        setToolsItems(updateItems);
+        setToolsData(updateItems);
+      }
+    } catch (error) {
+      console.error("Error deleting equipment:", error);
+    }
   };
 
   const handleInterface = () => {
@@ -27,9 +39,9 @@ export const Tools = () => {
 
   const addTool = (newTool) => {
     setToolsItems((prevTool) => {
-      const updatedGallery = prevTool ? [...prevTool, newTool] : [newTool];
-    //   setGalleryData(updatedGallery); // Set the new state directly
-      return updatedGallery;
+      const updatedTools = prevTool ? [...prevTool, newTool] : [newTool];
+      setToolsData(updatedTools); // Set the new state directly
+      return updatedTools;
     });
   }
 
@@ -104,8 +116,8 @@ export const Tools = () => {
               toolsItems.map((item, index) => (
                 <ToolsItem
                   key={index}
-                  tool={item.nombre_equipo}
-                  onRemove={() => removeItem(index)}
+                  tool={item}
+                  onRemove={() => removeItem(item.id_equipo)}
                 />
               ))
             ) : (
