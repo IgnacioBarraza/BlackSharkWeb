@@ -1,10 +1,10 @@
 import { faImage } from '@fortawesome/free-solid-svg-icons';
 import { faTimes } from '@fortawesome/free-solid-svg-icons/faTimes';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useUser } from '../../hooks/useUser';
+import { useProps } from '../../hooks/useProps';
 
 export const ToolsItem = ({ tool, onRemove }) => {
-    const { userType, userToken } = useUser();
+    const { userType, userToken } = useProps();
 
     return (
         <>

@@ -2,11 +2,11 @@ import { faCircleUser } from "@fortawesome/free-regular-svg-icons/faCircleUser";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRef, useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useUser } from "../../../hooks/useUser";
+import { useProps } from "../../../hooks/useProps";
 
 export const DesktopMenu = () => {
   const navigate = useNavigate();
-  const { userName, userType, userToken, logout } = useUser();
+  const { userName, userType, userToken, logout } = useProps();
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
   

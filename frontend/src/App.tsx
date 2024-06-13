@@ -3,7 +3,7 @@ import { AutoLogout } from "./auth/components/autoLogout";
 import { AuthProvider } from "./providers/authContext";
 import { BackendProvider } from "./providers/backendContext";
 import { FirebaseProvider } from "./providers/firebaseContext";
-import { UserDataProvider } from "./providers/userContext";
+import { PropsDataProvider } from "./providers/propsContext";
 import Router from "./router";
 import { routes } from "./routes/routesConfig";
 
@@ -11,12 +11,12 @@ function App() {
   return (
     <AuthProvider>
       <BackendProvider>
-        <UserDataProvider>
+        <PropsDataProvider>
           <FirebaseProvider>
             <AutoLogout />
             <Router routes={routes} />
           </FirebaseProvider>
-        </UserDataProvider>
+        </PropsDataProvider>
       </BackendProvider>
     </AuthProvider>
   );

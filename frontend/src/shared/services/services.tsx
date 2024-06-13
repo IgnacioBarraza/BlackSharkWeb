@@ -1,17 +1,17 @@
 import { useEffect, useState } from "react";
 import { Navbar } from "../../components/NavBar/Navbar";
-import { useUser } from "../../hooks/useUser";
+import { useProps } from "../../hooks/useProps";
 import { UploadServiceModal } from "./components/uploadServiceModal";
 import { useBackend } from "../../hooks/useBackend";
-import { Services } from "../../utils/interfaces";
+import { CreateShoppingCart, Services, ShoppingCart } from "../../utils/interfaces";
 import { Footer } from "../../components/Footer/Footer";
 import { UploadButton } from "./components/uploadButton";
 import { SelectedServiceModal } from "./components/selectedServiceModal";
 import { useFirebase } from "../../hooks/useFirebase";
 
 export const Servicios = () => {
-  const { userType, userToken, servicesData, setServicesData } = useUser();
-  const { getServices, deleteService } = useBackend();
+  const { userType, userToken, servicesData, setServicesData, shoppingCartData, setShoppingCartData, userId } = useProps();
+  const { getServices, deleteService, createShoppingCart } = useBackend();
   const { deleteImageFromServices } = useFirebase()
 
   const [showInterface, setShowInterface] = useState(false);
@@ -40,6 +40,10 @@ export const Servicios = () => {
     }
   };
   const getServicesData = async () => {
+    if (servicesData.length > 0) {
+      setServices(servicesData);
+      return console.log("Servicios ya obtenidos..."); // Don't delete!
+    }
     try {
       const res = await getServices();
       setServices(res.data);
@@ -84,13 +88,27 @@ export const Servicios = () => {
     });
   };
 
-  useEffect(() => {
-    if (servicesData.length > 0) {
-      setServices(servicesData);
-      return console.log("Servicios ya obtenidos..."); // Don't delete!
+  const handleShoppingCart = async (service: Services) => {
+    setShoppingCartData([...shoppingCartData, service]);
+    const newShoppingCart: CreateShoppingCart = {
+      id_usuario: userId,
+      id_servicios: service.id_servicios,
+      valor_total: service.precio
     }
+    try {
+      const res = await createShoppingCart(userToken,newShoppingCart)
+      const { status, data } = res
+      if (status === 201) {
+        alert(data.message)
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  useEffect(() => {
     getServicesData();
-  }, []);
+  }, [services, shoppingCartData]);
 
   return (
     <>
@@ -131,6 +149,7 @@ export const Servicios = () => {
             handleCloseModal={handleCloseModal}
             selectedService={selectedService}
             handleDeleteService={handleDeleteService}
+            handleShoppingCart={handleShoppingCart}
           />
         )}
         <Footer />

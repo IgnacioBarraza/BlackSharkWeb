@@ -4,13 +4,13 @@ import { useBackend } from "../../../hooks/useBackend";
 import { NewGallery } from "../../../utils/interfaces";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmarkCircle } from "@fortawesome/free-solid-svg-icons";
-import { useUser } from "../../../hooks/useUser";
+import { useProps } from "../../../hooks/useProps";
 
 export const UploadModal = ({ handleModal, services, addGalleryImage }) => {
 
   const { uploadGalleryImage } = useFirebase();
   const { createGallery } = useBackend();
-  const { userToken } = useUser();
+  const { userToken } = useProps();
 
   const [image, setImage] = useState(null);
   const [preview, setPreview] = useState(null);

@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { Link, useNavigate } from "react-router-dom"
 import { useAuth } from "../hooks/useAuth";
 import { userToVerify } from "../utils/interfaces";
-import { useUser } from "../hooks/useUser";
+import { useProps } from "../hooks/useProps";
 import { useState } from "react";
 import { ShowPassword } from "./components/showpassword";
 
@@ -11,7 +11,7 @@ export const Login = () => {
 
   const navigate = useNavigate()
   const { login } = useAuth()
-  const { setUserType, setTokenData, setUserName } = useUser()
+  const { setUserType, setTokenData, setUserName, setUserId } = useProps()
   const [user, setUser] = useState<userToVerify>({
     email: '',
     password: ''
@@ -26,6 +26,7 @@ export const Login = () => {
     setUserType(null);
     setTokenData(null);
     setUserName(null);
+    setUserId(null);
     const userToVerify: userToVerify = {
       email: user.email,
       password: user.password,
@@ -33,13 +34,15 @@ export const Login = () => {
     try {
       const res = await login(userToVerify);
       if (res.status === 200) {
-        const { token, tipo_user, username } = res.data;
+        const { token, tipo_user, username, user_id } = res.data;
         localStorage.setItem("token", token);
         localStorage.setItem("userType", tipo_user);
         localStorage.setItem("userName", username);
+        localStorage.setItem("userId", user_id);
         setUserType(tipo_user);
         setTokenData(token);
         setUserName(username);
+        setUserId(user_id);
         navigate("/");
       }
     } catch (error) {

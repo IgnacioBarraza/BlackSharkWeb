@@ -5,13 +5,13 @@ import { userToRegister } from "../utils/interfaces";
 import { useAuth } from "../hooks/useAuth";
 import { useState } from "react";
 import { ShowPassword } from "./components/showpassword";
-import { useUser } from "../hooks/useUser";
+import { useProps } from "../hooks/useProps";
 
 export const Register = () => {
 
   const navigate = useNavigate()
   const { register } = useAuth()
-  const { setUserType, setTokenData, setUserName } = useUser()
+  const { setUserType, setTokenData, setUserName, setUserId } = useProps()
 
   const [user, setUser] = useState({
     email: '',
@@ -29,6 +29,7 @@ export const Register = () => {
     setUserType(null);
     setTokenData(null);
     setUserName(null);
+    setUserId(null);
 
     if (user.password !== user.repeat_password) {
       alert('Contraseñas no coinciden...')
@@ -44,13 +45,15 @@ export const Register = () => {
     try {
       const res = await register(userToRegister)
       if (res.status === 201) {
-        const { token, tipo_user, username } = res.data;
+        const { token, tipo_user, username, user_id } = res.data;
         localStorage.setItem("token", token);
         localStorage.setItem("userType", tipo_user);
         localStorage.setItem("userName", username);
+        localStorage.setItem("userName", user_id);
         setUserType(tipo_user);
         setTokenData(token);
         setUserName(username);
+        setUserId(user_id);
         navigate("/");
       }
     } catch (error) {

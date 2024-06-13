@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import '../../styles/gallery.css';
 import { UploadModal } from "./components/uploadModal";
 import { ImageModal } from "./components/imagemodal";
-import { useUser } from "../../hooks/useUser";
+import { useProps } from "../../hooks/useProps";
 import { useBackend } from "../../hooks/useBackend";
 import { GalleryData, Services } from "../../utils/interfaces";
 import { Footer } from "../../components/Footer/Footer";
@@ -12,7 +12,7 @@ import { useFirebase } from "../../hooks/useFirebase";
 
 export const Gallery = () => {
 
-  const { userType, userToken, setServicesData, servicesData, setGalleryData, galleryData } = useUser();
+  const { userType, userToken, setServicesData, servicesData, setGalleryData, galleryData } = useProps();
   const { getServices, getGallery, deleteGallery } = useBackend();
   const { deleteImageFromGallery } = useFirebase()
 

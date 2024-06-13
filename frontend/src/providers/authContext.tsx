@@ -22,7 +22,8 @@ export const AuthContext = createContext<AuthContextType>({
       message: "",
       token: "",
       username: "",
-      tipo_user: ""
+      tipo_user: "",
+      user_id: ""
     },
     status: 0,
     statusText: "",
@@ -36,7 +37,8 @@ export const AuthContext = createContext<AuthContextType>({
       message: "",
       token: "",
       username: "",
-      tipo_user: ""
+      tipo_user: "",
+      user_id: ""
     },
     status: 0,
     statusText: "",
