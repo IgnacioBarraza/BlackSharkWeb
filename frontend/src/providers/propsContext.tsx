@@ -13,8 +13,8 @@ type UserDataProviderType = {
   servicesData: Services[] | null
   setGalleryData: (galleyData: GalleryData[]) => void
   galleryData: GalleryData[] | null
-  setShoppingCartData: (shoppingCartData: ShoppingCart) => void
-  shoppingCartData: ShoppingCart | null
+  setShoppingCartData: (shoppingCartData: Services[]) => void
+  shoppingCartData: Services[] | null
   setUserId: (id_usuario: string) => void
   userId: string | null
 }
@@ -44,7 +44,7 @@ export const PropsDataProvider = ({children}) => {
   const [userId, setUserId] = useState<string | null>(localStorage.getItem("userId"));
   const [servicesData, setServices] = useState<Services[] | null>([]);
   const [galleryData, setGallery] = useState<GalleryData[] | null>([]);
-  const [shoppingCartData, setShoppingCart] = useState<ShoppingCart>(null)
+  const [shoppingCartData, setShoppingCart] = useState<Services[]>(null)
 
   useEffect(() => {
     localStorage.setItem("userType", userType || "");
@@ -76,7 +76,7 @@ export const PropsDataProvider = ({children}) => {
 
   const setServicesData = (servicesData: Services[]) => setServices(servicesData)
   const setGalleryData = (galleryDataData: GalleryData[]) => setGallery(galleryDataData)
-  const setShoppingCartData = (shoppingCartData: ShoppingCart) => setShoppingCart(shoppingCartData)
+  const setShoppingCartData = (shoppingCartData: Services[]) => setShoppingCart(shoppingCartData)
 
   return (
     <PropsContext.Provider value={{ userType, setUserType, userToken, setTokenData, userName, setUserName, servicesData, setServicesData, logout, galleryData, setGalleryData, shoppingCartData, setShoppingCartData, userId, setUserId }}>{children}</PropsContext.Provider>
