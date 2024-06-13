@@ -14,47 +14,29 @@ export const Cart = () => {
 
   const [cartItems, setCartItems] = useState<Services[]>([]);
   const [services, setServices] = useState<Services[]>([]);
-  const [servicesIds, setServicesIds] = useState<string[]>([])
 
   const removeItem = (id_servicio: string) => {
     const removeItem = cartItems.filter(service => service.id_servicios !== id_servicio)
-    const updateServicesIds = servicesIds.filter(id => id === services[0].id_servicios)
-    const originalServiceIdsFormat = formatIdsToOriginal(updateServicesIds)
     setCartItems(removeItem);
     setShoppingCartData(removeItem)
   };
 
-  const formatServiceIds = (services_ids: string): string[] => {
-    const validJsonStr = services_ids.replace(/'/g, '"');
-    // Parse the string to a JSON array
-    let serviceIds: string[];
-    try {
-      serviceIds = JSON.parse(validJsonStr);
-    } catch (error) {
-      console.error("Invalid JSON string:", error);
-      return [];
-    }
-
-    // Remove duplicates using a Set
-    const uniqueServiceIds = Array.from(new Set(serviceIds));
-
-    return uniqueServiceIds;
-  };
-
-  const formatIdsToOriginal = (serviceIds: string[]): string => {
-    // Convert the array of IDs to the original format with single quotes and comma-separated
-    const formattedIds = serviceIds.map(id => `'${id}'`).join(', ');
-    return `[${formattedIds}]`;
+  const filterServicesById = (shoppingCart: ShoppingCart[], services: Services[]): Services[] => {
+    // Extract unique service IDs from the shopping cart
+    const serviceIds = new Set(shoppingCart.map(item => item.id_servicios));
+  
+    // Filter services based on the extracted IDs
+    const filteredServices = services.filter(service => serviceIds.has(service.id_servicios));
+  
+    return filteredServices;
   }
 
   const getShoppingCartData = async () => {
     try {
       const res = await getShoppingCart(userId, userToken)
       const { status, data } = res
-      const formattedServicesIds = formatServiceIds(data[0].id_servicios)
-      setServicesIds(formattedServicesIds)
+      const filteredServices = filterServicesById(data, servicesData)
       if (status === 200) {
-        const filteredServices = services.filter(service => formattedServicesIds.includes(service.id_servicios))
         setCartItems(filteredServices)
         setShoppingCartData(filteredServices)
       }

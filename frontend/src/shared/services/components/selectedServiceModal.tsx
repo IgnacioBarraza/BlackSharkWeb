@@ -7,6 +7,7 @@ export const SelectedServiceModal = ({
   handleCloseModal,
   handleClickOutside,
   handleDeleteService,
+  handleShoppingCart
 }) => {
   const { userType } = useProps();
 
@@ -44,6 +45,16 @@ export const SelectedServiceModal = ({
           <p className="text-xl font-myriad-pro font-bold">
             {formatPrice(selectedService.precio)}
           </p>
+          <button
+              className="mt-8 px-4 py-2 rounded-lg bg-blue-600"
+              onClick={(e) => {
+                e.stopPropagation(); // Prevent the card click event
+                handleShoppingCart(selectedService);
+              }}
+            >
+              
+              <span className="font-myriad-pro text-lg text-white">Agregar al carrito</span>
+            </button>
           {userType === "admin" && (
             <button
               className="mt-8 px-4 py-2 bg-red-600 text-white rounded-lg"
