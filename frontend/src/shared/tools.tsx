@@ -7,6 +7,7 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { UploadToolsModal } from "./toolscomponents/uploadToolsModal";
 import { Equipment, Services } from "../utils/interfaces";
 import { useBackend } from "../hooks/useBackend";
+import { useToast } from "@chakra-ui/react";
 
 export const Tools = () => {
   const { userType, userToken, servicesData, setServicesData, toolsData, setToolsData } = useProps();
@@ -16,11 +17,11 @@ export const Tools = () => {
   const [services, setServices] = useState<Services[]>([]);
 
   const [toolsItems, setToolsItems] = useState<Equipment[]>([]);
+  const toast = useToast()
 
   const removeItem = async (id_tool: string) => {
     const updateItems = toolsItems.filter(tool => tool.id_equipo !== id_tool)
     try {
-      // Call the backend service to delete the tool
       const res = await deleteEquipment(id_tool, userToken);
       const {status, data} = res
       if (status === 200) {
@@ -76,6 +77,15 @@ export const Tools = () => {
     }
   };
 
+  const toastNotification = (message: string) => {
+    toast({
+      title: message,
+      status: 'success',
+      duration: 5000,
+      isClosable: true,
+    })
+  }
+
   useEffect(() => {
 	getServicesData()
 	getEquipmentsData()
@@ -108,7 +118,7 @@ export const Tools = () => {
             </>
           )}
           {showInterface && (
-            <UploadToolsModal handleInterface={handleInterface} services={services} addTool={addTool}/>
+            <UploadToolsModal handleInterface={handleInterface} services={services} addTool={addTool} showToast={toastNotification}/>
           )}
 
           <div>

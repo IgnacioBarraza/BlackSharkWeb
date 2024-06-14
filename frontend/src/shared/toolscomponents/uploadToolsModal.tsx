@@ -6,7 +6,7 @@ import { useBackend } from "../../hooks/useBackend";
 import { useProps } from "../../hooks/useProps";
 import { CreateEquipment, Equipment } from "../../utils/interfaces";
 
-export const UploadToolsModal = ({ handleInterface, services, addTool }) => {
+export const UploadToolsModal = ({ handleInterface, services, addTool, showToast }) => {
   const {userToken} = useProps()
   const { uploadServiceImage } = useFirebase(); //Cambiar esto para el equipo
   const { createEquipment } = useBackend()
@@ -41,14 +41,13 @@ export const UploadToolsModal = ({ handleInterface, services, addTool }) => {
     try {
       const res = await createEquipment(newTool, userToken)
       const {status, data} = res
-      console.log(data)
       if (status === 201) {
         const formmattedNewTool: Equipment = {
           ...newTool,
           id_equipo: data.id
         }
-        alert(data.message)
         addTool(formmattedNewTool)
+        showToast(data.message)
         handleInterface()
       }
     } catch (error) {
