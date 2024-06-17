@@ -33,6 +33,16 @@ export const UploadToolsModal = ({ handleInterface, services, addTool }) => {
   }
 
   const uploadTool = async () => {
+    if (selectedServices.length === 0) {
+        alert('Selecciona uno más servicios asociados al equipo!')
+        return
+    } else if (tool.toolName === '') {
+        alert('Ingresa un nombre para el equipo!')
+        return
+    } else if (tool.toolType === '') {
+        alert('Debes ingresar el tipo de equipo!')
+        return
+    }
     const newTool: CreateEquipment = {
       nombre_equipo: tool.toolName,
       tipo_equipo: tool.toolType,
