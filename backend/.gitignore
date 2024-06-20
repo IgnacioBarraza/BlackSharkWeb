@@ -2,3 +2,5 @@
 .env
 /dist
 /docker
+.dockerignore
+Dockerfile
