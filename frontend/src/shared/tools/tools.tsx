@@ -20,21 +20,20 @@ export const Tools = () => {
   const toast = useToast()
 
   const removeItem = async (id_tool: string) => {
-    if (confirm('¿Estás seguro que quieres eliminar este equipo?')) {
-        const updateItems = toolsItems.filter(tool => tool.id_equipo !== id_tool)
-        try {
-          // Call the backend service to delete the tool
-          const res = await deleteEquipment(id_tool, userToken);
-          const {status, data} = res
-          if (status === 200) {
-            successToastNotification(data.message)
-            setToolsItems(updateItems);
-            setToolsData(updateItems);
-          }
-        } catch (error) {
-          errorToastNotification(error.response.data.message)
-          console.error("Error deleting equipment:", error);
+    if (confirm("¿Estás seguro que quieres eliminar este equipo?")) {
+      const updateItems = toolsItems.filter((tool) => tool.id_equipo !== id_tool);
+      try {
+        const res = await deleteEquipment(id_tool, userToken);
+        const { status, data } = res;
+        if (status === 200) {
+          successToastNotification(data.message);
+          setToolsItems(updateItems);
+          setToolsData(updateItems);
         }
+      } catch (error) {
+        errorToastNotification(error.response.data.message);
+        console.error("Error deleting equipment:", error);
+      }
     }
   };
 
