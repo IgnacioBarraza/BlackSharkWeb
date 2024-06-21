@@ -27,11 +27,12 @@ export const Tools = () => {
           const res = await deleteEquipment(id_tool, userToken);
           const {status, data} = res
           if (status === 200) {
-            alert(data.message)
+            successToastNotification(data.message)
             setToolsItems(updateItems);
             setToolsData(updateItems);
           }
         } catch (error) {
+          errorToastNotification(error.response.data.message)
           console.error("Error deleting equipment:", error);
         }
     }
