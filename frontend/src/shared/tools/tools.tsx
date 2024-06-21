@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import { Navbar } from "../components/NavBar/Navbar";
-import { ToolsItem } from "./toolscomponents/toolsItem";
-import { useProps } from "../hooks/useProps";
+import { Navbar } from "../../components/NavBar/Navbar";
+import { ToolsItem } from "./components/toolsItem";
+import { useProps } from "../../hooks/useProps";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import { UploadToolsModal } from "./toolscomponents/uploadToolsModal";
-import { Equipment, Services } from "../utils/interfaces";
-import { useBackend } from "../hooks/useBackend";
+import { UploadToolsModal } from "./components/uploadToolsModal";
+import { Equipment, Services } from "../../utils/interfaces";
+import { useBackend } from "../../hooks/useBackend";
 import { useToast } from "@chakra-ui/react";
 
 export const Tools = () => {
@@ -80,10 +80,19 @@ export const Tools = () => {
     }
   };
 
-  const toastNotification = (message: string) => {
+  const successToastNotification = (message: string) => {
     toast({
       title: message,
       status: 'success',
+      duration: 5000,
+      isClosable: true,
+    })
+  }
+
+  const errorToastNotification = (message: string) => {
+    toast({
+      title: message,
+      status: 'error',
       duration: 5000,
       isClosable: true,
     })
@@ -121,7 +130,13 @@ export const Tools = () => {
             </>
           )}
           {showInterface && (
-            <UploadToolsModal handleInterface={handleInterface} services={services} addTool={addTool} showToast={toastNotification}/>
+            <UploadToolsModal 
+              handleInterface={handleInterface} 
+              services={services} 
+              addTool={addTool} 
+              showSuccessToast={successToastNotification}
+              showErrorToast={errorToastNotification}
+              />
           )}
 
           <div>

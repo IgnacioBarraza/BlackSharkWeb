@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import { useFirebase } from "../../hooks/useFirebase";
+import { useFirebase } from "../../../hooks/useFirebase";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmarkCircle } from "@fortawesome/free-solid-svg-icons";
-import { useBackend } from "../../hooks/useBackend";
-import { useProps } from "../../hooks/useProps";
-import { CreateEquipment, Equipment } from "../../utils/interfaces";
+import { useBackend } from "../../../hooks/useBackend";
+import { useProps } from "../../../hooks/useProps";
+import { CreateEquipment, Equipment } from "../../../utils/interfaces";
 
-export const UploadToolsModal = ({ handleInterface, services, addTool, showToast }) => {
+export const UploadToolsModal = ({ handleInterface, services, addTool, showSuccessToast, showErrorToast }) => {
   const {userToken} = useProps()
   const { uploadServiceImage } = useFirebase(); //Cambiar esto para el equipo
   const { createEquipment } = useBackend()
@@ -63,10 +63,11 @@ export const UploadToolsModal = ({ handleInterface, services, addTool, showToast
           id_equipo: data.id
         }
         addTool(formmattedNewTool)
-        showToast(data.message)
+        showSuccessToast(data.message)
         handleInterface()
       }
     } catch (error) {
+      showErrorToast(error.response.data.message)
       console.error(error)
     }
   }
