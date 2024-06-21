@@ -33,6 +33,22 @@ export const UploadToolsModal = ({ handleInterface, services, addTool, showToast
   }
 
   const uploadTool = async () => {
+    if (selectedServices.length === 0) {
+        alert('Selecciona uno más servicios asociados al equipo!')
+        return
+    } else if (tool.toolName === '') {
+        alert('Ingresa un nombre para el equipo!')
+        return
+    } else if (tool.toolName.length < 5 || tool.toolName.length > 90) {
+        alert('El nombre del equipo debe tener entre 5 y 90 carácteres!')
+        return
+    } else if (tool.toolType.length < 5 || tool.toolType.length > 90) {
+        alert('El tipo de equipo ingresado debe contener entre 5 y 90 carácteres!')
+        return
+    } else if (tool.toolType === '') {
+        alert('Debes ingresar el tipo de equipo!')
+        return
+    }
     const newTool: CreateEquipment = {
       nombre_equipo: tool.toolName,
       tipo_equipo: tool.toolType,
