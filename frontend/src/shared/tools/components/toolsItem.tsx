@@ -6,27 +6,23 @@ import { useState } from 'react';
 import { UpdateEquipment } from '../../../utils/interfaces';
 import { useToast } from '@chakra-ui/react';
 
-export const ToolsItem = ({ tool, onRemove, onUpdate }) => {
+export const ToolsItem = ({ tool, onRemove, onUpdate, showNotif, setShowNotif }) => {
     const { userType, userToken } = useProps();
     const toast = useToast();
-
-    const errorToastNotification = (message: string) => {
-        toast({
-          title: message,
-          status: 'error',
-          duration: 5000,
-          isClosable: true,
-        })
-      }
-
+    
     const [isEditing, setIsEditing] = useState(false);
     const [editName, setEditName] = useState(tool.nombre_equipo);
     const [editToolType, setEditToolType] = useState(tool.tipo_equipo);
 
     const saveUpdate = async () => {
       if (editName === tool.nombre_equipo && editToolType === tool.tipo_equipo) {
-        errorToastNotification('No has hecho cambios en los datos!')
-        setIsEditing(prev => !prev)
+        toast({
+            title: 'No has hecho cambios en los datos!',
+            status: 'error',
+            duration: 5000,
+            isClosable: true
+        })
+        
         return
       }
 
@@ -36,10 +32,24 @@ export const ToolsItem = ({ tool, onRemove, onUpdate }) => {
       }
       const response = await onUpdate(tool.id_equipo, updatedTool);
       if (!response) {
-        setEditName(tool.nombre_equipo)
-        setEditToolType(tool.tipo_equipo)
+        setEditName(tool.nombre_equipo);
+        setEditToolType(tool.tipo_equipo);
       }
       setIsEditing(prev => !prev);
+    }
+
+    const handleIsEditing = () => {
+      setShowNotif(false)
+      if (showNotif) {
+        toast({
+          title: "Edita lo que necesites",
+          status: "info",
+          isClosable: true,
+          description: "Puedes actualizar el nombre, el tipo o ambos!"
+        })
+      }
+
+      setIsEditing(prev => !prev)
     }
 
     const cancelUpdate = () => {
@@ -92,7 +102,7 @@ export const ToolsItem = ({ tool, onRemove, onUpdate }) => {
                         </>
                     ) : (
                         <>
-                            <button onClick={() => setIsEditing(prev => !prev)}>
+                            <button onClick={handleIsEditing}>
                                 <FontAwesomeIcon icon={faPenToSquare} />
                             </button>
                             <button onClick={onRemove} className="text-red-500">

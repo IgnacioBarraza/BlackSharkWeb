@@ -14,6 +14,7 @@ export const Tools = () => {
   const { getServices, getEquipments, deleteEquipment, updateEquipment } = useBackend();
 
   const [showInterface, setShowInterface] = useState(false);
+  const [showNotif, setShowNotif] = useState(true);
   const [services, setServices] = useState<Services[]>([]);
 
   const [toolsItems, setToolsItems] = useState<Equipment[]>([]);
@@ -181,6 +182,8 @@ export const Tools = () => {
                   tool={item}
                   onRemove={() => removeItem(item.id_equipo)}
                   onUpdate={updateItem}
+                  showNotif={showNotif}
+                  setShowNotif={setShowNotif}
                 />
               ))
             ) : (
