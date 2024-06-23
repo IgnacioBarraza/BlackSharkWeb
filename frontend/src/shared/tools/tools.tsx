@@ -59,6 +59,7 @@ export const Tools = () => {
       if (status === 200) {
         successToastNotification(data.message);
       }
+      return true
     } catch (error) {
         errorToastNotification(error.response.data.message);
         console.log('There was an error updating the tool: ', error);
