@@ -10,7 +10,7 @@ export const ToolsItem = ({ tool, onRemove, onUpdate }) => {
 
     const [isEditing, setIsEditing] = useState(false);
     const [editName, setEditName] = useState(tool.nombre_equipo);
-    const [editToolType, setEditToolType] = useState(tool.tipo_eqiupo)
+    const [editToolType, setEditToolType] = useState(tool.tipo_equipo);
 
     const saveUpdate = async () => {
       const updatedTool: UpdateEquipment = {
@@ -32,7 +32,28 @@ export const ToolsItem = ({ tool, onRemove, onUpdate }) => {
                 <div className="flex items-center">
                     <FontAwesomeIcon icon={faImage} className="mr-4" size='2x'/>
                     {isEditing ? (
-                        <input value={editName} onChange={(event) => setEditName(event.target.value)} className="border-2 border-black w-fit" />
+                        <div className="flex flex-col gap-4">
+                            <span className="flex flex-col gap-0">
+                                <label htmlFor="toolName" className="text-sm font-medium">Nombre del equipo</label>
+                                <input
+                                    type="text"
+                                    id="toolName"
+                                    value={editName}
+                                    onChange={(event) => setEditName(event.target.value)}
+                                    className="border-2 border-black min-w-fit rounded-md pl-1.5"
+                                />
+                            </span>
+                            <span className="flex flex-col gap-0">
+                                <label htmlFor="tool-type" className="text-sm font-medium">Tipo de equipo</label>
+                                <input
+                                    type="text"
+                                    id="tool-type"
+                                    value={editToolType}
+                                    onChange={(event) => setEditToolType(event.target.value)}
+                                    className="border-2 border-black min-w-fit rounded-md pl-1.5"
+                                />
+                            </span>
+                        </div>
                     ) : (
                         <span>{tool.nombre_equipo}</span>
                     )}
