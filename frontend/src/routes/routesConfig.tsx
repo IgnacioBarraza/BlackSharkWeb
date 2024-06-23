@@ -8,7 +8,7 @@ import { Gallery } from "../shared/gallery/gallery";
 import { Homepage } from "../shared/homepage";
 import { Servicios } from "../shared/services/services";
 import { Cart } from "../shared/shop/shoppingCart";
-import { Tools } from "../shared/tools";
+import { Tools } from "../shared/tools/tools";
 
 export const routes = [
   {

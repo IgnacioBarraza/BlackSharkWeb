@@ -19,6 +19,7 @@ type UserDataProviderType = {
   userId: string | null
   setToolsData: (toolsData: Equipment[]) => void
   toolsData: Equipment[] | null
+  loginData: (token: string, tipo_user: string, username: string, user_id: string) => void
 }
 
 export const PropsContext = createContext<UserDataProviderType>({
@@ -38,7 +39,8 @@ export const PropsContext = createContext<UserDataProviderType>({
   setUserId: () => {},
   userId: null,
   setToolsData: () => {},
-  toolsData: null
+  toolsData: null,
+  loginData: () => {}
 })
 
 export const PropsDataProvider = ({ children }) => {
@@ -79,6 +81,17 @@ export const PropsDataProvider = ({ children }) => {
     localStorage.removeItem("userid");
   };
 
+  const loginData = (token: string, tipo_user: string, username: string, user_id: string) => {
+    localStorage.setItem("token", token);
+    localStorage.setItem("userType", tipo_user);
+    localStorage.setItem("userName", username);
+    localStorage.setItem("userId", user_id);
+    setUserType(tipo_user);
+    setTokenData(token);
+    setUserName(username);
+    setUserId(user_id);
+  };
+
   const setServicesData = (servicesData: Services[]) => setServices(servicesData);
   const setGalleryData = (galleryDataData: GalleryData[]) => setGallery(galleryDataData);
   const setShoppingCartData = (shoppingCartData: ServicesShoppingCart[]) => setShoppingCart(shoppingCartData);
@@ -90,7 +103,7 @@ export const PropsDataProvider = ({ children }) => {
       userToken, setTokenData, 
       userName, setUserName, 
       servicesData, setServicesData, 
-      logout, 
+      logout, loginData, 
       galleryData, setGalleryData, 
       shoppingCartData, setShoppingCartData, 
       userId, setUserId,
