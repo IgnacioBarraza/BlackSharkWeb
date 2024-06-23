@@ -11,6 +11,8 @@ export const ToolsItem = ({ tool, onRemove, onUpdate, showNotif, setShowNotif })
     const toast = useToast();
     
     const [isEditing, setIsEditing] = useState(false);
+    const [nameError, setNameError] = useState(false);
+    const [typeError, setTypeError] = useState(false);
     const [editName, setEditName] = useState(tool.nombre_equipo);
     const [editToolType, setEditToolType] = useState(tool.tipo_equipo);
 
@@ -22,7 +24,9 @@ export const ToolsItem = ({ tool, onRemove, onUpdate, showNotif, setShowNotif })
             duration: 5000,
             isClosable: true
         })
-        
+        setNameError(true)
+        setTypeError(true)
+
         return
       }
 
@@ -30,12 +34,17 @@ export const ToolsItem = ({ tool, onRemove, onUpdate, showNotif, setShowNotif })
         nombre_equipo: editName ?? tool.nombre_equipo,
         tipo_equipo: editToolType ?? tool.tipo_equipo
       }
+      setIsEditing(prev => !prev);
       const response = await onUpdate(tool.id_equipo, updatedTool);
+      
+      setNameError(false);
+      setTypeError(false);
+
       if (!response) {
         setEditName(tool.nombre_equipo);
         setEditToolType(tool.tipo_equipo);
+        setIsEditing(true);
       }
-      setIsEditing(prev => !prev);
     }
 
     const handleIsEditing = () => {
@@ -55,6 +64,8 @@ export const ToolsItem = ({ tool, onRemove, onUpdate, showNotif, setShowNotif })
     const cancelUpdate = () => {
       setIsEditing(prev => !prev);
       setEditName(tool.nombre_equipo);
+      setNameError(false);
+      setTypeError(false);
     }
 
     return (
@@ -71,7 +82,7 @@ export const ToolsItem = ({ tool, onRemove, onUpdate, showNotif, setShowNotif })
                                     id="toolName"
                                     value={editName}
                                     onChange={(event) => setEditName(event.target.value)}
-                                    className="border-2 border-black min-w-fit rounded-md pl-1.5"
+                                    className={nameError ? "border-2 border-red-600 min-w-fit rounded-md pl-1.5" : "border-2 border-black min-w-fit rounded-md pl-1.5"}
                                 />
                             </span>
                             <span className="flex flex-col gap-0">
@@ -81,7 +92,7 @@ export const ToolsItem = ({ tool, onRemove, onUpdate, showNotif, setShowNotif })
                                     id="tool-type"
                                     value={editToolType}
                                     onChange={(event) => setEditToolType(event.target.value)}
-                                    className="border-2 border-black min-w-fit rounded-md pl-1.5"
+                                    className={typeError ? "border-2 border-red-600 min-w-fit rounded-md pl-1.5" : "border-2 border-black min-w-fit rounded-md pl-1.5"}
                                 />
                             </span>
                         </div>
