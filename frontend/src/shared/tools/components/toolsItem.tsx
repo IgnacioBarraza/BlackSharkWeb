@@ -34,7 +34,11 @@ export const ToolsItem = ({ tool, onRemove, onUpdate }) => {
         nombre_equipo: editName ?? tool.nombre_equipo,
         tipo_equipo: editToolType ?? tool.tipo_equipo
       }
-      onUpdate(tool.id_equipo, updatedTool);
+      const response = await onUpdate(tool.id_equipo, updatedTool);
+      if (!response) {
+        setEditName(tool.nombre_equipo)
+        setEditToolType(tool.tipo_equipo)
+      }
       setIsEditing(prev => !prev);
     }
 

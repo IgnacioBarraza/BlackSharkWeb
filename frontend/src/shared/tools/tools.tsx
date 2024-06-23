@@ -66,6 +66,7 @@ export const Tools = () => {
         // If theres an error, go back to the previous data:
         setToolsItems(originalTools)
         setToolsData(originalTools)
+        return false
     }
   }
 
