@@ -4,15 +4,34 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useProps } from '../../../hooks/useProps';
 import { useState } from 'react';
 import { UpdateEquipment } from '../../../utils/interfaces';
+import { useToast } from '@chakra-ui/react';
+
+
 
 export const ToolsItem = ({ tool, onRemove, onUpdate }) => {
     const { userType, userToken } = useProps();
+    const toast = useToast();
+
+    const errorToastNotification = (message: string) => {
+        toast({
+          title: message,
+          status: 'error',
+          duration: 5000,
+          isClosable: true,
+        })
+      }
 
     const [isEditing, setIsEditing] = useState(false);
     const [editName, setEditName] = useState(tool.nombre_equipo);
     const [editToolType, setEditToolType] = useState(tool.tipo_equipo);
 
     const saveUpdate = async () => {
+      if (editName === tool.nombre_equipo || editToolType === tool.tipo_equipo) {
+        errorToastNotification('No has hecho cambios en los datos!')
+        setIsEditing(prev => !prev)
+        return
+      }
+
       const updatedTool: UpdateEquipment = {
         nombre_equipo: editName ?? tool.nombre_equipo,
         tipo_equipo: editToolType ?? tool.tipo_equipo
