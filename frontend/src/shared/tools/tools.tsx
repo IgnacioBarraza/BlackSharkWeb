@@ -5,15 +5,16 @@ import { useProps } from "../../hooks/useProps";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { UploadToolsModal } from "./components/uploadToolsModal";
-import { Equipment, Services } from "../../utils/interfaces";
+import { Equipment, Services, UpdateEquipment } from "../../utils/interfaces";
 import { useBackend } from "../../hooks/useBackend";
 import { useToast } from "@chakra-ui/react";
 
 export const Tools = () => {
   const { userType, userToken, servicesData, setServicesData, toolsData, setToolsData } = useProps();
-  const { getServices, getEquipments, deleteEquipment } = useBackend();
+  const { getServices, getEquipments, deleteEquipment, updateEquipment } = useBackend();
 
   const [showInterface, setShowInterface] = useState(false);
+  const [showNotif, setShowNotif] = useState(true);
   const [services, setServices] = useState<Services[]>([]);
 
   const [toolsItems, setToolsItems] = useState<Equipment[]>([]);
@@ -36,6 +37,40 @@ export const Tools = () => {
       }
     }
   };
+
+  const updateItem = async (id_tool: string, updatedTool: UpdateEquipment) => {
+    const originalTools = [...toolsItems]
+    const updateItems = toolsItems.map(tool => {
+      if (tool.id_equipo === id_tool) {
+        return {
+            ...tool,
+            nombre_equipo: updatedTool.nombre_equipo,
+            tipo_equipo: updatedTool.tipo_equipo
+        }
+      }
+      return tool;
+    })
+    // Optimistically updating the items:
+    setToolsItems(updateItems);
+    setToolsData(updateItems);
+
+    try {
+      const res = await updateEquipment(id_tool, userToken, updatedTool);
+      const { status, data } = res;
+      if (status === 200) {
+        successToastNotification(data.message);
+      }
+      return true
+    } catch (error) {
+        errorToastNotification(error.response.data.message);
+        console.log('There was an error updating the tool: ', error);
+
+        // If theres an error, go back to the previous data:
+        setToolsItems(originalTools)
+        setToolsData(originalTools)
+        return false
+    }
+  }
 
   const handleInterface = () => {
     setShowInterface((prevState) => !prevState);
@@ -146,6 +181,9 @@ export const Tools = () => {
                   key={index}
                   tool={item}
                   onRemove={() => removeItem(item.id_equipo)}
+                  onUpdate={updateItem}
+                  showNotif={showNotif}
+                  setShowNotif={setShowNotif}
                 />
               ))
             ) : (

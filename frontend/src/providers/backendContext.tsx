@@ -1,6 +1,6 @@
 import axios from "axios"
 import { ReactNode, createContext } from "react"
-import { ApiResponse, CreateEquipment, CreateShoppingCart, GetEquipmentResponse, GetGalleryResponse, GetServicesResponse, GetShoppingCartResponse, NewGallery, NewService, UpdateShoppingCart } from "../utils/interfaces";
+import { ApiResponse, CreateEquipment, CreateShoppingCart, GetEquipmentResponse, GetGalleryResponse, GetServicesResponse, GetShoppingCartResponse, NewGallery, NewService, UpdateEquipment, UpdateShoppingCart } from "../utils/interfaces";
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
@@ -17,6 +17,7 @@ type BackendContextType = {
   updateShoppingCart: (token: string, updateCart: UpdateShoppingCart, id_shopping_cart: string) => Promise<ApiResponse>
   getEquipments: () => Promise<GetEquipmentResponse>
   createEquipment: (newEquipment: CreateEquipment, token: string) => Promise<ApiResponse>
+  updateEquipment: (id_equipment: string, token: string, updateEquipment: UpdateEquipment) => Promise<ApiResponse>
   deleteEquipment: (id_equipment: string, token: string) => Promise<ApiResponse>
 }
 
@@ -110,6 +111,12 @@ export const BackendContext = createContext<BackendContextType>({
     },
     status: 0,
   }),
+  updateEquipment: () => Promise.resolve({
+    data: {
+      message: ""
+    },
+    status: 0
+  }),
   deleteEquipment: () => Promise.resolve({
     data: {
       message: ""
@@ -174,6 +181,12 @@ export const BackendProvider = ({children}: BackendProviderProps) => {
       Authorization: `Bearer ${token}`
     }
   })
+  const updateEquipment = (id_equipment: string, token: string, updatedEquipment: UpdateEquipment): Promise<ApiResponse> => 
+    axios.put(`${BACKEND_URL}/equipment/update/${id_equipment}`, updatedEquipment, {
+    headers: {
+        Authorization: `Bearer ${token}`
+    }
+  })
   const deleteEquipment = (id_equipment: string, token: string): Promise<ApiResponse> => axios.delete(`${BACKEND_URL}/equipment/delete/${id_equipment}`, {
     headers: {
       Authorization: `Bearer ${token}`
@@ -185,7 +198,7 @@ export const BackendProvider = ({children}: BackendProviderProps) => {
       getGallery ,createGallery, deleteService,
       getServices, createService,  deleteGallery,
       getShoppingCart, createShoppingCart, deleteShoppingCart, updateShoppingCart,
-      getEquipments, createEquipment, deleteEquipment
+      getEquipments, createEquipment, updateEquipment, deleteEquipment
     }}>{children}</BackendContext.Provider>
   )
 }
