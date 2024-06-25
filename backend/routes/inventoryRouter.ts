@@ -35,8 +35,7 @@ inventoryRouter.post('/new', authorizeRole, async (req, res) => {
             return res.status(201).json({ message: 'Inventario creado!' })
         }
     } catch (error) {
-        // console.log(error)
-        return res.status(500).json({ message: 'Hubo un error al intentar agregar el inventario a la base de datos.' })
+        return res.status(500).json({ message: 'Hubo un error al intentar agregar el inventario a la base de datos.', error })
     } finally {
         if (connection) {
             connection.end()
@@ -78,8 +77,7 @@ inventoryRouter.put('/update/:id', authorizeRole, async (req, res) => {
             return res.status(400).json({ message: 'El inventario que se quiere actualizar no existe en la base de datos.' })
         }
     } catch (error) {
-        // console.log(error)
-        return res.status(500).json({ message: 'Hubo un error al intentar actualizar el inventario.' })
+        return res.status(500).json({ message: 'Hubo un error al intentar actualizar el inventario.', error })
     } finally {
         if (connection) {
             connection.end()
@@ -102,8 +100,7 @@ inventoryRouter.delete('/delete/:id', authorizeRole, async (req, res) => {
             return res.status(400).json({ message: 'El inventario no existe en la base de datos.' })
         }
     } catch (error) {
-        // console.log(error)
-        return res.status(500).json({ message: 'Hubo un problema al intentar eliminar el inventario.' })
+        return res.status(500).json({ message: 'Hubo un problema al intentar eliminar el inventario.', error })
     } finally {
         if (connection) {
             connection.end()

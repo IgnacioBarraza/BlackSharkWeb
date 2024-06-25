@@ -15,8 +15,7 @@ budgetRouter.get('/', async (req, res) => {
 
         return res.status(200).json(row)
     } catch (error) {
-        // console.log(error)
-        return res.status(500).json({ message: 'Hubo un error al intentar obtener los presupuestos.' })
+        return res.status(500).json({ message: 'Hubo un error al intentar obtener los presupuestos.', error })
     } finally {
         if (connection) {
             connection.end()
@@ -56,8 +55,7 @@ budgetRouter.post('/new', authorizeRole, async (req, res) => {
             return res.status(201).json({ message: 'Presupuesto creado!' })
         }
     } catch (error) {
-        // console.log(error)
-        return res.status(500).json({ message: 'Hubo un error al intentar añadir el presupuesto a la base de datos.' })
+        return res.status(500).json({ message: 'Hubo un error al intentar añadir el presupuesto a la base de datos.', error })
     } finally {
         if (connection) {
             connection.end()
@@ -93,8 +91,7 @@ budgetRouter.put('/update/:id', authorizeRole, async (req, res) => {
             return res.status(200).json({ message: 'Presupuesto actualizado!' })
         }
     } catch (error) {
-        // console.log(error)
-        return res.status(500).json({ message: 'Hubo un error al intetnar añadir el presupuesto a la base de datos.' })
+        return res.status(500).json({ message: 'Hubo un error al intetnar añadir el presupuesto a la base de datos.', error })
     } finally {
         if (connection) {
             connection.end()
@@ -115,8 +112,7 @@ budgetRouter.delete('/delete/:id', authorizeRole, async (req, res) => {
             return res.status(200).json({ message: 'Presupuesto eliminado.' })
         }
     } catch (error) {
-        // console.log(error)
-        return res.status(500).json({ message: 'Hubo un error al intentar eliminar el presupuesto de la base de datos.' })
+        return res.status(500).json({ message: 'Hubo un error al intentar eliminar el presupuesto de la base de datos.', error })
     } finally {
         if (connection) {
             connection.end()

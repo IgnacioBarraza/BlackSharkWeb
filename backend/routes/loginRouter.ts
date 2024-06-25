@@ -209,7 +209,7 @@ loginRouter.patch('/newPassword', async (req, res) => {
             return res.status(401).json({ message: 'Token inválido. Inténtalo nuevamente.' })
         }
     } catch (error) {
-        return res.status(500).json({ message: error })
+        return res.status(500).json({ message: 'Error interno del servidor al procesar la solicitud. Por favor, intenta nuevamente más tarde.', error })
     }
 })
 

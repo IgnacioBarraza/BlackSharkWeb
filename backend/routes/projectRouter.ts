@@ -15,8 +15,7 @@ projectRouter.get('/', async (req, res) => {
 
         return res.status(200).json(row)
     } catch (error) {
-        // console.log(error)
-        return res.status(500).json({ message: 'Hubo un error al intentar obtener los proyectos.' })
+        return res.status(500).json({ message: 'Hubo un error al intentar obtener los proyectos.', error })
     } finally {
         if (connection) {
             connection.end()
@@ -53,8 +52,7 @@ projectRouter.post('/new', authorizeRole, async (req, res) => {
             return res.status(201).json({ message: 'Proyecto creado exitosamente!' })
         }
     } catch (error) {
-        // console.log(error)
-        return res.status(500).json({ message: 'Hubo un error al intentar agregar el proyecto a la base de datos.' })
+        return res.status(500).json({ message: 'Hubo un error al intentar agregar el proyecto a la base de datos.', error })
     } finally {
         if (connection) {
             connection.end()
@@ -93,8 +91,7 @@ projectRouter.put('/update/:id', authorizeRole, async (req, res) => {
             return res.status(400).json({ message: 'El proyecto que quieres actualizar no existe en la base de datos.' })
         }
     } catch (error) {
-        // console.log(error)
-        return res.status(500).json({ message: 'Hubo un error intentando actualizar el proyecto.' })
+        return res.status(500).json({ message: 'Hubo un error intentando actualizar el proyecto.', error })
     } finally {
         if (connection) {
             connection.end()
@@ -117,8 +114,7 @@ projectRouter.delete('/delete/:id', authorizeRole, async (req, res) => {
             return res.status(400).json({ message: 'El proyecto no se encuentra en la base de datos.' })
         }
     } catch (error) {
-        // console.log(error)
-        return res.status(500).json({ message: 'Ha ocurrido un error al intentar eliminar el proyecto.' })
+        return res.status(500).json({ message: 'Ha ocurrido un error al intentar eliminar el proyecto.', error })
     } finally {
         if (connection) {
             connection.end()
