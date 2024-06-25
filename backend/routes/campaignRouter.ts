@@ -47,7 +47,7 @@ campaignRouter.post('/new', authorizeRole, async (req, res) => {
 
             await connection.query(`INSERT INTO campanha (id_campanha, nombre, presupuesto) VALUES (?, ?, ?)`, [campaignData.id_campanha, campaignData.nombre, campaignData.presupuesto])
 
-            return res.status(201).json({ message: 'Campaña añadida exitosamente!' })
+            return res.status(201).json({ message: 'Campaña añadida exitosamente!', id: campaignData.id_campanha })
         }
     } catch (error) {
         // console.log(error)

@@ -48,7 +48,7 @@ mediaRouter.post('/new', authorizeRole, async (req, res) => {
 
             await connection.query(`INSERT INTO medios_comunicacion (id_medio, nombre_medio, tipo_medios) VALUES (?, ?, ?)`, [newMedia.id_medio, newMedia.nombre_media, newMedia.tipo_media])
 
-            return res.status(201).json({ message: 'Medio de comunicación creada!' })
+            return res.status(201).json({ message: 'Medio de comunicación creada!', id: newMedia.id_medio })
         }
     } catch (error) {
         // console.log(error)

@@ -27,7 +27,7 @@ collabsRouter.post('/new', async (req, res) => {
             [newCollab.id_colaboration, newCollab.nombre_empresa, newCollab.id_colaboration]
         )
 
-        return res.status(201).json({ message: 'Los datos se han guardado exitosamente!' })
+        return res.status(201).json({ message: 'Los datos se han guardado exitosamente!', id: newCollab.id_colaboration })
     } catch (error) {
         // console.log(error)
         return res.status(500).json({ message: 'Hubo un error en el servidor al intentar guardar los datos de la colaboración. Intente más tarde.' })
