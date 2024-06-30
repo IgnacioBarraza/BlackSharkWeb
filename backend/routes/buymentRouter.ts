@@ -4,6 +4,7 @@ import mysql from 'mysql2/promise'
 
 import { connect } from '../utils/db'
 import { validateBuymentData, validateUpdateBuyment } from '../schemas/buymentScema'
+import moment from 'moment'
 
 const buymentRouter = express.Router()
 
@@ -39,7 +40,7 @@ buymentRouter.post('/new', async (req, res) => {
             id_usuario: validateData.data.id_usuario,
             total_compra: validateData.data.total_compra,
             id_servicios: validateData.data.id_servicios,
-            fecha_compra: new Date()
+            fecha_compra: moment().format('YYYY-MM-DD')
         }
         
         await connection.query(`INSERT INTO buyment (id_buyment, id_usuario, total_compra, id_servicios, fecha_compra) VALUES (?, ?, ?, ?, ?)`, [newOrder.id_buyment, newOrder.id_usuario, newOrder.total_compra, newOrder.id_servicios, newOrder.fecha_compra])
