@@ -101,6 +101,13 @@ export const DesktopMenu = () => {
               >
                 Equipos
               </Link>
+              <Link
+                to="/metrics"
+                className="block px-4 py-2 text-black font-myriad-pro hover:bg-gray-100"
+                onClick={toggleDropdown}
+              >
+                metricas
+              </Link>
             </>
           ) : (
             <>
