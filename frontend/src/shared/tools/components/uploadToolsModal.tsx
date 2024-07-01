@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import { useFirebase } from "../../hooks/useFirebase";
+import { useFirebase } from "../../../hooks/useFirebase";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmarkCircle } from "@fortawesome/free-solid-svg-icons";
-import { useBackend } from "../../hooks/useBackend";
-import { useProps } from "../../hooks/useProps";
-import { CreateEquipment, Equipment } from "../../utils/interfaces";
+import { useBackend } from "../../../hooks/useBackend";
+import { useProps } from "../../../hooks/useProps";
+import { CreateEquipment, Equipment } from "../../../utils/interfaces";
 
-export const UploadToolsModal = ({ handleInterface, services, addTool }) => {
+export const UploadToolsModal = ({ handleInterface, services, addTool, showSuccessToast, showErrorToast }) => {
   const {userToken} = useProps()
   const { uploadServiceImage } = useFirebase(); //Cambiar esto para el equipo
   const { createEquipment } = useBackend()
@@ -33,6 +33,22 @@ export const UploadToolsModal = ({ handleInterface, services, addTool }) => {
   }
 
   const uploadTool = async () => {
+    if (selectedServices.length === 0) {
+        alert('Selecciona uno más servicios asociados al equipo!')
+        return
+    } else if (tool.toolName === '') {
+        alert('Ingresa un nombre para el equipo!')
+        return
+    } else if (tool.toolName.length < 5 || tool.toolName.length > 90) {
+        alert('El nombre del equipo debe tener entre 5 y 90 carácteres!')
+        return
+    } else if (tool.toolType.length < 5 || tool.toolType.length > 90) {
+        alert('El tipo de equipo ingresado debe contener entre 5 y 90 carácteres!')
+        return
+    } else if (tool.toolType === '') {
+        alert('Debes ingresar el tipo de equipo!')
+        return
+    }
     const newTool: CreateEquipment = {
       nombre_equipo: tool.toolName,
       tipo_equipo: tool.toolType,
@@ -41,17 +57,17 @@ export const UploadToolsModal = ({ handleInterface, services, addTool }) => {
     try {
       const res = await createEquipment(newTool, userToken)
       const {status, data} = res
-      console.log(data)
       if (status === 201) {
         const formmattedNewTool: Equipment = {
           ...newTool,
           id_equipo: data.id
         }
-        alert(data.message)
         addTool(formmattedNewTool)
+        showSuccessToast(data.message)
         handleInterface()
       }
     } catch (error) {
+      showErrorToast(error.response.data.message)
       console.error(error)
     }
   }

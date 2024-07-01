@@ -3,16 +3,18 @@ import { Navbar } from "../../components/NavBar/Navbar";
 import { useProps } from "../../hooks/useProps";
 import { UploadServiceModal } from "./components/uploadServiceModal";
 import { useBackend } from "../../hooks/useBackend";
-import { CreateShoppingCart, Equipment, Services, ShoppingCart } from "../../utils/interfaces";
+import { CreateShoppingCart, Equipment, Services } from "../../utils/interfaces";
 import { Footer } from "../../components/Footer/Footer";
 import { UploadButton } from "./components/uploadButton";
 import { SelectedServiceModal } from "./components/selectedServiceModal";
 import { useFirebase } from "../../hooks/useFirebase";
+import { useToast } from "@chakra-ui/react";
 
 export const Servicios = () => {
   const { userType, userToken, servicesData, setServicesData, shoppingCartData, setShoppingCartData, userId, toolsData, setToolsData } = useProps();
   const { getServices, deleteService, createShoppingCart, getEquipments } = useBackend();
   const { deleteImageFromServices } = useFirebase()
+  const toast = useToast()
 
   const [showInterface, setShowInterface] = useState(false);
   const [selectedService, setSelectedService] = useState<Services>(null);
@@ -69,7 +71,7 @@ export const Servicios = () => {
       const res = await deleteService(id_servicios, userToken)
       const {status, data} = res
       if (status === 200) {
-        alert(data.message)
+        successToastNotification(data.message)
         deleteImageFromServices(imageName)
         setSelectedService(null)
         const updatedServices = services.filter(service => service.id_servicios !== id_servicios);
@@ -77,7 +79,7 @@ export const Servicios = () => {
         setServicesData(updatedServices);
       }
     } catch (error) {
-      alert(error.response.data.message)
+      errorToastNotification(error.response.data.message)
     }
   };
 
@@ -100,9 +102,10 @@ export const Servicios = () => {
       const res = await createShoppingCart(userToken,newShoppingCart)
       const { status, data } = res
       if (status === 201) {
-        alert(data.message)
+        successToastNotification(data.message)
       }
     } catch (error) {
+      errorToastNotification(error.response.data.message)
       console.error(error)
     }
   }
@@ -122,7 +125,25 @@ export const Servicios = () => {
     } catch (error) {
       console.error(error)
     }
-    }
+  }
+
+  const successToastNotification = (message: string) => {
+    toast({
+      title: message,
+      status: 'success',
+      duration: 5000,
+      isClosable: true,
+    })
+  }
+
+  const errorToastNotification = (message: string) => {
+    toast({
+      title: message,
+      status: 'error',
+      duration: 5000,
+      isClosable: true,
+    })
+  }
 
   useEffect(() => {
     getServicesData();
@@ -142,6 +163,8 @@ export const Servicios = () => {
               <UploadServiceModal
                 handleInterface={handleInterface}
                 addService={handleAddService}
+                successToast={successToastNotification}
+                errorToast={errorToastNotification}
               />
             )}
             {services.map((service) => (

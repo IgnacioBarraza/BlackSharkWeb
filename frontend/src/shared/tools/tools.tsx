@@ -1,37 +1,76 @@
 import { useEffect, useState } from "react";
-import { Navbar } from "../components/NavBar/Navbar";
-import { ToolsItem } from "./toolscomponents/toolsItem";
-import { useProps } from "../hooks/useProps";
+import { Navbar } from "../../components/NavBar/Navbar";
+import { ToolsItem } from "./components/toolsItem";
+import { useProps } from "../../hooks/useProps";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import { UploadToolsModal } from "./toolscomponents/uploadToolsModal";
-import { Equipment, Services } from "../utils/interfaces";
-import { useBackend } from "../hooks/useBackend";
+import { UploadToolsModal } from "./components/uploadToolsModal";
+import { Equipment, Services, UpdateEquipment } from "../../utils/interfaces";
+import { useBackend } from "../../hooks/useBackend";
+import { useToast } from "@chakra-ui/react";
 
 export const Tools = () => {
   const { userType, userToken, servicesData, setServicesData, toolsData, setToolsData } = useProps();
-  const { getServices, getEquipments, deleteEquipment } = useBackend();
+  const { getServices, getEquipments, deleteEquipment, updateEquipment } = useBackend();
 
   const [showInterface, setShowInterface] = useState(false);
+  const [showNotif, setShowNotif] = useState(true);
   const [services, setServices] = useState<Services[]>([]);
 
   const [toolsItems, setToolsItems] = useState<Equipment[]>([]);
+  const toast = useToast()
 
   const removeItem = async (id_tool: string) => {
-    const updateItems = toolsItems.filter(tool => tool.id_equipo !== id_tool)
-    try {
-      // Call the backend service to delete the tool
-      const res = await deleteEquipment(id_tool, userToken);
-      const {status, data} = res
-      if (status === 200) {
-        alert(data.message)
-        setToolsItems(updateItems);
-        setToolsData(updateItems);
+    if (confirm("¿Estás seguro que quieres eliminar este equipo?")) {
+      const updateItems = toolsItems.filter((tool) => tool.id_equipo !== id_tool);
+      try {
+        const res = await deleteEquipment(id_tool, userToken);
+        const { status, data } = res;
+        if (status === 200) {
+          successToastNotification(data.message);
+          setToolsItems(updateItems);
+          setToolsData(updateItems);
+        }
+      } catch (error) {
+        errorToastNotification(error.response.data.message);
+        console.error("Error deleting equipment:", error);
       }
-    } catch (error) {
-      console.error("Error deleting equipment:", error);
     }
   };
+
+  const updateItem = async (id_tool: string, updatedTool: UpdateEquipment) => {
+    const originalTools = [...toolsItems]
+    const updateItems = toolsItems.map(tool => {
+      if (tool.id_equipo === id_tool) {
+        return {
+            ...tool,
+            nombre_equipo: updatedTool.nombre_equipo,
+            tipo_equipo: updatedTool.tipo_equipo
+        }
+      }
+      return tool;
+    })
+    // Optimistically updating the items:
+    setToolsItems(updateItems);
+    setToolsData(updateItems);
+
+    try {
+      const res = await updateEquipment(id_tool, userToken, updatedTool);
+      const { status, data } = res;
+      if (status === 200) {
+        successToastNotification(data.message);
+      }
+      return true
+    } catch (error) {
+        errorToastNotification(error.response.data.message);
+        console.log('There was an error updating the tool: ', error);
+
+        // If theres an error, go back to the previous data:
+        setToolsItems(originalTools)
+        setToolsData(originalTools)
+        return false
+    }
+  }
 
   const handleInterface = () => {
     setShowInterface((prevState) => !prevState);
@@ -76,6 +115,24 @@ export const Tools = () => {
     }
   };
 
+  const successToastNotification = (message: string) => {
+    toast({
+      title: message,
+      status: 'success',
+      duration: 5000,
+      isClosable: true,
+    })
+  }
+
+  const errorToastNotification = (message: string) => {
+    toast({
+      title: message,
+      status: 'error',
+      duration: 5000,
+      isClosable: true,
+    })
+  }
+
   useEffect(() => {
 	getServicesData()
 	getEquipmentsData()
@@ -108,7 +165,13 @@ export const Tools = () => {
             </>
           )}
           {showInterface && (
-            <UploadToolsModal handleInterface={handleInterface} services={services} addTool={addTool}/>
+            <UploadToolsModal 
+              handleInterface={handleInterface} 
+              services={services} 
+              addTool={addTool} 
+              showSuccessToast={successToastNotification}
+              showErrorToast={errorToastNotification}
+              />
           )}
 
           <div>
@@ -118,6 +181,9 @@ export const Tools = () => {
                   key={index}
                   tool={item}
                   onRemove={() => removeItem(item.id_equipo)}
+                  onUpdate={updateItem}
+                  showNotif={showNotif}
+                  setShowNotif={setShowNotif}
                 />
               ))
             ) : (

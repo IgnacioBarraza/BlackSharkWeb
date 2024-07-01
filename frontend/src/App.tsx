@@ -6,19 +6,22 @@ import { FirebaseProvider } from "./providers/firebaseContext";
 import { PropsDataProvider } from "./providers/propsContext";
 import Router from "./router";
 import { routes } from "./routes/routesConfig";
+import { ChakraProvider } from "@chakra-ui/react";
 
 function App() {
   return (
-    <AuthProvider>
-      <BackendProvider>
-        <PropsDataProvider>
-          <FirebaseProvider>
-            <AutoLogout />
-            <Router routes={routes} />
-          </FirebaseProvider>
-        </PropsDataProvider>
-      </BackendProvider>
-    </AuthProvider>
+    <ChakraProvider>
+      <AuthProvider>
+        <BackendProvider>
+          <PropsDataProvider>
+            <FirebaseProvider>
+              <AutoLogout />
+              <Router routes={routes} />
+            </FirebaseProvider>
+          </PropsDataProvider>
+        </BackendProvider>
+      </AuthProvider>
+    </ChakraProvider>
   );
 }
 

@@ -9,12 +9,14 @@ import { GalleryData, Services } from "../../utils/interfaces";
 import { Footer } from "../../components/Footer/Footer";
 import { UploadGalleryButton } from "./components/uploadGalleryButton";
 import { useFirebase } from "../../hooks/useFirebase";
+import { useToast } from "@chakra-ui/react";
 
 export const Gallery = () => {
 
   const { userType, userToken, setServicesData, servicesData, setGalleryData, galleryData } = useProps();
-  const { getServices, getGallery, deleteGallery } = useBackend();
+  const { getServices, getGallery, deleteGallery } = useBackend()
   const { deleteImageFromGallery } = useFirebase()
+  const toast = useToast()
 
   const [showModal, setShowModal] = useState(false);
 
@@ -72,17 +74,36 @@ export const Gallery = () => {
       const res = await deleteGallery(id_imagen, userToken)
       const {status, data} = res
       if (status === 200) {
-        alert(data.message)
         deleteImageFromGallery(imagename)
         setSelectedImage(null)
         const updatedGallery = gallery.filter(gallery => gallery.id_imagen !== id_imagen)
         setGallery(updatedGallery);
         setGalleryData(updatedGallery);
+        successToastNotification(data.message)
       }
     } catch (error) {
-      alert(error.response.data.message)
+      errorToastNotification(error.response.data.message)
+      console.error(error)
     }
   };
+
+  const successToastNotification = (message: string) => {
+    toast({
+      title: message,
+      status: 'success',
+      duration: 5000,
+      isClosable: true,
+    })
+  }
+
+  const errorToastNotification = (message: string) => {
+    toast({
+      title: message,
+      status: 'error',
+      duration: 5000,
+      isClosable: true,
+    })
+  }
 
   useEffect(() => {
     if (galleryData.length > 0) {
@@ -130,6 +151,8 @@ export const Gallery = () => {
               handleModal={handleModal}
               services={services}
               addGalleryImage={addGalleryImage}
+              successToast={successToastNotification}
+              errorToast={errorToastNotification}
             />
           )}
         </div>

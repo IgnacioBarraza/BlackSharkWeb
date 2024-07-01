@@ -48,7 +48,7 @@ cartRouter.post('/new', async (req, res) => {
         }
 
         await connection.query(`INSERT INTO shopping_cart (id_shopping_cart, id_usuario, valor_total, id_servicios) VALUES (?, ?, ?, ?)`, [newOrder.id_shopping_cart, newOrder.id_usuario, newOrder.valor_total, newOrder.id_servicios])
-        return res.status(201).json({ message: 'Orden guardada con éxito!' })
+        return res.status(201).json({ message: 'Orden guardada con éxito!', id: newOrder.id_shopping_cart })
     } catch (error) {
         return res.status(500).json({ message: 'Hubo un error en el servidor al intentar guardar la orden.', error })
     } finally {
