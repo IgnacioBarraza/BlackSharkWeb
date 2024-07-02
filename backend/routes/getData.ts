@@ -1,4 +1,5 @@
 import express from 'express'
+import mysql from 'mysql2/promise'
 
 import { connect } from '../utils/db'
 
@@ -13,6 +14,29 @@ dataRouter.get('/services', async (req, res) => {
     } catch (error) {
         // console.log(error)
         return res.status(500).json({ message: 'Hubo un error con el servidor. Intente más tarde.s' })
+    } finally {
+        if (connection) {
+            connection.end()
+        }
+    }
+})
+
+dataRouter.get('/services/filter', async (req, res) => {
+    const connection = connect()
+    const filterValue = req.body.filter
+
+    try {
+        const query = `SELECT * FROM servicios WHERE nombre LIKE ?`
+        const [row, fields] = await connection.query(query, [`%${filterValue}%`])
+        const result = row as mysql.RowDataPacket[]
+        
+        if (result.length === 0) {
+            return res.status(400).json({ message: 'No se ha encontrado ningún servicio.' })
+        } else {
+            return res.status(201)
+        }
+    } catch (error) {
+        return res.status(500).json({ message: 'Hubo un error con el servidor. Intente más tarde.', error })
     } finally {
         if (connection) {
             connection.end()
