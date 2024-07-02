@@ -114,12 +114,12 @@ cartRouter.delete('/delete/:id', async (req, res) => {
 
         if (Array.isArray(order) && order.length > 0) {
             await connection.query(`DELETE FROM shopping_cart WHERE id_shopping_cart = ?`, [id])
-            return res.status(200).json({ message: 'La orden se ha eliminado con éxito.' })
+            return res.status(200).json({ message: 'La compra ha eliminado con éxito.' })
         } else {
-            return res.status(400).json({ message: 'No hay una orden asociada a esa id.' })
+            return res.status(400).json({ message: 'No hay una Compra asociada a esa id.' })
         }
     } catch (error) {
-        return res.status(500).json({ message: 'Hubo un error en el servidor al intentar eliminar la orden. Inténtelo más tarde.', error })
+        return res.status(500).json({ message: 'Hubo un error en el servidor al intentar eliminar la compra. Inténtelo más tarde.', error })
     } finally {
         if (connection) {
             connection.end()
