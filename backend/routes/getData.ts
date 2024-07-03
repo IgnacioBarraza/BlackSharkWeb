@@ -23,7 +23,7 @@ dataRouter.get('/services', async (req, res) => {
 
 dataRouter.get('/services/filter', async (req, res) => {
     const connection = connect()
-    const filterValue = req.body.filter
+    const filterValue = req.query.filter
 
     try {
         const query = `SELECT * FROM servicios WHERE nombre LIKE ?`
@@ -33,7 +33,7 @@ dataRouter.get('/services/filter', async (req, res) => {
         if (result.length === 0) {
             return res.status(400).json({ message: 'No se ha encontrado ningún servicio.' })
         } else {
-            return res.status(201)
+            return res.status(200).json(row)
         }
     } catch (error) {
         return res.status(500).json({ message: 'Hubo un error con el servidor. Intente más tarde.', error })
