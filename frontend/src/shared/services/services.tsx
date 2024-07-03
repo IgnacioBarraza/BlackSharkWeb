@@ -13,7 +13,7 @@ import { debounce } from "lodash";
 
 export const Servicios = () => {
   const { userType, userToken, servicesData, setServicesData, shoppingCartData, setShoppingCartData, userId, toolsData, setToolsData } = useProps();
-  const { getServices, deleteService, createShoppingCart, getEquipments } = useBackend();
+  const { getServices, deleteService, createShoppingCart, getEquipments, getFilteredServices } = useBackend();
   const { deleteImageFromServices } = useFirebase()
   const toast = useToast()
 
@@ -130,9 +130,16 @@ export const Servicios = () => {
   }
 
   const debouncedSearch = useCallback(
-    debounce(value => {
-      console.log('sending filter for: ', value)
-    }, 300),
+    debounce(async value => {
+      try {
+        const res = await getFilteredServices(value);
+        setServices(res.data)
+        setServicesData(res.data)
+      } catch (error) {
+        errorToastNotification(error.response.data.message)
+        console.error(error)
+      }
+    }, 100),
     []
   )
 
