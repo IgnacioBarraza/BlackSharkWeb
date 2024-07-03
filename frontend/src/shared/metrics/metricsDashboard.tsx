@@ -1,4 +1,4 @@
-export const MetricsDashboard = ()  => {
+export const MetricsDashboard = () => {
   return (
     <div>metricsDashboard</div>
   )
