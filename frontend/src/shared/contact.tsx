@@ -3,9 +3,49 @@ import { faSquareFacebook, faInstagram } from "@fortawesome/free-brands-svg-icon
 import { Navbar } from "../components/NavBar/Navbar";
 import '../styles/contact.css';
 import { Footer } from "../components/Footer/Footer";
-
+import { useState } from "react";
+import { Messages } from "../utils/interfaces";
+import { useBackend } from "../hooks/useBackend";
 
 export const Contact = () => {
+
+  const {sendMessage} = useBackend();
+
+  const [message, setMessage] = useState({
+    nombre: '',
+    apellido: '',
+    correo: '',
+    telefono: '',
+    mensaje: ''
+  })
+
+  const handleFormInputs = ({ target: { name, value } }) => {
+    setMessage({ ...message, [name]: value });
+  };
+
+  const handleMessage = async (e) => {
+    e.preventDefault()
+  
+    const messages: Messages = {
+      nombre: message.nombre,
+      apellido: message.apellido,
+      correo: message.correo,
+      telefono: message.telefono,
+      mensaje: message.mensaje
+    }
+  
+    try {
+      const res = await sendMessage(messages)
+      if (res.status === 201) {
+        // const { nombre, apellido, correo, telefono, mensaje} = res.data;
+        console.log(res)
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+
   return (
     <>
     <div className="bg-white bg-cover bg-center w-full h-screen bg-no-repeat flex flex-col overflow-hidden overflow-y-auto">
@@ -35,7 +75,7 @@ export const Contact = () => {
             <div className="items-center pt-24">
               <div className="w-full max-w-md p-10 mx-auto my-6 transition duration-500 ease-in-out transform bg-white rounded-lg md:mt-0">
                 <div className="mt-2">
-                    <form action="#" method="POST" className="">
+                    <form>
                       <div>
                         <div className="text-left pl-5">
                         <label className="font-light text-lg pl-0"> Nombre </label>
@@ -43,9 +83,9 @@ export const Contact = () => {
 
                         <div className="mt-1">
                           <input 
-                            id="name" 
                             name="name" 
                             type="text" 
+                            onChange={handleFormInputs}
                             placeholder="Ingresa tu nombre" 
                             className="w-full pl-5 py-3 text-base text-neutral-600 placeholder-gray-400 transition duration-500 ease-in-out transform border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:border-gray-400 focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300"
                           />
@@ -56,8 +96,7 @@ export const Contact = () => {
                         </div>
 
                         <div className="mt-1">
-                          <input 
-                            id="apellido" 
+                          <input  
                             name="apellido" 
                             type="text" 
                             placeholder="Ingresa tu apellido" 
@@ -71,7 +110,6 @@ export const Contact = () => {
 
                         <div className="mt-1">
                           <input 
-                            id="email" 
                             name="email" 
                             type="email" 
                             placeholder="Ingresa tu correo" 
@@ -80,12 +118,26 @@ export const Contact = () => {
                         </div>
 
                         <div className="text-left pl-5">
+                        <label className="font-light text-lg pl-0"> Teléfono </label>
+                        </div>
+
+                        <div className="mt-1">
+                          <input 
+                            name="number" 
+                            type="string" 
+                            onChange={handleFormInputs}
+                            placeholder="Ingresa tu número" 
+                            className="w-full pl-5 py-3 text-base text-neutral-600 placeholder-gray-400 transition duration-500 ease-in-out transform border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:border-gray-400 focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300"
+                          />
+                        </div>
+
+                        <div className="text-left pl-5">
                           <label className="font-light text-lg pl-0"> Mensaje </label>
                         </div>
 
-                        <textarea className="w-full pl-5 py-3 text-base text-neutral-600 placeholder-gray-400 transition duration-500 ease-in-out transform border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:border-gray-400 focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300" ></textarea>
+                        <textarea onChange={handleFormInputs} className="w-full pl-5 py-3 text-base text-neutral-600 placeholder-gray-400 transition duration-500 ease-in-out transform border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:border-gray-400 focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300" ></textarea>
                         <div className="pt-5">
-                          <button className="flex items-center justify-center w-full px-[110px] py-2.5 text-xl font-large text-center text-white transition duration-500 ease-in-out transform bg-blue-600 rounded-xl hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">Enviar</button>
+                          <button onClick={handleMessage} className="flex items-center justify-center w-full px-[110px] py-2.5 text-xl font-large text-center text-white transition duration-500 ease-in-out transform bg-blue-600 rounded-xl hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">Enviar</button>
                         </div>
 
                       </div>

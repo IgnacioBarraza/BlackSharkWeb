@@ -1,6 +1,6 @@
 import axios from "axios"
 import { ReactNode, createContext } from "react"
-import { ApiResponse, GetGalleryResponse, GetServicesResponse, NewGallery, NewService } from "../utils/interfaces";
+import { ApiResponse, GetGalleryResponse, GetMessagesResponse, GetServicesResponse, Messages, NewGallery, NewService } from "../utils/interfaces";
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
@@ -11,6 +11,7 @@ type BackendContextType = {
   getGallery: () => Promise<GetGalleryResponse>;
   deleteService: (id_servicio: string, token: string) => Promise<ApiResponse>
   deleteGallery: (id_imagen: string, token: string) => Promise<ApiResponse>
+  sendMessage: (message: Messages) => Promise<ApiResponse>;
 }
 
 type BackendProviderProps = {
@@ -80,7 +81,18 @@ export const BackendContext = createContext<BackendContextType>({
       "content-length": "",
       "content-type": ""
     }
-  })
+  }),
+  sendMessage: () => Promise.resolve({
+    data: {
+      message: ""
+    },
+    status: 0,
+    statusText: "",
+    headers: {
+      "content-length": "",
+      "content-type": ""
+    }
+  }),
 })
 
 export const BackendProvider = ({children}: BackendProviderProps) => {
@@ -110,7 +122,10 @@ export const BackendProvider = ({children}: BackendProviderProps) => {
     }
   })
 
+  /* Send Message Endpoint */
+  const sendMessage = (message: Messages) : Promise<ApiResponse> => axios.post(`${BACKEND_URL}/message`, message)
+
   return (
-    <BackendContext.Provider value={{ createService, createGallery, getServices, getGallery, deleteService, deleteGallery }}>{children}</BackendContext.Provider>
+    <BackendContext.Provider value={{ createService, createGallery, getServices, getGallery, deleteService, deleteGallery, sendMessage }}>{children}</BackendContext.Provider>
   )
 }

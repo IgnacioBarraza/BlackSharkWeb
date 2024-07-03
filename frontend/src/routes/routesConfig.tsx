@@ -9,6 +9,7 @@ import { Homepage } from "../shared/homepage";
 import { Servicios } from "../shared/services/services";
 import { Cart } from "../shared/shop/shoppingCart";
 import { Tools } from "../shared/tools";
+import { MessageContact } from "../shared/messageContact";
 
 export const routes = [
   {
@@ -50,5 +51,9 @@ export const routes = [
   {
     path: '/tools',
     component: <Tools />
+  },
+  {
+    path: '/messagecontact',
+    component: <MessageContact />
   }
 ]

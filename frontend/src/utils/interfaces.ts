@@ -154,3 +154,21 @@ export interface ApiResponse {
     "content-type": string;
   };
 }
+
+export interface Messages {
+  nombre: string;
+  apellido: string;
+  correo: string;
+  telefono: string;
+  mensaje: string;
+}
+
+export interface GetMessagesResponse {
+  data: Messages[];
+  status: number;
+  statusText: string;
+  headers: {
+    "content-length": string;
+    "content-type": string;
+  };
+}
