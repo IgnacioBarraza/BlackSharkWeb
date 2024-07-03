@@ -8,12 +8,8 @@ import { Gallery } from "../shared/gallery/gallery";
 import { Homepage } from "../shared/homepage";
 import { Servicios } from "../shared/services/services";
 import { Cart } from "../shared/shop/shoppingCart";
-<<<<<<< HEAD
-import { Tools } from "../shared/tools";
-import { MessageContact } from "../shared/messageContact";
-=======
 import { Tools } from "../shared/tools/tools";
->>>>>>> 361774893b8e3cc698c2ec2672c3475d4674f713
+import { MessageContact } from "../shared/messageContact";
 
 export const routes = [
   {

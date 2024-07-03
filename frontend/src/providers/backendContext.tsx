@@ -1,10 +1,6 @@
 import axios from "axios"
 import { ReactNode, createContext } from "react"
-<<<<<<< HEAD
-import { ApiResponse, GetGalleryResponse, GetMessagesResponse, GetServicesResponse, Messages, NewGallery, NewService } from "../utils/interfaces";
-=======
-import { ApiResponse, CreateEquipment, CreateShoppingCart, GetEquipmentResponse, GetGalleryResponse, GetServicesResponse, GetShoppingCartResponse, NewGallery, NewService, UpdateEquipment, UpdateShoppingCart } from "../utils/interfaces";
->>>>>>> 361774893b8e3cc698c2ec2672c3475d4674f713
+import { ApiResponse, CreateEquipment, CreateShoppingCart, GetEquipmentResponse, GetGalleryResponse, GetServicesResponse, GetShoppingCartResponse, Messages, NewGallery, NewService, UpdateEquipment, UpdateShoppingCart } from "../utils/interfaces";
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
@@ -15,9 +11,6 @@ type BackendContextType = {
   getGallery: () => Promise<GetGalleryResponse>;
   deleteService: (id_servicio: string, token: string) => Promise<ApiResponse>
   deleteGallery: (id_imagen: string, token: string) => Promise<ApiResponse>
-<<<<<<< HEAD
-  sendMessage: (message: Messages) => Promise<ApiResponse>;
-=======
   getShoppingCart: (id_usuario: string, token: string) => Promise<GetShoppingCartResponse>
   createShoppingCart: (token: string, shopping_cart: CreateShoppingCart) => Promise<ApiResponse>
   deleteShoppingCart: (id_shopping_cart: string, token: string) => Promise<ApiResponse>
@@ -26,7 +19,7 @@ type BackendContextType = {
   createEquipment: (newEquipment: CreateEquipment, token: string) => Promise<ApiResponse>
   updateEquipment: (id_equipment: string, token: string, updateEquipment: UpdateEquipment) => Promise<ApiResponse>
   deleteEquipment: (id_equipment: string, token: string) => Promise<ApiResponse>
->>>>>>> 361774893b8e3cc698c2ec2672c3475d4674f713
+  sendMessage: (message: Messages) => Promise<ApiResponse>
 }
 
 type BackendProviderProps = {
@@ -86,17 +79,17 @@ export const BackendContext = createContext<BackendContextType>({
       "content-type": ""
     }
   }),
-<<<<<<< HEAD
   sendMessage: () => Promise.resolve({
-=======
+    data: {
+        message: ""
+      },
+      status: 0,
+  }),
   createShoppingCart: () =>  Promise.resolve({
->>>>>>> 361774893b8e3cc698c2ec2672c3475d4674f713
     data: {
       message: ""
     },
     status: 0,
-<<<<<<< HEAD
-=======
   }),
   deleteShoppingCart: () =>  Promise.resolve({
     data: {
@@ -113,15 +106,12 @@ export const BackendContext = createContext<BackendContextType>({
   getEquipments: () => Promise.resolve({
     data: [],
     status: 0,
->>>>>>> 361774893b8e3cc698c2ec2672c3475d4674f713
     statusText: "",
     headers: {
       "content-length": "",
       "content-type": ""
     }
   }),
-<<<<<<< HEAD
-=======
   createEquipment: () => Promise.resolve({
     data: {
       message: ""
@@ -140,7 +130,6 @@ export const BackendContext = createContext<BackendContextType>({
     },
     status: 0,
   }),
->>>>>>> 361774893b8e3cc698c2ec2672c3475d4674f713
 })
 
 export const BackendProvider = ({children}: BackendProviderProps) => {
@@ -170,13 +159,6 @@ export const BackendProvider = ({children}: BackendProviderProps) => {
     }
   })
 
-<<<<<<< HEAD
-  /* Send Message Endpoint */
-  const sendMessage = (message: Messages) : Promise<ApiResponse> => axios.post(`${BACKEND_URL}/message`, message)
-
-  return (
-    <BackendContext.Provider value={{ createService, createGallery, getServices, getGallery, deleteService, deleteGallery, sendMessage }}>{children}</BackendContext.Provider>
-=======
   /* Shopping Cart endpoints */
   const getShoppingCart = (id_usuario: string, token: string): Promise<GetShoppingCartResponse> => axios.get(`${BACKEND_URL}/cart/${id_usuario}`, {
     headers: {
@@ -218,13 +200,15 @@ export const BackendProvider = ({children}: BackendProviderProps) => {
     }
   })
 
+  const sendMessage = (message: Messages) : Promise<ApiResponse> => axios.post(`${BACKEND_URL}/message`, message)
+
   return (
     <BackendContext.Provider value={{ 
       getGallery ,createGallery, deleteService,
       getServices, createService,  deleteGallery,
       getShoppingCart, createShoppingCart, deleteShoppingCart, updateShoppingCart,
-      getEquipments, createEquipment, updateEquipment, deleteEquipment
+      getEquipments, createEquipment, updateEquipment, deleteEquipment,
+      sendMessage
     }}>{children}</BackendContext.Provider>
->>>>>>> 361774893b8e3cc698c2ec2672c3475d4674f713
   )
 }
