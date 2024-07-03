@@ -2,12 +2,14 @@ import { useEffect, useState } from "react";
 import { useFirebase } from "../../../hooks/useFirebase";
 import { useBackend } from "../../../hooks/useBackend";
 import { NewService } from "../../../utils/interfaces";
-import { useUser } from "../../../hooks/useUser";
+import { useProps } from "../../../hooks/useProps";
 
-export const UploadServiceModal = ({ handleInterface, addService }) => {
+
+export const UploadServiceModal = ({ handleInterface, addService, successToast, errorToast }) => {
   const { uploadServiceImage } = useFirebase();
   const { createService } = useBackend();
-  const { userToken } = useUser();
+  const { userToken } = useProps();
+  
 
   const [image, setImage] = useState(null);
   const [preview, setPreview] = useState(null);
@@ -21,9 +23,9 @@ export const UploadServiceModal = ({ handleInterface, addService }) => {
   })
 
   const handleUpload = () => {
-    if (service.serviceName === '') return alert("Debe ingresar un nombre para el servicio");
-    if (service.price === 0) return alert("Debe ingresar un precio para el servicio");
-    if (service.description === '') return alert("Debe ingresar una descripción para el servicio");
+    if (service.serviceName === '') return errorToast("Debe ingresar un nombre para el servicio");
+    if (service.price === 0) return errorToast("Debe ingresar un precio para el servicio");
+    if (service.description === '') return errorToast("Debe ingresar una descripción para el servicio");
     uploadServiceImage(
       image,
       (progress) => setProgress(progress),
@@ -61,7 +63,7 @@ export const UploadServiceModal = ({ handleInterface, addService }) => {
       const res = await createService(newService, userToken)
       const { status, data } = res
       if (status === 201) {
-        alert(data.message)
+        successToast(data.message)
         const transformedService = {
           ...newService,
           imagen_link: newService.imagen, // Transform imagen to imagen_link
@@ -72,9 +74,11 @@ export const UploadServiceModal = ({ handleInterface, addService }) => {
       }
     } catch (error) {
       console.error(error)
-      alert(error.response.data.message)
+      errorToast(error.response.data.message)
     }
   }
+
+  
 
   useEffect(() => {
     if (url && progress === 100) {

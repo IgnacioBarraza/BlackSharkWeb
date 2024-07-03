@@ -31,7 +31,7 @@ equipmentRouter.post('/new', async (req, res) => {
         }
 
         await connection.query(`INSERT INTO equipment (id_equipo, nombre_equipo, tipo_equipo, id_servicios) VALUES (?, ?, ?, ?)`, [newItem.id_equipo, newItem.nombre_equipo, newItem.tipo_equipo, newItem.id_servicios])
-        return res.status(201).json({ message: 'El equipo se ha guardado con éxito.' })
+        return res.status(201).json({ message: 'El equipo se ha guardado con éxito.', id: newItem.id_equipo })
     } catch (error) {
         // console.log(error)
         return res.status(500).json({ message: 'Hubo un error al intentar guardar el equipo. Intente más tarde.' })

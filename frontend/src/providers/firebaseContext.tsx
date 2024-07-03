@@ -1,7 +1,7 @@
 import { ReactNode, createContext } from "react"
 import { storage } from "../firebase";
 import { ref, uploadBytesResumable, getDownloadURL, deleteObject } from "firebase/storage";
-import { useUser } from "../hooks/useUser";
+import { useProps } from "../hooks/useProps";
 
 type FirebaseContextType = {
   uploadGalleryImage: (image, onProgress, onError, onComplete) => void;
@@ -22,7 +22,7 @@ export const FirebaseContext = createContext<FirebaseContextType>({
 })
 
 export const FirebaseProvider = ({ children }: FirebaseProviderProps) => {
-  const { userToken, userType} = useUser()
+  const { userToken, userType} = useProps()
 
   const uploadGalleryImage = (image, onProgress, onError, onComplete) => {
     if (image) {

@@ -6,12 +6,13 @@ import loginRouter from './routes/loginRouter'
 import userRouter from './routes/userRouter'
 import galleryRouter from './routes/galleryRouter'
 import campaignRouter from './routes/campaignRouter'
-import inventoryRouter from './routes/inventoryRouter'
 import mediaRouter from './routes/mediaRouter'
 import serviceRouter from './routes/serviceRouter'
-import projectRouter from './routes/projectRouter'
-import budgetRouter from './routes/budgetRouter'
 import cartRouter from './routes/shoppingCart'
+import dataRouter from './routes/getData'
+import equipmentRouter from './routes/equipmentRouter'
+import collabsRouter from './routes/collabsRouter'
+import buymentRouter from './routes/buymentRouter'
 
 // Middleware:
 import verifyToken from './middleware/verifyToken'
@@ -19,10 +20,13 @@ import verifyToken from './middleware/verifyToken'
 // Utils:
 import { rateLimiter } from './utils/rate-limiter'
 import { slowDownLimiter } from './utils/slow-down'
+<<<<<<< HEAD
 import dataRouter from './routes/getData'
 import equipmentRouter from './routes/equipmentRouter'
 import collabsRouter from './routes/collabsRouter'
 import messageRouter from './routes/messageRouter'
+=======
+>>>>>>> 361774893b8e3cc698c2ec2672c3475d4674f713
 
 const app = express()
 
@@ -41,13 +45,11 @@ console.log(2)
 app.use('/api/users', userRouter)
 app.use('/api/gallery', galleryRouter)
 app.use('/api/campaign', campaignRouter)
-app.use('/api/inventory', inventoryRouter)
 app.use('/api/media', mediaRouter)
 app.use('/api/service', serviceRouter)
-app.use('/api/project', projectRouter)
-app.use('/api/budget', budgetRouter)
 app.use('/api/cart', cartRouter)
 app.use('/api/equipment', equipmentRouter)
 app.use('/api/collaborations', collabsRouter)
+app.use('/api/buyment', buymentRouter)
 
 export default app

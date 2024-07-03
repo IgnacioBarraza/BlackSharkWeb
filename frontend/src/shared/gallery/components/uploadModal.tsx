@@ -4,13 +4,13 @@ import { useBackend } from "../../../hooks/useBackend";
 import { NewGallery } from "../../../utils/interfaces";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmarkCircle } from "@fortawesome/free-solid-svg-icons";
-import { useUser } from "../../../hooks/useUser";
+import { useProps } from "../../../hooks/useProps";
 
-export const UploadModal = ({ handleModal, services, addGalleryImage }) => {
+export const UploadModal = ({ handleModal, services, addGalleryImage, successToast, errorToast }) => {
 
   const { uploadGalleryImage } = useFirebase();
   const { createGallery } = useBackend();
-  const { userToken } = useUser();
+  const { userToken } = useProps();
 
   const [image, setImage] = useState(null);
   const [preview, setPreview] = useState(null);
@@ -66,7 +66,7 @@ export const UploadModal = ({ handleModal, services, addGalleryImage }) => {
         const res = await createGallery(NewGallery, userToken);
         const { status, data } = res;
         if (status === 201) {
-          alert(data.message);
+          successToast(data.message);
           const newGalleryImage = {
             ...NewGallery,
             id_imagen: data.id
@@ -75,7 +75,7 @@ export const UploadModal = ({ handleModal, services, addGalleryImage }) => {
           handleModal()
         }
       } catch (error) {
-        alert(error.response.data.message);
+        errorToast(error.response.data.message);
       }
     }
   };

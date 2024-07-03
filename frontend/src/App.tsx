@@ -3,22 +3,25 @@ import { AutoLogout } from "./auth/components/autoLogout";
 import { AuthProvider } from "./providers/authContext";
 import { BackendProvider } from "./providers/backendContext";
 import { FirebaseProvider } from "./providers/firebaseContext";
-import { UserDataProvider } from "./providers/userContext";
+import { PropsDataProvider } from "./providers/propsContext";
 import Router from "./router";
 import { routes } from "./routes/routesConfig";
+import { ChakraProvider } from "@chakra-ui/react";
 
 function App() {
   return (
-    <AuthProvider>
-      <BackendProvider>
-        <UserDataProvider>
-          <FirebaseProvider>
-            <AutoLogout />
-            <Router routes={routes} />
-          </FirebaseProvider>
-        </UserDataProvider>
-      </BackendProvider>
-    </AuthProvider>
+    <ChakraProvider>
+      <AuthProvider>
+        <BackendProvider>
+          <PropsDataProvider>
+            <FirebaseProvider>
+              <AutoLogout />
+              <Router routes={routes} />
+            </FirebaseProvider>
+          </PropsDataProvider>
+        </BackendProvider>
+      </AuthProvider>
+    </ChakraProvider>
   );
 }
 

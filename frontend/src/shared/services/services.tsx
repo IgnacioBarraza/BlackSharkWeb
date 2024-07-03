@@ -1,22 +1,25 @@
 import { useEffect, useState } from "react";
 import { Navbar } from "../../components/NavBar/Navbar";
-import { useUser } from "../../hooks/useUser";
+import { useProps } from "../../hooks/useProps";
 import { UploadServiceModal } from "./components/uploadServiceModal";
 import { useBackend } from "../../hooks/useBackend";
-import { Services } from "../../utils/interfaces";
+import { CreateShoppingCart, Equipment, Services } from "../../utils/interfaces";
 import { Footer } from "../../components/Footer/Footer";
 import { UploadButton } from "./components/uploadButton";
 import { SelectedServiceModal } from "./components/selectedServiceModal";
 import { useFirebase } from "../../hooks/useFirebase";
+import { useToast } from "@chakra-ui/react";
 
 export const Servicios = () => {
-  const { userType, userToken, servicesData, setServicesData } = useUser();
-  const { getServices, deleteService } = useBackend();
+  const { userType, userToken, servicesData, setServicesData, shoppingCartData, setShoppingCartData, userId, toolsData, setToolsData } = useProps();
+  const { getServices, deleteService, createShoppingCart, getEquipments } = useBackend();
   const { deleteImageFromServices } = useFirebase()
+  const toast = useToast()
 
   const [showInterface, setShowInterface] = useState(false);
   const [selectedService, setSelectedService] = useState<Services>(null);
   const [services, setServices] = useState<Services[]>([]);
+  const [toolsItems, setToolsItems] = useState<Equipment[]>([]);
 
   const handleInterface = () => {
     setShowInterface((prevState) => !prevState);
@@ -40,6 +43,10 @@ export const Servicios = () => {
     }
   };
   const getServicesData = async () => {
+    if (servicesData.length > 0) {
+      setServices(servicesData);
+      return console.log("Servicios ya obtenidos..."); // Don't delete!
+    }
     try {
       const res = await getServices();
       setServices(res.data);
@@ -64,7 +71,7 @@ export const Servicios = () => {
       const res = await deleteService(id_servicios, userToken)
       const {status, data} = res
       if (status === 200) {
-        alert(data.message)
+        successToastNotification(data.message)
         deleteImageFromServices(imageName)
         setSelectedService(null)
         const updatedServices = services.filter(service => service.id_servicios !== id_servicios);
@@ -72,7 +79,7 @@ export const Servicios = () => {
         setServicesData(updatedServices);
       }
     } catch (error) {
-      alert(error.response.data.message)
+      errorToastNotification(error.response.data.message)
     }
   };
 
@@ -84,13 +91,64 @@ export const Servicios = () => {
     });
   };
 
-  useEffect(() => {
-    if (servicesData.length > 0) {
-      setServices(servicesData);
-      return console.log("Servicios ya obtenidos..."); // Don't delete!
+  const handleShoppingCart = async (service: Services) => {
+    setShoppingCartData([...shoppingCartData, service]);
+    const newShoppingCart: CreateShoppingCart = {
+      id_usuario: userId,
+      id_servicios: service.id_servicios,
+      valor_total: service.precio
     }
+    try {
+      const res = await createShoppingCart(userToken,newShoppingCart)
+      const { status, data } = res
+      if (status === 201) {
+        successToastNotification(data.message)
+      }
+    } catch (error) {
+      errorToastNotification(error.response.data.message)
+      console.error(error)
+    }
+  }
+
+  const getEquipmentsData = async () => {
+    if (toolsData.length > 0) {
+      setToolsItems(toolsData);
+      return console.log("Equipos ya obtenidos..."); // Don't delete!
+    }
+    try {
+      const res = await getEquipments()
+      const {status, data} = res
+      if (status === 200) {
+        setToolsItems(data)
+        setToolsData(data)
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  const successToastNotification = (message: string) => {
+    toast({
+      title: message,
+      status: 'success',
+      duration: 5000,
+      isClosable: true,
+    })
+  }
+
+  const errorToastNotification = (message: string) => {
+    toast({
+      title: message,
+      status: 'error',
+      duration: 5000,
+      isClosable: true,
+    })
+  }
+
+  useEffect(() => {
     getServicesData();
-  }, []);
+    getEquipmentsData();
+  }, [services, shoppingCartData, toolsData]);
 
   return (
     <>
@@ -105,6 +163,8 @@ export const Servicios = () => {
               <UploadServiceModal
                 handleInterface={handleInterface}
                 addService={handleAddService}
+                successToast={successToastNotification}
+                errorToast={errorToastNotification}
               />
             )}
             {services.map((service) => (
@@ -131,6 +191,8 @@ export const Servicios = () => {
             handleCloseModal={handleCloseModal}
             selectedService={selectedService}
             handleDeleteService={handleDeleteService}
+            handleShoppingCart={handleShoppingCart}
+            tools={toolsData}
           />
         )}
         <Footer />

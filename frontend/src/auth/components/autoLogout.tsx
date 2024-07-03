@@ -1,9 +1,9 @@
 import { jwtDecode } from "jwt-decode"
-import { useUser } from "../../hooks/useUser"
+import { useProps } from "../../hooks/useProps"
 import { useEffect } from "react";
 
 export const AutoLogout = () => {
-  const { userToken, logout } = useUser()
+  const { userToken, logout } = useProps()
 
   useEffect(() => {
     if (!userToken) return

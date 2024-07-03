@@ -3,15 +3,17 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { Link, useNavigate } from "react-router-dom"
 import { useAuth } from "../hooks/useAuth";
 import { userToVerify } from "../utils/interfaces";
-import { useUser } from "../hooks/useUser";
+import { useProps } from "../hooks/useProps";
 import { useState } from "react";
 import { ShowPassword } from "./components/showpassword";
+import { useToast } from "@chakra-ui/react";
 
 export const Login = () => {
 
   const navigate = useNavigate()
+  const toast = useToast()
   const { login } = useAuth()
-  const { setUserType, setTokenData, setUserName } = useUser()
+  const { setUserType, setTokenData, setUserName, setUserId, loginData } = useProps()
   const [user, setUser] = useState<userToVerify>({
     email: '',
     password: ''
@@ -22,28 +24,26 @@ export const Login = () => {
   };
 
   const handleLogin = async (e) => {
-    e.preventDefault();
-    setUserType(null);
-    setTokenData(null);
-    setUserName(null);
+    e.preventDefault()
+    setUserType(null)
+    setTokenData(null)
+    setUserName(null)
+    setUserId(null)
     const userToVerify: userToVerify = {
       email: user.email,
       password: user.password,
     };
     try {
-      const res = await login(userToVerify);
-      if (res.status === 200) {
-        const { token, tipo_user, username } = res.data;
-        localStorage.setItem("token", token);
-        localStorage.setItem("userType", tipo_user);
-        localStorage.setItem("userName", username);
-        setUserType(tipo_user);
-        setTokenData(token);
-        setUserName(username);
+      const res = await login(userToVerify)
+      const {status, data} = res
+      if (status === 200) {
+        const { token, tipo_user, username, user_id, message } = data
+        loginData(token, tipo_user, username, user_id)
         navigate("/");
+        successToastNotification(message)
       }
     } catch (error) {
-      alert('Usuario o contraseña no valido. Intente nuevamente')
+      errorToastNotification(error.response.data.message)
       console.error(error)
     }
   };
@@ -52,6 +52,24 @@ export const Login = () => {
 
   function togglePasswordVisibility() {
       setIsPasswordVisible((prevState) => !prevState);
+  }
+
+  const successToastNotification = (message: string) => {
+    toast({
+      title: message,
+      status: 'success',
+      duration: 5000,
+      isClosable: true,
+    })
+  }
+
+  const errorToastNotification = (message: string) => {
+    toast({
+      title: message,
+      status: 'error',
+      duration: 5000,
+      isClosable: true,
+    })
   }
   
   return (

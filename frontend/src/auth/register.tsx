@@ -5,13 +5,15 @@ import { userToRegister } from "../utils/interfaces";
 import { useAuth } from "../hooks/useAuth";
 import { useState } from "react";
 import { ShowPassword } from "./components/showpassword";
-import { useUser } from "../hooks/useUser";
+import { useProps } from "../hooks/useProps";
+import { useToast } from "@chakra-ui/react";
 
 export const Register = () => {
 
   const navigate = useNavigate()
+  const toast = useToast()
   const { register } = useAuth()
-  const { setUserType, setTokenData, setUserName } = useUser()
+  const { setUserType, setTokenData, setUserName, setUserId, loginData } = useProps()
 
   const [user, setUser] = useState({
     email: '',
@@ -21,17 +23,18 @@ export const Register = () => {
   })
 
   const handleFormInputs = ({ target: { name, value } }) => {
-    setUser({ ...user, [name]: value });
+    setUser({ ...user, [name]: value })
   };
 
   const handleRegister = async (e) => {
     e.preventDefault()
-    setUserType(null);
-    setTokenData(null);
-    setUserName(null);
+    setUserType(null)
+    setTokenData(null)
+    setUserName(null)
+    setUserId(null)
 
     if (user.password !== user.repeat_password) {
-      alert('Contraseñas no coinciden...')
+      errorToastNotification("Contraseñas no coinciden...")
       return
     }
 
@@ -44,17 +47,14 @@ export const Register = () => {
     try {
       const res = await register(userToRegister)
       if (res.status === 201) {
-        const { token, tipo_user, username } = res.data;
-        localStorage.setItem("token", token);
-        localStorage.setItem("userType", tipo_user);
-        localStorage.setItem("userName", username);
-        setUserType(tipo_user);
-        setTokenData(token);
-        setUserName(username);
-        navigate("/");
+        const { token, tipo_user, username, user_id, message } = res.data
+        loginData(token, tipo_user, username, user_id)
+        navigate("/")
+        successToastNotification(message)
       }
     } catch (error) {
-      console.log(error)
+      errorToastNotification(error.response.data.message)
+      console.error(error)
     }
   }
 
@@ -67,6 +67,24 @@ export const Register = () => {
 
   function toggleRepeatPasswordVisibility() {
     setIsRepeatPasswordVisible((prevState) => !prevState);
+  }
+
+  const successToastNotification = (message: string) => {
+    toast({
+      title: message,
+      status: 'success',
+      duration: 5000,
+      isClosable: true,
+    })
+  }
+
+  const errorToastNotification = (message: string) => {
+    toast({
+      title: message,
+      status: 'error',
+      duration: 5000,
+      isClosable: true,
+    })
   }
 
   return (

@@ -79,7 +79,7 @@ serviceRouter.put('/update/:id', async (req, res) => {
             return res.status(400).json({ message: 'No hay ningún servicio con ese identificador.' })
         }
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         return res.status(500).json({ message: 'Hubo un error con el servidor al intentar actualziar el servicio. Inténtalo más tarde.' })
     } finally {
         if (connection) {
