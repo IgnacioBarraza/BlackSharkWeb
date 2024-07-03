@@ -22,6 +22,7 @@ import { slowDownLimiter } from './utils/slow-down'
 import dataRouter from './routes/getData'
 import equipmentRouter from './routes/equipmentRouter'
 import collabsRouter from './routes/collabsRouter'
+import messageRouter from './routes/messageRouter'
 
 const app = express()
 
@@ -33,9 +34,10 @@ app.use(slowDownLimiter)
 
 app.use('/api/login', loginRouter)
 app.use('/api/get', dataRouter)
-
+app.use('/api/message', messageRouter)
+console.log(1)
 app.use('', verifyToken)
-
+console.log(2)
 app.use('/api/users', userRouter)
 app.use('/api/gallery', galleryRouter)
 app.use('/api/campaign', campaignRouter)
