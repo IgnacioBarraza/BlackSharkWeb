@@ -15,7 +15,7 @@ export const Servicios = () => {
   const { userType, userToken, servicesData, setServicesData, shoppingCartData, setShoppingCartData, userId, toolsData, setToolsData } = useProps();
   const { getServices, deleteService, createShoppingCart, getEquipments, getFilteredServices } = useBackend();
   const { deleteImageFromServices } = useFirebase()
-  const toast = useToast()
+  const toast = useToast();
 
   const [showInterface, setShowInterface] = useState(false);
   const [selectedService, setSelectedService] = useState<Services>(null);
@@ -134,12 +134,12 @@ export const Servicios = () => {
       try {
         const res = await getFilteredServices(value);
         setServices(res.data)
-        setServicesData(res.data)
+        // setServicesData(res.data)
       } catch (error) {
         errorToastNotification(error.response.data.message)
         console.error(error)
       }
-    }, 100),
+    }, 300),
     []
   )
 
@@ -169,7 +169,7 @@ export const Servicios = () => {
   useEffect(() => {
     getServicesData();
     getEquipmentsData();
-  }, [services, shoppingCartData, toolsData]);
+  }, []);
 
   return (
     <>
