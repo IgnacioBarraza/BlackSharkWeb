@@ -83,7 +83,7 @@ export const Contact = () => {
 
                         <div className="mt-1">
                           <input 
-                            name="name" 
+                            name="nombre" 
                             type="text" 
                             onChange={handleFormInputs}
                             placeholder="Ingresa tu nombre" 
@@ -99,6 +99,7 @@ export const Contact = () => {
                           <input  
                             name="apellido" 
                             type="text" 
+                            onChange={handleFormInputs}
                             placeholder="Ingresa tu apellido" 
                             className="w-full pl-5 py-3 text-base text-neutral-600 placeholder-gray-400 transition duration-500 ease-in-out transform border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:border-gray-400 focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300"
                           />
@@ -110,8 +111,9 @@ export const Contact = () => {
 
                         <div className="mt-1">
                           <input 
-                            name="email" 
+                            name="correo" 
                             type="email" 
+                            onChange={handleFormInputs}
                             placeholder="Ingresa tu correo" 
                             className="w-full pl-5 py-3 text-base text-neutral-600 placeholder-gray-400 transition duration-500 ease-in-out transform border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:border-gray-400 focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300"
                           />
@@ -123,7 +125,7 @@ export const Contact = () => {
 
                         <div className="mt-1">
                           <input 
-                            name="number" 
+                            name="telefono" 
                             type="string" 
                             onChange={handleFormInputs}
                             placeholder="Ingresa tu número" 
@@ -135,7 +137,7 @@ export const Contact = () => {
                           <label className="font-light text-lg pl-0"> Mensaje </label>
                         </div>
 
-                        <textarea onChange={handleFormInputs} className="w-full pl-5 py-3 text-base text-neutral-600 placeholder-gray-400 transition duration-500 ease-in-out transform border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:border-gray-400 focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300" ></textarea>
+                        <textarea name="mensaje" onChange={handleFormInputs} className="w-full pl-5 py-3 text-base text-neutral-600 placeholder-gray-400 transition duration-500 ease-in-out transform border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:border-gray-400 focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300" ></textarea>
                         <div className="pt-5">
                           <button onClick={handleMessage} className="flex items-center justify-center w-full px-[110px] py-2.5 text-xl font-large text-center text-white transition duration-500 ease-in-out transform bg-blue-600 rounded-xl hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">Enviar</button>
                         </div>

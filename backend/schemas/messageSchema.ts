@@ -13,9 +13,6 @@ const messageSchema = z.object({
         .string({
             required_error: "Debes ingresar tu apellido",
             invalid_type_error: "Ingresa un apellido válido"
-        })
-        .refine(value => /^.{8,}$/.test(value ?? ""), {
-            message: "La contraseña debe contener al menos 8 caracteres.",
         }),
     correo: z
         .string({

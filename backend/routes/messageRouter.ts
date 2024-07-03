@@ -6,7 +6,6 @@ import { randomUUID } from 'crypto'
 const messageRouter = express.Router()
 
 messageRouter.post('/', async (req, res) => {
-    console.log(req.body)
     const connection = connect()
 
     const validateData = validateMessage(req.body)
