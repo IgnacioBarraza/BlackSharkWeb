@@ -8,7 +8,7 @@ interface modifiedRequest extends Request {
 
 const authorizeRole = (req: modifiedRequest, res: Response, next: NextFunction) => {
     if (!req.user?.role || req.user.role !== 'admin') {
-        return res.status(401).json({ message: 'No posees las credenciales para alterar la base de datos.' })
+        return res.status(401).json({ message: 'No posees las credenciales para consultar la base de datos.' })
     }
 
     next()

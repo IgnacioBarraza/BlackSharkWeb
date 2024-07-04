@@ -202,7 +202,7 @@ export const Colaboration = () => {
                   style={{ color: "#000000" }}
                   size="8x"
                 />
-                <h2 className="text-lg font-bold mb-2 text-center">Agregar Colaboracion</h2>
+                <h2 className="text-lg font-bold mb-2 text-center">Agregar Colaboración</h2>
               </div>
             </button>
           )}
@@ -345,7 +345,7 @@ export const Colaboration = () => {
                   src={colaboration.imagen_link}
                   alt={`Logo ${index}`}
                   onClick={() => setSelectedCollab(colaboration)}
-                  className="h-64 w-64 flex items-center justify-center text-white font-bold rounded-lg object-cover" />
+                  className="h-64 w-64 flex items-center justify-center text-white font-bold rounded-full object-cover" />
                 <p className="mt-2 text-center">{colaboration.nombre_empresa}</p>
               </div>
           ))}

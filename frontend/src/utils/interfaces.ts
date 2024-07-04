@@ -224,6 +224,25 @@ export interface GetEquipmentResponse {
   };
 }
 
+export interface MetricsService {
+  total_compra: number;
+  id_servicios: string;
+  fecha_compra: string;
+  nombre: string;
+  precio: number;
+}
+
+export interface GetMetricsServiceResponse {
+  data: MetricsService[];
+  status: number;
+}
+
+export const periods = {
+  lastMonth: 'Último mes',
+  last3Months: 'Últimos 3 meses',
+  last6Months: 'Últimos 6 meses',
+  allTime: 'Desde siempre',
+};
 export interface Messages {
   nombre: string;
   apellido: string;
