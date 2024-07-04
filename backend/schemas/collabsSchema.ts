@@ -10,6 +10,11 @@ const newCollabSchema = z.object({
         .string({
             required_error: 'Debes indicar la id de los servicios que se realizaron en la colaboración!',
             invalid_type_error: 'Ingresa ids válidos!'
+        }),
+        imagen_link: z
+        .string({
+            required_error: 'Debes indicar la imagen que desea agregar!',
+            invalid_type_error: 'Ingresa links válidos!'
         })
 })
 
@@ -22,6 +27,11 @@ const updateCollabSchema = z.object({
     id_servicios: z
         .string({
             invalid_type_error: 'Ingresa ids válidos!'
+        })
+        .optional(),
+    imagen_link: z
+        .string({
+            invalid_type_error: 'Ingresa links válidos!'
         })
         .optional()
 })
