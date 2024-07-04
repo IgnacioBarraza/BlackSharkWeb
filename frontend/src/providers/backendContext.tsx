@@ -1,6 +1,6 @@
 import axios from "axios"
 import { ReactNode, createContext } from "react"
-import { ApiResponse, CreateEquipment, CreateShoppingCart, GetEquipmentResponse, GetGalleryResponse, GetServicesResponse, GetShoppingCartResponse, NewGallery, NewService, UpdateEquipment, updateServices, UpdateShoppingCart } from "../utils/interfaces";
+import { ApiResponse, CreateEquipment, CreateShoppingCart, GetEquipmentResponse, GetGalleryResponse, GetMetricsServiceResponse, GetServicesResponse, GetShoppingCartResponse, NewGallery, NewService, UpdateEquipment, updateServices, UpdateShoppingCart } from "../utils/interfaces";
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
@@ -21,6 +21,7 @@ type BackendContextType = {
   updateEquipment: (id_equipment: string, token: string, updateEquipment: UpdateEquipment) => Promise<ApiResponse>
   deleteEquipment: (id_equipment: string, token: string) => Promise<ApiResponse>
   getFilteredServices: (filter: string) => Promise<GetServicesResponse | null>
+  getServiceMetricsByDate: (initDate: string, finishDate: string, token: string) => Promise<GetMetricsServiceResponse>
 }
 
 type BackendProviderProps = {
@@ -139,6 +140,10 @@ export const BackendContext = createContext<BackendContextType>({
         "content-length": "",
         "content-type": ""
     }
+  }),
+  getServiceMetricsByDate: () => Promise.resolve({
+    data: [],
+    status: 0,
   })
 })
 
@@ -218,13 +223,20 @@ export const BackendProvider = ({children}: BackendProviderProps) => {
   /* Filter endpoint */
   const getFilteredServices = (filter: string): Promise<GetServicesResponse | null> => axios.get(`${BACKEND_URL}/get/services/filter`, { params: { filter: filter } })
 
+  /* Metrics endpoint */
+  const getServiceMetricsByDate = (initDate: string, finishDate: string, token: string) => axios.get(`${BACKEND_URL}/metrics/metrics-by-date?initDate=${initDate}&finishDate=${finishDate}`, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
   return (
     <BackendContext.Provider value={{ 
       getGallery ,createGallery, deleteService,
       getServices, updateService, createService,  deleteGallery,
       getShoppingCart, createShoppingCart, deleteShoppingCart, updateShoppingCart,
       getEquipments, createEquipment, updateEquipment, deleteEquipment,
-      getFilteredServices
+      getFilteredServices,
+      getServiceMetricsByDate
     }}>{children}</BackendContext.Provider>
   )
 }
