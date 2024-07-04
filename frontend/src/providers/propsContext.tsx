@@ -1,5 +1,5 @@
 import { useState, createContext, useEffect } from "react"
-import { Colaborations, Equipment, GalleryData, Services, ServicesShoppingCart, ShoppingCart } from "../utils/interfaces"
+import { Colaborations, Equipment, GalleryData, Messages, Services, ServicesShoppingCart, ShoppingCart } from "../utils/interfaces"
 
 type UserDataProviderType = {
   setUserType: (userType: string) => void
@@ -20,6 +20,8 @@ type UserDataProviderType = {
   setToolsData: (toolsData: Equipment[]) => void
   toolsData: Equipment[] | null
   loginData: (token: string, tipo_user: string, username: string, user_id: string) => void
+  setMessagesData: (messagesData: Messages[]) => void
+  messagesData: Messages[] | null
   colaborationsData: Colaborations[] | null
   setColaborationsData:(colaborationsData: Colaborations[]) => void
 }
@@ -43,6 +45,8 @@ export const PropsContext = createContext<UserDataProviderType>({
   setToolsData: () => {},
   toolsData: null,
   loginData: () => {},
+  messagesData: null,
+  setMessagesData: () => {},
   colaborationsData: null,
   setColaborationsData: () => {}
 })
@@ -56,6 +60,7 @@ export const PropsDataProvider = ({ children }) => {
   const [galleryData, setGallery] = useState<GalleryData[] | null>([]);
   const [shoppingCartData, setShoppingCart] = useState<ServicesShoppingCart[]>([]);
   const [toolsData, setTools] = useState<Equipment[]>([]);
+  const [messagesData, setMessage] = useState<Messages[]>([]);
   const [colaborationsData, setColaborations] = useState<Colaborations[] | null>([]);
 
   useEffect(() => {
@@ -101,6 +106,7 @@ export const PropsDataProvider = ({ children }) => {
   const setGalleryData = (galleryDataData: GalleryData[]) => setGallery(galleryDataData);
   const setShoppingCartData = (shoppingCartData: ServicesShoppingCart[]) => setShoppingCart(shoppingCartData);
   const setToolsData = (toolsData: Equipment[]) => setTools(toolsData);
+  const setMessagesData = (messagesData: Messages[]) => setMessage(messagesData); 
   const setColaborationsData = (colaborationsData: Colaborations[]) =>setColaborations(colaborationsData);
 
   return (
@@ -114,6 +120,7 @@ export const PropsDataProvider = ({ children }) => {
       shoppingCartData, setShoppingCartData, 
       userId, setUserId,
       toolsData, setToolsData,
+      messagesData, setMessagesData,
       colaborationsData, setColaborationsData,
     }}>{children}</PropsContext.Provider>
   );

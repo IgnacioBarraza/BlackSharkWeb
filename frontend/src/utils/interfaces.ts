@@ -223,6 +223,19 @@ export interface GetEquipmentResponse {
     "content-type": string;
   };
 }
+
+export interface Messages {
+  nombre: string;
+  apellido: string;
+  correo: string;
+  telefono: string;
+  mensaje: string;
+}
+
+export interface GetMessagesResponse {
+  data: Messages[];
+  status: number;
+}
 export interface Colaborations {
   nombre_empresa: string,
   id_servicios: string,

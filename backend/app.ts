@@ -20,6 +20,7 @@ import verifyToken from './middleware/verifyToken'
 // Utils:
 import { rateLimiter } from './utils/rate-limiter'
 import { slowDownLimiter } from './utils/slow-down'
+import messageRouter from './routes/messageRouter'
 
 const app = express()
 
@@ -31,6 +32,7 @@ app.use(slowDownLimiter)
 
 app.use('/api/login', loginRouter)
 app.use('/api/get', dataRouter)
+app.use('/api/message', messageRouter)
 
 app.use('', verifyToken)
 
