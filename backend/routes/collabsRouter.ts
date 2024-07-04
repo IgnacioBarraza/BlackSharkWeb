@@ -24,7 +24,6 @@ collabsRouter.post('/new', async (req, res) => {
             imagen_link: validateData.data.imagen_link,
             fecha_colaboracion: new Date()
         }
-        console.log(newCollab)
 
         await connection.query(`INSERT INTO collaboration (id_collaboration, nombre_empresa, id_servicios, imagen_link, fecha_colaboracion) VALUES (?, ?, ?, ?, ?)`,
             [newCollab.id_colaboration, newCollab.nombre_empresa, newCollab.id_servicios, newCollab.imagen_link, newCollab.fecha_colaboracion]

@@ -56,9 +56,12 @@ const handleUpload = async () => {
       }
       try {
           const res = await createColaborations(newCollaboration, userToken)
-          console.log(res)
+          const { status, data } = res;
+          if (status === 201) {
+            successToastNotification(data.message);
+          }
       } catch (error) {
-          return
+          errorToastNotification(error.response.data.message)
       }
     }
 
@@ -144,9 +147,8 @@ const removeImage = () => {
 //     }
 //   }
 //   const deleteCollaborationsImage = async (id_collaboration) => {
-
-//     const collaborationToDelete = colaboration.filter(colaboration =>colaboration.id_collaboration === id_collaboration)
-//     const imagename = extractImageNameFromURL(collaborationToDelete[0].id_collaboration)
+//     const collaborationToDelete = colaboration.filter(colaboration =>colaboration[0].id_collaboration === id_collaboration)
+//     const imagename = extractImageNameFromURL(collaborationToDelete.id_collaboration)
 //     try{
 //       const res =await deleteColaborations(id_collaboration, userToken)
 //       const {status, data} = res
@@ -163,16 +165,6 @@ const removeImage = () => {
 //       console.error(error)
 //     }
 
-//   };
-//   const successToastNotification = (message: string) => {
-//     toast({
-//       title: message,
-//       status: 'success',
-//       duration: 5000,
-//       isClosable: true,
-//     })
-//   }
-
   const errorToastNotification = (message: string) => {
     toast({
       title: message,
@@ -181,6 +173,16 @@ const removeImage = () => {
       isClosable: true,
     })
   }
+
+  const successToastNotification = (message: string) => {
+    toast({
+      title: message,
+      status: 'success',
+      duration: 5000,
+      isClosable: true,
+    })
+  }
+
 //   const UpdateColaborations = async (id_collaboration: string, updatedColaborations: UpdateColaborations) => {
 //     const originalColaborations = [...colaborationsData]
 //     const updateColaboration = colaborationsData.map(colaboration => {
@@ -264,8 +266,8 @@ useEffect(() => {
 
   return (
     <>
-      <div className="flex justify-center p-4 bg-gray-100 h-[750px] w-full">
-        <div className="pt-16 grid grid-cols-4 gap-12">
+      <div className="flex justify-center bg-gray-100 fit w-full">
+        <div className=" grid grid-cols-2 gap-20 py-10">
           {userType === "admin" && userToken && (
             <button onClick={handleModal} className="w-[100px] md:w-[300px] h-64 flex items-center justify-center rounded-lg shadow-md border hover:bg-gray-200 border-gray-300 transition duration-300 ease-in-out transform hover:scale-105">
               <div className="flex flex-col items-center justify-center space-y-4">
@@ -419,25 +421,12 @@ useEffect(() => {
               </div>
             </div>
           )}
-            {/* {colaboration.map(colaboration => (
-              <div key={colaboration.id_collaboration} className="flex flex-col items-center">
-                <img src={colaboration.imagen_link} alt={`Logo ${colaboration.id_collaboration}`} className="h-64 w-64 flex items-center justify-center text-white font-bold rounded-lg" />
+          {colaboration.map((colaboration, index) => (
+              <div key={index} className="flex flex-col items-center">
+                <img src={colaboration.imagen_link} alt={`Logo ${index}`} className="h-64 w-64 flex items-center justify-center text-white font-bold rounded-lg" />
                 <p className="mt-2 text-center">{colaboration.nombre_empresa}</p>
-                {userType === "admin" && userToken && (
-                <button onClick={() => deleteCollaborationsImage(colaboration.id_collaboration)} className="mt-2 text-red-500 hover:text-red-700">Eliminar</button>
-              )}
               </div>
-          ))} */}
-  
-          <div className="flex flex-col items-center">
-            <img src="ruta/de/tu/imagen1.jpg" alt="Logo 1" className="h-64 w-64 flex items-center justify-center text-white font-bold rounded-lg" />
-            <p className="mt-2 text-center">Nombre de la Marca 1</p>
-          </div>
-  
-          <div className="flex flex-col items-center">
-            <img src="/bsw_logo_icon.png" alt="Logo 2" className="h-64 w-64 flex items-center justify-center text-white font-bold rounded-lg" />
-            <p className="mt-2 text-center">pastita micky</p>
-          </div>
+          ))}
         </div>
       </div>
     </>
