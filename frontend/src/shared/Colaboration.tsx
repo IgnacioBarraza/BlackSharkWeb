@@ -173,42 +173,6 @@ const removeImage = () => {
     })
   }
 
-//   const UpdateColaborations = async (id_collaboration: string, updatedColaborations: UpdateColaborations) => {
-//     const originalColaborations = [...colaborationsData]
-//     const updateColaboration = colaborationsData.map(colaboration => {
-//       if (colaboration.id_collaboration === id_collaboration) {
-//         return {
-//             ...colaboration,
-//             nombre_empresa: Colaboration[0].nombre_empresa,
-//             imagen_link: Colaboration[0].imagen_link,
-//             fecha_colaboracion: Colaboration[0].fecha_colaboracion
-//         }
-//       }
-//       return colaboration;
-//     })
-
-    // Optimistically updating the items:
-//     setColaboration(updateColaboration);
-//     setColaborationsData(updateColaboration);
-
-//     try {
-//       const res = await updateColaborations(id_collaboration, userToken, updatedColaborations);
-//       const { status, data } = res;
-//       if (status === 200) {
-//         successToastNotification(data.message);
-//       }
-//       return true
-//     } catch (error) {
-//         errorToastNotification(error.response.data.message);
-//         console.log('There was an error updating the tool: ', error);
-
-//         // If theres an error, go back to the previous data:
-//         setColaboration(originalColaborations)
-//         setColaborationsData(originalColaborations)
-//         return false
-//     }
-//   }
-
   const getServicesData = async () => {
     try {
       const res = await getServices();

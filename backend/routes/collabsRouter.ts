@@ -31,8 +31,12 @@ collabsRouter.post('/new', async (req, res) => {
 
         return res.status(201).json({ message: 'Los datos se han guardado exitosamente!', id: newCollab.id_colaboration })
     } catch (error) {
+<<<<<<< HEAD
         console.log(error)
         return res.status(500).json({ message: 'Hubo un error en el servidor al intentar guardar los datos de la colaboración. Intente más tarde.' })
+=======
+        return res.status(500).json({ message: 'Hubo un error en el servidor al intentar guardar los datos de la colaboración. Intente más tarde.', error })
+>>>>>>> e96da43446446223be8974e2d6ee4d3418bffd08
     } finally {
         if (connection) {
             connection.end()
@@ -76,8 +80,7 @@ collabsRouter.put('/update/:id', async (req, res) => {
             return res.status(400).json({ message: 'No hay ninguna colaboración con esa id. Inténtalo nuevamente.' })
         }
     } catch (error) {
-        console.log(error)
-        return res.status(500).json({ message: 'Hubo un error en el servidor al intentar actualizar los datos de la colaboración. Inténtalo de nuevo más tarde.' })
+        return res.status(500).json({ message: 'Hubo un error en el servidor al intentar actualizar los datos de la colaboración. Inténtalo de nuevo más tarde.', error })
     } finally {
         if (connection) {
             connection.end()
@@ -100,8 +103,7 @@ collabsRouter.delete('/delete/:id', async (req, res) => {
             return res.status(400).json({ message: 'No hay ninguna colaboración asociada a esa id. Inténtalo nuevamente.' })
         }
     } catch (error) {
-        // console.log(error)
-        return res.status(500).json({ message: 'Hubo un error en el servidor al intentar eliminar la colaboración. Inténtalo más tarde.' })
+        return res.status(500).json({ message: 'Hubo un error en el servidor al intentar eliminar la colaboración. Inténtalo más tarde.', error })
     } finally {
         if (connection) {
             connection.end()

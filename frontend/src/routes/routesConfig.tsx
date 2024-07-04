@@ -9,7 +9,11 @@ import { Homepage } from "../shared/homepage";
 import { Servicios } from "../shared/services/services";
 import { Cart } from "../shared/shop/shoppingCart";
 import { Tools } from "../shared/tools/tools";
+<<<<<<< HEAD
 import { Colaboration } from "../shared/Colaboration";
+=======
+import { Notfound } from "../shared/notfound";
+>>>>>>> e96da43446446223be8974e2d6ee4d3418bffd08
 
 export const routes = [
   {
@@ -53,7 +57,12 @@ export const routes = [
     component: <Tools />
   },
   {
+<<<<<<< HEAD
     path: '/colaboration',
     component: <Colaboration />
+=======
+    path: '*',
+    component: <Notfound />
+>>>>>>> e96da43446446223be8974e2d6ee4d3418bffd08
   }
 ]

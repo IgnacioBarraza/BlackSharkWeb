@@ -1,6 +1,10 @@
 import axios from "axios"
 import { ReactNode, createContext } from "react"
+<<<<<<< HEAD
 import { ApiResponse, CreateColaborations, CreateEquipment, CreateShoppingCart, GetColaborationsReponse, GetEquipmentResponse, GetGalleryResponse, GetServicesResponse, GetShoppingCartResponse, NewGallery, NewService, UpdateColaborations, UpdateEquipment, UpdateShoppingCart } from "../utils/interfaces";
+=======
+import { ApiResponse, CreateEquipment, CreateShoppingCart, GetEquipmentResponse, GetGalleryResponse, GetServicesResponse, GetShoppingCartResponse, NewGallery, NewService, UpdateEquipment, updateServices, UpdateShoppingCart } from "../utils/interfaces";
+>>>>>>> e96da43446446223be8974e2d6ee4d3418bffd08
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
@@ -8,6 +12,7 @@ type BackendContextType = {
   createService: (service: NewService, token: string) => Promise<ApiResponse>;
   createGallery: (gallery: NewGallery, token: string) => Promise<ApiResponse>;
   getServices: () => Promise<GetServicesResponse>;
+  updateService: (token: string, updateService: updateServices, id_servicio: string) => Promise<ApiResponse>
   getGallery: () => Promise<GetGalleryResponse>;
   deleteService: (id_servicio: string, token: string) => Promise<ApiResponse>
   deleteGallery: (id_imagen: string, token: string) => Promise<ApiResponse>
@@ -19,10 +24,14 @@ type BackendContextType = {
   createEquipment: (newEquipment: CreateEquipment, token: string) => Promise<ApiResponse>
   updateEquipment: (id_equipment: string, token: string, updateEquipment: UpdateEquipment) => Promise<ApiResponse>
   deleteEquipment: (id_equipment: string, token: string) => Promise<ApiResponse>
+<<<<<<< HEAD
   getColaborations: () => Promise<GetColaborationsReponse>
   createColaborations: (newColaboration: CreateColaborations, token:string) => Promise<ApiResponse>
   updateColaborations: (id_colaboration: string, token:string, updateColaboration: UpdateColaborations) => Promise<ApiResponse>
   deleteColaborations: (id_colaboration: string, token:string) => Promise<ApiResponse>
+=======
+  getFilteredServices: (filter: string) => Promise<GetServicesResponse | null>
+>>>>>>> e96da43446446223be8974e2d6ee4d3418bffd08
 }
 
 type BackendProviderProps = {
@@ -62,6 +71,12 @@ export const BackendContext = createContext<BackendContextType>({
     }
   }),
   deleteService: () => Promise.resolve({
+    data: {
+      message: ""
+    },
+    status: 0,
+  }),
+  updateService: () => Promise.resolve({
     data: {
       message: ""
     },
@@ -127,6 +142,7 @@ export const BackendContext = createContext<BackendContextType>({
     },
     status: 0,
   }),
+<<<<<<< HEAD
   createColaborations: () =>  Promise.resolve({
     data: {
       message: ""
@@ -146,20 +162,35 @@ export const BackendContext = createContext<BackendContextType>({
     status: 0,
   }),
   getColaborations: () => Promise.resolve({
+=======
+  getFilteredServices: () => Promise.resolve({
+>>>>>>> e96da43446446223be8974e2d6ee4d3418bffd08
     data: [],
     status: 0,
     statusText: "",
     headers: {
+<<<<<<< HEAD
       "content-length": "",
       "content-type": ""
     }
   }),
+=======
+        "content-length": "",
+        "content-type": ""
+    }
+  })
+>>>>>>> e96da43446446223be8974e2d6ee4d3418bffd08
 })
 
 export const BackendProvider = ({children}: BackendProviderProps) => {
   /* Service endpoints*/
   const getServices = (): Promise<GetServicesResponse> => axios.get(`${BACKEND_URL}/get/services`)
   const createService = (service: NewService, token: string): Promise<ApiResponse> => axios.post(`${BACKEND_URL}/service/new`, service, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
+  const updateService = (id_servicio: string, service: updateServices, token: string): Promise<ApiResponse> => axios.put(`${BACKEND_URL}/service/update/${id_servicio}`, service, {
     headers: {
       Authorization: `Bearer ${token}`
     }
@@ -243,13 +274,20 @@ export const BackendProvider = ({children}: BackendProviderProps) => {
       }
     })
 
+  /* Filter endpoint */
+  const getFilteredServices = (filter: string): Promise<GetServicesResponse | null> => axios.get(`${BACKEND_URL}/get/services/filter`, { params: { filter: filter } })
+
   return (
     <BackendContext.Provider value={{ 
       getGallery ,createGallery, deleteService,
-      getServices, createService,  deleteGallery,
+      getServices, updateService, createService,  deleteGallery,
       getShoppingCart, createShoppingCart, deleteShoppingCart, updateShoppingCart,
       getEquipments, createEquipment, updateEquipment, deleteEquipment,
+<<<<<<< HEAD
       getColaborations, createColaborations, updateColaborations, deleteColaborations
+=======
+      getFilteredServices
+>>>>>>> e96da43446446223be8974e2d6ee4d3418bffd08
     }}>{children}</BackendContext.Provider>
   )
 }
