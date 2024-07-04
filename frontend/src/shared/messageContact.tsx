@@ -1,6 +1,11 @@
+import { useState } from "react";
 import { Navbar } from "../components/NavBar/Navbar"
+import { Messages } from "../utils/interfaces";
 
 export const MessageContact = () => {
+
+const [messages, setMessages] = useState<Messages[]>([]);  
+
   return (
     <>
         <div className="bg-white bg-cover bg-center w-full flex-grow bg-no-repeat flex flex-col">
@@ -13,10 +18,10 @@ export const MessageContact = () => {
         <div className="bg-blue-strong-bs bg-cover bg-center w-full h-screen bg-no-repeat flex flex-col overflow-hidden overflow-y-automx-auto p-8 ">
             <div className="flex flex-wrap -mx-4 items-center justify-center">
                 <div className="bg-white p-8 rounded-lg w-full max-w-md mx-4 mb-4">
-                    <h1 className="font-myriad-pro text-2xl font-bold mb-6 text-center">Mensajes</h1>
+                    <h1 className="font-myriad-pro text-2xl font-bold mb-6 text-center">Mensaje</h1>
                     <div className="mb-4">
                         <div className="font-myriad-pro block text-sm font-bold mb-2">Nombre</div>
-                        <p className="text-base">John</p>
+                        <p className="font-myriad-pro text-base">John</p>
                     </div>
                     <div className="mb-4">
                         <div className="font-myriad-pro block text-sm font-bold mb-2">Apellido</div>
