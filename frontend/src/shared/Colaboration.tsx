@@ -1,13 +1,11 @@
 import { useEffect, useState } from "react";
 import { useProps } from "../hooks/useProps";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faXmarkCircle } from "@fortawesome/free-solid-svg-icons";
 import { Colaborations, CreateColaborations, Services, UpdateColaborations} from "../utils/interfaces"
 import { useBackend } from "../hooks/useBackend";
 import { useToast } from "@chakra-ui/react";
 import { useFirebase } from "../hooks/useFirebase";
-
-
 
 export const Colaboration = () => {
   
@@ -25,14 +23,11 @@ export const Colaboration = () => {
   const [progress, setProgress] = useState(0);
   const [error, setError] = useState(null);
   const [url, setUrl] = useState("");
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [selectedServices, setSelectedServices] = useState<string[]>([]);
 
 
   const getColaboration = async () => {
-    
-    if(colaborationsData.length > 0){
-      setColaboration(colaborationsData);
-      return console.log("La colaboracion ya fue obtenida...")
-    }
     try {
       const res = await getColaborations()
       const { status, data } = res;
@@ -45,10 +40,6 @@ export const Colaboration = () => {
       console.log(error)
     }
   }
-  useEffect(()=>{
-    getColaboration()
-  },[])
-
 
 const handleModal = () => {
   setShowModal(prevState => !prevState)
@@ -192,6 +183,45 @@ const handleUploadServiceInput = ({ target: { name, value } }) => {
     }
   }
 
+  const getServicesData = async () => {
+    try {
+      const res = await getServices();
+      const { data } = res
+      setServices(data);
+      setServicesData(data)
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleServiceSelection = (serviceId: string) => {
+    if (!selectedServices.includes(serviceId)) {
+      setSelectedServices((prev) => [...prev, serviceId]);
+    }
+    setDropdownOpen(false);
+  };
+
+  const removeSelectedService = (id: string) => {
+    setSelectedServices((prev) => prev.filter((serviceId) => serviceId !== id));
+  };
+
+  useEffect(() => {
+    console.log(servicesData)
+    if (colaborationsData.length > 0) {
+      setColaboration(colaborationsData)
+      console.log("Colaboraciones ya obtenidas...")
+    } else {
+      getColaboration();
+    }
+
+    if (servicesData.length > 0) {
+      setServices(servicesData);
+      console.log("Servicios para las colaboraciones ya obtenidas...");
+    } else {
+      getServicesData();
+    }
+  }, [])
+
   return (
     <>
       <div className="flex justify-center p-4 bg-gray-100 h-[750px] w-full">
@@ -214,28 +244,72 @@ const handleUploadServiceInput = ({ target: { name, value } }) => {
               <div className="bg-white rounded-lg shadow-lg p-6 w-96 max-w-md">
                 {/* Contenido del modal */}
                 <h2 className="font-myriad-pro text-xl font-bold mb-4 text-center">
-                  Agregar Nuevo Servicio
+                  Agregar Nueva Colaboración
                 </h2>
-                <div className="mt-6">
+                <div className="mt-6 mb-4">
                   <input
-                    id="serviceName"
-                    name="serviceName"
+                    id="collabName"
+                    name="collabName"
                     type="text"
-                    placeholder="Ingresa el nombre del servicio"
+                    placeholder="Ingresa el nombre de la empresa"
                     className="w-full pl-5 py-3 text-base text-neutral-600 placeholder-gray-400 transition duration-500 ease-in-out transform border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:border-gray-400 focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300"
                     onChange={handleUploadServiceInput}
                   />
                 </div>
-                <div className="mt-4">
-                  <input
-                    id="price"
-                    name="price"
-                    type="text"
-                    placeholder="Ingresa el precio"
-                    className="w-full pl-5 py-3 text-base text-neutral-600 placeholder-gray-400 transition duration-500 ease-in-out transform border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:border-gray-400 focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300"
-                    onChange={handleUploadServiceInput}
-                  />
-                </div>
+                
+                {/*  */}
+                {services.length > 0 && (
+                    <>
+                        <div className="relative">
+                        <button
+                            onClick={() => setDropdownOpen(!dropdownOpen)}
+                            className="w-full px-4 py-2 text-left bg-gray-200 rounded-md"
+                        >
+                            Selecciona un servicio
+                        </button>
+                        {dropdownOpen && (
+                            <div className="absolute z-10 w-full mt-2 bg-white border border-gray-200 rounded-md shadow-lg">
+                            {services.map((service) => (
+                                <div
+                                key={service.id_servicios}
+                                onClick={() =>
+                                    handleServiceSelection(service.id_servicios)
+                                }
+                                className="px-4 py-2 cursor-pointer hover:bg-gray-100"
+                                >
+                                {service.nombre}
+                                </div>
+                            ))}
+                            </div>
+                        )}
+                        </div>
+                        <div className="mt-4">
+                        {selectedServices.map((serviceId) => {
+                            const service = services.find(
+                            (s) => s.id_servicios === serviceId
+                            );
+                            return (
+                            <div
+                                key={serviceId}
+                                className="flex items-center justify-between mb-2 p-2 bg-gray-200 rounded"
+                            >
+                                <span>{service?.nombre}</span>
+                                {progress !== 100 && (
+                                <button
+                                    onClick={() => removeSelectedService(serviceId)}
+                                    className="text-red-500"
+                                >
+                                    <FontAwesomeIcon icon={faXmarkCircle} size="xl" />
+                                </button>
+                                )}
+                            </div>
+                            );
+                        })}
+                        </div>
+                    </>
+                    )}
+                    {/*  */}
+
                 <div className="border-dashed border-4 border-gray-200 rounded-lg p-4 flex flex-col items-center justify-center space-y-4 mt-4">
                   <input
                     type="file"
