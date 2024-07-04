@@ -20,7 +20,7 @@ export const FirebaseContext = createContext<FirebaseContextType>({
   uploadGalleryImage: () => {},
   uploadServiceImage: () => {},
   uploadCollaborationImage: () => {},
-  deleteImageFromCollaboration: async() => {},
+  deleteImageFromCollaboration: async () => {},
   deleteImageFromServices: async () => {},
   deleteImageFromGallery: async () => {}
 })
@@ -121,7 +121,7 @@ export const FirebaseProvider = ({ children }: FirebaseProviderProps) => {
     await deleteObject(imageRef)
   }
   const deleteImageFromCollaboration = async (image_name: string): Promise<void> => {
-    const imageRef = ref(storage, `Collaboration/${image_name}`)
+    const imageRef = ref(storage, `collaboration/${image_name}`)
     await deleteObject(imageRef)
   }
   return (

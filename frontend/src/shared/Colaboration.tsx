@@ -143,30 +143,12 @@ const removeImage = () => {
             const updatedCollabs = colaboration.filter(colab => colab.id_collaboration !== item.id_collaboration);
             setColaboration(updatedCollabs);
             setColaborationsData(updatedCollabs);
-            successToastNotification(data.message)
+            successToastNotification(data.message);
         }
     } catch (error) {
         errorToastNotification(error.response.data.message)
         console.error(error)
     }
-    
-    // const collaborationToDelete = colaboration.filter(colaboration =>colaboration[0].id_collaboration === id_collaboration)
-    // const imagename = extractImageNameFromURL(collaborationToDelete.id_collaboration)
-    // try{
-    //   const res =await deleteColaborations(id_collaboration, userToken)
-    //   const {status, data} = res
-    //   if(status === 200){
-    //     deleteImageFromCollaboration(imagename)
-    //     const updateColaborations = colaboration.filter(colaboration => colaboration.id_collaboration !== id_collaboration)
-    //     setColaboration(updateColaborations);
-    //     setColaborationsData(updateColaborations);
-    //     successToastNotification(data.message)
-
-    //   }
-    // } catch(error){
-    //   errorToastNotification(error.response.data.message)
-    //   console.error(error)
-    // }
   }
 
   const errorToastNotification = (message: string) => {
@@ -261,11 +243,11 @@ const removeImage = () => {
     }
 }, [])
 
-useEffect(() => {
-    if (url && progress === 100) {
+    useEffect(() => {
+      if (url && progress === 100) {
         handleUpload();
-    }
-  }, [url])
+      }
+    }, [url])
 
   return (
     <>
