@@ -1,5 +1,5 @@
 import { useState, createContext, useEffect } from "react"
-import { Equipment, GalleryData, Services, ServicesShoppingCart, ShoppingCart } from "../utils/interfaces"
+import { Equipment, GalleryData, Messages, Services, ServicesShoppingCart, ShoppingCart } from "../utils/interfaces"
 
 type UserDataProviderType = {
   setUserType: (userType: string) => void
@@ -20,6 +20,8 @@ type UserDataProviderType = {
   setToolsData: (toolsData: Equipment[]) => void
   toolsData: Equipment[] | null
   loginData: (token: string, tipo_user: string, username: string, user_id: string) => void
+  setMessagesData: (messagesData: Messages[]) => void
+  messagesData: Messages[] | null
 }
 
 export const PropsContext = createContext<UserDataProviderType>({
@@ -40,7 +42,9 @@ export const PropsContext = createContext<UserDataProviderType>({
   userId: null,
   setToolsData: () => {},
   toolsData: null,
-  loginData: () => {}
+  loginData: () => {},
+  messagesData: null,
+  setMessagesData: () => {}
 })
 
 export const PropsDataProvider = ({ children }) => {
@@ -52,6 +56,7 @@ export const PropsDataProvider = ({ children }) => {
   const [galleryData, setGallery] = useState<GalleryData[] | null>([]);
   const [shoppingCartData, setShoppingCart] = useState<ServicesShoppingCart[]>([]);
   const [toolsData, setTools] = useState<Equipment[]>([]);
+  const [messagesData, setMessage] = useState<Messages[]>([]);
 
   useEffect(() => {
     localStorage.setItem("userType", userType || "");
@@ -96,6 +101,7 @@ export const PropsDataProvider = ({ children }) => {
   const setGalleryData = (galleryDataData: GalleryData[]) => setGallery(galleryDataData);
   const setShoppingCartData = (shoppingCartData: ServicesShoppingCart[]) => setShoppingCart(shoppingCartData);
   const setToolsData = (toolsData: Equipment[]) => setTools(toolsData);
+  const setMessagesData = (messagesData: Messages[]) => setMessage(messagesData); 
 
   return (
     <PropsContext.Provider value={{ 
@@ -107,7 +113,8 @@ export const PropsDataProvider = ({ children }) => {
       galleryData, setGalleryData, 
       shoppingCartData, setShoppingCartData, 
       userId, setUserId,
-      toolsData, setToolsData
+      toolsData, setToolsData,
+      messagesData, setMessagesData
     }}>{children}</PropsContext.Provider>
   );
 };

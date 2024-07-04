@@ -1,6 +1,6 @@
 import axios from "axios"
 import { ReactNode, createContext } from "react"
-import { ApiResponse, CreateEquipment, CreateShoppingCart, GetEquipmentResponse, GetGalleryResponse, GetServicesResponse, GetShoppingCartResponse, Messages, NewGallery, NewService, UpdateEquipment, UpdateShoppingCart } from "../utils/interfaces";
+import { ApiResponse, CreateEquipment, CreateShoppingCart, GetEquipmentResponse, GetGalleryResponse, GetMessagesResponse, GetServicesResponse, GetShoppingCartResponse, Messages, NewGallery, NewService, UpdateEquipment, UpdateShoppingCart } from "../utils/interfaces";
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
@@ -20,6 +20,7 @@ type BackendContextType = {
   updateEquipment: (id_equipment: string, token: string, updateEquipment: UpdateEquipment) => Promise<ApiResponse>
   deleteEquipment: (id_equipment: string, token: string) => Promise<ApiResponse>
   sendMessage: (message: Messages) => Promise<ApiResponse>
+  getMessages: () => Promise<GetMessagesResponse>
 }
 
 type BackendProviderProps = {
@@ -130,6 +131,16 @@ export const BackendContext = createContext<BackendContextType>({
     },
     status: 0,
   }),
+  getMessages: () => Promise.resolve({
+    data: [],
+    status: 0,
+    statusText: "",
+    headers: {
+      "content-length": "",
+      "content-type": ""
+    }
+  }),
+
 })
 
 export const BackendProvider = ({children}: BackendProviderProps) => {
@@ -202,13 +213,15 @@ export const BackendProvider = ({children}: BackendProviderProps) => {
 
   const sendMessage = (message: Messages) : Promise<ApiResponse> => axios.post(`${BACKEND_URL}/message`, message)
 
+  const getMessages = (): Promise<GetMessagesResponse> => axios.get(`${BACKEND_URL}/get/message`)
+
   return (
     <BackendContext.Provider value={{ 
       getGallery ,createGallery, deleteService,
       getServices, createService,  deleteGallery,
       getShoppingCart, createShoppingCart, deleteShoppingCart, updateShoppingCart,
       getEquipments, createEquipment, updateEquipment, deleteEquipment,
-      sendMessage
+      sendMessage, getMessages
     }}>{children}</BackendContext.Provider>
   )
 }

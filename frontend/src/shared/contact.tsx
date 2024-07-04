@@ -6,32 +6,37 @@ import { Footer } from "../components/Footer/Footer";
 import { useState } from "react";
 import { Messages } from "../utils/interfaces";
 import { useBackend } from "../hooks/useBackend";
+import { useProps } from "../hooks/useProps";
 
 export const Contact = () => {
 
   const {sendMessage} = useBackend();
 
-  const [message, setMessage] = useState({
+  const {setMessagesData} = useProps();
+
+  const [message, setMessage] = useState<Messages[]>([]);
+
+  const [messages, setMessages] = useState<Messages>({
     nombre: '',
     apellido: '',
     correo: '',
     telefono: '',
     mensaje: ''
-  })
+  });
 
   const handleFormInputs = ({ target: { name, value } }) => {
-    setMessage({ ...message, [name]: value });
+    setMessages({ ...messages, [name]: value });
   };
 
   const handleMessage = async (e) => {
     e.preventDefault()
-  
-    const messages: Messages = {
-      nombre: message.nombre,
-      apellido: message.apellido,
-      correo: message.correo,
-      telefono: message.telefono,
-      mensaje: message.mensaje
+    console.log(messages)
+    const newMessages: Messages = {
+      nombre: messages.nombre,
+      apellido: messages.apellido,
+      correo: messages.correo,
+      telefono: messages.telefono,
+      mensaje: messages.mensaje
     }
   
     try {
@@ -45,6 +50,13 @@ export const Contact = () => {
     }
   }
 
+  const handleAddMessage = (newMessage) => {
+    setMessage((prevMessages) => {
+      const updatedMessages = prevMessages ? [...prevMessages, newMessage] : [newMessage];
+      setMessagesData(updatedMessages); // Set the new state directly
+      return updatedMessages;
+    });
+  };
 
   return (
     <>
