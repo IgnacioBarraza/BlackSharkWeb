@@ -345,7 +345,7 @@ export const Colaboration = () => {
                   src={colaboration.imagen_link}
                   alt={`Logo ${index}`}
                   onClick={() => setSelectedCollab(colaboration)}
-                  className="h-64 w-64 flex items-center justify-center text-white font-bold rounded-lg object-cover" />
+                  className="h-64 w-64 flex items-center justify-center text-white font-bold rounded-full object-cover" />
                 <p className="mt-2 text-center">{colaboration.nombre_empresa}</p>
               </div>
           ))}
