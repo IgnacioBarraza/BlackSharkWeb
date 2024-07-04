@@ -63,15 +63,25 @@ export const SelectedServiceModal = ({
             <span className="font-myriad-pro text-lg text-white">Agregar al carrito</span>
           </button>
           {userType === "admin" && (
-            <button
-              className="mt-8 px-4 py-2 bg-red-600 text-white rounded-lg"
-              onClick={(e) => {
-                e.stopPropagation(); // Prevent the card click event
-                handleDeleteService(selectedService.id_servicios);
-              }}
-            >
-              Eliminar
-            </button>
+            <>
+              <div className="flex justify-between w-full">
+                <button
+                  className="mt-8 px-4 py-2 bg-red-600 text-white rounded-lg"
+                  onClick={(e) => {
+                    e.stopPropagation(); // Prevent the card click event
+                    handleDeleteService(selectedService.id_servicios);
+                  }}
+                >
+                  Eliminar
+                </button>
+                <button
+                  className="mt-8 px-4 py-2 border border-black text-black rounded-lg ml-0"
+                  
+                >
+                  Editar
+                </button>
+              </div>
+            </>
           )}
           <div className="mt-8">
             <h3 className="text-xl font-bold mb-4">Herramientas Asociadas</h3>
