@@ -16,7 +16,6 @@ buymentRouter.get('/', async (req, res) => {
 
         return res.status(200).json(row)
     } catch (error) {
-        // console.log(error)
         return res.status(500).json({ message: 'Ha habido un problema. Inténtalo más tarde.', error })
     } finally {
         if (connection) {
@@ -47,7 +46,6 @@ buymentRouter.post('/new', async (req, res) => {
 
         return res.status(201).json({ message: 'Se ha registrado la compra con éxito.', id: newOrder.id_buyment })
     } catch (error) {
-        // console.log(error)
         return res.status(500).json({ message: 'Hubo un problema en el servidor al intentar registrar la compra.', error })
     } finally {
         if (connection) {
@@ -90,7 +88,6 @@ buymentRouter.put('/update/:id', async (req, res) => {
             return res.status(400).json({ message: 'No hay ninguna compra asociada a esa id.' })
         }
     } catch (error) {
-        // console.log(error)
         return res.status(500).json({ message: 'Hubo un error en el servidor al intentar registrar la compra. Inténtalo más tarde.', error })
     } finally {
         if (connection) {
@@ -113,7 +110,6 @@ buymentRouter.delete('/delete/:id', async (req, res) => {
             return res.status(400).json({ message: 'No hay ninguna compra asociada a esa id.' })
         }
     } catch (error) {
-        // console.log(error)
         return res.status(500).json({ message: 'Hubo un error en el servidor al intentar eliminar la compra. Inténtalo más tarde.', error })
     } finally {
         if (connection) {

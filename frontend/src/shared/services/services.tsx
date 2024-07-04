@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Navbar } from "../../components/NavBar/Navbar";
 import { useProps } from "../../hooks/useProps";
 import { UploadServiceModal } from "./components/uploadServiceModal";
@@ -9,17 +9,19 @@ import { UploadButton } from "./components/uploadButton";
 import { SelectedServiceModal } from "./components/selectedServiceModal";
 import { useFirebase } from "../../hooks/useFirebase";
 import { useToast } from "@chakra-ui/react";
+import { debounce } from "lodash";
 
 export const Servicios = () => {
   const { userType, userToken, servicesData, setServicesData, shoppingCartData, setShoppingCartData, userId, toolsData, setToolsData } = useProps();
-  const { getServices, deleteService, createShoppingCart, getEquipments } = useBackend();
+  const { getServices, deleteService, createShoppingCart, getEquipments, getFilteredServices } = useBackend();
   const { deleteImageFromServices } = useFirebase()
-  const toast = useToast()
+  const toast = useToast();
 
   const [showInterface, setShowInterface] = useState(false);
   const [selectedService, setSelectedService] = useState<Services>(null);
   const [services, setServices] = useState<Services[]>([]);
   const [toolsItems, setToolsItems] = useState<Equipment[]>([]);
+  const [filterValue, setFilterValue] = useState('');
 
   const handleInterface = () => {
     setShowInterface((prevState) => !prevState);
@@ -127,6 +129,25 @@ export const Servicios = () => {
     }
   }
 
+  const debouncedSearch = useCallback(
+    debounce(async value => {
+      try {
+        const res = await getFilteredServices(value);
+        setServices(res.data)
+        // setServicesData(res.data)
+      } catch (error) {
+        errorToastNotification(error.response.data.message)
+        console.error(error)
+      }
+    }, 300),
+    []
+  )
+
+  const handleFilterValue = (value: string) => {
+    setFilterValue(value)
+    debouncedSearch(value)
+  }
+
   const successToastNotification = (message: string) => {
     toast({
       title: message,
@@ -148,41 +169,48 @@ export const Servicios = () => {
   useEffect(() => {
     getServicesData();
     getEquipmentsData();
-  }, [services, shoppingCartData, toolsData]);
+  }, []);
 
   return (
     <>
       <div className="bg-white bg-cover bg-center w-full min-h-screen bg-no-repeat flex flex-col">
         <Navbar />
-        <div className="flex-grow mx-auto mt-8 mb-20">
-          <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 ml-4 mr-4 md:ml-24 md:mr-24">
-            {userType === "admin" && userToken && (
-              <UploadButton handleInterface={handleInterface} />
-            )}
-            {showInterface && (
-              <UploadServiceModal
-                handleInterface={handleInterface}
-                addService={handleAddService}
-                successToast={successToastNotification}
-                errorToast={errorToastNotification}
-              />
-            )}
-            {services.map((service) => (
-              <div
-              key={service.id_servicios}
-              className="bg-white rounded-lg shadow-lg transition-shadow hover:shadow-xl cursor-pointer"
-              onClick={() => handleServiceClick(service)}
-            >
-              <img
-                src={service.imagen_link}
-                alt={service.nombre}
-                className="w-full h-48 sm:h-64 md:h-64 object-cover rounded-t-lg"
-              />
-              <div className="p-4">
-                <h2 className="text-lg font-bold mb-2">{service.nombre}</h2>
-              </div>
+        <div className="flex-grow mx-auto mt-8 mb-10">
+
+          <div className="container mx-auto">
+            <div className="mb-5">
+              <label htmlFor="filters" className="text-sm font-medium leading-6 text-gray-900">Filtrar servicios...</label>
+              <input type="text" id="filters" onChange={event => handleFilterValue(event.target.value)} className="pl-2 py-1 mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"></input>
             </div>
-            ))}
+            <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 ml-4 mr-4">
+              {userType === "admin" && userToken && (
+                <UploadButton handleInterface={handleInterface} />
+              )}
+              {showInterface && (
+                <UploadServiceModal
+                  handleInterface={handleInterface}
+                  addService={handleAddService}
+                  successToast={successToastNotification}
+                  errorToast={errorToastNotification}
+                />
+              )}
+              {services.map((service) => (
+                <div
+                key={service.id_servicios}
+                className="bg-white rounded-lg shadow-lg transition-shadow hover:shadow-xl cursor-pointer"
+                onClick={() => handleServiceClick(service)}
+              >
+                <img
+                  src={service.imagen_link}
+                  alt={service.nombre}
+                  className="w-full h-48 sm:h-64 md:h-64 object-cover rounded-t-lg"
+                />
+                <div className="p-4">
+                  <h2 className="text-lg font-bold mb-2">{service.nombre}</h2>
+                </div>
+              </div>
+              ))}
+            </div>
           </div>
         </div>
         {selectedService && (
@@ -190,6 +218,8 @@ export const Servicios = () => {
             handleClickOutside={handleClickOutside}
             handleCloseModal={handleCloseModal}
             selectedService={selectedService}
+            setSelectedService={setSelectedService}
+            setServices={setServices}
             handleDeleteService={handleDeleteService}
             handleShoppingCart={handleShoppingCart}
             tools={toolsData}
