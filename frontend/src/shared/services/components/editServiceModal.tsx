@@ -36,7 +36,7 @@ export const EditServiceModal = ({ isOpen, onClose, service, setSelectedService,
     const originalServices = [...servicesData]
     const updatedService = {
         nombre: formData.nombre,
-        precio: formData.precio,
+        precio: Number(formData.precio),
         descripcion: formData.descripcion,
         imagen_link: formData.imagen_link
     }
@@ -122,7 +122,7 @@ export const EditServiceModal = ({ isOpen, onClose, service, setSelectedService,
             <input
               id="precio"
               name="precio"
-              type="text"
+              type="number"
               placeholder="Ingresa el precio"
               value={formData.precio}
               onChange={handleChange}
