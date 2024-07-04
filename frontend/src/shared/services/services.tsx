@@ -148,7 +148,7 @@ export const Servicios = () => {
   useEffect(() => {
     getServicesData();
     getEquipmentsData();
-  }, [services, shoppingCartData, toolsData]);
+  }, []);
 
   return (
     <>
