@@ -32,11 +32,10 @@ export const Colaboration = () => {
     try {
       const res = await getColaborations()
       const { status, data } = res;
-      if(status === 200){
+      if (status === 200){
         setColaboration(data)
         setColaborationsData(data)
       }
-
     } catch (error) {
       console.log(error)
     }
@@ -60,24 +59,18 @@ const handleUpload = async () => {
           if (status === 201) {
             successToastNotification(data.message);
           }
+          handleModal();
+          const newCollab = {
+              ...newCollaboration,
+              id_collaboration: data.id,
+              fecha_colaboracion: new Date()
+          }
+          setColaboration(prev => [...prev, newCollab])
+          
       } catch (error) {
           errorToastNotification(error.response.data.message)
       }
     }
-
-    // console.log(colaboration)
-    // console.log(selectedServices)
-//   if (colaboration[0].fecha_colaboracion === '') return errorToastNotification("Debe ingresar una fecha para la colaboracion");
-//   if (colaboration[0].imagen_link === '') return errorToastNotification("Debe ingresar una imagen para la colaboracion");
-//   if (colaboration[0].id_servicios === '') return errorToastNotification("Debe ingresar un servicio ejercido en la colaboracion");
-//   if (colaboration[0].nombre_empresa === '') return errorToastNotification("Debe ingresar el nombre de la empresa a la que se realizo la colaboracion");
-//   uploadCollaborationImage(
-//     image,
-//     (progress) => setProgress(progress),
-//     (error) => setError(error),
-//     (downloadURL) => setUrl(downloadURL)
-//   );
-//   setImage(null);
 };
 
 const handleImageUpload = () => {
@@ -260,7 +253,6 @@ const removeImage = () => {
 useEffect(() => {
     if (url && progress === 100) {
         handleUpload();
-        console.log('test')
     }
   }, [url])
 
@@ -410,14 +402,6 @@ useEffect(() => {
                     )}
                 </div>
                 )}
-                {/* <div className="flex justify-center mt-4">
-                  <div
-                    onClick={handleModal}
-                    className=" hover:text-gray-900 text-medium"
-                    >
-                    Cancelar
-                  </div>
-                </div> */}
               </div>
             </div>
           )}
