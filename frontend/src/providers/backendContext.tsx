@@ -20,6 +20,7 @@ type BackendContextType = {
   createEquipment: (newEquipment: CreateEquipment, token: string) => Promise<ApiResponse>
   updateEquipment: (id_equipment: string, token: string, updateEquipment: UpdateEquipment) => Promise<ApiResponse>
   deleteEquipment: (id_equipment: string, token: string) => Promise<ApiResponse>
+  getFilteredServices: (filter: string) => Promise<GetServicesResponse | null>
 }
 
 type BackendProviderProps = {
@@ -130,6 +131,15 @@ export const BackendContext = createContext<BackendContextType>({
     },
     status: 0,
   }),
+  getFilteredServices: () => Promise.resolve({
+    data: [],
+    status: 0,
+    statusText: "",
+    headers: {
+        "content-length": "",
+        "content-type": ""
+    }
+  })
 })
 
 export const BackendProvider = ({children}: BackendProviderProps) => {
@@ -205,12 +215,16 @@ export const BackendProvider = ({children}: BackendProviderProps) => {
     }
   })
 
+  /* Filter endpoint */
+  const getFilteredServices = (filter: string): Promise<GetServicesResponse | null> => axios.get(`${BACKEND_URL}/get/services/filter`, { params: { filter: filter } })
+
   return (
     <BackendContext.Provider value={{ 
       getGallery ,createGallery, deleteService,
       getServices, updateService, createService,  deleteGallery,
       getShoppingCart, createShoppingCart, deleteShoppingCart, updateShoppingCart,
-      getEquipments, createEquipment, updateEquipment, deleteEquipment
+      getEquipments, createEquipment, updateEquipment, deleteEquipment,
+      getFilteredServices
     }}>{children}</BackendContext.Provider>
   )
 }
