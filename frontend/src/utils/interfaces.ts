@@ -243,5 +243,6 @@ export interface UpdateColaborations {
   nombre_empresa?: string,
   fecha_colaboracion?: string,
   id_servicios?: string,
-  imagen_link?: string
+  imagen_link?: string,
+  id_collaboration?: string
 }

@@ -163,16 +163,16 @@ const handleUploadServiceInput = ({ target: { name, value } }) => {
       if (colaboration.id_collaboration === id_collaboration) {
         return {
             ...colaboration,
-            nombre_empresa: updatedColaborations.nombre_empresa,
-            imagen_link: updatedColaborations.imagen_link,
-            fecha_colaboracion: updatedColaborations.fecha_colaboracion
+            nombre_empresa: Colaboration[0].nombre_empresa,
+            imagen_link: Colaboration[0].imagen_link,
+            fecha_colaboracion: Colaboration[0].fecha_colaboracion
         }
       }
-      return Colaboration;
+      return colaboration;
     })
     // Optimistically updating the items:
-    //setColaboration(updateColaboration);
-    //setColaborationsData(updateColaboration);
+    setColaboration(updateColaboration);
+    setColaborationsData(updateColaboration);
 
     try {
       const res = await updateColaborations(id_collaboration, userToken, updatedColaborations);
@@ -194,9 +194,36 @@ const handleUploadServiceInput = ({ target: { name, value } }) => {
 
   return (
       <>
-      <div>
-        <p className="font-myriad-pro text-8xl font-bold">404</p>
+     
+      <div className="flex justify-center p-4 bg-gray-100 h-[750px] w-full">
+        <div className="pt-16 grid grid-cols-4 gap-12 " >
+          <button className="w-[100px] md:w-[300px] h-64 flex items-center justify-center rounded-lg shadow-md border hover:bg-gray-200 border-gray-300 transition duration-300 ease-in-out transform hover:scale-105"> 
+         
+          
+
+        <div className="flex flex-col items-center justify-center space-y-4">
+          <FontAwesomeIcon
+            icon={faPlus}
+            style={{ color: "#000000" }}
+            size="8x"
+          />
+          <h2 className="text-lg font-bold mb-2 text-center">Agregar Colaboracion</h2>
+        </div>
+          </button>
+          <div>
+            <img className="h-64 w-64 flex items-center justify-center bg-blue-500 text-white font-bold rounded-lg"/>
+            <p className="mt-2 text-center">Nombre de la Marca 1</p>
+          </div>
+      
+          <div>
+            <img className="h-64 w-64 flex items-center justify-center bg-red-500 text-white font-bold" />
+            <p className="mt-2 text-center">Nombre de la Marca 2</p>
+          </div>
+          
+          
+        </div>
       </div>
+      
       </>
     );
 }
