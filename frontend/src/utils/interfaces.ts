@@ -220,6 +220,7 @@ export interface Colaborations {
   nombre_empresa: string,
   id_servicios: string,
   imagen_link: string,
+  id_collaboration?: string
 }
 
 export interface GetColaborationsReponse {

@@ -6,6 +6,7 @@ import { Colaborations, CreateColaborations, Services, UpdateColaborations} from
 import { useBackend } from "../hooks/useBackend";
 import { createMultiStyleConfigHelpers, useToast } from "@chakra-ui/react";
 import { useFirebase } from "../hooks/useFirebase";
+import { ImageModal } from "./gallery/components/imagemodal";
 
 export const Colaboration = () => {
   
@@ -26,6 +27,7 @@ export const Colaboration = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [selectedServices, setSelectedServices] = useState<string[]>([]);
   const [companyName, setCompanyName] = useState('')
+  const [selectedCollab, setSelectedCollab] = useState<Colaborations | null>(null)
 
 
   const getColaboration = async () => {
@@ -66,7 +68,6 @@ const handleUpload = async () => {
               fecha_colaboracion: new Date()
           }
           setColaboration(prev => [...prev, newCollab])
-          
       } catch (error) {
           errorToastNotification(error.response.data.message)
       }
@@ -108,14 +109,6 @@ const removeImage = () => {
     return fileName;
   };
 
-  const handleAddColaboration = (newCollaboration) => {
-    setColaboration((prevColaboration) => {
-      const updatedColaboration = prevColaboration ? [...prevColaboration, newCollaboration] : [newCollaboration];
-      setColaborationsData(updatedColaboration); // Set the new state directly
-      return updatedColaboration;
-    });
-  };
-
 //   const uploadCollaboration = async () => {
 //     const newCollaboration: CreateColaborations = {
 //       nombre_empresa: colaboration[0].nombre_empresa,
@@ -139,24 +132,42 @@ const removeImage = () => {
 //       errorToastNotification(error.response.data.message)
 //     }
 //   }
-//   const deleteCollaborationsImage = async (id_collaboration) => {
-//     const collaborationToDelete = colaboration.filter(colaboration =>colaboration[0].id_collaboration === id_collaboration)
-//     const imagename = extractImageNameFromURL(collaborationToDelete.id_collaboration)
-//     try{
-//       const res =await deleteColaborations(id_collaboration, userToken)
-//       const {status, data} = res
-//       if(status === 200){
-//         deleteImageFromCollaboration(imagename)
-//         const updateColaborations = colaboration.filter(colaboration => colaboration.id_collaboration !== id_collaboration)
-//         setColaboration(updateColaborations);
-//         setColaborationsData(updateColaborations);
-//         successToastNotification(data.message)
+  const deleteCollaborationsImage = async (item) => {
+    const imageName = extractImageNameFromURL(item.imagen_link)
+    try {
+        const res = await deleteColaborations(item.id_collaboration, userToken);
+        const {status, data} = res;
+        if (status === 200) {
+            deleteImageFromCollaboration(imageName);
+            setSelectedCollab(null);
+            const updatedCollabs = colaboration.filter(colab => colab.id_collaboration !== item.id_collaboration);
+            setColaboration(updatedCollabs);
+            setColaborationsData(updatedCollabs);
+            successToastNotification(data.message)
+        }
+    } catch (error) {
+        errorToastNotification(error.response.data.message)
+        console.error(error)
+    }
+    
+    // const collaborationToDelete = colaboration.filter(colaboration =>colaboration[0].id_collaboration === id_collaboration)
+    // const imagename = extractImageNameFromURL(collaborationToDelete.id_collaboration)
+    // try{
+    //   const res =await deleteColaborations(id_collaboration, userToken)
+    //   const {status, data} = res
+    //   if(status === 200){
+    //     deleteImageFromCollaboration(imagename)
+    //     const updateColaborations = colaboration.filter(colaboration => colaboration.id_collaboration !== id_collaboration)
+    //     setColaboration(updateColaborations);
+    //     setColaborationsData(updateColaborations);
+    //     successToastNotification(data.message)
 
-//       }
-//     } catch(error){
-//       errorToastNotification(error.response.data.message)
-//       console.error(error)
-//     }
+    //   }
+    // } catch(error){
+    //   errorToastNotification(error.response.data.message)
+    //   console.error(error)
+    // }
+  }
 
   const errorToastNotification = (message: string) => {
     toast({
@@ -407,10 +418,21 @@ useEffect(() => {
           )}
           {colaboration.map((colaboration, index) => (
               <div key={index} className="flex flex-col items-center">
-                <img src={colaboration.imagen_link} alt={`Logo ${index}`} className="h-64 w-64 flex items-center justify-center text-white font-bold rounded-lg object-cover" />
+                <img
+                  src={colaboration.imagen_link}
+                  alt={`Logo ${index}`}
+                  onClick={() => setSelectedCollab(colaboration)}
+                  className="h-64 w-64 flex items-center justify-center text-white font-bold rounded-lg object-cover" />
                 <p className="mt-2 text-center">{colaboration.nombre_empresa}</p>
               </div>
           ))}
+          {selectedCollab && (
+            <ImageModal
+              image={selectedCollab}
+              onClose={() => setSelectedCollab(null)}
+              deleteImage={deleteCollaborationsImage}
+            />
+          )}
         </div>
       </div>
     </>

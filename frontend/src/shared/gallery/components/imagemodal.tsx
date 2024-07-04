@@ -42,7 +42,7 @@ export const ImageModal = ({ image, onClose, deleteImage }) => {
             className="absolute top-4 left-4 text-white text-4xl hover:animate-beat-fade"
             onClick={(e) => {
               e.stopPropagation()
-              deleteImage(image.id_imagen)
+              deleteImage(image)
             }}
           />
         )}
