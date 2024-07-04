@@ -2,18 +2,18 @@ import { useEffect, useState } from "react";
 import { useProps } from "../hooks/useProps";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faXmarkCircle } from "@fortawesome/free-solid-svg-icons";
-import { Colaborations, CreateColaborations, Services, UpdateColaborations} from "../utils/interfaces"
+import { Colaborations, Services } from "../utils/interfaces"
 import { useBackend } from "../hooks/useBackend";
-import { createMultiStyleConfigHelpers, useToast } from "@chakra-ui/react";
+import { useToast } from "@chakra-ui/react";
 import { useFirebase } from "../hooks/useFirebase";
 import { ImageModal } from "./gallery/components/imagemodal";
 
 export const Colaboration = () => {
   const { userType, userToken, servicesData, setServicesData, colaborationsData, setColaborationsData} = useProps();
-  const { getServices, getColaborations, updateColaborations, deleteColaborations, createColaborations } = useBackend();
-  const { deleteImageFromCollaboration, uploadCollaborationImage } = useFirebase()
+  const { getServices, getColaborations, deleteColaborations, createColaborations } = useBackend();
+  const { deleteImageFromCollaboration, uploadCollaborationImage } = useFirebase();
 
-  const toast = useToast()
+  const toast = useToast();
   
   const [showModal, setShowModal] = useState(false);
   
@@ -26,27 +26,26 @@ export const Colaboration = () => {
   const [url, setUrl] = useState("");
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [selectedServices, setSelectedServices] = useState<string[]>([]);
-  const [companyName, setCompanyName] = useState('')
-  const [selectedCollab, setSelectedCollab] = useState<Colaborations | null>(null)
+  const [companyName, setCompanyName] = useState('');
+  const [selectedCollab, setSelectedCollab] = useState<Colaborations | null>(null);
 
   const getColaboration = async () => {
     try {
-      const res = await getColaborations()
+      const res = await getColaborations();
       const { status, data } = res;
       if (status === 200){
-        setColaboration(data)
-        setColaborationsData(data)
+        setColaboration(data);
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   }
 
-const handleModal = () => {
-  setShowModal(prevState => !prevState)
-}
+  const handleModal = () => {
+    setShowModal(prevState => !prevState)
+  }
 
-const handleUpload = async () => {    
+  const handleUpload = async () => {    
     if (url) {
       const formattedIds = JSON.stringify(selectedServices);
       const newCollaboration: Colaborations = {
@@ -55,7 +54,7 @@ const handleUpload = async () => {
         imagen_link: url,
       }
       try {
-          const res = await createColaborations(newCollaboration, userToken)
+          const res = await createColaborations(newCollaboration, userToken);
           const { status, data } = res;
           if (status === 201) {
             successToastNotification(data.message);
@@ -66,42 +65,39 @@ const handleUpload = async () => {
               id_collaboration: data.id,
               fecha_colaboracion: new Date()
           }
-          setColaboration(prev => [...prev, newCollab])
+          setColaboration(prev => [...prev, newCollab]);
           removeImage();
       } catch (error) {
-          errorToastNotification(error.response.data.message)
+          errorToastNotification(error.response.data.message);
       }
     }
-};
+  };
 
-const handleImageUpload = () => {
-  if (selectedServices.length === 0) return alert('Debes seleccionar al menos un servicio asociado a la colaboración!');
-  uploadCollaborationImage(
-    image,
-    (progress) => setProgress(progress),
-    (error) => setError(error),
-    (downloadUrl) => setUrl(downloadUrl)
-  );
-  setImage(null);
-}
-
-const handleImageFileUpload = (e) => {
-  if (e.target.files[0]) {
-    const file = e.target.files[0];
-    setImage(file);
-    setPreview(URL.createObjectURL(file));
+  const handleImageUpload = () => {
+    if (selectedServices.length === 0) return alert('Debes seleccionar al menos un servicio asociado a la colaboración!');
+    uploadCollaborationImage(
+      image,
+      (progress) => setProgress(progress),
+      (error) => setError(error),
+      (downloadUrl) => setUrl(downloadUrl)
+    );
+    setImage(null);
   }
-};
-const removeImage = () => {
-  setImage(null);
-  setPreview(null);
-  setProgress(0);
-  setSelectedServices([]);
-};
 
-  const handleChangeColabData = ({ target: { name, value } }) => {
-    setColaboration({...colaboration, [name]: value})
-  }
+  const handleImageFileUpload = (e) => {
+    if (e.target.files[0]) {
+      const file = e.target.files[0];
+      setImage(file);
+      setPreview(URL.createObjectURL(file));
+    }
+  };
+
+  const removeImage = () => {
+    setImage(null);
+    setPreview(null);
+    setProgress(0);
+    setSelectedServices([]);
+  };
 
   const extractImageNameFromURL = (url) => {
     const decodedURL = decodeURIComponent(url);
@@ -111,46 +107,23 @@ const removeImage = () => {
     return fileName;
   };
 
-//   const uploadCollaboration = async () => {
-//     const newCollaboration: CreateColaborations = {
-//       nombre_empresa: colaboration[0].nombre_empresa,
-//       fecha_colaboracion: colaboration[0].fecha_colaboracion,
-//       id_servicios: colaboration[0].id_servicios,
-//       imagen_link: url
-//     }
-//     try {
-//       const res = await createColaborations(newCollaboration, userToken)
-//       const { status, data } = res
-//       if (status === 201) {
-//         successToastNotification(data.message)
-//         const transformedColaboration = {
-//           ...newCollaboration,
-//           id_servicios: data.id // Add id_servicios to the services
-//         };
-//         handleAddColaboration(transformedColaboration);
-//       }
-//     } catch (error) {
-//       console.error(error)
-//       errorToastNotification(error.response.data.message)
-//     }
-//   }
   const deleteCollaborationsImage = async (item) => {
     if (confirm('¿Quieres eliminar esta colaboración?')) {
-        const imageName = extractImageNameFromURL(item.imagen_link)
+        const imageName = extractImageNameFromURL(item.imagen_link);
         try {
-            const res = await deleteColaborations(item.id_collaboration, userToken);
-            const {status, data} = res;
-            if (status === 200) {
-                deleteImageFromCollaboration(imageName);
-                setSelectedCollab(null);
-                const updatedCollabs = colaboration.filter(colab => colab.id_collaboration !== item.id_collaboration);
-                setColaboration(updatedCollabs);
-                setColaborationsData(updatedCollabs);
-                successToastNotification(data.message);
-            }
+          const res = await deleteColaborations(item.id_collaboration, userToken);
+          const {status, data} = res;
+          if (status === 200) {
+            deleteImageFromCollaboration(imageName);
+            setSelectedCollab(null);
+            const updatedCollabs = colaboration.filter(colab => colab.id_collaboration !== item.id_collaboration);
+            setColaboration(updatedCollabs);
+            setColaborationsData(updatedCollabs);
+            successToastNotification(data.message);
+          }
         } catch (error) {
-            errorToastNotification(error.response.data.message)
-            console.error(error)
+          errorToastNotification(error.response.data.message)
+          console.error(error)
         }
     }
   }
@@ -161,7 +134,7 @@ const removeImage = () => {
       status: 'error',
       duration: 5000,
       isClosable: true,
-    })
+    });
   }
 
   const successToastNotification = (message: string) => {
@@ -170,15 +143,15 @@ const removeImage = () => {
       status: 'success',
       duration: 5000,
       isClosable: true,
-    })
+    });
   }
 
   const getServicesData = async () => {
     try {
       const res = await getServices();
-      const { data } = res
+      const { data } = res;
       setServices(data);
-      setServicesData(data)
+      setServicesData(data);
     } catch (error) {
       console.error(error);
     }
@@ -197,8 +170,8 @@ const removeImage = () => {
 
   useEffect(() => {
     if (colaborationsData.length > 0) {
-      setColaboration(colaborationsData)
-      console.log("Colaboraciones ya obtenidas...")
+      setColaboration(colaborationsData);
+      console.log("Colaboraciones ya obtenidas...");
     } else {
       getColaboration();
     }
