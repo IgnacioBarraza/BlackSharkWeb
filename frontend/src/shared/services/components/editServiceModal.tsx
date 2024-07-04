@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { updateServices } from '../../../utils/interfaces';
 
 export const EditServiceModal = ({ isOpen, onClose, service }) => {
   const [formData, setFormData] = useState({
@@ -22,11 +23,41 @@ export const EditServiceModal = ({ isOpen, onClose, service }) => {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Datos a enviar:", formData);
-    onClose();
-  };
+  const handleSubmit = async () => {
+    const originalService = [...service]
+    const updateService = service.map(item => {
+      if (service.id_servicio === item.id_servicio) {
+        return {
+            ...item,
+            nombre: updateService.nombre,
+            precio: updateService.precio,
+            descripcion: updateService.descripcion,
+            imagen_link: updateService.imagen_link
+        }
+      }
+      return item;
+    })
+    // Optimistically updating the items:
+    setToolsItems(updateItems);
+    setToolsData(updateItems);
+
+    try {
+      const res = await updateEquipment(id_tool, userToken, updatedTool);
+      const { status, data } = res;
+      if (status === 200) {
+        successToastNotification(data.message);
+      }
+      return true
+    } catch (error) {
+        errorToastNotification(error.response.data.message);
+        console.log('There was an error updating the tool: ', error);
+
+        // If theres an error, go back to the previous data:
+        setToolsItems(originalTools)
+        setToolsData(originalTools)
+        return false
+    }
+  }
 
   if (!isOpen) return null;
 

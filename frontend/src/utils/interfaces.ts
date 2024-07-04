@@ -148,6 +148,7 @@ export interface updateServices {
   nombre?: string;
   precio?: number;
   descripcion?: string;
+  imagen_link?: string;
 }
 
 export interface ServicesShoppingCart {
