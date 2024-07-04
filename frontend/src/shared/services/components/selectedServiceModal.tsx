@@ -1,7 +1,10 @@
+import React,{ useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useProps } from "../../../hooks/useProps";
 import { faXmarkCircle } from "@fortawesome/free-solid-svg-icons";
 import { Equipment } from "../../../utils/interfaces";
+import { EditServiceModal } from "./editServiceModal"; // Asegúrate de importar el componente modal de edición correctamente
+
 
 export const SelectedServiceModal = ({
   selectedService,
@@ -12,6 +15,7 @@ export const SelectedServiceModal = ({
   tools
 }) => {
   const { userType } = useProps();
+  const [editMode, setEditMode] = useState(false);
 
   const formatPrice = (price) => {
     return new Intl.NumberFormat("es-CL", {
@@ -25,6 +29,11 @@ export const SelectedServiceModal = ({
   }
 
   const filteredTools = filterToolsByServiceId(tools, selectedService.id_servicios);
+
+  const handleEdit = () => {
+    setEditMode(true); // Función para abrir el modal de edición
+  };
+
 
   return (
     <div
@@ -63,26 +72,31 @@ export const SelectedServiceModal = ({
             <span className="font-myriad-pro text-lg text-white">Agregar al carrito</span>
           </button>
           {userType === "admin" && (
-            <>
-              <div className="flex justify-between w-full">
-                <button
-                  className="mt-8 px-4 py-2 bg-red-600 text-white rounded-lg"
-                  onClick={(e) => {
-                    e.stopPropagation(); // Prevent the card click event
-                    handleDeleteService(selectedService.id_servicios);
-                  }}
-                >
-                  Eliminar
-                </button>
-                <button
-                  className="mt-8 px-4 py-2 border border-black text-black rounded-lg ml-0"
-                  
-                >
-                  Editar
-                </button>
-              </div>
-            </>
-          )}
+          <>
+            <button
+              className="mt-8 px-4 py-2 bg-red-600 text-white rounded-lg"
+              onClick={(e) => {
+                e.stopPropagation(); // Prevent the card click event
+                handleDeleteService(selectedService.id_servicios);
+              }}
+            >
+              Eliminar
+            </button>
+            <button
+              className="mt-8 px-4 py-2 border border-black text-black rounded-lg ml-0"
+              onClick={handleEdit}
+            >
+              Editar
+            </button>
+            {editMode && (
+              <EditServiceModal
+                isOpen={editMode}
+                onClose={() => setEditMode(false)}
+                service={selectedService}
+              />
+            )}
+          </>
+        )}
           <div className="mt-8">
             <h3 className="text-xl font-bold mb-4">Herramientas Asociadas</h3>
             {filteredTools.length > 0 ? (
