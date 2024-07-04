@@ -89,4 +89,21 @@ dataRouter.get('/collaborations', async (req, res) => {
     }
 })
 
+dataRouter.get('/message', async (req, res) => {
+    const connection = connect()
+
+    try {
+        const [row, fields] = await connection.query(`SELECT * FROM messages`)
+        
+        return res.status(200).json(row)
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({ message: 'Hubo un error con el servidor. Inténtalo más tarde.' })
+    } finally {
+        if (connection) {
+            connection.end()
+        }
+    }
+})
+
 export default dataRouter
