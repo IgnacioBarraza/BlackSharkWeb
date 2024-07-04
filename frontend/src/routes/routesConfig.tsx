@@ -10,6 +10,7 @@ import { Servicios } from "../shared/services/services";
 import { Cart } from "../shared/shop/shoppingCart";
 import { Tools } from "../shared/tools/tools";
 import { MetricsDashboard } from "../shared/metrics/metricsDashboard";
+import { MessageContact } from "../shared/messageContact";
 import { Colaboration } from "../shared/Colaboration";
 import { Notfound } from "../shared/notfound";
 
@@ -59,6 +60,10 @@ export const routes = [
     component: <MetricsDashboard />
   },
   {
+    path: '/messagecontact',
+    component: <MessageContact />
+  },
+  { 
     path: '/colaboration',
     component: <Colaboration />
   },

@@ -11,11 +11,11 @@ export const UserDropdown = () => {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
 
-  const firstName = userName ? userName.split(' ')[0] : '';
+  const firstName = userName ? userName.split(" ")[0] : "";
 
   const handleLogout = () => {
-    logout()
-    navigate("/")
+    logout();
+    navigate("/");
     setDropdownOpen(false);
   };
 
@@ -62,52 +62,61 @@ export const UserDropdown = () => {
         <div className="absolute top-[77px] right-[-40px] bg-white z-50 border-gray-300 shadow-md w-[240px] rounded-lg p-4">
           <div className="ml-4">
             <FontAwesomeIcon icon={faCircleUser} size="xl" />
-            <span className="font-myriad-pro text-xl py-2 px-4 font-bold">{firstName}</span>
+            <span className="font-myriad-pro text-xl py-2 px-4 font-bold">
+              {firstName}
+            </span>
           </div>
           <hr className="border-t-2 border-gray-300 mt-2" />
-          
-          {userType === 'admin' && userToken ? (
-        <>
-          <Link
-            to="/manageOrders"
-            className="block font-myriad-pro text-xl py-2 px-4"
-            onClick={toggleDropdown}
-          >
-            Gestionar pedidos
-          </Link>
-          <Link
-            to="/tools"
-            className="block font-myriad-pro text-xl py-2 px-4"
-            onClick={toggleDropdown}
-          >
-            Equipos
-          </Link>
-          <Link
-            to="/metrics"
-            className="block font-myriad-pro text-xl py-2 px-4"
-            onClick={toggleDropdown}
-          >
-            Metricas
-          </Link>
-        </>
-        ) : (
-        <>
-          <Link
-            to="/orders"
-            className="block font-myriad-pro text-xl py-2 px-4"
-            onClick={toggleDropdown}
-          >
-            Mis pedidos
-          </Link>
-          <Link
-            to="/cart"
-            className="block font-myriad-pro text-xl py-2 px-4"
-            onClick={toggleDropdown}
-          >
-            Carrito de compras
-          </Link>
-        </>
-        )}
+
+          {userType === "admin" && userToken ? (
+            <>
+              <Link
+                to="/manageOrders"
+                className="block font-myriad-pro text-xl py-2 px-4"
+                onClick={toggleDropdown}
+              >
+                Gestionar pedidos
+              </Link>
+              <Link
+                to="/tools"
+                className="block font-myriad-pro text-xl py-2 px-4"
+                onClick={toggleDropdown}
+              >
+                Equipos
+              </Link>
+              <Link
+                to="/metrics"
+                className="block font-myriad-pro text-xl py-2 px-4"
+                onClick={toggleDropdown}
+              >
+                Metricas
+              </Link>
+              <Link
+                to="/messagecontact"
+                className="block px-4 py-2 text-black font-myriad-pro hover:bg-gray-100"
+                onClick={toggleDropdown}
+              >
+                Gestionar mensajes
+              </Link>
+            </>
+          ) : (
+            <>
+              <Link
+                to="/orders"
+                className="block font-myriad-pro text-xl py-2 px-4"
+                onClick={toggleDropdown}
+              >
+                Mis pedidos
+              </Link>
+              <Link
+                to="/cart"
+                className="block font-myriad-pro text-xl py-2 px-4"
+                onClick={toggleDropdown}
+              >
+                Carrito de compras
+              </Link>
+            </>
+          )}
           <button
             onClick={handleLogout}
             className="w-full text-left font-myriad-pro text-xl py-2 px-4"

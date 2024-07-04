@@ -1,6 +1,6 @@
 import axios from "axios"
 import { ReactNode, createContext } from "react"
-import { ApiResponse, CreateColaborations, CreateEquipment, CreateShoppingCart, GetColaborationsReponse, GetEquipmentResponse, GetGalleryResponse, GetMetricsServiceResponse, GetServicesResponse, GetShoppingCartResponse, NewGallery, NewService, UpdateColaborations, UpdateEquipment, UpdateShoppingCart, updateServices } from "../utils/interfaces";
+import { ApiResponse, CreateColaborations, CreateEquipment, CreateShoppingCart, GetColaborationsReponse, GetEquipmentResponse, GetGalleryResponse, GetMessagesResponse, GetMetricsServiceResponse, GetServicesResponse, GetShoppingCartResponse, Messages, NewGallery, NewService, UpdateColaborations, UpdateEquipment, UpdateShoppingCart, updateServices } from "../utils/interfaces";
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
@@ -20,6 +20,8 @@ type BackendContextType = {
   createEquipment: (newEquipment: CreateEquipment, token: string) => Promise<ApiResponse>
   updateEquipment: (id_equipment: string, token: string, updateEquipment: UpdateEquipment) => Promise<ApiResponse>
   deleteEquipment: (id_equipment: string, token: string) => Promise<ApiResponse>
+  sendMessage: (message: Messages) => Promise<ApiResponse>
+  getMessages: () => Promise<GetMessagesResponse>
   getColaborations: () => Promise<GetColaborationsReponse>
   createColaborations: (newColaboration: CreateColaborations, token:string) => Promise<ApiResponse>
   updateColaborations: (id_colaboration: string, token:string, updateColaboration: UpdateColaborations) => Promise<ApiResponse>
@@ -91,6 +93,12 @@ export const BackendContext = createContext<BackendContextType>({
       "content-type": ""
     }
   }),
+  sendMessage: () => Promise.resolve({
+    data: {
+        message: ""
+      },
+      status: 0,
+  }),
   createShoppingCart: () =>  Promise.resolve({
     data: {
       message: ""
@@ -134,6 +142,10 @@ export const BackendContext = createContext<BackendContextType>({
     data: {
       message: ""
     },
+    status: 0,
+  }),
+  getMessages: () => Promise.resolve({
+    data: [],
     status: 0,
   }),
   createColaborations: () =>  Promise.resolve({
@@ -270,6 +282,9 @@ export const BackendProvider = ({children}: BackendProviderProps) => {
       }
     })
 
+  const sendMessage = (message: Messages) : Promise<ApiResponse> => axios.post(`${BACKEND_URL}/message`, message)
+
+  const getMessages = (): Promise<GetMessagesResponse> => axios.get(`${BACKEND_URL}/get/message`)
   /* Filter endpoint */
   const getFilteredServices = (filter: string): Promise<GetServicesResponse | null> => axios.get(`${BACKEND_URL}/get/services/filter`, { params: { filter: filter } })
 
@@ -287,7 +302,8 @@ export const BackendProvider = ({children}: BackendProviderProps) => {
       getEquipments, createEquipment, updateEquipment, deleteEquipment,
       getFilteredServices,
       getServiceMetricsByDate,
-      getColaborations, createColaborations, updateColaborations, deleteColaborations
+      getColaborations, createColaborations, updateColaborations, deleteColaborations,
+      sendMessage, getMessages
     }}>{children}</BackendContext.Provider>
   )
 }

@@ -243,6 +243,18 @@ export const periods = {
   last6Months: 'Últimos 6 meses',
   allTime: 'Desde siempre',
 };
+export interface Messages {
+  nombre: string;
+  apellido: string;
+  correo: string;
+  telefono: string;
+  mensaje: string;
+}
+
+export interface GetMessagesResponse {
+  data: Messages[];
+  status: number;
+}
 export interface Colaborations {
   nombre_empresa: string,
   id_servicios: string,
