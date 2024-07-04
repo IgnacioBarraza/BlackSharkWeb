@@ -202,7 +202,7 @@ export const Colaboration = () => {
                   style={{ color: "#000000" }}
                   size="8x"
                 />
-                <h2 className="text-lg font-bold mb-2 text-center">Agregar Colaboracion</h2>
+                <h2 className="text-lg font-bold mb-2 text-center">Agregar Colaboración</h2>
               </div>
             </button>
           )}

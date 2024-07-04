@@ -17,7 +17,10 @@ export const Homepage = () => {
             </div>
         </div>
       </div>
-      <Colaboration/>
+      <div className="flex flex-col justify-center items-center bg-gray-100 pt-4">
+        <span className="text-[50px] font-myriad-pro font-bold">Colaboraciones</span>
+        <Colaboration/>
+      </div>
       <Footer/>
       </>
       
