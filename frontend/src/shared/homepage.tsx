@@ -1,6 +1,7 @@
 import { Footer } from "../components/Footer/Footer"
 import { Navbar } from "../components/NavBar/Navbar"
 import '../styles/homepage.css';
+import { Colaboration } from "./Colaboration";
 
 export const Homepage = () => {
     return (
@@ -16,7 +17,9 @@ export const Homepage = () => {
             </div>
         </div>
       </div>
+      <Colaboration/>
       <Footer/>
       </>
+      
     )
   }

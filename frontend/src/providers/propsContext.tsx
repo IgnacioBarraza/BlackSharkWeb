@@ -1,5 +1,5 @@
 import { useState, createContext, useEffect } from "react"
-import { Equipment, GalleryData, Services, ServicesShoppingCart, ShoppingCart } from "../utils/interfaces"
+import { Colaborations, Equipment, GalleryData, Services, ServicesShoppingCart, ShoppingCart } from "../utils/interfaces"
 
 type UserDataProviderType = {
   setUserType: (userType: string) => void
@@ -20,6 +20,8 @@ type UserDataProviderType = {
   setToolsData: (toolsData: Equipment[]) => void
   toolsData: Equipment[] | null
   loginData: (token: string, tipo_user: string, username: string, user_id: string) => void
+  colaborationsData: Colaborations[] | null
+  setColaborationsData:(colaborationsData: Colaborations[]) => void
 }
 
 export const PropsContext = createContext<UserDataProviderType>({
@@ -40,7 +42,9 @@ export const PropsContext = createContext<UserDataProviderType>({
   userId: null,
   setToolsData: () => {},
   toolsData: null,
-  loginData: () => {}
+  loginData: () => {},
+  colaborationsData: null,
+  setColaborationsData: () => {}
 })
 
 export const PropsDataProvider = ({ children }) => {
@@ -52,6 +56,7 @@ export const PropsDataProvider = ({ children }) => {
   const [galleryData, setGallery] = useState<GalleryData[] | null>([]);
   const [shoppingCartData, setShoppingCart] = useState<ServicesShoppingCart[]>([]);
   const [toolsData, setTools] = useState<Equipment[]>([]);
+  const [colaborationsData, setColaborations] = useState<Colaborations[] | null>([]);
 
   useEffect(() => {
     localStorage.setItem("userType", userType || "");
@@ -96,6 +101,7 @@ export const PropsDataProvider = ({ children }) => {
   const setGalleryData = (galleryDataData: GalleryData[]) => setGallery(galleryDataData);
   const setShoppingCartData = (shoppingCartData: ServicesShoppingCart[]) => setShoppingCart(shoppingCartData);
   const setToolsData = (toolsData: Equipment[]) => setTools(toolsData);
+  const setColaborationsData = (colaborationsData: Colaborations[]) =>setColaborations(colaborationsData);
 
   return (
     <PropsContext.Provider value={{ 
@@ -107,7 +113,8 @@ export const PropsDataProvider = ({ children }) => {
       galleryData, setGalleryData, 
       shoppingCartData, setShoppingCartData, 
       userId, setUserId,
-      toolsData, setToolsData
+      toolsData, setToolsData,
+      colaborationsData, setColaborationsData,
     }}>{children}</PropsContext.Provider>
   );
 };
