@@ -15,11 +15,6 @@ const newCollabSchema = z.object({
         .string({
             required_error: 'Debes indicar la imagen que desea agregar!',
             invalid_type_error: 'Ingresa links válidos!'
-        }),
-        fecha_colaboracion: z
-        .string({
-            required_error: 'Debes indicar la fecha la colaboracion!',
-            invalid_type_error: 'Ingresa fechas válidas!'
         })
 })
 
@@ -37,11 +32,6 @@ const updateCollabSchema = z.object({
     imagen_link: z
         .string({
             invalid_type_error: 'Ingresa links válidos!'
-        })
-        .optional(),
-    fecha_colaboracion: z
-        .string({
-            invalid_type_error: 'Ingresa fechas validas!'
         })
         .optional()
 })

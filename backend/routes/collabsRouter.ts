@@ -22,16 +22,17 @@ collabsRouter.post('/new', async (req, res) => {
             nombre_empresa: validateData.data.nombre_empresa,
             id_servicios: validateData.data.id_servicios,
             imagen_link: validateData.data.imagen_link,
-            fecha_colaboracion: validateData.data.fecha_colaboracion
+            fecha_colaboracion: new Date()
         }
+        console.log(newCollab)
 
-        await connection.query(`INSERT INTO collaboration (id_collaboration, nombre_empresa, id_servicios, imagen_link, fecha_colaboracion) VALUES (?, ?, ?)`,
-            [newCollab.id_colaboration, newCollab.nombre_empresa, newCollab.id_colaboration]
+        await connection.query(`INSERT INTO collaboration (id_collaboration, nombre_empresa, id_servicios, imagen_link, fecha_colaboracion) VALUES (?, ?, ?, ?, ?)`,
+            [newCollab.id_colaboration, newCollab.nombre_empresa, newCollab.id_servicios, newCollab.imagen_link, newCollab.fecha_colaboracion]
         )
 
         return res.status(201).json({ message: 'Los datos se han guardado exitosamente!', id: newCollab.id_colaboration })
     } catch (error) {
-        // console.log(error)
+        console.log(error)
         return res.status(500).json({ message: 'Hubo un error en el servidor al intentar guardar los datos de la colaboración. Intente más tarde.' })
     } finally {
         if (connection) {
@@ -58,7 +59,7 @@ collabsRouter.put('/update/:id', async (req, res) => {
             const updatedCollab = {
                 nombre_empresa: validateData.data.nombre_empresa ?? collab[0].nombre_empresa,
                 id_servicios: validateData.data.id_servicios ?? collab[0].id_servicios,
-                fecha_colaboracion: validateData.data.fecha_colaboracion ?? collab[0].fecha_colaboracion,
+                fecha_colaboracion: new Date(),
                 imagen_link: validateData.data.imagen_link ?? collab[0].imagen_link
             }
 

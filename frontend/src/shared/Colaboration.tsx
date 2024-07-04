@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faXmarkCircle } from "@fortawesome/free-solid-svg-icons";
 import { Colaborations, CreateColaborations, Services, UpdateColaborations} from "../utils/interfaces"
 import { useBackend } from "../hooks/useBackend";
-import { useToast } from "@chakra-ui/react";
+import { createMultiStyleConfigHelpers, useToast } from "@chakra-ui/react";
 import { useFirebase } from "../hooks/useFirebase";
 
 export const Colaboration = () => {
@@ -25,6 +25,7 @@ export const Colaboration = () => {
   const [url, setUrl] = useState("");
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [selectedServices, setSelectedServices] = useState<string[]>([]);
+  const [companyName, setCompanyName] = useState('')
 
 
   const getColaboration = async () => {
@@ -44,19 +45,48 @@ export const Colaboration = () => {
 const handleModal = () => {
   setShowModal(prevState => !prevState)
 }
-const handleUpload = () => {
-  if (colaboration[0].fecha_colaboracion === '') return errorToastNotification("Debe ingresar una fecha para la colaboracion");
-  if (colaboration[0].imagen_link === '') return errorToastNotification("Debe ingresar una imagen para la colaboracion");
-  if (colaboration[0].id_servicios === '') return errorToastNotification("Debe ingresar un servicio ejercido en la colaboracion");
-  if (colaboration[0].nombre_empresa === '') return errorToastNotification("Debe ingresar el nombre de la empresa a la que se realizo la colaboracion");
+
+const handleUpload = async () => {    
+    if (url) {
+      const formattedIds = JSON.stringify(selectedServices);
+      const newCollaboration: Colaborations = {
+        nombre_empresa: companyName,
+        id_servicios: formattedIds,
+        imagen_link: url,
+      }
+      try {
+          const res = await createColaborations(newCollaboration, userToken)
+          console.log(res)
+      } catch (error) {
+          return
+      }
+    }
+
+    // console.log(colaboration)
+    // console.log(selectedServices)
+//   if (colaboration[0].fecha_colaboracion === '') return errorToastNotification("Debe ingresar una fecha para la colaboracion");
+//   if (colaboration[0].imagen_link === '') return errorToastNotification("Debe ingresar una imagen para la colaboracion");
+//   if (colaboration[0].id_servicios === '') return errorToastNotification("Debe ingresar un servicio ejercido en la colaboracion");
+//   if (colaboration[0].nombre_empresa === '') return errorToastNotification("Debe ingresar el nombre de la empresa a la que se realizo la colaboracion");
+//   uploadCollaborationImage(
+//     image,
+//     (progress) => setProgress(progress),
+//     (error) => setError(error),
+//     (downloadURL) => setUrl(downloadURL)
+//   );
+//   setImage(null);
+};
+
+const handleImageUpload = () => {
+  if (selectedServices.length === 0) return alert('Debes seleccionar al menos un servicio asociado a la colaboración!');
   uploadCollaborationImage(
     image,
     (progress) => setProgress(progress),
     (error) => setError(error),
-    (downloadURL) => setUrl(downloadURL)
+    (downloadUrl) => setUrl(downloadUrl)
   );
   setImage(null);
-};
+}
 
 const handleImageFileUpload = (e) => {
   if (e.target.files[0]) {
@@ -69,9 +99,11 @@ const removeImage = () => {
   setImage(null);
   setPreview(null);
 };
-const handleUploadServiceInput = ({ target: { name, value } }) => {
-  setColaboration({...colaboration, [name]: value})
-}
+
+  const handleChangeColabData = ({ target: { name, value } }) => {
+    setColaboration({...colaboration, [name]: value})
+  }
+
   const extractImageNameFromURL = (url) => {
     const decodedURL = decodeURIComponent(url);
     const parts = decodedURL.split('/');
@@ -87,58 +119,59 @@ const handleUploadServiceInput = ({ target: { name, value } }) => {
       return updatedColaboration;
     });
   };
-  const uploadCollaboration = async () => {
-    const newCollaboration: CreateColaborations = {
-      nombre_empresa: colaboration[0].nombre_empresa,
-      fecha_colaboracion: colaboration[0].fecha_colaboracion,
-      id_servicios: colaboration[0].id_servicios,
-      imagen_link: url
-    }
-    try {
-      const res = await createColaborations(newCollaboration, userToken)
-      const { status, data } = res
-      if (status === 201) {
-        successToastNotification(data.message)
-        const transformedColaboration = {
-          ...newCollaboration,
-          id_servicios: data.id // Add id_servicios to the services
-        };
-        handleAddColaboration(transformedColaboration);
-      }
-    } catch (error) {
-      console.error(error)
-      errorToastNotification(error.response.data.message)
-    }
-  }
-  const deleteCollaborationsImage = async (id_collaboration) => {
 
-    const collaborationToDelete = colaboration.filter(colaboration =>colaboration.id_collaboration === id_collaboration)
-    const imagename = extractImageNameFromURL(collaborationToDelete[0].id_collaboration)
-    try{
-      const res =await deleteColaborations(id_collaboration, userToken)
-      const {status, data} = res
-      if(status === 200){
-        deleteImageFromCollaboration(imagename)
-        const updateColaborations = colaboration.filter(colaboration => colaboration.id_collaboration !== id_collaboration)
-        setColaboration(updateColaborations);
-        setColaborationsData(updateColaborations);
-        successToastNotification(data.message)
+//   const uploadCollaboration = async () => {
+//     const newCollaboration: CreateColaborations = {
+//       nombre_empresa: colaboration[0].nombre_empresa,
+//       fecha_colaboracion: colaboration[0].fecha_colaboracion,
+//       id_servicios: colaboration[0].id_servicios,
+//       imagen_link: url
+//     }
+//     try {
+//       const res = await createColaborations(newCollaboration, userToken)
+//       const { status, data } = res
+//       if (status === 201) {
+//         successToastNotification(data.message)
+//         const transformedColaboration = {
+//           ...newCollaboration,
+//           id_servicios: data.id // Add id_servicios to the services
+//         };
+//         handleAddColaboration(transformedColaboration);
+//       }
+//     } catch (error) {
+//       console.error(error)
+//       errorToastNotification(error.response.data.message)
+//     }
+//   }
+//   const deleteCollaborationsImage = async (id_collaboration) => {
 
-      }
-    } catch(error){
-      errorToastNotification(error.response.data.message)
-      console.error(error)
-    }
+//     const collaborationToDelete = colaboration.filter(colaboration =>colaboration.id_collaboration === id_collaboration)
+//     const imagename = extractImageNameFromURL(collaborationToDelete[0].id_collaboration)
+//     try{
+//       const res =await deleteColaborations(id_collaboration, userToken)
+//       const {status, data} = res
+//       if(status === 200){
+//         deleteImageFromCollaboration(imagename)
+//         const updateColaborations = colaboration.filter(colaboration => colaboration.id_collaboration !== id_collaboration)
+//         setColaboration(updateColaborations);
+//         setColaborationsData(updateColaborations);
+//         successToastNotification(data.message)
 
-  };
-  const successToastNotification = (message: string) => {
-    toast({
-      title: message,
-      status: 'success',
-      duration: 5000,
-      isClosable: true,
-    })
-  }
+//       }
+//     } catch(error){
+//       errorToastNotification(error.response.data.message)
+//       console.error(error)
+//     }
+
+//   };
+//   const successToastNotification = (message: string) => {
+//     toast({
+//       title: message,
+//       status: 'success',
+//       duration: 5000,
+//       isClosable: true,
+//     })
+//   }
 
   const errorToastNotification = (message: string) => {
     toast({
@@ -148,40 +181,41 @@ const handleUploadServiceInput = ({ target: { name, value } }) => {
       isClosable: true,
     })
   }
-  const UpdateColaborations = async (id_collaboration: string, updatedColaborations: UpdateColaborations) => {
-    const originalColaborations = [...colaborationsData]
-    const updateColaboration = colaborationsData.map(colaboration => {
-      if (colaboration.id_collaboration === id_collaboration) {
-        return {
-            ...colaboration,
-            nombre_empresa: Colaboration[0].nombre_empresa,
-            imagen_link: Colaboration[0].imagen_link,
-            fecha_colaboracion: Colaboration[0].fecha_colaboracion
-        }
-      }
-      return colaboration;
-    })
+//   const UpdateColaborations = async (id_collaboration: string, updatedColaborations: UpdateColaborations) => {
+//     const originalColaborations = [...colaborationsData]
+//     const updateColaboration = colaborationsData.map(colaboration => {
+//       if (colaboration.id_collaboration === id_collaboration) {
+//         return {
+//             ...colaboration,
+//             nombre_empresa: Colaboration[0].nombre_empresa,
+//             imagen_link: Colaboration[0].imagen_link,
+//             fecha_colaboracion: Colaboration[0].fecha_colaboracion
+//         }
+//       }
+//       return colaboration;
+//     })
+
     // Optimistically updating the items:
-    setColaboration(updateColaboration);
-    setColaborationsData(updateColaboration);
+//     setColaboration(updateColaboration);
+//     setColaborationsData(updateColaboration);
 
-    try {
-      const res = await updateColaborations(id_collaboration, userToken, updatedColaborations);
-      const { status, data } = res;
-      if (status === 200) {
-        successToastNotification(data.message);
-      }
-      return true
-    } catch (error) {
-        errorToastNotification(error.response.data.message);
-        console.log('There was an error updating the tool: ', error);
+//     try {
+//       const res = await updateColaborations(id_collaboration, userToken, updatedColaborations);
+//       const { status, data } = res;
+//       if (status === 200) {
+//         successToastNotification(data.message);
+//       }
+//       return true
+//     } catch (error) {
+//         errorToastNotification(error.response.data.message);
+//         console.log('There was an error updating the tool: ', error);
 
-        // If theres an error, go back to the previous data:
-        setColaboration(originalColaborations)
-        setColaborationsData(originalColaborations)
-        return false
-    }
-  }
+//         // If theres an error, go back to the previous data:
+//         setColaboration(originalColaborations)
+//         setColaborationsData(originalColaborations)
+//         return false
+//     }
+//   }
 
   const getServicesData = async () => {
     try {
@@ -206,7 +240,6 @@ const handleUploadServiceInput = ({ target: { name, value } }) => {
   };
 
   useEffect(() => {
-    console.log(servicesData)
     if (colaborationsData.length > 0) {
       setColaboration(colaborationsData)
       console.log("Colaboraciones ya obtenidas...")
@@ -220,7 +253,14 @@ const handleUploadServiceInput = ({ target: { name, value } }) => {
     } else {
       getServicesData();
     }
-  }, [])
+}, [])
+
+useEffect(() => {
+    if (url && progress === 100) {
+        handleUpload();
+        console.log('test')
+    }
+  }, [url])
 
   return (
     <>
@@ -242,7 +282,6 @@ const handleUploadServiceInput = ({ target: { name, value } }) => {
           {showModal && (
             <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75 sm:px-0 z-10">
               <div className="bg-white rounded-lg shadow-lg p-6 w-96 max-w-md">
-                {/* Contenido del modal */}
                 <h2 className="font-myriad-pro text-xl font-bold mb-4 text-center">
                   Agregar Nueva Colaboración
                 </h2>
@@ -253,7 +292,7 @@ const handleUploadServiceInput = ({ target: { name, value } }) => {
                     type="text"
                     placeholder="Ingresa el nombre de la empresa"
                     className="w-full pl-5 py-3 text-base text-neutral-600 placeholder-gray-400 transition duration-500 ease-in-out transform border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:border-gray-400 focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300"
-                    onChange={handleUploadServiceInput}
+                    onChange={event => setCompanyName(event.target.value)}
                   />
                 </div>
                 
@@ -286,7 +325,7 @@ const handleUploadServiceInput = ({ target: { name, value } }) => {
                         <div className="mt-4">
                         {selectedServices.map((serviceId) => {
                             const service = services.find(
-                            (s) => s.id_servicios === serviceId
+                                (s) => s.id_servicios === serviceId
                             );
                             return (
                             <div
@@ -311,39 +350,76 @@ const handleUploadServiceInput = ({ target: { name, value } }) => {
                     {/*  */}
 
                 <div className="border-dashed border-4 border-gray-200 rounded-lg p-4 flex flex-col items-center justify-center space-y-4 mt-4">
-                  <input
-                    type="file"
-                    className="hidden"
-                    id="image-upload"
-                    onChange={handleImageFileUpload}
-                  />
-                  <label
-                    htmlFor="image-upload"
-                    className="font-myriad-pro cursor-pointer p-2 bg-gray-100 rounded hover:bg-gray-200 transition"
-                  >
-                    Arrastra la imagen aquí o haz clic para subirla
-                  </label>
+                  {!preview ? (
+                    <>
+                      <input
+                        type="file"
+                        className="hidden"
+                        id="image-upload"
+                        onChange={handleImageFileUpload}
+                      />
+                      <label
+                        htmlFor="image-upload"
+                        className="font-myriad-pro cursor-pointer p-2 bg-gray-100 rounded hover:bg-gray-200 transition"
+                      >
+                        Arrastra la imagen aquí o haz clic para subirla
+                      </label>
+                    </>
+                  ) : (
+                    <div className="relative">
+                      <img src={preview} alt="Preview" className="w-full h-auto" />
+                      {progress !== 100 && (
+                        <button
+                          onClick={removeImage}
+                          className="absolute top-0 right-0 mt-2 mr-2 bg-red-600 text-white py-1 px-2 rounded hover:bg-red-700 transition"
+                        >
+                          Eliminar
+                        </button>
+                      )}
+                      </div>
+                  )}
                 </div>
-                <div className="pt-5">
+                <div className="flex justify-center mt-4 flex-col">
+                  {progress !== 100 && (
+                      <button
+                      onClick={handleImageUpload}
+                      className="font-myriad-pro mt-4 bg-blue-800 text-white py-2 px-4 rounded hover:bg-blue-900 transition flex flex-col items-center"
+                      >
+                      Guardar
+                      </button>
+                  )}
                   <button
-                    onClick={handleUpload}
-                    className="flex items-center justify-center w-full px-[110px] py-2.5 text-xl font-large text-center text-white transition duration-500 ease-in-out transform bg-blue-600 rounded-xl hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                      onClick={handleModal}
+                      className="font-myriad-pro mt-4 bg-red-800 text-white py-2 px-4 rounded hover:bg-red-900 transition flex flex-col items-center"
                   >
-                    Guardar
+                    Cerrar
                   </button>
                 </div>
-                <div className="flex justify-center mt-4">
+                {progress > 0 && (
+                <div className="mt-4">
+                    <progress value={progress} max="100" className="w-full"></progress>
+                    {progress === 100 && (
+                    <p className="text-green-600 mt-2">
+                        ¡Imagen subida exitosamente!
+                    </p>
+                    )}
+                    {error && (
+                    <div className="text-red-600 mt-2">Error: {error.message}</div>
+                    )}
+                </div>
+                )}
+                {/* <div className="flex justify-center mt-4">
                   <div
                     onClick={handleModal}
                     className=" hover:text-gray-900 text-medium"
                     >
                     Cancelar
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
           )}
-            {colaboration.map(colaboration => (
+            {/* {colaboration.map(colaboration => (
               <div key={colaboration.id_collaboration} className="flex flex-col items-center">
                 <img src={colaboration.imagen_link} alt={`Logo ${colaboration.id_collaboration}`} className="h-64 w-64 flex items-center justify-center text-white font-bold rounded-lg" />
                 <p className="mt-2 text-center">{colaboration.nombre_empresa}</p>
@@ -351,7 +427,7 @@ const handleUploadServiceInput = ({ target: { name, value } }) => {
                 <button onClick={() => deleteCollaborationsImage(colaboration.id_collaboration)} className="mt-2 text-red-500 hover:text-red-700">Eliminar</button>
               )}
               </div>
-          ))}
+          ))} */}
   
           <div className="flex flex-col items-center">
             <img src="ruta/de/tu/imagen1.jpg" alt="Logo 1" className="h-64 w-64 flex items-center justify-center text-white font-bold rounded-lg" />

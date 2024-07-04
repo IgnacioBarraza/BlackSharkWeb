@@ -220,9 +220,8 @@ export interface Colaborations {
   nombre_empresa: string,
   id_servicios: string,
   imagen_link: string,
-  fecha_colaboracion: string,
-  id_collaboration?: string
 }
+
 export interface GetColaborationsReponse {
   data: Colaborations[];
   status: number;
@@ -234,7 +233,6 @@ export interface GetColaborationsReponse {
 }
 export interface CreateColaborations {
   nombre_empresa: string,
-  fecha_colaboracion: string,
   id_servicios: string,
   imagen_link: string
 }
