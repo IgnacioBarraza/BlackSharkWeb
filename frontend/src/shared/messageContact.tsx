@@ -30,14 +30,14 @@ const getMessagesData = async () => {
 
   return (
     <>
-        <div className="bg-white bg-cover bg-center w-full flex-grow bg-no-repeat flex flex-col">
+        <div className="bg-white bg-cover bg-center bg-no-repeat w-full flex-grow flex flex-col overflow-hidden">
             <div className="flex-grow flex items-center justify-center">
-            <div className="w-full flex justify-center items-center py-1 bg-transparent z-100 border-b border-gray-300">
+              <div className="w-full flex justify-center items-center py-1 bg-transparent z-100 border-b border-gray-300">
                 <Navbar/>
-            </div>
+              </div>
             </div>
         </div>   
-        <div className="bg-blue-strong-bs bg-cover bg-center w-full h-screen bg-no-repeat flex flex-col overflow-auto p-8">
+        <div className="bg-blue-strong-bs w-full min-h-screen  flex flex-col p-8">
             <div className="flex flex-wrap -mx-4 items-center justify-center">
                 {messages.map((message) => (
                 <div className="bg-white p-8 rounded-lg w-full max-w-md mx-4 mb-4">

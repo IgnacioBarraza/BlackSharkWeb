@@ -83,7 +83,7 @@ export const Contact = () => {
 
   return (
     <>
-    <div className="bg-white bg-cover bg-center w-full h-screen bg-no-repeat flex flex-col overflow-hidden overflow-y-auto">
+    <div className="bg-white bg-cover bg-center w-full h-screen bg-no-repeat flex flex-col overflow-auto overflow-y-auto">
       <div className="flex-grow flex items-center justify-center pb-10 ">
         <div className="w-full flex justify-center items-center py-1 bg-transparent z-100">
         <Navbar/>
@@ -118,6 +118,7 @@ export const Contact = () => {
 
                         <div className="mt-1">
                           <input 
+                            required
                             name="nombre" 
                             type="text" 
                             onChange={handleFormInputs}
@@ -132,6 +133,7 @@ export const Contact = () => {
 
                         <div className="mt-1">
                           <input  
+                            required
                             name="apellido" 
                             type="text" 
                             onChange={handleFormInputs}
@@ -146,6 +148,7 @@ export const Contact = () => {
 
                         <div className="mt-1">
                           <input 
+                            required
                             name="correo" 
                             type="email" 
                             onChange={handleFormInputs}
@@ -160,6 +163,7 @@ export const Contact = () => {
 
                         <div className="mt-1">
                           <input 
+                            required
                             name="telefono" 
                             type="string" 
                             onChange={handleFormInputs}
@@ -172,7 +176,9 @@ export const Contact = () => {
                           <label className="font-light text-lg pl-0"> Mensaje </label>
                         </div>
 
-                        <textarea name="mensaje" onChange={handleFormInputs} className="w-full pl-5 py-3 text-base text-neutral-600 placeholder-gray-400 transition duration-500 ease-in-out transform border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:border-gray-400 focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300" ></textarea>
+                        <textarea 
+                        required
+                        name="mensaje" onChange={handleFormInputs} className="w-full pl-5 py-3 text-base text-neutral-600 placeholder-gray-400 transition duration-500 ease-in-out transform border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:border-gray-400 focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300" ></textarea>
                         <div className="pt-5">
                           <button onClick={handleMessage} className="flex items-center justify-center w-full px-[110px] py-2.5 text-xl font-large text-center text-white transition duration-500 ease-in-out transform bg-blue-600 rounded-xl hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">Enviar</button>
                         </div>
