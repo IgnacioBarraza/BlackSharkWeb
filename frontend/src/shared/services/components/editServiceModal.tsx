@@ -76,6 +76,7 @@ export const EditServiceModal = ({ isOpen, onClose, service, setSelectedService,
         return false
     } finally {
         onClose();
+        //window.location.reload();
     }
   }
 
