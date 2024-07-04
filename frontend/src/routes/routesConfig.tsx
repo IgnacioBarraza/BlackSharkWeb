@@ -10,6 +10,7 @@ import { Servicios } from "../shared/services/services";
 import { Cart } from "../shared/shop/shoppingCart";
 import { Tools } from "../shared/tools/tools";
 import { MessageContact } from "../shared/messageContact";
+import { Notfound } from "../shared/notfound";
 
 export const routes = [
   {
@@ -55,5 +56,9 @@ export const routes = [
   {
     path: '/messagecontact',
     component: <MessageContact />
+  },
+  { 
+    path: '*',
+    component: <Notfound />
   }
 ]
