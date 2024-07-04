@@ -193,37 +193,103 @@ const handleUploadServiceInput = ({ target: { name, value } }) => {
   }
 
   return (
-      <>
-     
+    <>
       <div className="flex justify-center p-4 bg-gray-100 h-[750px] w-full">
-        <div className="pt-16 grid grid-cols-4 gap-12 " >
-          <button className="w-[100px] md:w-[300px] h-64 flex items-center justify-center rounded-lg shadow-md border hover:bg-gray-200 border-gray-300 transition duration-300 ease-in-out transform hover:scale-105"> 
-         
-          
-
-        <div className="flex flex-col items-center justify-center space-y-4">
-          <FontAwesomeIcon
-            icon={faPlus}
-            style={{ color: "#000000" }}
-            size="8x"
-          />
-          <h2 className="text-lg font-bold mb-2 text-center">Agregar Colaboracion</h2>
-        </div>
-          </button>
-          <div>
-            <img className="h-64 w-64 flex items-center justify-center bg-blue-500 text-white font-bold rounded-lg"/>
+        <div className="pt-16 grid grid-cols-4 gap-12">
+          {userType === "admin" && userToken && (
+            <button onClick={handleModal} className="w-[100px] md:w-[300px] h-64 flex items-center justify-center rounded-lg shadow-md border hover:bg-gray-200 border-gray-300 transition duration-300 ease-in-out transform hover:scale-105">
+              <div className="flex flex-col items-center justify-center space-y-4">
+                <FontAwesomeIcon
+                  icon={faPlus}
+                  style={{ color: "#000000" }}
+                  size="8x"
+                />
+                <h2 className="text-lg font-bold mb-2 text-center">Agregar Colaboracion</h2>
+              </div>
+            </button>
+          )}
+  
+          {showModal && (
+            <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75 sm:px-0 z-10">
+              <div className="bg-white rounded-lg shadow-lg p-6 w-96 max-w-md">
+                {/* Contenido del modal */}
+                <h2 className="font-myriad-pro text-xl font-bold mb-4 text-center">
+                  Agregar Nuevo Servicio
+                </h2>
+                <div className="mt-6">
+                  <input
+                    id="serviceName"
+                    name="serviceName"
+                    type="text"
+                    placeholder="Ingresa el nombre del servicio"
+                    className="w-full pl-5 py-3 text-base text-neutral-600 placeholder-gray-400 transition duration-500 ease-in-out transform border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:border-gray-400 focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300"
+                    onChange={handleUploadServiceInput}
+                  />
+                </div>
+                <div className="mt-4">
+                  <input
+                    id="price"
+                    name="price"
+                    type="text"
+                    placeholder="Ingresa el precio"
+                    className="w-full pl-5 py-3 text-base text-neutral-600 placeholder-gray-400 transition duration-500 ease-in-out transform border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:border-gray-400 focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300"
+                    onChange={handleUploadServiceInput}
+                  />
+                </div>
+                <div className="border-dashed border-4 border-gray-200 rounded-lg p-4 flex flex-col items-center justify-center space-y-4 mt-4">
+                  <input
+                    type="file"
+                    className="hidden"
+                    id="image-upload"
+                    onChange={handleImageFileUpload}
+                  />
+                  <label
+                    htmlFor="image-upload"
+                    className="font-myriad-pro cursor-pointer p-2 bg-gray-100 rounded hover:bg-gray-200 transition"
+                  >
+                    Arrastra la imagen aquí o haz clic para subirla
+                  </label>
+                </div>
+                <div className="pt-5">
+                  <button
+                    onClick={handleUpload}
+                    className="flex items-center justify-center w-full px-[110px] py-2.5 text-xl font-large text-center text-white transition duration-500 ease-in-out transform bg-blue-600 rounded-xl hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                  >
+                    Guardar
+                  </button>
+                </div>
+                <div className="flex justify-center mt-4">
+                  <div
+                    onClick={handleModal}
+                    className=" hover:text-gray-900 text-medium"
+                    >
+                    Cancelar
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+            {colaboration.map(colaboration => (
+              <div key={colaboration.id_collaboration} className="flex flex-col items-center">
+                <img src={colaboration.imagen_link} alt={`Logo ${colaboration.id_collaboration}`} className="h-64 w-64 flex items-center justify-center text-white font-bold rounded-lg" />
+                <p className="mt-2 text-center">{colaboration.nombre_empresa}</p>
+                {userType === "admin" && userToken && (
+                <button onClick={() => deleteCollaborationsImage(colaboration.id_collaboration)} className="mt-2 text-red-500 hover:text-red-700">Eliminar</button>
+              )}
+              </div>
+          ))}
+  
+          <div className="flex flex-col items-center">
+            <img src="ruta/de/tu/imagen1.jpg" alt="Logo 1" className="h-64 w-64 flex items-center justify-center text-white font-bold rounded-lg" />
             <p className="mt-2 text-center">Nombre de la Marca 1</p>
           </div>
-      
-          <div>
-            <img className="h-64 w-64 flex items-center justify-center bg-red-500 text-white font-bold" />
-            <p className="mt-2 text-center">Nombre de la Marca 2</p>
+  
+          <div className="flex flex-col items-center">
+            <img src="/bsw_logo_icon.png" alt="Logo 2" className="h-64 w-64 flex items-center justify-center text-white font-bold rounded-lg" />
+            <p className="mt-2 text-center">pastita micky</p>
           </div>
-          
-          
         </div>
       </div>
-      
-      </>
-    );
-}
+    </>
+  );
+};
