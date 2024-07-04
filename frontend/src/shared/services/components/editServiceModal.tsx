@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 export const EditServiceModal = ({ isOpen, onClose, service }) => {
   const [formData, setFormData] = useState({
@@ -25,7 +25,7 @@ export const EditServiceModal = ({ isOpen, onClose, service }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Datos a enviar:", formData);
-    onClose(); // Podrías implementar lógica de actualización aquí
+    onClose();
   };
 
   if (!isOpen) return null;

@@ -144,6 +144,12 @@ export interface Services {
   imagen_link: string;
 }
 
+export interface updateServices {
+  nombre?: string;
+  precio?: number;
+  descripcion?: string;
+}
+
 export interface ServicesShoppingCart {
   nombre: string;
   precio: number;
