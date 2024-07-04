@@ -82,6 +82,13 @@ export const UserDropdown = () => {
           >
             Equipos
           </Link>
+          <Link
+            to="/metrics"
+            className="block font-myriad-pro text-xl py-2 px-4"
+            onClick={toggleDropdown}
+          >
+            Metricas
+          </Link>
         </>
         ) : (
         <>
