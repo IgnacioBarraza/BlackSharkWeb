@@ -75,8 +75,6 @@ dataRouter.get('/collaborations', async (req, res) => {
 
     try {
         const [row, fields] = await connection.query(`SELECT * FROM collaboration`)
-        // const data = await connection.query(`DESCRIBE colaborations`)
-        // console.log(data)
         
         return res.status(200).json(row)
     } catch (error) {

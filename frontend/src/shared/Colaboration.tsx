@@ -423,7 +423,7 @@ useEffect(() => {
           )}
           {colaboration.map((colaboration, index) => (
               <div key={index} className="flex flex-col items-center">
-                <img src={colaboration.imagen_link} alt={`Logo ${index}`} className="h-64 w-64 flex items-center justify-center text-white font-bold rounded-lg" />
+                <img src={colaboration.imagen_link} alt={`Logo ${index}`} className="h-64 w-64 flex items-center justify-center text-white font-bold rounded-lg object-cover" />
                 <p className="mt-2 text-center">{colaboration.nombre_empresa}</p>
               </div>
           ))}
