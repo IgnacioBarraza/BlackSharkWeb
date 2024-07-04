@@ -9,16 +9,16 @@ import { useFirebase } from "../hooks/useFirebase";
 import { ImageModal } from "./gallery/components/imagemodal";
 
 export const Colaboration = () => {
-  
   const { userType, userToken, servicesData, setServicesData, colaborationsData, setColaborationsData} = useProps();
-  const {getServices, getColaborations, updateColaborations, deleteColaborations, createColaborations} = useBackend();
+  const { getServices, getColaborations, updateColaborations, deleteColaborations, createColaborations } = useBackend();
   const { deleteImageFromCollaboration, uploadCollaborationImage } = useFirebase()
-  const [colaboration, setColaboration] = useState<Colaborations[]>([]);
-  const [services, setServices] = useState<Services[]>([]);
+
   const toast = useToast()
   
   const [showModal, setShowModal] = useState(false);
-
+  
+  const [colaboration, setColaboration] = useState<Colaborations[]>([]);
+  const [services, setServices] = useState<Services[]>([]);
   const [image, setImage] = useState(null);
   const [preview, setPreview] = useState(null);
   const [progress, setProgress] = useState(0);
@@ -28,7 +28,6 @@ export const Colaboration = () => {
   const [selectedServices, setSelectedServices] = useState<string[]>([]);
   const [companyName, setCompanyName] = useState('')
   const [selectedCollab, setSelectedCollab] = useState<Colaborations | null>(null)
-
 
   const getColaboration = async () => {
     try {
@@ -68,6 +67,7 @@ const handleUpload = async () => {
               fecha_colaboracion: new Date()
           }
           setColaboration(prev => [...prev, newCollab])
+          removeImage();
       } catch (error) {
           errorToastNotification(error.response.data.message)
       }
@@ -95,6 +95,8 @@ const handleImageFileUpload = (e) => {
 const removeImage = () => {
   setImage(null);
   setPreview(null);
+  setProgress(0);
+  setSelectedServices([]);
 };
 
   const handleChangeColabData = ({ target: { name, value } }) => {
@@ -133,21 +135,23 @@ const removeImage = () => {
 //     }
 //   }
   const deleteCollaborationsImage = async (item) => {
-    const imageName = extractImageNameFromURL(item.imagen_link)
-    try {
-        const res = await deleteColaborations(item.id_collaboration, userToken);
-        const {status, data} = res;
-        if (status === 200) {
-            deleteImageFromCollaboration(imageName);
-            setSelectedCollab(null);
-            const updatedCollabs = colaboration.filter(colab => colab.id_collaboration !== item.id_collaboration);
-            setColaboration(updatedCollabs);
-            setColaborationsData(updatedCollabs);
-            successToastNotification(data.message);
+    if (confirm('¿Quieres eliminar esta colaboración?')) {
+        const imageName = extractImageNameFromURL(item.imagen_link)
+        try {
+            const res = await deleteColaborations(item.id_collaboration, userToken);
+            const {status, data} = res;
+            if (status === 200) {
+                deleteImageFromCollaboration(imageName);
+                setSelectedCollab(null);
+                const updatedCollabs = colaboration.filter(colab => colab.id_collaboration !== item.id_collaboration);
+                setColaboration(updatedCollabs);
+                setColaborationsData(updatedCollabs);
+                successToastNotification(data.message);
+            }
+        } catch (error) {
+            errorToastNotification(error.response.data.message)
+            console.error(error)
         }
-    } catch (error) {
-        errorToastNotification(error.response.data.message)
-        console.error(error)
     }
   }
 
