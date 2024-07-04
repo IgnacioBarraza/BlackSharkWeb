@@ -3,7 +3,7 @@ import { useProps } from '../../../hooks/useProps';
 import { useBackend } from '../../../hooks/useBackend';
 import { useToast } from '@chakra-ui/react';
 
-export const EditServiceModal = ({ isOpen, onClose, service, setServices }) => {
+export const EditServiceModal = ({ isOpen, onClose, service, setSelectedService, setServices }) => {
   const { servicesData, setServicesData, userToken } = useProps();
   const { updateService } = useBackend();
   const toast = useToast();
@@ -43,7 +43,7 @@ export const EditServiceModal = ({ isOpen, onClose, service, setServices }) => {
 
     const serviceIndex = originalServices.findIndex(item => item.id_servicios === service.id_servicios);
     if (serviceIndex === -1) {
-        console.error('Service not found');
+        console.error('Servicio no encontrado D:');
         return false;
     }
 
@@ -56,6 +56,7 @@ export const EditServiceModal = ({ isOpen, onClose, service, setServices }) => {
     // Optimistically update the items
     setServices(updatedServicesArray);
     setServicesData(updatedServicesArray);
+    setSelectedService(updatedService);
 
     try {
       const res = await updateService(service.id_servicios, updatedService, userToken);
@@ -71,6 +72,7 @@ export const EditServiceModal = ({ isOpen, onClose, service, setServices }) => {
         // If theres an error, go back to the previous data:
         setServices(originalServices)
         setServicesData(originalServices)
+        setSelectedService(originalServices[serviceIndex])
         return false
     } finally {
         onClose();

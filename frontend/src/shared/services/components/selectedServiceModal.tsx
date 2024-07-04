@@ -8,6 +8,7 @@ import { EditServiceModal } from "./editServiceModal"; // Asegúrate de importar
 
 export const SelectedServiceModal = ({
   selectedService,
+  setSelectedService,
   setServices,
   handleCloseModal,
   handleClickOutside,
@@ -95,6 +96,7 @@ export const SelectedServiceModal = ({
                 onClose={() => setEditMode(false)}
                 service={selectedService}
                 setServices={setServices}
+                setSelectedService={setSelectedService}
               />
             )}
           </>

@@ -190,6 +190,7 @@ export const Servicios = () => {
             handleClickOutside={handleClickOutside}
             handleCloseModal={handleCloseModal}
             selectedService={selectedService}
+            setSelectedService={setSelectedService}
             setServices={setServices}
             handleDeleteService={handleDeleteService}
             handleShoppingCart={handleShoppingCart}
