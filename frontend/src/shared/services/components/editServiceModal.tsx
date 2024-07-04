@@ -1,11 +1,18 @@
 import { useState, useEffect } from 'react';
-import { updateServices } from '../../../utils/interfaces';
+import { useProps } from '../../../hooks/useProps';
+import { useBackend } from '../../../hooks/useBackend';
+import { useToast } from '@chakra-ui/react';
 
-export const EditServiceModal = ({ isOpen, onClose, service }) => {
+export const EditServiceModal = ({ isOpen, onClose, service, setServices }) => {
+  const { setServicesData, userToken } = useProps();
+  const { updateService } = useBackend();
+  const toast = useToast();
+  
   const [formData, setFormData] = useState({
     nombre: service.nombre,
     precio: service.precio,
-    descripcion: service.descripcion
+    descripcion: service.descripcion,
+    imagen_link: service.imagen_link
   });
 
   useEffect(() => {
@@ -13,7 +20,8 @@ export const EditServiceModal = ({ isOpen, onClose, service }) => {
       setFormData({
         nombre: service.nombre,
         precio: service.precio,
-        descripcion: service.descripcion
+        descripcion: service.descripcion,
+        imagen_link: service.imagen_link
       });
     }
   }, [service]);
@@ -23,26 +31,23 @@ export const EditServiceModal = ({ isOpen, onClose, service }) => {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async () => {
-    const originalService = [...service]
-    const updateService = service.map(item => {
-      if (service.id_servicio === item.id_servicio) {
-        return {
-            ...item,
-            nombre: updateService.nombre,
-            precio: updateService.precio,
-            descripcion: updateService.descripcion,
-            imagen_link: updateService.imagen_link
-        }
-      }
-      return item;
-    })
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log('test')
+    const originalServices = service
+    const updatedService = {
+        nombre: formData.nombre,
+        precio: formData.precio,
+        descripcion: formData.descripcion,
+        imagen_link: formData.imagen_link
+    }
+
     // Optimistically updating the items:
-    setToolsItems(updateItems);
-    setToolsData(updateItems);
+    // setServices();
+    // setServicesData(updatedService);
 
     try {
-      const res = await updateEquipment(id_tool, userToken, updatedTool);
+      const res = await updateService(service.id_servicios, updatedService, userToken);
       const { status, data } = res;
       if (status === 200) {
         successToastNotification(data.message);
@@ -50,13 +55,31 @@ export const EditServiceModal = ({ isOpen, onClose, service }) => {
       return true
     } catch (error) {
         errorToastNotification(error.response.data.message);
-        console.log('There was an error updating the tool: ', error);
+        console.log('There was an error updating the service: ', error);
 
         // If theres an error, go back to the previous data:
-        setToolsItems(originalTools)
-        setToolsData(originalTools)
+        // setServices(originalServices)
+        // setServicesData(originalServices)
         return false
     }
+  }
+
+  const successToastNotification = (message: string) => {
+    toast({
+      title: message,
+      status: 'success',
+      duration: 5000,
+      isClosable: true,
+    })
+  }
+
+  const errorToastNotification = (message: string) => {
+    toast({
+      title: message,
+      status: 'error',
+      duration: 5000,
+      isClosable: true,
+    })
   }
 
   if (!isOpen) return null;

@@ -1,4 +1,4 @@
-import React,{ useState } from "react";
+import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useProps } from "../../../hooks/useProps";
 import { faXmarkCircle } from "@fortawesome/free-solid-svg-icons";
@@ -8,6 +8,7 @@ import { EditServiceModal } from "./editServiceModal"; // Asegúrate de importar
 
 export const SelectedServiceModal = ({
   selectedService,
+  setServices,
   handleCloseModal,
   handleClickOutside,
   handleDeleteService,
@@ -93,6 +94,7 @@ export const SelectedServiceModal = ({
                 isOpen={editMode}
                 onClose={() => setEditMode(false)}
                 service={selectedService}
+                setServices={setServices}
               />
             )}
           </>
