@@ -7,12 +7,15 @@ import { useState } from "react";
 import { Messages } from "../utils/interfaces";
 import { useBackend } from "../hooks/useBackend";
 import { useProps } from "../hooks/useProps";
+import { useToast } from "@chakra-ui/react";
 
 export const Contact = () => {
 
   const {sendMessage} = useBackend();
 
   const {setMessagesData} = useProps();
+
+  const toast = useToast()
 
   const [message, setMessage] = useState<Messages[]>([]);
 
@@ -41,11 +44,13 @@ export const Contact = () => {
   
     try {
       const res = await sendMessage(messages)
-      if (res.status === 201) {
-        // const { nombre, apellido, correo, telefono, mensaje} = res.data;
+      const {status, data} = res
+      if (status === 201) {
+        successToastNotification(data.message);
         console.log(res)
       }
     } catch (error) {
+      errorToastNotification(error.response.data.message);
       console.log(error)
     }
   }
@@ -58,6 +63,24 @@ export const Contact = () => {
     });
   };
 
+  const successToastNotification = (message: string) => {
+    toast({
+      title: message,
+      status: 'success',
+      duration: 5000,
+      isClosable: true,
+    })
+  }
+
+  const errorToastNotification = (message: string) => {
+    toast({
+      title: message,
+      status: 'error',
+      duration: 5000,
+      isClosable: true,
+    })
+  }
+
   return (
     <>
     <div className="bg-white bg-cover bg-center w-full h-screen bg-no-repeat flex flex-col overflow-hidden overflow-y-auto">
@@ -69,7 +92,7 @@ export const Contact = () => {
       <div className="md:pl-20 md:flex-grow-0 md:grid flex flex-col bg-blue-strong-bs md:h-screen grid-cols-2 -mt-10">
           <div className="bg-transparent text-white text-center text-4xl py-4 rounded-lg flex justify-center items-center">
             <div className="font-myriad-pro text-center items-center">
-              <h1 className="pb-2">Contactanos</h1>
+              <h1 className="pb-2">Contáctanos</h1>
               <h2 className="pb-10">¡Trabaja con nosotros!</h2>
               <h4 className="pt-10">Si tienes habilidades que crees que podrían complementar nuestro equipo, tienes alguna duda o necesitas contactarte con nosotros, no dudes en ponerte en contacto. Estamos comprometidos en brindar una buena solución a cualquier inquietud. ¡Esperamos escuchar de ti pronto y explorar juntos las oportunidades que tenemos para ofrecer!</h4>
               <h4 className="pt-24 pb-2">Búscanos en redes sociales</h4>
