@@ -4,7 +4,7 @@ import { useBackend } from '../../../hooks/useBackend';
 import { useToast } from '@chakra-ui/react';
 
 export const EditServiceModal = ({ isOpen, onClose, service, setServices }) => {
-  const { setServicesData, userToken } = useProps();
+  const { servicesData, setServicesData, userToken } = useProps();
   const { updateService } = useBackend();
   const toast = useToast();
   
@@ -33,8 +33,7 @@ export const EditServiceModal = ({ isOpen, onClose, service, setServices }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('test')
-    const originalServices = service
+    const originalServices = [...servicesData]
     const updatedService = {
         nombre: formData.nombre,
         precio: formData.precio,
@@ -42,9 +41,21 @@ export const EditServiceModal = ({ isOpen, onClose, service, setServices }) => {
         imagen_link: formData.imagen_link
     }
 
-    // Optimistically updating the items:
-    // setServices();
-    // setServicesData(updatedService);
+    const serviceIndex = originalServices.findIndex(item => item.id_servicios === service.id_servicios);
+    if (serviceIndex === -1) {
+        console.error('Service not found');
+        return false;
+    }
+
+    const updatedServicesArray = [...originalServices];
+    updatedServicesArray[serviceIndex] = {
+        ...originalServices[serviceIndex],
+        ...updatedService
+    };
+
+    // Optimistically update the items
+    setServices(updatedServicesArray);
+    setServicesData(updatedServicesArray);
 
     try {
       const res = await updateService(service.id_servicios, updatedService, userToken);
@@ -58,9 +69,11 @@ export const EditServiceModal = ({ isOpen, onClose, service, setServices }) => {
         console.log('There was an error updating the service: ', error);
 
         // If theres an error, go back to the previous data:
-        // setServices(originalServices)
-        // setServicesData(originalServices)
+        setServices(originalServices)
+        setServicesData(originalServices)
         return false
+    } finally {
+        onClose();
     }
   }
 
