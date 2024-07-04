@@ -235,9 +235,33 @@ export interface Messages {
 export interface GetMessagesResponse {
   data: Messages[];
   status: number;
-  statusText: string;
-  headers: {
+}
+export interface Colaborations {
+  nombre_empresa: string,
+  id_servicios: string,
+  imagen_link: string,
+  id_collaboration?: string
+}
+
+export interface GetColaborationsReponse {
+  data: Colaborations[];
+  status: number;
+    statusText: string;
+    headers: {
     "content-length": string;
     "content-type": string;
-  };
+}
+}
+export interface CreateColaborations {
+  nombre_empresa: string,
+  id_servicios: string,
+  imagen_link: string
+}
+
+export interface UpdateColaborations {
+  nombre_empresa?: string,
+  fecha_colaboracion?: string,
+  id_servicios?: string,
+  imagen_link?: string,
+  id_collaboration?: string
 }

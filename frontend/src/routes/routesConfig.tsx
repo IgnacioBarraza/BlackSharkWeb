@@ -10,6 +10,7 @@ import { Servicios } from "../shared/services/services";
 import { Cart } from "../shared/shop/shoppingCart";
 import { Tools } from "../shared/tools/tools";
 import { MessageContact } from "../shared/messageContact";
+import { Colaboration } from "../shared/Colaboration";
 import { Notfound } from "../shared/notfound";
 
 export const routes = [
@@ -58,6 +59,10 @@ export const routes = [
     component: <MessageContact />
   },
   { 
+    path: '/colaboration',
+    component: <Colaboration />
+  },
+  {
     path: '*',
     component: <Notfound />
   }

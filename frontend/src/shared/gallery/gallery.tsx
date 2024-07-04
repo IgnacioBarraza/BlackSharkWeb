@@ -67,16 +67,16 @@ export const Gallery = () => {
     return fileName;
   };
 
-  const deleteGalleryImage = async (id_imagen) => {
-    const galleryToDelete = gallery.filter(gallery => gallery.id_imagen === id_imagen)
+  const deleteGalleryImage = async (image) => {
+    const galleryToDelete = gallery.filter(gallery => gallery.id_imagen === image.id_imagen)
     const imagename = extractImageNameFromURL(galleryToDelete[0].imagen_link)
     try {
-      const res = await deleteGallery(id_imagen, userToken)
+      const res = await deleteGallery(image.id_imagen, userToken)
       const {status, data} = res
       if (status === 200) {
         deleteImageFromGallery(imagename)
         setSelectedImage(null)
-        const updatedGallery = gallery.filter(gallery => gallery.id_imagen !== id_imagen)
+        const updatedGallery = gallery.filter(gallery => gallery.id_imagen !== image.id_imagen)
         setGallery(updatedGallery);
         setGalleryData(updatedGallery);
         successToastNotification(data.message)
