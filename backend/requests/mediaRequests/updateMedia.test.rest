@@ -1,7 +1,0 @@
-PUT http://localhost:3001/api/media/update/0e673391-979a-4c45-b88f-994db7921fc5
-Content-Type: application/json
-
-{
-    "nombreMedio": "Doce",
-    "tipoMedio": "Juegueria"
-}

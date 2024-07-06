@@ -1,7 +1,0 @@
-PUT http://localhost:3001/api/inventory/update/360823a7-b3fb-4942-b383-5fcefddda940
-Content-Type: application/json
-
-{
-    "nombre": "Inventario Fotografía",
-    "cantidad": 23
-}
