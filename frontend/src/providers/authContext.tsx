@@ -1,6 +1,6 @@
 import axios from "axios";
 import { ReactNode, createContext } from "react";
-import { LoginResponse, RecoverPassword, RecoverResponde, TokenResponse, Token, userToRegister, userToVerify, NewPassword, NewPasswordResponse, UpdatePassword, RegisterResponse } from "../utils/interfaces";
+import { LoginResponse, RecoverPassword, RecoverResponde, TokenResponse, Token, userToRegister, userToVerify, NewPasswordResponse, UpdatePassword, RegisterResponse } from "../utils/interfaces";
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 

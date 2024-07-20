@@ -1,4 +1,3 @@
-import { Component } from "react";
 import { Login } from "../auth/login";
 import { Register } from "../auth/register";
 import { Newpassword } from "../components/NewPassword/newpassword";

@@ -3,8 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useProps } from "../../../hooks/useProps";
 import { faXmarkCircle } from "@fortawesome/free-solid-svg-icons";
 import { Equipment } from "../../../utils/interfaces";
-import { EditServiceModal } from "./editServiceModal"; // Asegúrate de importar el componente modal de edición correctamente
-
+import { EditServiceModal } from "./editServiceModal";
 
 export const SelectedServiceModal = ({
   selectedService,
@@ -33,7 +32,7 @@ export const SelectedServiceModal = ({
   const filteredTools = filterToolsByServiceId(tools, selectedService.id_servicios);
 
   const handleEdit = () => {
-    setEditMode(true); // Función para abrir el modal de edición
+    setEditMode(true);
   };
 
 

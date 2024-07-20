@@ -1,7 +1,0 @@
-PUT http://localhost:3001/api/campaign/update/3e53713e-a6e7-4da0-b89a-ee2fc634bb55
-Content-Type: application/json
-
-{
-    "nombre": "2 Campaña",
-    "presupuesto": "300000"
-}

@@ -1,7 +1,0 @@
-POST http://localhost:3001/api/login/verify
-Content-Type: application/json
-
-{
-    "email": "joeltest@gmail.com",
-    "password": "9090pass"
-}

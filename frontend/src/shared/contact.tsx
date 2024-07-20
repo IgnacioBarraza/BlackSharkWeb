@@ -6,18 +6,11 @@ import { Footer } from "../components/Footer/Footer";
 import { useState } from "react";
 import { Messages } from "../utils/interfaces";
 import { useBackend } from "../hooks/useBackend";
-import { useProps } from "../hooks/useProps";
 import { useToast } from "@chakra-ui/react";
 
 export const Contact = () => {
-
   const {sendMessage} = useBackend();
-
-  const {setMessagesData} = useProps();
-
   const toast = useToast()
-
-  const [message, setMessage] = useState<Messages[]>([]);
 
   const [messages, setMessages] = useState<Messages>({
     nombre: '',
@@ -33,14 +26,6 @@ export const Contact = () => {
 
   const handleMessage = async (e) => {
     e.preventDefault()
-    console.log(messages)
-    const newMessages: Messages = {
-      nombre: messages.nombre,
-      apellido: messages.apellido,
-      correo: messages.correo,
-      telefono: messages.telefono,
-      mensaje: messages.mensaje
-    }
   
     try {
       const res = await sendMessage(messages)
@@ -54,14 +39,6 @@ export const Contact = () => {
       console.log(error)
     }
   }
-
-  const handleAddMessage = (newMessage) => {
-    setMessage((prevMessages) => {
-      const updatedMessages = prevMessages ? [...prevMessages, newMessage] : [newMessage];
-      setMessagesData(updatedMessages); // Set the new state directly
-      return updatedMessages;
-    });
-  };
 
   const successToastNotification = (message: string) => {
     toast({

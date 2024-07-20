@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useFirebase } from "../../../hooks/useFirebase";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmarkCircle } from "@fortawesome/free-solid-svg-icons";
