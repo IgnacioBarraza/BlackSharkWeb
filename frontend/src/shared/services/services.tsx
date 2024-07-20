@@ -30,7 +30,7 @@ export const Servicios = () => {
   const handleServiceClick = (servicio) => {
     const transformedService = {
       ...servicio,
-      id_servicios: servicio.id_servicios // Add id_servicios to selectedService
+      id_servicios: servicio.id_servicios
     };
     setSelectedService(transformedService);
   };
@@ -88,7 +88,7 @@ export const Servicios = () => {
   const handleAddService = (newService) => {
     setServices((prevServices) => {
       const updatedServices = prevServices ? [...prevServices, newService] : [newService];
-      setServicesData(updatedServices); // Set the new state directly
+      setServicesData(updatedServices);
       return updatedServices;
     });
   };
@@ -134,7 +134,6 @@ export const Servicios = () => {
       try {
         const res = await getFilteredServices(value);
         setServices(res.data)
-        // setServicesData(res.data)
       } catch (error) {
         errorToastNotification(error.response.data.message)
         console.error(error)

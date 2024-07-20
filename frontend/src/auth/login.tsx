@@ -1,4 +1,4 @@
-import { faChevronLeft, faEye, faEyeSlash,  } from "@fortawesome/free-solid-svg-icons"
+import { faChevronLeft } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { Link, useNavigate } from "react-router-dom"
 import { useAuth } from "../hooks/useAuth";

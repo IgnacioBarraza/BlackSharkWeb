@@ -50,7 +50,7 @@ export const Tools = () => {
       }
       return tool;
     })
-    // Optimistically updating the items:
+
     setToolsItems(updateItems);
     setToolsData(updateItems);
 
@@ -65,7 +65,6 @@ export const Tools = () => {
         errorToastNotification(error.response.data.message);
         console.log('There was an error updating the tool: ', error);
 
-        // If theres an error, go back to the previous data:
         setToolsItems(originalTools)
         setToolsData(originalTools)
         return false

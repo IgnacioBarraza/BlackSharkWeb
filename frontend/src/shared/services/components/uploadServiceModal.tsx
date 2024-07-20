@@ -66,8 +66,8 @@ export const UploadServiceModal = ({ handleInterface, addService, successToast, 
         successToast(data.message)
         const transformedService = {
           ...newService,
-          imagen_link: newService.imagen, // Transform imagen to imagen_link
-          id_servicios: data.id // Add id_servicios to the services
+          imagen_link: newService.imagen,
+          id_servicios: data.id
         };
         addService(transformedService);
         handleInterface();

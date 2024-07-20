@@ -1,5 +1,5 @@
 import { useState, createContext, useEffect } from "react"
-import { Colaborations, Equipment, GalleryData, Messages, Services, ServicesShoppingCart, ShoppingCart } from "../utils/interfaces"
+import { Colaborations, Equipment, GalleryData, Messages, Services, ServicesShoppingCart } from "../utils/interfaces"
 
 type UserDataProviderType = {
   setUserType: (userType: string) => void

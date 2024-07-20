@@ -39,7 +39,6 @@ export default function Router(props) {
         <BrowserRouter>
             <Routes>
                 {routes}
-                {/* <Route path='*' element={<Page404 />}></Route> */}
             </Routes>
         </BrowserRouter>
     );
