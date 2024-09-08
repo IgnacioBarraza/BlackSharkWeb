@@ -1,9 +1,0 @@
-@media (min-width: 640px) {
-    .md\\:hidden {
-        display: none;
-    }
-    .md\\:flex {
-        display: flex;
-    }
-}
-
