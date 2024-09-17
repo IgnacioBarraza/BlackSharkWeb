@@ -35,9 +35,9 @@ const LoginForm = () => {
   }
 
   return (
-    <section className="w-full py-12 md:py-24 lg:py-32 bg-[#000F1F] h-screen">
-      <div className="flex flex-row gap-x-10 justify-center">
-        <div className="flex flex-col justify-center items-center w-1/2">
+    <section className="w-full py-12 md:py-24 lg:py-32 bg-[#000F1F] min-h-screen">
+      <div className="flex flex-col lg:flex-row gap-x-10 justify-center">
+        <div className="flex flex-col justify-center items-center w-full lg:w-1/2">
           <form className="w-3/4">
             <h1 className="text-3xl font-bold tracking-tighter py-5 sm:text-4xl md:text-5xl lg:text-6xl">Iniciar Sesión</h1>
 
@@ -49,7 +49,7 @@ const LoginForm = () => {
                   name="email"
                   type="email"
                   placeholder="email@gmail.com"
-                  className="block w-full h-10 py-1 px-3 bg-transparent text-md text-white ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-900"
+                  className="block w-full min-w-[330px] h-10 py-1 px-3 bg-transparent text-md text-white ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-900"
                 />
               </div>
 
@@ -60,28 +60,28 @@ const LoginForm = () => {
                   name="password"
                   type="password"
                   placeholder="Ingresa tu contraseña..."
-                  className="block w-full h-10 py-1 px-3 bg-transparent text-md text-white ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-900"
+                  className="block w-full min-w-[330px] h-10 py-1 px-3 bg-transparent text-md text-white ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-900"
                 />
               </div>
 
-              <span className="flex flex-row space-x-4">
-                <button className="flex items-center justify-center w-1/2 py-2.5 text-xl font-large text-center text-white border-blue-600 transition duration-200 ease-in-out transform bg-blue-600 hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+              <span className="flex flex-col xl:flex-row gap-x-4 gap-y-4 xl:gap-y-0">
+                <button className="flex items-center justify-center w-full min-w-[330px] xl:w-1/2 py-2.5 text-xl font-large text-center text-white border-blue-600 transition duration-200 ease-in-out transform bg-blue-600 hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
                   Ingresar
                 </button>
-                <button className="flex items-center justify-center w-1/2 py-2.5 text-xl font-large text-center text-white border border-blue-900 transition duration-200 ease-in-out transform bg-trasparent hover:border hover:border-blue-700 hover:bg-blue-800">
+                <button className="flex items-center justify-center w-full min-w-[330px] ml-0 xl:w-1/2 py-2.5 text-xl font-large text-center text-white border border-blue-900 transition duration-200 ease-in-out transform bg-trasparent hover:border hover:border-blue-700 hover:bg-blue-800">
                   <Link href="/signup">
                     Regístrate
                   </Link>
                 </button>
               </span>
 
-              <span className="flex flex-row space-x-4 py-5">
-                <button className="flex items-center justify-center w-1/2 py-2.5 text-xl font-large text-center text-white border border-blue-900 transition duration-200 ease-in-out transform bg-trasparent hover:border hover:border-blue-700 hover:bg-blue-800">
+              <span className="flex flex-col 2xl:flex-row gap-x-4 gap-y-4 2xl:gap-y-0 py-5">
+                <button className="flex items-center justify-center w-full min-w-[330px] 2xl:w-1/2 py-2.5 text-xl font-large text-center text-white border border-blue-900 transition duration-200 ease-in-out transform bg-trasparent hover:border hover:border-blue-700 hover:bg-blue-800">
                   <Link href="/signup">
                     Recuperar contraseña
                   </Link>
                 </button>
-                <button className="flex items-center justify-center space-x-2 w-1/2 py-2.5 text-xl font-large text-center text-white border border-blue-900 transition duration-200 ease-in-out transform bg-trasparent hover:border hover:border-blue-700 hover:bg-blue-800">
+                <button className="flex items-center justify-center space-x-2 w-full min-w-[330px] 2xl:w-1/2 py-2.5 text-xl font-large text-center text-white border border-blue-900 transition duration-200 ease-in-out transform bg-trasparent hover:border hover:border-blue-700 hover:bg-blue-800">
                   <GoogleIcon width="25" height="25" />
                   <span>Iniciar sesión con Google</span>
                 </button>
@@ -90,13 +90,14 @@ const LoginForm = () => {
           </form>
         </div>
 
-        <div className="w-1/2 flex items-center justify-center transition-shadow">
+        <div className="lg:w-1/2 flex items-center justify-center transition-shadow">
           <Image
             src="/bsw_logo.webp"
             width="600"
             height="600"
             alt="John Doe"
-            className="rounded-full object-cover hover:shadow-slate-900 transition-all duration-75"
+            priority
+            className="rounded-full object-cover transition-all duration-75"
             style={{ aspectRatio: "400/400", objectFit: "cover", transform }}
             onMouseMove={triggerMovement}
             onMouseLeave={() => setTransform("")}
