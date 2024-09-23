@@ -1,14 +1,15 @@
 import { Metadata } from "next"
+import LoginForm from "./LoginForm"
 
 export const metadata: Metadata = {
   title: "Iniciar sesión | BlackSharkWeb",
   description: "¡Inicia sesión en la página para tener acceso a más información!"
 }
 
-const page = () => {
+const Page = () => {
   return (
-    <div>Éste será el login!</div>
+    <LoginForm />
   )
 }
 
-export default page
+export default Page
