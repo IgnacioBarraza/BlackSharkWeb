@@ -11,9 +11,9 @@ const ShutEye: React.FC<ShutEyeInterface> = ({ width = '25', height='25', classN
       height={height}
       fill="none"
       stroke="currentColor"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      stroke-width="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="2"
       className={`icon icon-tabler icons-tabler-outline icon-tabler-eye-off ${className}`}
       viewBox="0 0 24 24"
     >

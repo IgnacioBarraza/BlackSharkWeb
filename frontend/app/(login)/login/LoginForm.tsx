@@ -1,15 +1,13 @@
 'use client';
 
-import ReturnLogo from "@/app/logos-icons/Return";
 import Image from "next/image";
 import Link from "next/link";
 import { MouseEvent, useState } from "react";
 import { SubmitHandler, useForm } from 'react-hook-form';
+
 import ShowPassword from "./ShowPassword";
 import GoogleIcon from "@/app/logos-icons/Google";
-
-
-
+import ReturnLogo from "@/app/logos-icons/Return";
 
 interface LoginFormInterface {
   email: string,
@@ -17,7 +15,7 @@ interface LoginFormInterface {
 }
 
 const LoginForm = () => {
-  const { register, handleSubmit } = useForm<LoginFormInterface>()
+  const { register, handleSubmit, formState: { errors } } = useForm<LoginFormInterface>()
   const [transform, setTransform] = useState("")
   const [isVisible, setIsVisible] = useState(false)
 
@@ -77,6 +75,7 @@ const LoginForm = () => {
                     placeholder="email@gmail.com"
                     className="block w-full min-w-[330px] h-10 py-1 px-3 bg-transparent text-md text-white ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-900 focus:bg-transparent"
                   />
+                  <p className="text-red-500">{errors.email?.message}</p>
                 </div>
 
                 <div className="py-5 space-y-2">
@@ -91,10 +90,10 @@ const LoginForm = () => {
                       className="block w-full min-w-[330px] h-10 py-1 px-3 bg-transparent text-md text-white ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-900"
                     />
                     <div className="absolute inset-y-0 right-3 flex items-center cursor-pointer">
-                      {/* <Eye width="29" height="29" onClick={() => setIsVisible(!isVisible)} /> */}
                       <ShowPassword isPasswordVisible={isVisible} togglePasswordVisibility={() => setIsVisible(!isVisible)} />
                     </div>
                   </div>
+                  <p className="text-red-500">{errors.password?.message}</p>
                 </div>
 
                 <span className="flex flex-col 2xl:flex-row gap-x-4 gap-y-4 xl:gap-y-4 mb-2">
