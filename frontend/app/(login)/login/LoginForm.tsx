@@ -1,13 +1,13 @@
 'use client';
 
-import Image from "next/image";
 import Link from "next/link";
-import { MouseEvent, useState } from "react";
+import { useState } from "react";
 import { SubmitHandler, useForm } from 'react-hook-form';
 
 import ShowPassword from "./ShowPassword";
 import GoogleIcon from "@/app/logos-icons/Google";
 import ReturnLogo from "@/app/logos-icons/Return";
+import BSWImage from "./BSWImage";
 
 interface LoginFormInterface {
   email: string,
@@ -16,37 +16,10 @@ interface LoginFormInterface {
 
 const LoginForm = () => {
   const { register, handleSubmit, formState: { errors } } = useForm<LoginFormInterface>()
-  const [transform, setTransform] = useState("")
   const [isVisible, setIsVisible] = useState(false)
 
   const login: SubmitHandler<LoginFormInterface> = data => {
     console.log(data)
-  }
-
-  const triggerMovement = (event: MouseEvent<HTMLImageElement>) => {
-    const { layerX, layerY } = event.nativeEvent;
-    const element = event.currentTarget as HTMLElement
-    const { clientWidth, clientHeight } = element
-
-    const width = clientWidth;
-    const height = clientHeight;
-
-    const yRot = (
-      (layerX - height / 2) / height
-    ) * 20
-
-    const xRot = (
-      (layerY - width / 2) / width
-    ) * -20
-
-    const transformations = `
-      perspective(500px)
-      scale(1.1)
-      rotateX(${xRot}deg)
-      rotateY(${yRot}deg)
-    `
-
-    setTransform(transformations)
   }
 
   return (
@@ -120,19 +93,7 @@ const LoginForm = () => {
             </form>
           </div>
 
-          <div className="lg:w-1/2 flex items-center justify-center transition-shadow">
-            <Image
-              src="/logotipo_blacksharkstudios.webp"
-              width="600"
-              height="600"
-              alt="John Doe"
-              priority
-              className="rounded-full object-cover transition-all duration-75"
-              style={{ aspectRatio: "400/400", objectFit: "cover", transform }}
-              onMouseMove={triggerMovement}
-              onMouseLeave={() => setTransform("")}
-            />
-          </div>
+          <BSWImage />
         </div>
       </section>
     </div>
