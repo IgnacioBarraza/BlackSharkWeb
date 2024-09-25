@@ -86,7 +86,7 @@ const LoginForm = () => {
 
                 <span className="flex flex-col 2xl:flex-row gap-x-4 gap-y-4 xl:gap-y-4 mt-2">
                   <button className="flex items-center justify-center w-full min-w-[330px] 2xl:w-1/2 py-2.5 text-xl font-large text-center text-white border border-blue-900 transition duration-200 ease-in-out transform bg-trasparent hover:border hover:border-blue-700 hover:bg-blue-800">
-                    <Link href="/signup">
+                    <Link href="/recover">
                       Recuperar contraseña
                     </Link>
                   </button>
