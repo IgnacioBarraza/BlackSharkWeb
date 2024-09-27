@@ -46,7 +46,7 @@ const LoginForm = () => {
     
       <section className="w-full py-8 md:py-24 lg:py-32">
         <div className="flex flex-col lg:flex-row gap-x-10 justify-center">
-          <div className="flex flex-col justify-center items-end w-full lg:w-1/2">
+          <div className="flex flex-col justify-center items-center lg:items-end w-full lg:w-1/2">
             <form className="w-3/4">
               <h1 className="text-3xl font-bold tracking-tighter py-5 sm:text-4xl md:text-5xl lg:text-6xl">Iniciar Sesión</h1>
 
