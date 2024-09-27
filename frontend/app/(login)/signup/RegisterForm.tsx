@@ -1,7 +1,7 @@
 'use client';
 
-import GoogleIcon from "@/app/logos/Google"
-import ReturnLogo from "@/app/logos/Return";
+import GoogleIcon from "@/app/logos-icons/Google"
+import ReturnLogo from "@/app/logos-icons/Return";
 import Image from "next/image"
 import Link from "next/link";
 import { MouseEvent, useState } from "react";
@@ -46,8 +46,8 @@ const RegisterForm = () => {
     
       <section className="w-full md:py-24 lg:py-32">
         <div className="flex flex-col lg:flex-row gap-x-10 justify-center">
-          <div className="flex flex-col items-end w-full lg:w-1/2">
-            <form className="w-3/4">
+          <div className="flex flex-col items-center lg:items-end w-full lg:w-1/2">
+            <form className="w-3/4 min-w-fit">
               <h1 className="text-3xl font-bold tracking-tighter pb-10 sm:text-4xl md:text-5xl lg:text-6xl">Regístrate</h1>
 
               <section className="flex flex-col justify-center w-full">
