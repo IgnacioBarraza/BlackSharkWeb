@@ -22,7 +22,7 @@ const LoginForm = () => {
     console.log(data)
   }
 
-  return (
+  return (  
     <div className="bg-[#000F1F] min-h-screen">
       <header>
         <Link href="/" className="flex items-center justify-start w-fit pt-5 pl-5 gap-x-2">
@@ -33,8 +33,8 @@ const LoginForm = () => {
 
       <section className="w-full py-8 md:py-24 lg:py-32">
         <div className="flex flex-col lg:flex-row gap-x-10 justify-center">
-          <div className="flex flex-col justify-center items-end w-full lg:w-1/2">
-            <form className="w-3/4" onSubmit={handleSubmit(login)}>
+          <div className="flex flex-col justify-center items-center lg:items-end w-full lg:w-1/2">
+            <form className="w-3/4 min-w-fit" onSubmit={handleSubmit(login)}>
               <h1 className="text-3xl font-bold tracking-tighter py-5 sm:text-4xl md:text-5xl lg:text-6xl">Iniciar Sesión</h1>
 
               <section className="flex flex-col justify-center w-full">
@@ -73,11 +73,10 @@ const LoginForm = () => {
                   <input type="submit" className="flex items-center justify-center w-full min-w-[330px] 2xl:w-1/2 py-2.5 text-xl font-large text-center cursor-pointer text-white border-blue-600 transition duration-200 ease-in-out transform bg-blue-600 hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" value="Ingresar" />
                   <button className="flex items-center justify-center w-full min-w-[330px] 2xl:w-1/2 py-2.5 text-xl font-large text-center text-white border border-blue-900 transition duration-200 ease-in-out transform bg-trasparent hover:border hover:border-blue-700 hover:bg-blue-800">
                     <Link href="/signup">
-                      Regístrate
+                      Regístrate  
                     </Link>
                   </button>
                 </span>
-
                 <span className="flex flex-col 2xl:flex-row gap-x-4 gap-y-4 xl:gap-y-4 mt-2">
                   <button className="flex items-center justify-center w-full min-w-[330px] 2xl:w-1/2 py-2.5 text-xl font-large text-center text-white border border-blue-900 transition duration-200 ease-in-out transform bg-trasparent hover:border hover:border-blue-700 hover:bg-blue-800">
                     <Link href="/signup">
@@ -99,5 +98,4 @@ const LoginForm = () => {
     </div>
   )
 }
-
 export default LoginForm
