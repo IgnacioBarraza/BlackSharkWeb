@@ -10,7 +10,7 @@ const Eye: React.FC<EyeInterface> = ({ width = '50', height = '50', className })
       width={width}
       height={height}
       fill="none"
-      stroke="currentColor"
+      stroke="white"
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth="2"

@@ -10,7 +10,7 @@ const ShutEye: React.FC<ShutEyeInterface> = ({ width = '25', height='25', classN
       width={width}
       height={height}
       fill="none"
-      stroke="currentColor"
+      stroke="white"
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth="2"

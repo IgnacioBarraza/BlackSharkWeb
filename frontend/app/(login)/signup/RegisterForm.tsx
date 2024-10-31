@@ -40,7 +40,7 @@ const RegisterForm = () => {
       <header>
         <Link href="/" className="flex items-center justify-start w-fit pt-5 pl-5 gap-x-2">
           <ReturnLogo height="40" width="40" />
-          <p className="text-xl hover:underline underline-offset-4">Volver</p>
+          <p className="text-xl text-white hover:underline underline-offset-4">Volver</p>
         </Link>
       </header>
     
@@ -48,11 +48,11 @@ const RegisterForm = () => {
         <div className="flex flex-col lg:flex-row gap-x-10 justify-center">
           <div className="flex flex-col items-center lg:items-end w-full lg:w-1/2">
             <form className="w-3/4 min-w-fit">
-              <h1 className="text-3xl font-bold tracking-tighter pb-10 sm:text-4xl md:text-5xl lg:text-6xl">Regístrate</h1>
+              <h1 className="text-3xl text-white font-bold tracking-tighter pb-10 sm:text-4xl md:text-5xl lg:text-6xl">Regístrate</h1>
 
               <section className="flex flex-col justify-center w-full">
                 <div className="pb-6 space-y-2">
-                  <label htmlFor="fullname" className="text-xl">Nombre completo</label>
+                  <label htmlFor="fullname" className="text-xl text-white">Nombre completo</label>
                   <input
                     id="fullname"
                     name="fullname"
@@ -63,7 +63,7 @@ const RegisterForm = () => {
                 </div>
 
                 <div className="pb-6 space-y-2">
-                  <label htmlFor="email" className="text-xl">Email</label>
+                  <label htmlFor="email" className="text-xl text-white">Email</label>
                   <input
                     id="email"
                     name="email"
@@ -74,7 +74,7 @@ const RegisterForm = () => {
                 </div>
 
                 <div className="pb-6 space-y-2">
-                  <label htmlFor="password" className="text-xl">Contraseña</label>
+                  <label htmlFor="password" className="text-xl text-white">Contraseña</label>
                   <input
                     id="password"
                     name="password"
@@ -85,7 +85,7 @@ const RegisterForm = () => {
                 </div>
 
                 <div className="pb-6 space-y-2">
-                  <label htmlFor="password" className="text-xl">Repetir contraseña</label>
+                  <label htmlFor="password" className="text-xl text-white">Repetir contraseña</label>
                   <input
                     id="repeat-password"
                     name="repeat-password"

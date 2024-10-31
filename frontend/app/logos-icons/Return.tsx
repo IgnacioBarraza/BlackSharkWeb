@@ -11,7 +11,7 @@ const ReturnLogo: React.FC<ReturnLogoProps> = ({ width = '50', height = '50', cl
       width={width}
       height={height}
       fill="none"
-      stroke="currentColor"
+      stroke="white"
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth="2"

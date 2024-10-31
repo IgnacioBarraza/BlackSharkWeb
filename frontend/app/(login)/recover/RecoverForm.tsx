@@ -1,7 +1,7 @@
 'use client'
 
 import BSWImage from "@/app/components/BSWImage";
-import ReturnLogo from "@/app/logos/Return";
+import ReturnLogo from "@/app/logos-icons/Return";
 import Link from "next/link";
 import { SubmitHandler, useForm } from "react-hook-form";
 
@@ -21,7 +21,7 @@ const RecoverForm = () => {
       <header>
         <Link href="/login" className="flex items-center justify-start w-fit pt-5 pl-5 gap-x-2">
           <ReturnLogo height="40" width="40" />
-          <p className="text-xl hover:underline underline-offset-4">Volver</p>
+          <p className="text-xl text-white hover:underline underline-offset-4">Volver</p>
         </Link>
       </header>
     
@@ -29,13 +29,13 @@ const RecoverForm = () => {
         <div className="flex flex-col lg:flex-row gap-x-10 justify-center">
           <div className="flex flex-col justify-center items-center w-full lg:w-1/2">
             <form className="w-3/4" onSubmit={handleSubmit(onSubmit)}>
-              <h1 className="text-3xl font-bold tracking-tighter py-5 sm:text-4xl md:text-5xl lg:text-6xl">Recuperar contraseña</h1>
+              <h1 className="text-3xl text-white font-bold tracking-tighter py-5 sm:text-4xl md:text-5xl lg:text-6xl">Recuperar contraseña</h1>
 
-              <p>Ingresa tu dirección de correo abajo, te mandaremos un mensaje con instrucciones para restablecer tu contraseña. Asegúrate de revisar tu <span className="font-bold">bandeja de entrada</span> y la <span className="font-bold">carpeta de spam</span>.</p>
+              <p className="text-white">Ingresa tu dirección de correo abajo, te mandaremos un mensaje con instrucciones para restablecer tu contraseña. Asegúrate de revisar tu <span className="font-bold">bandeja de entrada</span> y la <span className="font-bold">carpeta de spam</span>.</p>
 
               <section className="flex flex-col justify-center w-full">
                 <div className="py-5 space-y-2">
-                  <label htmlFor="email" className="text-xl">Email</label>
+                  <label htmlFor="email" className="text-xl text-white">Email</label>
                   <input
                     {...register('email', { required: "Debes indicar tu correo." })}
                     id="email"

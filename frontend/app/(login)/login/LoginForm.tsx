@@ -27,7 +27,7 @@ const LoginForm = () => {
       <header>
         <Link href="/" className="flex items-center justify-start w-fit pt-5 pl-5 gap-x-2">
           <ReturnLogo height="40" width="40" />
-          <p className="text-xl hover:underline underline-offset-4">Volver</p>
+          <p className="text-xl text-white white hover:underline underline-offset-4">Volver</p>
         </Link>
       </header>
 
@@ -35,11 +35,11 @@ const LoginForm = () => {
         <div className="flex flex-col lg:flex-row gap-x-10 justify-center">
           <div className="flex flex-col justify-center items-center lg:items-end w-full lg:w-1/2">
             <form className="w-3/4 min-w-fit" onSubmit={handleSubmit(login)}>
-              <h1 className="text-3xl font-bold tracking-tighter py-5 sm:text-4xl md:text-5xl lg:text-6xl">Iniciar Sesión</h1>
+              <h1 className="text-3xl font-bold text-white tracking-tighter py-5 sm:text-4xl md:text-5xl lg:text-6xl">Iniciar Sesión</h1>
 
               <section className="flex flex-col justify-center w-full">
                 <div className="py-5 space-y-2">
-                  <label htmlFor="email" className="text-xl">Email</label>
+                  <label htmlFor="email" className="text-xl text-white">Email</label>
                   <input
                     {...register('email', { required: "Ingresa un correo!" })}
                     id="email"
@@ -52,7 +52,7 @@ const LoginForm = () => {
                 </div>
 
                 <div className="py-5 space-y-2">
-                  <label htmlFor="password" className="text-xl">Contraseña</label>
+                  <label htmlFor="password" className="text-xl text-white">Contraseña</label>
                   <div className="relative w-full">
                     <input
                       {...register('password', { required: "Debes ingresar la contraseña." })}
