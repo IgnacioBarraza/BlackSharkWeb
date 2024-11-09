@@ -1,13 +1,13 @@
 'use client';
 
-import Link from "next/link";
-import { useState } from "react";
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { useState } from "react";
+import Link from "next/link";
 
-import ShowPassword from "./ShowPassword";
-import GoogleIcon from "@/app/logos-icons/Google";
+import ShowPassword from '@/app/components/ShowPassword';
 import ReturnLogo from "@/app/logos-icons/Return";
-import BSWImage from "./BSWImage";
+import GoogleIcon from "@/app/logos-icons/Google";
+import BSWImage from "@/app/components/BSWImage";
 
 interface LoginFormInterface {
   email: string,
