@@ -1,6 +1,8 @@
 import Link from "next/link"
 import Image from "next/image"
 
+import HeaderAuth from "./HeaderAuth"
+
 const Header = () => {
   return (
     <header className="fixed w-full px-10 lg:px-12 h-22 flex items-center z-10 bg-[#121212]/90 border-b border-b-slate-600">
@@ -24,9 +26,8 @@ const Header = () => {
           <Link href="/contact" className="text-lg font-medium hover:underline underline-offset-4" prefetch={false}>
             Contacto
           </Link>
-          <Link href="/login" className="text-lg font-medium hover:underline underline-offset-4" prefetch={false}>
-            Iniciar Sesión
-          </Link>
+
+          <HeaderAuth />
         </nav>
       </header>
   )

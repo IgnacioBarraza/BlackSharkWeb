@@ -10,6 +10,7 @@ import ShowPassword from '@/app/components/ShowPassword';
 import ReturnLogo from "@/app/logos-icons/Return";
 import GoogleIcon from "@/app/logos-icons/Google";
 import BSWImage from "@/app/components/BSWImage";
+import { useUser } from '@/app/hooks/userHook';
 
 interface LoginFormInterface {
   email: string,
@@ -19,20 +20,28 @@ interface LoginFormInterface {
 const LoginForm = () => {
   const { register, handleSubmit, formState: { errors } } = useForm<LoginFormInterface>()
   const [isVisible, setIsVisible] = useState(false)
+  const { setUser } = useUser()
   const router = useRouter()
 
   const login: SubmitHandler<LoginFormInterface> = async data => {
     console.log('Iniciando sesión...')
 
     try {
-      const res = await axios.post('/api/auth', {
-        email: data.email,
+      const res = await axios.post('/api/auth/login', {
+        email: data.email, 
         password: data.password
       })
 
       console.log(res)
 
       console.log('¡Has inciado sesión! Redirigiendo...')
+
+      setUser({
+        id: res.data.id,
+        email: res.data.email,
+        fullName: res.data.fullName
+      })
+
       router.push('/')
     } catch (error) {
       console.log(error)

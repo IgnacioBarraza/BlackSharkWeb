@@ -14,10 +14,8 @@ const geistMono = localFont({
 
 export default function LoginLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        {children}
-      </body>
-    </html>
+    <div className={`${geistSans.variable} ${geistMono.variable}`}>
+      {children}
+    </div>
   )
 }

@@ -24,19 +24,21 @@ export const POST = async (request: Request) => {
     const comparePassword = await bcrypt.compare(validation.password, searchUser.password)
 
     if (!comparePassword) {
-      return Response.json({ error: 'Incorrect password! Try again.' }, { status: 400 })
+      return Response.json({ error: 'Contraseña incorrecta! Inténtalo nuevamente.' }, { status: 400 })
     } else {
       const secret = process.env.SECRET || ''
 
       const tokenData = {
         id: searchUser.id,
-        email: searchUser.email
+        email: searchUser.email,
+        fullName: searchUser.fullName
       }
 
       const token = jwt.sign(tokenData, secret)
 
       const response = NextResponse.json({
-        message: 'Successfully logged in!',
+        message: 'Inicio de sesión completado! Redirigiendo...',
+        id: searchUser.id,
         email: validation.email,
         fullName: searchUser.fullName
       })
