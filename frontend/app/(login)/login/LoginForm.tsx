@@ -1,8 +1,10 @@
 'use client';
 
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { useRouter } from 'next/navigation';
 import { useState } from "react";
 import Link from "next/link";
+import axios from 'axios';
 
 import ShowPassword from '@/app/components/ShowPassword';
 import ReturnLogo from "@/app/logos-icons/Return";
@@ -17,9 +19,24 @@ interface LoginFormInterface {
 const LoginForm = () => {
   const { register, handleSubmit, formState: { errors } } = useForm<LoginFormInterface>()
   const [isVisible, setIsVisible] = useState(false)
+  const router = useRouter()
 
-  const login: SubmitHandler<LoginFormInterface> = data => {
-    console.log(data)
+  const login: SubmitHandler<LoginFormInterface> = async data => {
+    console.log('Iniciando sesión...')
+
+    try {
+      const res = await axios.post('/api/auth', {
+        email: data.email,
+        password: data.password
+      })
+
+      console.log(res)
+
+      console.log('¡Has inciado sesión! Redirigiendo...')
+      router.push('/')
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (  

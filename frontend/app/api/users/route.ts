@@ -41,7 +41,7 @@ export const POST = async (request: Request) => {
     
     const user = await User.create(newUser)
 
-    return Response.json({ message: 'Usuario creado!', user })
+    return Response.json({ message: 'Usuario creado!', user }, { status: 201 })
   } catch (error) {
     if (error instanceof ValidationError) {
       return Response.json({ error: error.details[0].message }, { status: 400 })
