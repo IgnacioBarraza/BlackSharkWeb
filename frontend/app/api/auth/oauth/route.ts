@@ -1,8 +1,11 @@
 import { randomUUID } from "crypto"
 
+import { connection } from "@/app/libs/mongo"
 import User from "@/models/User"
 
 export const POST = async (request: Request) => {
+  await connection()
+
   const { email, username } = await request.json()
 
   try {
