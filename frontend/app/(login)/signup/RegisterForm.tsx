@@ -7,9 +7,9 @@ import { useState } from "react";
 import Link from "next/link";
 
 import ShowPassword from "@/app/components/ShowPassword";
+import GoogleOAuth from "@/app/components/GoogleOAuth";
 import ReturnLogo from "@/app/logos-icons/Return";
 import BSWImage from "@/app/components/BSWImage";
-import GoogleIcon from "@/app/logos-icons/Google";
 
 interface RegisterInterface {
   fullName: string,
@@ -143,10 +143,7 @@ const RegisterForm = () => {
                       Recuperar contraseña
                     </Link>
                   </button>
-                  <button className="flex items-center justify-center space-x-2 w-full min-w-[330px] 2xl:w-1/2 py-2.5 text-xl font-large text-center text-white border border-blue-900 transition duration-200 ease-in-out transform bg-trasparent hover:border hover:border-blue-700 hover:bg-blue-800">
-                    <GoogleIcon width="25" height="25" />
-                    <span>Iniciar sesión con Google</span>
-                  </button>
+                  <GoogleOAuth />
                 </span>
               </section>
             </form>
