@@ -4,7 +4,6 @@ import { createContext, ReactNode, useEffect, useState } from "react"
 import axios from "axios"
 
 interface User {
-  id: string
   email: string,
   fullName: string,
 }
@@ -21,12 +20,11 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
   useEffect(() => {
     const getUser = async () => {
-      const data = await axios.get('/api/auth/token')
+      const data = await axios.get('/api/auth/cookie')
       console.log(data)
 
       if (data.data.cookie) {
         const userData = {
-          id: data.data.id,
           email: data.data.email,
           fullName: data.data.fullName
         }

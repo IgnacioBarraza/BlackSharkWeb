@@ -21,7 +21,8 @@
     "paths": {
       "@/*": ["./*"],
       "@vals/*": ["./app/validators/*"],
-      "@models/*": ["./models/*"]
+      "@models/*": ["./models/*"],
+      "@auth/*": ["./app/libs/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/(login)/signup"],
