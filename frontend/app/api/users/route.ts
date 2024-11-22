@@ -14,7 +14,7 @@ export const POST = async (request: Request) => {
   try {
     const validation = await schema.validateAsync({ fullName, email, password })
 
-    const searchUser = await User.findOne({ fullName })
+    const searchUser = await User.findOne({ fullName: fullName.toLowerCase() })
 
     if (searchUser) {
       return Response.json({ error: 'Ya hay un usuario registrado con ese email, intenta con otro.' }, { status: 400 })
