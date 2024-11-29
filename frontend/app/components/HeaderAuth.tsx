@@ -11,7 +11,9 @@ const HeaderAuth = () => {
   const router = useRouter()
 
   const handleLogout = async () => {
-    await axios.post('/api/auth/logout')
+    await axios.post(`${process.env.NEXT_PUBLIC_BACKEND}/api/login/logout`, {}, {
+      withCredentials: true
+    })
 
     setUser(null)
 
