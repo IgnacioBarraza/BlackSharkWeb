@@ -3,10 +3,7 @@
 import { createContext, ReactNode, useEffect, useState } from "react"
 import axios from "axios"
 
-interface User {
-  email: string,
-  fullName: string,
-}
+import { User } from "@interfaces/user"
 
 interface UserContextType {
   user: User | null,

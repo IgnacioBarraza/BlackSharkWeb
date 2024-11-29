@@ -22,7 +22,8 @@
       "@/*": ["./*"],
       "@vals/*": ["./app/validators/*"],
       "@models/*": ["./models/*"],
-      "@auth/*": ["./app/libs/*"]
+      "@auth/*": ["./app/libs/*"],
+      "@interfaces/*": ["./app/interfaces/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/(login)/signup"],

@@ -10,10 +10,9 @@ import ShowPassword from "@/app/components/ShowPassword";
 import GoogleOAuth from "@/app/components/GoogleOAuth";
 import ReturnLogo from "@/app/logos-icons/Return";
 import BSWImage from "@/app/components/BSWImage";
+import { User } from "@interfaces/user";
 
-interface RegisterInterface {
-  fullName: string,
-  email: string,
+interface RegisterInterface extends User {
   password: string,
   repeatPassword: string,
 }

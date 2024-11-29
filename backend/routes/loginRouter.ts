@@ -33,7 +33,7 @@ loginRouter.post('/verify', async (req, res) => {
             if (validatePassword) {
                 const userToken = {
                     username: user[0].username,
-                    identifier: user[0].id_usuario
+                    email: user[0].correo
                 }
 
                 if (SECRET) {

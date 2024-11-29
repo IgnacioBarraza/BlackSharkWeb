@@ -1,9 +1,11 @@
 import Eye from "@/app/logos-icons/Eye"
 import ShutEye from "@/app/logos-icons/ShutEye"
+
 interface ShowPassInterface {
   isPasswordVisible: boolean,
   togglePasswordVisibility: () => void,
 }
+
 const ShowPassword: React.FC<ShowPassInterface> = ({ isPasswordVisible, togglePasswordVisibility }) => {
   return (
     <div onClick={togglePasswordVisibility}>

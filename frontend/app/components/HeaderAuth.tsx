@@ -5,8 +5,13 @@ import Link from "next/link"
 import axios from "axios"
 
 import { useUser } from "../hooks/userHook"
+import { User } from "@interfaces/user"
 
-const HeaderAuth = () => {
+interface HeaderAuthInterface {
+  userData: User | null
+}
+
+const HeaderAuth: React.FC<HeaderAuthInterface> = ({ userData }) => {
   const { user, setUser } = useUser()
   const router = useRouter()
 
@@ -18,9 +23,10 @@ const HeaderAuth = () => {
     setUser(null)
 
     router.push('/')
+    router.refresh()
   }
 
-  return user ? (
+  return userData ?? user ? (
     <button onClick={handleLogout} className="text-lg font-medium hover:underline underline-offset-4">
       Cerrar sesión
     </button>

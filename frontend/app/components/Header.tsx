@@ -1,9 +1,29 @@
+import jwt, { JwtPayload } from "jsonwebtoken"
 import Link from "next/link"
 import Image from "next/image"
 
+import { cookies } from "next/headers"
 import HeaderAuth from "./HeaderAuth"
 
 const Header = () => {
+  const cookieStore = cookies()
+  const token = cookieStore.get('auth-token')
+  let user = null
+  
+  const verifyToken = () => {
+    const JWT_SECRET = process.env.SECRET || ""
+
+    try {
+      const data = jwt.verify(token?.value ?? "", JWT_SECRET) as JwtPayload
+      
+      user = { email: data.email, fullName: data.username }
+    } catch (error) {
+      user = null
+    }
+  }
+
+  verifyToken()
+
   return (
     <header className="fixed w-full px-10 lg:px-12 h-22 flex items-center z-10 bg-[#121212]/90 border-b border-b-slate-600">
         <Link href="/" className="flex items-center justify-center" prefetch={false}>
@@ -27,7 +47,7 @@ const Header = () => {
             Contacto
           </Link>
 
-          <HeaderAuth />
+          <HeaderAuth userData={user} />
         </nav>
       </header>
   )
