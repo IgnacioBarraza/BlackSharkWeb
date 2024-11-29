@@ -12,7 +12,7 @@ const loginSchema = z.object({
     password: z
         .string({
             required_error: 'Debes ingresar tu contraseña!',
-            invalid_type_error: 'Ingresa una contraseña válida.S'
+            invalid_type_error: 'Ingresa una contraseña válida.'
         })
 })
 

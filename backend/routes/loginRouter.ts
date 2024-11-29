@@ -38,6 +38,12 @@ loginRouter.post('/verify', async (req, res) => {
 
                 if (SECRET) {
                     const token = jwt.sign(userToken, SECRET, {expiresIn: "6h"})
+                    res.cookie('auth-token', token, {
+                        httpOnly: true,
+                        path: '/',
+                        sameSite: 'strict'
+                    })
+
                     return res.status(200).json({ message: 'Usuario verificado con exito. Redirigiendo...', token, username: user[0].username, tipo_user: user[0].tipo_user, user_id: user[0].id_usuario })
                 } else {
                     return res.status(500).json({ message: 'No se pudo generar el token de autenticación.' })
