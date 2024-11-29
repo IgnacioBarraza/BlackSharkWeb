@@ -33,8 +33,8 @@ const RegisterForm = () => {
     }
 
     try {
-      await axios.post('/api/users', {
-        fullName: data.fullName,
+      await axios.post(`${process.env.NEXT_PUBLIC_BACKEND}/api/login/register`, {
+        username: data.fullName,
         email: data.email,
         password: data.password
       })
