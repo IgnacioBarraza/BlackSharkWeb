@@ -27,9 +27,11 @@ const LoginForm = () => {
     console.log('Iniciando sesión...')
 
     try {
-      const res = await axios.post('/api/auth/login', {
+      const res = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND}/api/login/verify`, {
         email: data.email, 
         password: data.password
+      }, {
+        withCredentials: true
       })
 
       console.log('¡Has inciado sesión! Redirigiendo...')

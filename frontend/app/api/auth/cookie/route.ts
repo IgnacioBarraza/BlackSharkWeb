@@ -13,7 +13,7 @@ export const GET = async (req: Request) => {
   
   try {
     if (token) {
-      const data = jwt.verify(token.value.toString().replace('Bearer ', ''), SECRET) as JwtPayload
+      const data = jwt.verify(token.value.toString(), SECRET) as JwtPayload
       
       return Response.json({ message: 'Cookie verificada!', cookie: true, email: data.email, fullName: data.fullName })
       
