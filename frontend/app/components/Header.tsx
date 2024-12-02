@@ -1,28 +1,44 @@
 import jwt, { JwtPayload } from "jsonwebtoken"
+import { decode } from "next-auth/jwt"
 import Link from "next/link"
 import Image from "next/image"
 
 import { cookies } from "next/headers"
 import HeaderAuth from "./HeaderAuth"
 
-const Header = () => {
+const Header = async () => {
   const cookieStore = cookies()
   const token = cookieStore.get('auth-token')
+  const sessionToken = cookieStore.get('next-auth.session-token')
+
   let user = null
   
-  const verifyToken = () => {
-    const JWT_SECRET = process.env.SECRET || ""
+  const verifyToken = async () => {
+    const JWT_SECRET = process.env.AUTH_SECRET || ""
 
     try {
-      const data = jwt.verify(token?.value ?? "", JWT_SECRET) as JwtPayload
-      
-      user = { email: data.email, fullName: data.username }
+      if (token) {
+        const data = jwt.verify(token?.value ?? "", JWT_SECRET) as JwtPayload
+        
+        user = { email: data.email, fullName: data.username }
+        return
+      } else if (sessionToken) {
+        const data = await decode({
+          token: sessionToken.value,
+          secret: JWT_SECRET,
+        })
+
+        user = { email: data?.email, fullname: data?.name }
+        return
+      }
     } catch (error) {
+      console.log(error)
       user = null
+      return
     }
   }
 
-  verifyToken()
+  await verifyToken()
 
   return (
     <header className="fixed w-full px-10 lg:px-12 h-22 flex items-center z-10 bg-[#121212]/90 border-b border-b-slate-600">

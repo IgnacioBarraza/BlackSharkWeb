@@ -4,7 +4,7 @@ import GoogleIcon from "@/app/logos-icons/Google";
 
 const GoogleOAuth = () => {
   const googleSignIn = async () => {
-    await signIn('google', { redirectTo: '/' })
+    await signIn('google', { callbackUrl: '/' })
   }
 
   return (
