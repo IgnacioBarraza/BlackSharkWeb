@@ -64,11 +64,7 @@ loginRouter.post('/verify', async (req, res) => {
 })
 
 loginRouter.post('/logout', (req, res) => {
-    res.clearCookie('auth-token', {
-        httpOnly: true,
-        path: '/',
-        sameSite: 'strict'
-    })
+    res.clearCookie('auth-token')
     
     return res.status(200).json({ message: 'Sesión cerrada! Redirigiendo...' })
 })

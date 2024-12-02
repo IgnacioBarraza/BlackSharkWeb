@@ -1,6 +1,7 @@
 'use client'
 
 import { useRouter } from "next/navigation"
+import { signOut, useSession } from "next-auth/react"
 import Link from "next/link"
 import axios from "axios"
 
@@ -13,14 +14,19 @@ interface HeaderAuthInterface {
 
 const HeaderAuth: React.FC<HeaderAuthInterface> = ({ userData }) => {
   const { user, setUser } = useUser()
+  const { data: session } = useSession()
   const router = useRouter()
 
   const handleLogout = async () => {
-    await axios.post(`${process.env.NEXT_PUBLIC_BACKEND}/api/login/logout`, {}, {
-      withCredentials: true
-    })
-
-    setUser(null)
+    if (session) {
+      await signOut()
+    } else {
+      await axios.post(`${process.env.NEXT_PUBLIC_BACKEND}/api/login/logout`, {}, {
+        withCredentials: true
+      })
+  
+      setUser(null)
+    }
 
     router.push('/')
     router.refresh()

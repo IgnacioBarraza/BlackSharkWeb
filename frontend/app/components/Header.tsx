@@ -15,10 +15,11 @@ const Header = async () => {
   
   const verifyToken = async () => {
     const JWT_SECRET = process.env.AUTH_SECRET || ""
+    const SECRET = process.env.SECRET || ""
 
     try {
       if (token) {
-        const data = jwt.verify(token?.value ?? "", JWT_SECRET) as JwtPayload
+        const data = jwt.verify(token?.value ?? "", SECRET) as JwtPayload
         
         user = { email: data.email, fullName: data.username }
         return

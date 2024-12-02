@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 
 import './globals.css'
 import Header from "../components/Header";
+import NextAuthProvider from "@/providers/NextAuthProvider";
 
 const geistSans = localFont({
   src: "../fonts/GeistVF.woff",
@@ -26,11 +27,12 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <div
       className={`${geistSans.variable} ${geistMono.variable} antialiased`}
     >
-      <Header />
-      <main className="pt-28">
-        {children}
-      </main>
-      
+      <NextAuthProvider>
+        <Header />
+        <main className="pt-28">
+          {children}
+        </main>
+      </NextAuthProvider>
     </div>
   );
 }
