@@ -52,7 +52,7 @@ const RegisterForm = () => {
   return (
     <div className="bg-[#000F1F] min-h-screen">
       <header>
-        <Link href="/" className="flex items-center justify-start w-fit pt-5 pl-5 gap-x-2">
+        <Link href="/login" className="flex items-center justify-start w-fit pt-5 pl-5 gap-x-2">
           <ReturnLogo height="40" width="40" />
           <p className="text-xl text-white hover:underline underline-offset-4">Volver</p>
         </Link>
