@@ -1,15 +1,15 @@
+import { randomUUID } from 'crypto'
+import mysql from 'mysql2/promise'
+import jwt from 'jsonwebtoken'
 import express from 'express'
 import bcrypt from 'bcrypt'
-import jwt from 'jsonwebtoken'
-import mysql from 'mysql2/promise'
-import { randomUUID } from 'crypto'
 
-import { connect } from '../utils/db'
-import { SECRET } from '../utils/config'
-import sendMessage from '../utils/emailConfig'
-import { validateLoginData } from '../schemas/loginSchema'
-import { validateUserRegister } from '../schemas/registerSchema'
 import { validateIdAndEmail, validateNewPassword } from '../schemas/recoverSchema'
+import { validateUserRegister } from '../schemas/registerSchema'
+import { validateLoginData } from '../schemas/loginSchema'
+import sendMessage from '../utils/emailConfig'
+import { SECRET } from '../utils/config'
+import { connect } from '../utils/db'
 
 const loginRouter = express.Router()
 
@@ -120,6 +120,48 @@ loginRouter.post('/register', async (req, res) => {
         }
     } catch (error) {
         return res.status(500).json({ message: 'Hubo un problema con el servidor. Intente más tarde.', error })
+    } finally {
+        if (connection) {
+            connection.end()
+        }
+    }
+})
+
+const generatePlaceholderPassword = (length = 32) => {
+    const array = new Uint8Array(length)
+    crypto.getRandomValues(array)
+
+    return Buffer.from(array).toString('base64')
+}
+
+loginRouter.post('/oauth', async (req, res) => {
+    const connection = connect()
+
+    try {
+        const searchUser = await connection.query(`SELECT * FROM usuario WHERE correo = ?`, [req.body.email])
+
+        if (Array.isArray(searchUser[0]) && searchUser[0].length > 0) {
+            return res.status(200).json({ message: 'Ya existe el usuario! Redirigiendo...' })
+        }
+
+        const placeholderPassword = generatePlaceholderPassword()
+
+        const newUser = {
+            id_usuario: randomUUID(),
+            username: req.body.username,
+            password: placeholderPassword,
+            email: req.body.email,
+            phone: null,
+            tipo_user: 'user',
+            direction: null
+        }
+
+        await connection.query(`INSERT INTO usuario (id_usuario, username, contrasenha, correo, telefono, tipo_user, direccion) VALUES (?, ?, ?, ?, ?, ?, ?)`,
+            [newUser.id_usuario, newUser.username, newUser.password, newUser.email, newUser.phone, newUser.tipo_user, newUser.direction]
+        )
+        return res.status(201).json({ message: 'Usuario guardado en la base de datos! Redirigiendo...' })
+    } catch (error) {
+        return res.status(500).json({ message: 'Hubo un error en el servidor, intenta más tarde...', error })
     } finally {
         if (connection) {
             connection.end()
