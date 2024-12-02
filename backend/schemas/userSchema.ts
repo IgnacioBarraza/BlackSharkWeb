@@ -50,5 +50,5 @@ const userSchema = z.object({
 })
 
 export const validateUser = (object: object) => {
-  return userSchema.safeParse(object)
+    return userSchema.safeParse(object)
 }
