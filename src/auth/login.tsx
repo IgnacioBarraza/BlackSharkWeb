@@ -84,7 +84,7 @@ export const Login = () => {
         </Link>
       </header>
 
-      <section className="flex flex-col justify-center w-full">
+      <section className="w-full py-8 md:py-24 lg:py-32">
         <div className="flex flex-col lg:flex-row gap-x-10 justify-center">
           <div className="flex flex-col justify-center items-center lg:items-end w-full lg:w-1/2">
             <form className="w-3/4 min-w-fit" onSubmit={handleLogin}>
