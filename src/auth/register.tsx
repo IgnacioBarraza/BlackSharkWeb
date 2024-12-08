@@ -7,6 +7,8 @@ import { useState } from "react";
 import { ShowPassword } from "./components/showpassword";
 import { useProps } from "../hooks/useProps";
 import { useToast } from "@chakra-ui/react";
+import GoogleOAuth from "./components/GoogleButton";
+import BSWImage from "./components/BSWImage";
 
 export const Register = () => {
 
@@ -89,79 +91,109 @@ export const Register = () => {
 
   return (
     <>
-      <div className="bg-[url(/background-auth-photo.jpg)] bg-cover bg-center w-full h-screen bg-no-repeat">
-        <div className="imback fixed top-0 left-0 p-2">
-          <Link to={"/"}>
-            <span className="flex items-center justify-center rounded-full w-20 h-20 text-white">
-              <FontAwesomeIcon icon={faChevronLeft} size="2xl" />
-            </span>
+      <div className="bg-[#000F1F] min-h-screen">
+        <header>
+          <Link to="/login" className="flex items-center justify-start w-fit pt-5 pl-5 gap-x-2">
+          <FontAwesomeIcon icon={faChevronLeft} size="2xl" color="white" />
+          <p className="text-xl text-white hover:underline underline-offset-4">Volver</p>
           </Link>
-        </div>
+        </header>
 
-        <div className="flex justify-center items-center h-screen w-full">
-          <form onSubmit={handleRegister} className="font-myriad-pro flex flex-col items-center max-w-md w-full md:px-10 py-8 rounded-lg  bg-black bg-opacity-60">
-            <div>
-              <h2 className="mt-5 pb-10 text-2xl font-extrabold text-center text-white">Registrarse</h2>
-            </div>
+        <section className="w-full py-8 md:py-24 lg:py-32">
+          <div className="flex flex-col lg:flex-row gap-x-10 justify-center">
+            <div className="flex flex-col justify-center items-center lg:items-end w-full lg:w-1/2">
+              <form className="w-3/4 min-w-fit" onSubmit={handleRegister}>
+                <h1 className="text-3xl text-white font-bold tracking-tighter pb-10 sm:text-4xl md:text-5xl lg:text-6xl">Regístrate</h1>
 
-            <div className="name flex flex-col items-start mb-4 pt-3 text-white">
-              <div className="flex items-center">
-                <input 
-                className="w-full pl-5 pr-20 py-3 text-base text-neutral-600 placeholder-gray-300 transition duration-500 ease-in-out transform border border-transparent rounded-lg bg-gray-50 focus:outline-none focus:border-transparent focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300" 
-                type="text" 
-                name="username" 
-                placeholder="Nombre completo"
-                onChange={handleFormInputs}/>
-              </div>
-            </div>
-            <div className="email flex flex-col items-start mb-4 pt-3 text-white">
-              <div className="flex items-center">
-                <input 
-                className="w-full pl-5 pr-20 py-3 text-base text-neutral-600 placeholder-gray-300 transition duration-500 ease-in-out transform border border-transparent rounded-lg bg-gray-50 focus:outline-none focus:border-transparent focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300" 
-                type="email" 
-                name="email" 
-                placeholder="Ingrese su correo"
-                onChange={handleFormInputs} />
-              </div>
-            </div>
+              <section className="flex flex-col justify-center w-full">
+                <div className="py-5">
+                  <label htmlFor="fullName" className="text-xl text-white">Nombre completo</label>
+                  <input
+                    id="fullName"
+                    name="fullName"
+                    type="text"
+                    placeholder="Ingresa tu nombre completo..."
+                    onChange={handleFormInputs}
+                    className="block w-full min-w-[330px] h-10 py-1 px-3 bg-transparent text-md text-white ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-900 focus:bg-transparent"
+                  />
+                </div>
+              </section>
 
-            <div className="password flex flex-col items-start mb-4 pt-3 text-white">
-              <div className="flex items-center">
-                <input 
-                className="w-full pl-5 pr-20 py-3 text-base text-neutral-600 placeholder-gray-300 transition duration-500 ease-in-out transform border border-transparent rounded-lg bg-gray-50 focus:outline-none focus:border-transparent focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300" 
-                type={isPasswordVisible ? "text" : "password"}
-                name="password" 
-                placeholder="Ingrese su contraseña"
-                onChange={handleFormInputs}/>
-                <ShowPassword isPasswordVisible={isPasswordVisible} togglePasswordVisibility={togglePasswordVisibility} />
-              </div>       
-            </div>
+              <section className="flex flex-col justify-center w-full">
+                <div className="py-5">
+                  <label htmlFor="email" className="text-xl text-white">Correo electrónico</label>
+                  <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    placeholder="email@gmail.com"
+                    onChange={handleFormInputs}
+                    className="block w-full min-w-[330px] h-10 py-1 px-3 bg-transparent text-md text-white ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-900 focus:bg-transparent"
+                  />
+                </div>
+              </section>
 
-            <div className="repassword flex flex-col items-start mb-4 pt-3 text-white">
-              <div className="flex items-center">
-                <input 
-                className="w-full pl-5 pr-20 py-3 text-base text-neutral-600 placeholder-gray-300 transition duration-500 ease-in-out transform border border-transparent rounded-lg bg-gray-50 focus:outline-none focus:border-transparent focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300" 
-                type={isRepeatPasswordVisible ? "text" : "password"}
-                name="repeat_password" 
-                placeholder="Confirmar su contraseña"
-                onChange={handleFormInputs}/>
-                <ShowPassword isPasswordVisible={isRepeatPasswordVisible} togglePasswordVisibility={toggleRepeatPasswordVisibility} />
-              </div>
-            </div>
+              <section className="flex flex-col justify-center w-full">
+                <div className="py-5">
+                  <label htmlFor="password" className="text-xl text-white">Contraseña</label>
+                  <div className="relative w-full">
+                    <input
+                      id="password"
+                      name="password"
+                      type={isPasswordVisible ? "text" : "password"}
+                      placeholder="Ingresa tu contraseña..."
+                      onChange={handleFormInputs}
+                      className="block w-full min-w-[330px] h-10 py-1 px-3 bg-transparent text-md text-white ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-900 focus:bg-transparent"
+                    />
+                    <div className="absolute inset-y-0 right-3 flex items-center cursor-pointer">
+                      <ShowPassword isPasswordVisible={isPasswordVisible} togglePasswordVisibility={togglePasswordVisibility} />
+                    </div>
+                  </div>
+                </div>
+              </section>
 
-            <div className="contenedor pt-5">
-              <button className="flex items-center justify-center w-full px-[110px] py-2.5 text-xl font-large text-center text-white transition duration-500 ease-in-out transform bg-blue-600 rounded-xl hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                    Registrarte
+              <section className="flex flex-col justify-center w-full">
+                <div className="py-5">
+                  <label htmlFor="repeatPassword" className="text-xl text-white">Contraseña</label>
+                  <div className="relative w-full">
+                    <input
+                      id="repeatPassword"
+                      name="repeatPassword"
+                      type={isRepeatPasswordVisible ? "text" : "password"}
+                      placeholder="Repite la contraseña..."
+                      onChange={handleFormInputs}
+                      className="block w-full min-w-[330px] h-10 py-1 px-3 bg-transparent text-md text-white ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-900 focus:bg-transparent"
+                    />
+                    <div className="absolute inset-y-0 right-3 flex items-center cursor-pointer">
+                      <ShowPassword isPasswordVisible={isRepeatPasswordVisible} togglePasswordVisibility={toggleRepeatPasswordVisibility} />
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <span className="flex flex-col 2xl:flex-row gap-x-4 gap-y-4 xl:gap-y-4 mt-2">
+                <input value="Registrarse" type="submit" className="flex items-center justify-center w-full min-w-[330px] 2xl:w-1/2 py-2.5 text-xl font-large text-center cursor-pointer text-white border-blue-600 transition duration-200 ease-in-out transform bg-blue-600 hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" />
+                  <button className="flex items-center justify-center w-full min-w-[330px] 2xl:w-1/2 text-xl font-large text-center text-white border border-blue-900 transition duration-200 ease-in-out transform bg-trasparent hover:border hover:border-blue-700 hover:bg-blue-800">
+                    <Link to="/login" className="w-full py-2.5">
+                      Ya tengo una cuenta
+                    </Link>
+                  </button>
+              </span>
+              <span className="flex flex-col 2xl:flex-row gap-x-4 gap-y-4 xl:gap-y-4 mt-2">
+                <button className="flex items-center justify-center w-full min-w-[330px] 2xl:w-1/2 text-xl font-large text-center text-white border border-blue-900 transition duration-200 ease-in-out transform bg-trasparent hover:border hover:border-blue-700 hover:bg-blue-800">
+                  <Link to="/recoverpassword" className="w-full py-2.5">
+                    Recuperar contraseña
+                  </Link>
                 </button>
+                <GoogleOAuth />
+              </span>
+
+              </form>
             </div>
 
-            <div className="mb-4 pt-5 text-white">
-              <Link to={'/login'}>
-                <span className="font-medium blue-bs hover:text-blue-500 transition-colors duration-300">¿Ya tienes cuenta?</span>
-              </Link>
-            </div>
-          </form>
-        </div>
+            <BSWImage />
+          </div>
+        </section>
       </div>
     </>
   );
