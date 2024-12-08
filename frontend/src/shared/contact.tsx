@@ -59,12 +59,12 @@ export const Contact = () => {
   return (
     <>
       <Navbar />
-      <div className="min-h-screen bg-[#000F1F] text-white flex justify-center items-center">
+      <div className=" min-h-screen bg-[#000F1F] text-white flex justify-center items-center">
         <div className="container mx-auto px-4 py-16">
-          <div className="grid lg:grid-cols-2 gap-16 items-start">
+          <div className="grid lg:grid-cols-2 lg:gap-16 items-start">
             
-            {/* Right side */}
-            <div className="space-y-16">
+            {/* left side */}
+            <div className="space-y-16 xl:space-y-0 2xl:space-y-16">
               <div className="space-y-8">
                 <p className="text-[#268fff] text-3xl"> Contáctanos</p>
                 <h1 className="text-6xl font-bold tracking-tight">
@@ -83,7 +83,8 @@ export const Contact = () => {
                 juntos las oportunidades que tenemos para ofrecer!
                 </p>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full py-14">
+
+              <div className="grid grid-cols-3 min-[320px]:grid-cols-1 sm:grid-cols-3 gap-8 py-8 lg:w-max lg:gap-14 xl:w-full xl:gap-8">
                 <div>
                   <h3 className="font-medium mb-4">Dirección</h3>
                   <p className="text-gray-600 text-sm leading-relaxed">
@@ -107,9 +108,9 @@ export const Contact = () => {
               </div>
             </div>
 
-            {/* Left side, Form */}
-            <div className=" mt-[4.5rem] pl-16 pr-16">
-              <div className="space-y-6 text-black ">
+            {/* right side, Form */}
+            <div className=" mt-[4.5rem] xl:mt-[5.5rem] 2xl:mt-[4.5rem]">
+              <div className="space-y-6 text-black">
                 <div className="relative">
                   <input
                     required
@@ -117,7 +118,7 @@ export const Contact = () => {
                     type="text"
                     onChange={handleFormInputs}
                     placeholder="Nombre"
-                    className="block w-full min-w-[330px] h-10 py-1 px-3 bg-transparent text-md text-white ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-900 focus:bg-transparent"
+                    className="block w-full h-10 py-1 px-3 bg-transparent text-md text-white ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-900 focus:bg-transparent"
                   />
                 </div>
                 <div className="relative">
@@ -127,7 +128,7 @@ export const Contact = () => {
                     type="text"
                     onChange={handleFormInputs}
                     placeholder="Apellido"
-                    className="block w-full min-w-[330px] h-10 py-1 px-3 bg-transparent text-md text-white ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-900 focus:bg-transparent"
+                    className="block w-full h-10 py-1 px-3 bg-transparent text-md text-white ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-900 focus:bg-transparent"
                   />
                 </div>
                 <div className="relative">
@@ -137,7 +138,7 @@ export const Contact = () => {
                     type="email"
                     onChange={handleFormInputs}
                     placeholder="Correo"
-                    className="block w-full min-w-[330px] h-10 py-1 px-3 bg-transparent text-md text-white ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-900 focus:bg-transparent"
+                    className="block w-full h-10 py-1 px-3 bg-transparent text-md text-white ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-900 focus:bg-transparent"
                   />
                 </div>
                 <div className="relative">
@@ -147,7 +148,7 @@ export const Contact = () => {
                     type="tel"
                     onChange={handleFormInputs}
                     placeholder="Télefono"
-                    className="block w-full min-w-[330px] h-10 py-1 px-3 bg-transparent text-md text-white ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-900 focus:bg-transparent"
+                    className="block w-full h-10 py-1 px-3 bg-transparent text-md text-white ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-900 focus:bg-transparent"
                   />
                 </div>
                 <div className="relative">
@@ -155,10 +156,10 @@ export const Contact = () => {
                     name="mensaje" 
                     onChange={handleFormInputs} 
                     placeholder="Deja un mensaje"
-                    className="w-full border-b border-gray-200 py-4 px-3 pr-10 bg-transparent text-md text-white ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-900 focus:bg-transparent resize-none"
+                    className="w-full border-b border-gray-200 h-32 py-4 px-3 pr-10 bg-transparent text-md text-white ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-900 focus:bg-transparent resize-none"
                   />   
                 </div>
-                <button onClick={handleMessage} className="flex items-center justify-center w-full min-w-[330px] 1xl:w-1/2 py-2.5 text-xl font-large text-center cursor-pointer text-white border-blue-600 transition duration-200 ease-in-out transform bg-blue-600 hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                <button onClick={handleMessage} className="flex items-center justify-center w-full 1xl:w-1/2 py-2.5 text-xl font-large text-center cursor-pointer text-white border-blue-600 transition duration-200 ease-in-out transform bg-blue-600 hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
                   Enviar
                 </button>
               </div>
