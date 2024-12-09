@@ -18,7 +18,7 @@ const CartSummary = ({ items }) => {
       ))}
       <hr className="my-2"/>
       <div className="flex justify-between font-bold">
-        <span className="font-myriad-pro text-lg">Total a pagar</span>
+        <span className="font-myriad-pro text-lg">Total a pagar$</span>
         <span className="font-myriad-pro text-xl">{formatPrice(total)}</span>
       </div>
       <button className="mt-4 w-full bg-blue-500 text-white py-2 rounded font-myriad-pro">Pagar</button>
