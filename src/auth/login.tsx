@@ -124,7 +124,7 @@ export const Login = () => {
                   <input type="submit" className="flex items-center justify-center w-full min-w-[330px] 2xl:w-1/2 py-2.5 text-xl font-large text-center cursor-pointer text-white transition duration-200 ease-in-out transform bg-[#0186ff] hover:bg-[#005cb3] focus:outline-none focus:ring-2 focus:ring-offset-2" value="Ingresar" />
                   <button className="flex items-center justify-center w-full min-w-[330px] 2xl:w-1/2 text-xl font-large text-center text-white border border-[#005cb3] transition duration-200 ease-in-out transform bg-trasparent hover:border hover:bg-[#005cb3]">
                     <Link to="/signup" className="w-full py-2.5">
-                      Regístrate  
+                      Registrarse  
                     </Link>
                   </button>
                 </span>

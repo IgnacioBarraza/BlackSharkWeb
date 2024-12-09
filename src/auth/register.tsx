@@ -110,7 +110,7 @@ export const Register = () => {
                   <label htmlFor="fullName" className="text-xl text-white">Nombre completo</label>
                   <input
                     id="fullName"
-                    name="fullName"
+                    name="username"
                     type="text"
                     placeholder="Ingresa tu nombre completo..."
                     onChange={handleFormInputs}
@@ -158,7 +158,7 @@ export const Register = () => {
                   <div className="relative w-full">
                     <input
                       id="repeatPassword"
-                      name="repeatPassword"
+                      name="repeat_password"
                       type={isRepeatPasswordVisible ? "text" : "password"}
                       placeholder="Repite la contraseña..."
                       onChange={handleFormInputs}
