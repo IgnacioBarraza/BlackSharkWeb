@@ -76,7 +76,7 @@ export const Login = () => {
   
   return (
     <>
-    <div className="bg-[#000F1F] min-h-screen">
+    <div className="bg-[#10243c] min-h-screen">
       <header>
         <Link to={'/'} className="flex items-center justify-start w-fit pt-5 pl-5 gap-x-2">
           <FontAwesomeIcon icon={faChevronLeft} size="2xl" color="white" />
@@ -84,7 +84,7 @@ export const Login = () => {
         </Link>
       </header>
 
-      <section className="w-full py-8 md:py-24 lg:py-32">
+      <section className="w-full py-8 md:pt-24 lg:pt-32">
         <div className="flex flex-col lg:flex-row gap-x-10 justify-center">
           <div className="flex flex-col justify-center items-center lg:items-end w-full lg:w-1/2">
             <form className="w-3/4 min-w-fit" onSubmit={handleLogin}>
@@ -98,7 +98,7 @@ export const Login = () => {
                     name="email"
                     type="email"
                     placeholder="email@gmail.com"
-                    className="block w-full min-w-[330px] h-10 py-1 px-3 bg-transparent text-md text-white ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-900 focus:bg-transparent"
+                    className="block w-full min-w-[330px] h-10 py-1 px-3 bg-transparent text-md text-white ring-1 ring-inset ring-[#d9d9d9] placeholder:text-[#d9d9d9] focus:ring-2 focus:ring-inset focus:bg-transparent"
                     onChange={handleFormInputs}
                   />
                 </div>
@@ -111,7 +111,7 @@ export const Login = () => {
                       name="password"
                       type={isPasswordVisible ? "text" : "password"}
                       placeholder="Ingresa tu contraseña..."
-                      className="block w-full min-w-[330px] h-10 py-1 px-3 bg-transparent text-md text-white ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-900 focus:bg-transparent"
+                      className="block w-full min-w-[330px] h-10 py-1 px-3 bg-transparent text-md text-white ring-1 ring-inset ring-[#d9d9d9] placeholder:text-[#d9d9d9] focus:ring-2 focus:ring-inset focus:bg-transparent"
                       onChange={handleFormInputs}
                     />
                     <div className="absolute inset-y-0 right-3 flex items-center cursor-pointer">
@@ -121,15 +121,15 @@ export const Login = () => {
                 </div>
 
                 <span className="flex flex-col 2xl:flex-row gap-x-4 gap-y-4 xl:gap-y-4 mb-2">
-                  <input type="submit" className="flex items-center justify-center w-full min-w-[330px] 2xl:w-1/2 py-2.5 text-xl font-large text-center cursor-pointer text-white border-blue-600 transition duration-200 ease-in-out transform bg-blue-600 hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" value="Ingresar" />
-                  <button className="flex items-center justify-center w-full min-w-[330px] 2xl:w-1/2 text-xl font-large text-center text-white border border-blue-900 transition duration-200 ease-in-out transform bg-trasparent hover:border hover:border-blue-700 hover:bg-blue-800">
+                  <input type="submit" className="flex items-center justify-center w-full min-w-[330px] 2xl:w-1/2 py-2.5 text-xl font-large text-center cursor-pointer text-white transition duration-200 ease-in-out transform bg-[#0186ff] hover:bg-[#005cb3] focus:outline-none focus:ring-2 focus:ring-offset-2" value="Ingresar" />
+                  <button className="flex items-center justify-center w-full min-w-[330px] 2xl:w-1/2 text-xl font-large text-center text-white border border-[#005cb3] transition duration-200 ease-in-out transform bg-trasparent hover:border hover:bg-[#005cb3]">
                     <Link to="/signup" className="w-full py-2.5">
                       Regístrate  
                     </Link>
                   </button>
                 </span>
                 <span className="flex flex-col 2xl:flex-row gap-x-4 gap-y-4 xl:gap-y-4 mt-2">
-                  <button className="flex items-center justify-center w-full min-w-[330px] 2xl:w-1/2 text-xl font-large text-center text-white border border-blue-900 transition duration-200 ease-in-out transform bg-trasparent hover:border hover:border-blue-700 hover:bg-blue-800">
+                  <button className="flex items-center justify-center w-full min-w-[330px] 2xl:w-1/2 text-xl font-large text-center text-white border border-[#005cb3] transition duration-200 ease-in-out transform bg-trasparent hover:border hover:bg-[#005cb3]">
                     <Link to="/recoverpassword" className="w-full py-2.5">
                       Recuperar contraseña
                     </Link>

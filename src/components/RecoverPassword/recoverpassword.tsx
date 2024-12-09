@@ -39,7 +39,7 @@ export const Recoverpassword = () => {
 
   return (
     <>
-    <div className="bg-[#000F1F] min-h-screen">
+    <div className="bg-[#10243c] min-h-screen">
       <header>
         <Link to="/login" className="flex items-center justify-start w-fit pt-5 pl-5 gap-x-2">
           <FontAwesomeIcon icon={faChevronLeft} size="2xl" color="white" />
@@ -64,7 +64,7 @@ export const Recoverpassword = () => {
                     type="email"
                     placeholder="email@gmail.com"
                     onChange={handleRecoverInput}
-                    className="block w-full min-w-[330px] h-10 py-1 px-3 bg-transparent text-md text-white ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-900 focus:bg-transparent"
+                    className="block w-full min-w-[330px] h-10 py-1 px-3 bg-transparent text-md text-white ring-1 ring-inset ring-[#d9d9d9] placeholder:text-[#d9d9d9] focus:ring-2 focus:ring-inset focus:ring-blue-900 focus:bg-transparent"
                   />
                 </div>
 
