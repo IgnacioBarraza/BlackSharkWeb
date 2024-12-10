@@ -12,7 +12,8 @@ export default {
       colors:{
         'blue-ligth-bs': '#0186ff',
         'blue-strong-bs': '#10243c',
-        'blue-light-hover': '#005cb3'
+        'blue-light-hover': '#005cb3',
+        'dark-bg': '#000F1F'
       },
       keyframes: {
         'beat-fade': {
