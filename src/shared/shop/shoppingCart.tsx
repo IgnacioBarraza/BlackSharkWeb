@@ -96,10 +96,18 @@ export const Cart = () => {
               />
             ))
           ) : (
-            <div className='w-full h-full flex flex-col items-center justify-center'>
-              <span className="text-center text-white font-myriad-pro text-xl">No hay servicios en el carrito.</span>
-              <Link to={'/servicios'}>
-                <span className='text-center text-white font-myriad-pro text-xl hover:animate-beat-fade'>Agrega Servicios a tu carrito de compras</span>
+            <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-b bg-[#10243c] rounded-lg p-8 shadow-lg">
+              <div className="text-center">
+                <h2 className="text-white font-semibold text-4xl">Tu carrito está vacío</h2>
+                <p className="text-gray-400 text-xl mt-2">
+                  Parece que aún no has agregado servicios. ¡Explora nuestras opciones y encuentra lo que necesitas!
+                </p>
+              </div>
+              <Link
+                to="/servicios"
+                className="mt-6 px-6 py-3  bg-[#0186ff] hover:bg-blue-600 text-white font-semibold text-lg rounded-lg  transition duration-300 shadow-md hover:shadow-lg focus:ring focus:ring-blue-300"
+              >
+                Explorar Servicios
               </Link>
             </div>
           )}
