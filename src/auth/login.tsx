@@ -7,6 +7,8 @@ import { useProps } from "../hooks/useProps";
 import { useState } from "react";
 import { ShowPassword } from "./components/showpassword";
 import { useToast } from "@chakra-ui/react";
+import BSWImage from "./components/BSWImage";
+import GoogleOAuth from "./components/GoogleButton";
 
 export const Login = () => {
 
@@ -74,66 +76,76 @@ export const Login = () => {
   
   return (
     <>
-      <div className="bg-[url(/background-auth-photo.jpg)] bg-cover bg-center w-full h-screen bg-no-repeat">
-        <div className="absolute top-0 left-0 p-2">
-            <Link to={'/'}>
-              <span className="flex items-center justify-center rounded-full w-20 h-20 text-white">
-                <FontAwesomeIcon icon={faChevronLeft} size="2xl"/>
-              </span>
-            </Link>
+    <div className="bg-blue-strong-bs min-h-screen">
+      <header>
+        <Link to={'/'} className="flex items-center justify-start w-fit pt-5 pl-5 gap-x-2">
+          <FontAwesomeIcon icon={faChevronLeft} size="2xl" color="white" />
+          <p className="text-xl text-white white hover:underline underline-offset-4">Volver</p>
+        </Link>
+      </header>
+
+      <section className="w-full py-8 md:pt-24 lg:pt-32">
+        <div className="flex flex-col lg:flex-row gap-x-10 justify-center">
+          <div className="flex flex-col justify-center items-center lg:items-end w-full lg:w-1/2">
+            <form className="w-3/4 min-w-fit" onSubmit={handleLogin}>
+              <h1 className="text-3xl font-bold text-white tracking-tighter py-5 sm:text-4xl md:text-5xl lg:text-6xl">Iniciar sesión</h1>
+              <section className="flex flex-col justify-center w-full">
+
+                <div className="py-5 space-y-2">
+                  <label htmlFor="email" className="text-xl text-white">Email</label>
+                  <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    placeholder="email@gmail.com"
+                    className="block w-full min-w-[330px] h-10 py-1 px-3 bg-transparent text-md text-white ring-1 ring-inset ring-[#d9d9d9] placeholder:text-[#d9d9d9] focus:ring-2 focus:ring-inset focus:bg-transparent"
+                    onChange={handleFormInputs}
+                  />
+                </div>
+
+                <div className="py-5 space-y-2">
+                  <label htmlFor="password" className="text-xl text-white">Contraseña</label>
+                  <div className="relative w-full">
+                    <input
+                      id="password"
+                      name="password"
+                      type={isPasswordVisible ? "text" : "password"}
+                      placeholder="Ingresa tu contraseña..."
+                      className="block w-full min-w-[330px] h-10 py-1 px-3 bg-transparent text-md text-white ring-1 ring-inset ring-[#d9d9d9] placeholder:text-[#d9d9d9] focus:ring-2 focus:ring-inset focus:bg-transparent"
+                      onChange={handleFormInputs}
+                    />
+                    <div className="absolute inset-y-0 right-3 flex items-center cursor-pointer">
+                      <ShowPassword isPasswordVisible={isPasswordVisible} togglePasswordVisibility={togglePasswordVisibility} />
+                    </div>
+                  </div>
+                </div>
+
+                <span className="flex flex-col 2xl:flex-row gap-x-4 gap-y-4 xl:gap-y-4 mb-2">
+                  <input type="submit" className="flex items-center justify-center w-full min-w-[330px] 2xl:w-1/2 py-2.5 text-xl font-large text-center cursor-pointer text-white transition duration-200 ease-in-out transform bg-blue-ligth-bs hover:bg-blue-light-hover focus:outline-none focus:ring-2 focus:ring-offset-2" value="Ingresar" />
+                  <button className="flex items-center justify-center w-full min-w-[330px] 2xl:w-1/2 text-xl font-large text-center text-white border border-blue-light-hover transition duration-200 ease-in-out transform bg-trasparent hover:border hover:bg-blue-light-hover">
+                    <Link to="/signup" className="w-full py-2.5">
+                      Registrarse  
+                    </Link>
+                  </button>
+                </span>
+                <span className="flex flex-col 2xl:flex-row gap-x-4 gap-y-4 xl:gap-y-4 mt-2">
+                  <button className="flex items-center justify-center w-full min-w-[330px] 2xl:w-1/2 text-xl font-large text-center text-white border border-blue-light-hover transition duration-200 ease-in-out transform bg-trasparent hover:border hover:bg-blue-light-hover">
+                    <Link to="/recoverpassword" className="w-full py-2.5">
+                      Recuperar contraseña
+                    </Link>
+                  </button>
+                  <GoogleOAuth />
+                </span>
+
+              </section>
+            </form>
+          </div>
+
+          <BSWImage />
         </div>
+      </section>
 
-        <div className="flex justify-center items-center h-screen pb-10">
-          <form onSubmit={handleLogin} className="font-myriad-pro flex flex-col items-center max-w-md w-full md:px-0 pt-20 rounded-lg bg-black bg-opacity-60">
-            <div>
-              <h2 className="text-2xl font-extrabold text-white">Iniciar Sesión</h2>
-            </div>
-            
-            <div className="email flex flex-col items-start mb-4 pt-10 text-white">
-              <div className="flex items-center">
-                <input 
-                className="w-full pl-5 pr-20 py-3 text-base text-neutral-600 placeholder-gray-300 transition duration-500 ease-in-out transform border border-transparent rounded-lg bg-gray-50 focus:outline-none focus:border-transparent focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300" 
-                type="email" 
-                name="email" 
-                placeholder="Ingrese su correo"
-                onChange={handleFormInputs} />
-              </div>
-            </div>
-
-            <div className="password flex flex-col items-start mb-4 text-white pt-5">
-              <div className="flex items-center">
-                <input 
-                className="w-full pl-5 pr-20 py-3 text-base text-neutral-600 placeholder-gray-300 transition duration-500 ease-in-out transform border border-transparent rounded-lg bg-gray-50 focus:outline-none focus:border-transparent focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300" 
-                type={isPasswordVisible ? "text" : "password"}
-                name="password" 
-                placeholder="Ingrese su contraseña"
-                onChange={handleFormInputs} />
-                <ShowPassword isPasswordVisible={isPasswordVisible} togglePasswordVisibility={togglePasswordVisibility} />
-              </div>
-            </div>
-
-            <div className="contenedor pt-8">
-              <button className="flex items-center justify-center w-full px-[110px] py-2.5 text-xl font-large text-center text-white transition duration-500 ease-in-out transform bg-blue-600 rounded-xl hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                Ingresar
-              </button>
-            </div>
-
-            <div className="mb-4 pt-5 text-white">
-              <Link to={'/recoverpassword'}>
-                <span className="font-medium blue-bs hover:text-blue-500 transition-colors duration-300">¿Has olvidado tu contraseña?</span>
-              </Link>
-            </div>
-
-            <div className="pt-10 pb-5 text-white">
-              <Link to={'/signup'}>
-                <span className="font-medium blue-bs hover:text-blue-500 transition-colors duration-300">¿No tienes una cuenta? Registrate</span>
-              </Link>
-            </div>
-
-          </form>         
-        </div>
-      </div>
-      
+    </div>      
     </>
   )
 }
