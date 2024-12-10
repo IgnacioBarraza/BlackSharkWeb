@@ -66,12 +66,12 @@ export const Contact = () => {
             {/* left side */}
             <div className="space-y-16 xl:space-y-0 2xl:space-y-16">
               <div className="space-y-8">
-                <p className="text-[#268fff] text-3xl"> Contáctanos</p>
+                <p className="text-[#0186ff] text-3xl"> Contáctanos</p>
                 <h1 className="text-6xl font-bold tracking-tight">
                 ¡Trabaja con nosotros!
                 </h1>
                 <p className="text-lg text-white-600">
-                <span className="text-[#268fff] text-2xl">Agencia Publicitaria</span><br />
+                <span className="text-[#0186ff] text-2xl">Agencia Publicitaria</span><br />
                 Diseño Gráfico - Marketing - Fotografía - Vídeo - Gigantografías✨
                 </p>
                 <p className="text-white-500 leading-relaxed">
@@ -87,20 +87,20 @@ export const Contact = () => {
               <div className="grid grid-cols-3 min-[320px]:grid-cols-1 sm:grid-cols-3 gap-8 py-8 lg:w-max lg:gap-14 xl:w-full xl:gap-8">
                 <div>
                   <h3 className="font-medium mb-4">Dirección</h3>
-                  <p className="text-gray-600 text-sm leading-relaxed">
+                  <p className="text-gray-300 text-sm leading-relaxed">
                     Los Perales 3263, Iquique, Chile 1100000- 
-                    <span className="text-[#268fff]">Mapa</span>
+                    <span className="text-[#0186ff]">Mapa</span>
                   </p>
                 </div>
                 <div>
                   <h3 className="font-medium mb-4">Correo</h3>
-                  <p className="text-gray-600 text-sm leading-relaxed">
+                  <p className="text-gray-300 text-sm leading-relaxed">
                     bswebstudios@gmail.com
                   </p>
                 </div>
                 <div>
                   <h3 className="font-medium mb-4">Télefono de contacto</h3>
-                  <p className="text-gray-600 text-sm leading-relaxed">
+                  <p className="text-gray-300 text-sm leading-relaxed">
                     +61 3 8376 6284<br />
                     +44 3 7890 - 123
                   </p>
