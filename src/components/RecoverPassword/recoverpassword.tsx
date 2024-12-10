@@ -39,7 +39,7 @@ export const Recoverpassword = () => {
 
   return (
     <>
-    <div className="bg-[#10243c] min-h-screen">
+    <div className="bg-blue-strong-bs min-h-screen">
       <header>
         <Link to="/login" className="flex items-center justify-start w-fit pt-5 pl-5 gap-x-2">
           <FontAwesomeIcon icon={faChevronLeft} size="2xl" color="white" />
@@ -69,7 +69,7 @@ export const Recoverpassword = () => {
                 </div>
 
                 <span className="flex flex-col 2xl:flex-row gap-x-4 gap-y-4 xl:gap-y-4 mb-2">
-                  <button type="submit" className="flex items-center justify-center w-full min-w-[330px] py-2.5 text-xl font-large text-center text-white border-blue-600 transition duration-200 ease-in-out transform bg-blue-600 hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                  <button type="submit" className="flex items-center justify-center w-full min-w-[330px] py-2.5 text-xl font-large text-center text-white border-blue-light-hover transition duration-200 ease-in-out transform bg-blue-ligth-bs hover:bg-blue-light-hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
                     Enviar
                   </button>
                 </span>
