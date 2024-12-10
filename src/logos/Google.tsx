@@ -1,10 +1,7 @@
-interface GoogleIconProps {
-  width?: string,
-  height?: string,
-  className?: string
-}
+import { GoogleIconProps } from "../utils/interfaces"
+import { FC } from "react"
 
-const GoogleIcon: React.FC<GoogleIconProps> = ({ width = '50', height = '50', className }) => {
+const GoogleIcon: FC<GoogleIconProps> = ({ width = '50', height = '50', className }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
