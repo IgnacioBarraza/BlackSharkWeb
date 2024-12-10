@@ -85,7 +85,7 @@ export const Cart = () => {
       <div className="flex-shrink-0">
         <Navbar />
       </div>
-      <div className="flex-grow flex flex-col md:flex-row bg-blue-strong-bs p-4 gap-4">
+      <div className="flex-grow flex flex-col md:flex-row bg-[#10243c] p-4 gap-4">
         <div className="md:w-2/3 w-full">
           {cartItems.length > 0 ? (
             cartItems.map((item, index) => (
