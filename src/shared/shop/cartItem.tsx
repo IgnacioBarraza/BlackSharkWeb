@@ -38,7 +38,7 @@ export const CartItem = ({ service, onRemove, onQuantityChange }) => {
         />
       </div>
       <div className="flex flex-col">
-        <span className="text-lg font-semibold text-gray-800">{service.nombre}</span>
+        <span className="text-xl font-semibold text-gray-800">{service.nombre}</span>
       </div>
     </div>
     <div className="flex items-center space-x-12">
@@ -47,14 +47,17 @@ export const CartItem = ({ service, onRemove, onQuantityChange }) => {
           <button
             onClick={decreaseQuantity}
             disabled={quantity === 1}
-            aria-label="Decrease quantity"
+            className={`w-8 h-8 flex items-center justify-center rounded-full 
+              ${quantity === 1 ? "bg-gray-300 text-gray-500 cursor-not-allowed" : "bg-[#10243c] hover:bg-blue-600 text-white"}
+              shadow-md transition-all duration-300 transform hover:scale-110`}
           >
             <FontAwesomeIcon icon={faMinus} />
           </button>
           <span className="text-lg font-semibold">{quantity}</span>
           <button
             onClick={increaseQuantity}
-            aria-label="Increase quantity"
+            className="w-8 h-8 flex items-center justify-center rounded-full bg-[#10243c] 
+      hover:bg-blue-600 text-white shadow-md transition-all duration-300 transform hover:scale-110"
           >
             <FontAwesomeIcon icon={faPlus} />
           </button>

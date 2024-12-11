@@ -23,7 +23,7 @@ const CartSummary = ({ items }) => {
          <span className="font-myriad-pro text-lg">Total a pagar</span>
          <span className="font-myriad-pro text-xl">{formatPrice(total)}</span>
        </div>
-       <button className="mt-4 w-full bg-[#0186ff] hover:bg-blue-600 text-white py-2 px-4 rounded font-myriad-pro text-lg transition duration-300 ease-in-out">Pagar</button>
+       <button className="mt-4 w-full bg-[#0186ff] hover:bg-blue-light-hover text-white py-2 px-4 rounded font-myriad-pro text-lg transition duration-300 ease-in-out">Pagar</button>
      </div>
   );
 };

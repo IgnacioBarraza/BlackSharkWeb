@@ -98,14 +98,21 @@ export const Cart = () => {
       <div className="flex-grow flex flex-col md:flex-row bg-[#10243c] p-4 gap-4">
         <div className="md:w-2/3 w-full">
           {cartItems.length > 0 ? (
-            cartItems.map((item, index) => (
+            <>
+            <div className="flex justify-between items-center bg-[#0186ff] text-white font-bold py-3 px-4 rounded-lg shadow-md">
+              <span className="flex-grow text-left pl-8">Nombre del Servicio</span>
+              <span className="text-center flex-grow pr-4">Precio</span> 
+            </div>
+            <div className="h-6"></div>
+            {cartItems.map((item, index) => (
               <CartItem
                 key={index}
                 service={item}
                 onRemove={() => removeItem(item.id_shopping_cart)}
                 onQuantityChange={handleQuantityChange}
               />
-            ))
+            ))}
+          </>
           ) : (
             <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-b bg-[#10243c] rounded-lg p-8 shadow-lg">
               <div className="text-center">
@@ -116,7 +123,7 @@ export const Cart = () => {
               </div>
               <Link
                 to="/servicios"
-                className="mt-6 px-6 py-3  bg-[#0186ff] hover:bg-blue-600 text-white font-semibold text-lg rounded-lg  transition duration-300 shadow-md hover:shadow-lg focus:ring focus:ring-blue-300"
+                className="mt-6 px-6 py-3  bg-[#0186ff] hover:bg-blue-light-hover text-white font-semibold text-lg rounded-lg  transition duration-300 shadow-md hover:shadow-lg focus:ring focus:ring-blue-300"
               >
                 Explorar Servicios
               </Link>
