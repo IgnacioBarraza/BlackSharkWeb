@@ -1,69 +1,76 @@
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardFooter } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Slider } from "@/components/ui/slider";
-import { ServicesGridProps, UpdatedService } from "@/utils/interfaces";
-import { motion } from "framer-motion";
-import { Camera, DollarSign, Laptop, Palette, Search, Smartphone, ThumbsUp } from "lucide-react";
-import { useState } from "react";
-import { ServiceModal } from "./selectedServiceModal";
-import { formatPrice } from "@/utils/utils";
+import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardFooter } from '@/components/ui/card'
+import { Input } from '@/components/ui/input'
+import { Slider } from '@/components/ui/slider'
+import { ServicesGridProps, UpdatedService } from '@/utils/interfaces'
+import { motion } from 'framer-motion'
+import { Camera, Search, ThumbsUp } from 'lucide-react'
+import { useState } from 'react'
+import { ServiceModal } from './serviceModal'
+import { formatPrice } from '@/utils/utils'
 
 export default function ServicesGrid({ services }: ServicesGridProps) {
   const [searchQuery, setSearchQuery] = useState('')
   const [priceRange, setPriceRange] = useState([0, 1000000])
   const [filterRecommended, setFilterRecommended] = useState(false)
-  const [sortBy, setSortBy] = useState<"purchases" | "newest" | null>(null)
-  const [selectedService, setSelectedService] = useState<UpdatedService | null>(null)
+  const [sortBy, setSortBy] = useState<'purchases' | 'newest' | null>(null)
+  const [selectedService, setSelectedService] = useState<UpdatedService | null>(
+    null
+  )
 
   const updatedServices = services.map((service, index) => {
     const commonProperties = {
-      category: index % 2 === 0 ? "photography" : "design",
+      category: index % 2 === 0 ? 'photography' : 'design',
       recommended: index % 2 === 0,
       purchases: Math.floor(Math.random() * 200) + 50,
       createdAt: new Date().toISOString(),
       tools: [
-        { name: "Generic Tool 1", icon: <Camera className='h-3 w-3' /> },
-        { name: "Generic Tool 2", icon: <Camera className='h-3 w-3' /> },
+        { name: 'Generic Tool 1', icon: <Camera className="h-3 w-3" /> },
+        { name: 'Generic Tool 2', icon: <Camera className="h-3 w-3" /> },
       ],
-    };
-  
+    }
+
     return {
       ...service,
       ...commonProperties,
-    };
-  });
-
-  const filteredServices = updatedServices.filter((service) =>
-    service.nombre.toLowerCase().includes(searchQuery.toLowerCase()) &&
-    service.precio >= priceRange[0] &&
-    service.precio <= priceRange[1] &&
-    (!filterRecommended || service.recommended)
-  ).sort((a, b) => {
-    if (sortBy === "purchases") {
-      return b.purchases - a.purchases
-    } else if (sortBy === "newest") {
-      return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
     }
-    return 0
   })
-  
+
+  const filteredServices = updatedServices
+    .filter(
+      (service) =>
+        service.nombre.toLowerCase().includes(searchQuery.toLowerCase()) &&
+        service.precio >= priceRange[0] &&
+        service.precio <= priceRange[1] &&
+        (!filterRecommended || service.recommended)
+    )
+    .sort((a, b) => {
+      if (sortBy === 'purchases') {
+        return b.purchases - a.purchases
+      } else if (sortBy === 'newest') {
+        return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+      }
+      return 0
+    })
+
   return (
     <div className="space-y-6">
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         <div className="relative">
           <Search className="absolute left-3 top-2 h-5 w-5 text-muted-foreground" />
-          <Input 
+          <Input
             type="text"
             placeholder="Buscar servicio..."
             className="pl-10 bg-muted text-foreground placeholder:text-muted-foreground"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            />
+          />
         </div>
         <div className="space-y-2">
-          <label htmlFor="slider" className="text-sm font-medium text-white">Rango de precio</label>
-          <Slider 
+          <label htmlFor="slider" className="text-sm font-medium text-white">
+            Rango de precio
+          </label>
+          <Slider
             min={0}
             max={1000000}
             step={50000}
@@ -77,7 +84,7 @@ export default function ServicesGrid({ services }: ServicesGridProps) {
           </div>
         </div>
         <Button
-          variant={filterRecommended ? "secondary" : "outline"}
+          variant={filterRecommended ? 'secondary' : 'outline'}
           className="flex items-center gap-2"
           onClick={() => setFilterRecommended(!filterRecommended)}
         >
@@ -86,8 +93,10 @@ export default function ServicesGrid({ services }: ServicesGridProps) {
         </Button>
         <select
           className="bg-muted text-foreground rounded-md border border-input px-3 h-9"
-          value={sortBy || ""}
-          onChange={(e) => setSortBy(e.target.value as "purchases" | "newest" | null)}
+          value={sortBy || ''}
+          onChange={(e) =>
+            setSortBy(e.target.value as 'purchases' | 'newest' | null)
+          }
         >
           <option value="">Sort by</option>
           <option value="purchases">Most Purchased</option>
@@ -102,7 +111,7 @@ export default function ServicesGrid({ services }: ServicesGridProps) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.1 }}
           >
-            <Card 
+            <Card
               className="group h-full overflow-hidden border-muted bg-card transition-colors hover:border-secondary cursor-pointer"
               onClick={() => setSelectedService(service)}
             >
@@ -118,7 +127,9 @@ export default function ServicesGrid({ services }: ServicesGridProps) {
                 </div>
               </CardContent>
               <CardFooter className="bg-card p-4 flex flex-col items-start">
-                <h3 className="text-lg font-semibold text-foreground mb-2">{service.nombre}</h3>
+                <h3 className="text-lg font-semibold text-foreground mb-2">
+                  {service.nombre}
+                </h3>
                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
                   {formatPrice(service.precio)}
                 </div>
