@@ -31,6 +31,16 @@ export const Cart = () => {
     }
   };
 
+  const handleQuantityChange = (id_shopping_cart: string, newQuantity: number) => {
+    const updatedItems = cartItems.map(item =>
+      item.id_shopping_cart === id_shopping_cart
+        ? { ...item, cantidad: newQuantity }
+        : item
+    );
+    setCartItems(updatedItems);
+    setShoppingCartData(updatedItems);
+  };
+
   const filterServicesById = (shoppingCart: ShoppingCart[], services: Services[]): ServicesShoppingCart[] => {
     return shoppingCart.flatMap(item => {
         const service = services.find(service => service.id_servicios === item.id_servicios);
@@ -93,6 +103,7 @@ export const Cart = () => {
                 key={index}
                 service={item}
                 onRemove={() => removeItem(item.id_shopping_cart)}
+                onQuantityChange={handleQuantityChange}
               />
             ))
           ) : (

@@ -1,14 +1,30 @@
- import { faTimes } from '@fortawesome/free-solid-svg-icons/faTimes';
+ import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faTimes } from '@fortawesome/free-solid-svg-icons/faTimes';
  import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState } from 'react';
 
-export const CartItem = ({ service, onRemove }) => {
+export const CartItem = ({ service, onRemove, onQuantityChange }) => {
+  const [quantity, setQuantity] = useState(service.cantidad || 1);
   const [isHovered, setIsHovered] = useState(false)
   const formatPrice = (price) => {
     return new Intl.NumberFormat("es-CL", {
       style: "currency",
       currency: "CLP",
     }).format(price);
+  };
+
+  const increaseQuantity = () => {
+    const newQuantity = quantity + 1;
+    setQuantity(newQuantity);
+    onQuantityChange(service.id_shopping_cart, newQuantity);
+  };
+
+  const decreaseQuantity = () => {
+    if (quantity > 1) {
+      const newQuantity = quantity - 1;
+      setQuantity(newQuantity);
+      onQuantityChange(service.id_shopping_cart, newQuantity);
+    }
   };
 
   return (
@@ -25,8 +41,24 @@ export const CartItem = ({ service, onRemove }) => {
         <span className="text-lg font-semibold text-gray-800">{service.nombre}</span>
       </div>
     </div>
-    <div className="flex items-center space-x-6">
-      <span className="text-xl font-bold text-gray-900">{formatPrice(service.precio)}</span>
+    <div className="flex items-center space-x-12">
+      <span className="text-xl font-bold text-gray-900">{formatPrice(service.precio*quantity)}</span>
+      <div className="flex items-center space-x-4">
+          <button
+            onClick={decreaseQuantity}
+            disabled={quantity === 1}
+            aria-label="Decrease quantity"
+          >
+            <FontAwesomeIcon icon={faMinus} />
+          </button>
+          <span className="text-lg font-semibold">{quantity}</span>
+          <button
+            onClick={increaseQuantity}
+            aria-label="Increase quantity"
+          >
+            <FontAwesomeIcon icon={faPlus} />
+          </button>
+      </div>
       <button 
         onClick={onRemove} 
         className={`p-2 rounded-full transition-colors duration-200 ${
