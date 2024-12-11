@@ -39,8 +39,8 @@ export const Login = () => {
       const res = await login(userToVerify)
       const {status, data} = res
       if (status === 200) {
-        const { token, tipo_user, username, user_id, message } = data
-        loginData(token, tipo_user, username, user_id)
+        const { token, tipo_user, username, user_id, method: authMethod, message } = data
+        loginData(token, tipo_user, username, user_id, authMethod)
         navigate("/");
         successToastNotification(message)
       }
