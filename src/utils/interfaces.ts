@@ -284,3 +284,9 @@ export interface UpdateColaborations {
   imagen_link?: string,
   id_collaboration?: string
 }
+
+export interface GoogleIconProps {
+  width?: string,
+  height?: string,
+  className?: string
+}

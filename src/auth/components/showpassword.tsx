@@ -3,11 +3,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export const ShowPassword = ({ isPasswordVisible, togglePasswordVisibility }) => {
     return (
-        <div className="fixed ml-[16.5rem]" onClick={togglePasswordVisibility}>
+        <div onClick={togglePasswordVisibility}>
             {isPasswordVisible ? (
-                <FontAwesomeIcon icon={faEyeSlash} style={{ color: "#000000" }} />
+                <FontAwesomeIcon icon={faEyeSlash} style={{ color: "#fff" }} />
             ) : (
-                <FontAwesomeIcon icon={faEye} style={{ color: "#000000" }} />
+                <FontAwesomeIcon icon={faEye} style={{ color: "#fff" }} />
             )}
         </div>
     );
