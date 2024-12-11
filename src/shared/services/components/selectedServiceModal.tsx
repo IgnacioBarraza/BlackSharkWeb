@@ -1,130 +1,115 @@
-import { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useProps } from "../../../hooks/useProps";
-import { faXmarkCircle } from "@fortawesome/free-solid-svg-icons";
-import { Equipment } from "../../../utils/interfaces";
-import { EditServiceModal } from "./editServiceModal";
+import { useState } from 'react'
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog'
+import { Button } from '@/components/ui/button'
+import { Badge } from '@/components/ui/badge'
+import { ShoppingCart } from 'lucide-react'
+import {
+  CreateShoppingCart,
+  ServiceModalProps,
+  UpdatedService,
+} from '@/utils/interfaces'
+import { useBackend } from '@/hooks/useBackend'
+import { useProps } from '@/hooks/useProps'
+import { useToast } from '@chakra-ui/react'
+import { formatPrice } from '@/utils/utils'
 
-export const SelectedServiceModal = ({
-  selectedService,
-  setSelectedService,
-  setServices,
-  handleCloseModal,
-  handleClickOutside,
-  handleDeleteService,
-  handleShoppingCart,
-  tools
-}) => {
-  const { userType } = useProps();
-  const [editMode, setEditMode] = useState(false);
+export function ServiceModal({ service, isOpen, onClose }: ServiceModalProps) {
+  const [isAddingToCart, setIsAddingToCart] = useState(false)
+  const { userId, shoppingCartData, setShoppingCartData, userToken } =
+    useProps()
+  const { createShoppingCart } = useBackend()
+  const toast = useToast()
 
-  const formatPrice = (price) => {
-    return new Intl.NumberFormat("es-CL", {
-      style: "currency",
-      currency: "CLP",
-    }).format(price);
-  };
+  if (!service) return null
 
-  const filterToolsByServiceId = (tools: Equipment[], serviceId: string): Equipment[] => {
-    return tools.filter(tool => tool.id_servicios === serviceId);
+  const handleAddToCart = () => {
+    setIsAddingToCart(true)
+    handleShoppingCart(service)
+    setTimeout(() => {
+      setIsAddingToCart(false)
+      onClose()
+    }, 1000)
   }
 
-  const filteredTools = filterToolsByServiceId(tools, selectedService.id_servicios);
-
-  const handleEdit = () => {
-    setEditMode(true);
-  };
-
+  const handleShoppingCart = async (service: UpdatedService) => {
+    setShoppingCartData([...shoppingCartData, service])
+    const newShoppingCart: CreateShoppingCart = {
+      id_usuario: userId,
+      id_servicios: service.id_servicios,
+      valor_total: service.precio,
+    }
+    try {
+      const res = await createShoppingCart(userToken, newShoppingCart)
+      const { status, data } = res
+      if (status === 201) {
+        toast({
+          title: data.message,
+          status: 'success',
+          duration: 5000,
+          isClosable: true,
+        })
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
   return (
-    <div
-      className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 modal-container"
-      onClick={handleClickOutside}
-    >
-      <div className="relative bg-white w-11/12 md:w-3/4 lg:w-2/3 h-3/4 md:h-auto rounded-lg p-4 md:p-8 flex flex-col md:flex-row overflow-y-auto">
-        <button
-          className="absolute top-4 right-4 hover:text-gray-700"
-          onClick={handleCloseModal}
-        >
-          <FontAwesomeIcon icon={faXmarkCircle} size="2xl" />
-        </button>
-        <div className="w-full md:w-1/2 h-64 md:h-auto flex items-center justify-center">
-          <img
-            src={selectedService.imagen_link}
-            alt={selectedService.nombre}
-            className="w-full h-full object-cover rounded-lg"
-          />
-        </div>
-        <div className="md:w-1/2 p-4 md:p-8 ">
-          <h2 className="text-2xl font-bold mb-4">{selectedService.nombre}</h2>
-          <p className="text-xl font-myriad-pro">
-            {selectedService.descripcion}
-          </p>
-          <p className="text-xl font-myriad-pro font-bold">
-            {formatPrice(selectedService.precio)}
-          </p>
-          <button
-            className="mt-8 px-4 py-2 rounded-lg bg-blue-600"
-            onClick={(e) => {
-              e.stopPropagation(); // Prevent the card click event
-              handleShoppingCart(selectedService);
-            }}
-          >
-            <span className="font-myriad-pro text-lg text-white">Agregar al carrito</span>
-          </button>
-          {userType === "admin" && (
-          <>
-            <button
-              className="mt-8 px-4 py-2 bg-red-600 text-white rounded-lg"
-              onClick={(e) => {
-                e.stopPropagation(); // Prevent the card click event
-                handleDeleteService(selectedService.id_servicios);
-              }}
-            >
-              Eliminar
-            </button>
-            <button
-              className="mt-8 px-4 py-2 border border-black text-black rounded-lg ml-0"
-              onClick={handleEdit}
-            >
-              Editar
-            </button>
-            {editMode && (
-              <EditServiceModal
-                isOpen={editMode}
-                onClose={() => setEditMode(false)}
-                service={selectedService}
-                setServices={setServices}
-                setSelectedService={setSelectedService}
-              />
-            )}
-          </>
-        )}
-          <div className="mt-8">
-            <h3 className="text-xl font-bold mb-4">Herramientas Asociadas</h3>
-            {filteredTools.length > 0 ? (
-              <table className="min-w-full bg-white border">
-                <thead>
-                  <tr>
-                    <th className="py-2 px-4 border-b">Nombre</th>
-                    <th className="py-2 px-4 border-b">Tipo</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {filteredTools.map((tool) => (
-                    <tr key={tool.id_equipo}>
-                      <td className="py-2 px-4 border-b">{tool.nombre_equipo}</td>
-                      <td className="py-2 px-4 border-b">{tool.tipo_equipo}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            ) : (
-              <p>No hay herramientas asociadas a este servicio.</p>
-            )}
+    <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogContent className="sm:max-w-[425px]">
+        <DialogHeader>
+          <DialogTitle>{service.nombre}</DialogTitle>
+          <DialogDescription>
+            Detailed information about this service
+          </DialogDescription>
+        </DialogHeader>
+        <div className="grid gap-4 py-4">
+          <div className="aspect-video w-full overflow-hidden rounded-md">
+            <img
+              src={service.imagen_link}
+              alt={service.nombre}
+              className="w-full h-full object-cover"
+            />
+          </div>
+          <p className="text-foreground/80">{service.descripcion}</p>
+          <div className="flex items-center justify-between">
+            <span className="text-lg font-semibold">
+              {formatPrice(service.precio)}
+            </span>
+            <Button onClick={handleAddToCart} disabled={isAddingToCart}>
+              {isAddingToCart ? (
+                'Adding to Cart...'
+              ) : (
+                <>
+                  <ShoppingCart className="mr-2 h-4 w-4" />
+                  Add to Cart
+                </>
+              )}
+            </Button>
+          </div>
+          <div>
+            <h4 className="mb-2 font-semibold">Tools Used:</h4>
+            <div className="flex flex-wrap gap-2">
+              {service.tools.map((tool, index) => (
+                <Badge
+                  key={index}
+                  variant="secondary"
+                  className="flex items-center gap-1"
+                >
+                  {tool.icon}
+                  {tool.name}
+                </Badge>
+              ))}
+            </div>
           </div>
         </div>
-      </div>
-    </div>
-  );
-};
+      </DialogContent>
+    </Dialog>
+  )
+}
