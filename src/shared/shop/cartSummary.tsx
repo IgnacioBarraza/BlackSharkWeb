@@ -8,6 +8,7 @@ const CartSummary = ({ items }) => {
   };
 
   return (
+    <>
      <div className="p-4 bg-white rounded-lg shadow-md">
        <h2 className="text-xl font-bold mb-4 font-myriad-pro">Resumen de compra</h2>
        <div className="space-y-2">
@@ -25,6 +26,7 @@ const CartSummary = ({ items }) => {
        </div>
        <button className="mt-4 w-full bg-[#0186ff] hover:bg-blue-light-hover text-white py-2 px-4 rounded font-myriad-pro text-lg transition duration-300 ease-in-out">Pagar</button>
      </div>
+    </>
   );
 };
 

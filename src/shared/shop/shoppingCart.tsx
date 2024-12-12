@@ -91,6 +91,7 @@ export const Cart = () => {
   }, [services, cartItems])
 
   return (
+    <>
     <div className="min-h-screen bg-white bg-cover bg-center w-full bg-no-repeat flex flex-col overflow-hidden">
       <div className="flex-shrink-0">
         <Navbar />
@@ -135,5 +136,6 @@ export const Cart = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
