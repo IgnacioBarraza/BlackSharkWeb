@@ -28,9 +28,9 @@ export const CartItem = ({ service, onRemove, onQuantityChange }) => {
   };
 
   return (
-  <div className="flex items-center justify-between p-6 bg-white rounded-lg shadow-md transition-all duration-300 ease-in-out hover:shadow-lg mb-6">
-    <div className="flex items-center space-x-6">
-      <div className="relative w-24 h-20 overflow-hidden shadow-sm">
+  <div className="flex flex-col sm:flex-row items-center justify-between p-4 sm:p-7 bg-white rounded-lg shadow-md transition-all duration-300 ease-in-out hover:shadow-lg mb-4">
+    <div className="flex items-center space-x-4 sm:space-x-6 w-full sm:w-auto">
+      <div className="relative w-20 h-16 sm:w-24 sm:h-20 overflow-hidden shadow-sm">
         <img 
           src={service.imagen_link} 
           alt={service.nombre} 
@@ -38,40 +38,39 @@ export const CartItem = ({ service, onRemove, onQuantityChange }) => {
         />
       </div>
       <div className="flex flex-col">
-        <span className="text-xl font-semibold text-gray-800">{service.nombre}</span>
+        <span className="text-lg sm:text-xl font-semibold text-gray-800">{service.nombre}</span>
       </div>
     </div>
-    <div className="flex items-center space-x-12">
-      <span className="text-xl font-bold text-gray-900">{formatPrice(service.precio*quantity)}</span>
-      <div className="flex items-center space-x-4">
-          <button
-            onClick={decreaseQuantity}
-            disabled={quantity === 1}
-            className={`w-8 h-8 flex items-center justify-center rounded-full 
-              ${quantity === 1 ? "bg-gray-300 text-gray-500 cursor-not-allowed" : "bg-[#10243c] hover:bg-blue-600 text-white"}
-              shadow-md transition-all duration-300 transform hover:scale-110`}
-          >
-            <FontAwesomeIcon icon={faMinus} />
-          </button>
-          <span className="text-lg font-semibold">{quantity}</span>
-          <button
-            onClick={increaseQuantity}
-            className="w-8 h-8 flex items-center justify-center rounded-full bg-[#10243c] 
-      hover:bg-blue-600 text-white shadow-md transition-all duration-300 transform hover:scale-110"
-          >
-            <FontAwesomeIcon icon={faPlus} />
-          </button>
+    <div className="flex flex-col sm:flex-row items-center sm:space-x-12 mt-4 sm:mt-0 w-full sm:w-auto">
+      <span className="text-lg sm:text-xl font-bold text-gray-900">{formatPrice(service.precio * quantity)}</span>
+      <div className="flex items-center space-x-2 sm:space-x-4 mt-4 sm:mt-0">
+        <button
+          onClick={decreaseQuantity}
+          disabled={quantity === 1}
+          className={`w-8 h-8 flex items-center justify-center rounded-full 
+            ${quantity === 1 ? "bg-gray-300 text-gray-500 cursor-not-allowed" : "bg-[#10243c] hover:bg-blue-600 text-white"}
+            shadow-md transition-all duration-300 transform hover:scale-110`}
+        >
+          <FontAwesomeIcon icon={faMinus} />
+        </button>
+        <span className="text-lg font-semibold">{quantity}</span>
+        <button
+          onClick={increaseQuantity}
+          className="w-8 h-8 flex items-center justify-center rounded-full bg-[#10243c] 
+          hover:bg-blue-600 text-white shadow-md transition-all duration-300 transform hover:scale-110"
+        >
+          <FontAwesomeIcon icon={faPlus} />
+        </button>
       </div>
       <button 
         onClick={onRemove} 
-        className={`p-2 rounded-full transition-colors duration-200 ${
+        className={`p-2 rounded-full transition-colors duration-200 mt-4 sm:mt-0 ${
           isHovered ? 'bg-red-100 text-red-500' : 'text-gray-400 hover:text-red-500'
         }`}
-        aria-label="Eliminar item"
       >
         <FontAwesomeIcon icon={faTimes} className="w-5 h-5" />
       </button>
     </div>
-</div>
+  </div>
   )
 };

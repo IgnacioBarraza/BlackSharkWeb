@@ -99,9 +99,9 @@ export const Cart = () => {
         <div className="md:w-2/3 w-full">
           {cartItems.length > 0 ? (
             <>
-            <div className="flex justify-between items-center bg-[#0186ff] text-white font-bold py-3 px-4 rounded-lg shadow-md">
-              <span className="flex-grow text-left pl-8">Nombre del Servicio</span>
-              <span className="text-center flex-grow pr-4">Precio</span> 
+            <div className="flex justify-between items-center bg-[#0186ff] text-white font-bold py-4 px-8 rounded-lg shadow-md">
+              <span className="flex-grow text-lg font-myriad-pro pl-16 sm-text-center">Servicios</span>
+              <span className="hidden sm:inline-block text-center flex-grow text-lg font-myriad-pro">Precio</span> 
             </div>
             <div className="h-6"></div>
             {cartItems.map((item, index) => (
