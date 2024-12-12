@@ -1,7 +1,10 @@
 const CartSummary = ({ items }) => {
-  const total = items.reduce((sum, item) => sum + item.precio * item.cantidad, 0);
+  const total = items.reduce((sum, item) => {
+    const precio = item.precio || 0; 
+    const cantidad = isNaN(item.cantidad) ? 1 : item.cantidad; 
+    return sum + (precio * cantidad);
+  }, 0);
   const formatPrice = (price) => {
-    const validPrice = isNaN(price) ? 0 : price;
     return new Intl.NumberFormat("es-CL", {
       style: "currency",
       currency: "CLP",
