@@ -1,3 +1,6 @@
+import { extend } from "lodash";
+import { ReactNode } from "react";
+
 export interface userToVerify {
   email: string,
   password: string
@@ -289,4 +292,27 @@ export interface GoogleIconProps {
   width?: string,
   height?: string,
   className?: string
+}
+
+export interface ServicesGridProps {
+  services: Services[]
+}
+
+interface Tool {
+  name: string
+  icon: ReactNode
+}
+
+export interface UpdatedService extends Services {
+  category: string
+  recommended: boolean
+  purchases: number
+  createdAt: string
+  tools: Tool[]
+}
+
+export interface ServiceModalProps {
+  service: UpdatedService | null
+  isOpen: boolean
+  onClose: () => void
 }
