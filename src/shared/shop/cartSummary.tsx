@@ -1,6 +1,7 @@
 const CartSummary = ({ items }) => {
   const total = items.reduce((sum, item) => sum + item.precio * item.cantidad, 0);
   const formatPrice = (price) => {
+    const validPrice = isNaN(price) ? 0 : price;
     return new Intl.NumberFormat("es-CL", {
       style: "currency",
       currency: "CLP",
@@ -15,7 +16,13 @@ const CartSummary = ({ items }) => {
         {items.map((item, index) => (
          <div key={index} className="flex justify-between">
            <span className="font-myriad-pro text-lg">{item.nombre}</span>
-           <span className="font-myriad-pro text-xl">{formatPrice(item.precio * item.cantidad)}</span>
+           <span className="font-myriad-pro text-xl">{formatPrice(
+              item.precio
+            )}{""}
+            {item.cantidad > 1 && (
+            <span className="text-[#10243c] pl-2">x{item.cantidad}</span>
+            )}
+          </span>
          </div>
         ))}
        </div>
