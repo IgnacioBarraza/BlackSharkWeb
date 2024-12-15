@@ -12,19 +12,27 @@ import { MetricsDashboard } from "../shared/metrics/metricsDashboard";
 import { MessageContact } from "../shared/messageContact";
 import { Colaboration } from "../shared/Colaboration";
 import { Notfound } from "../shared/notfound";
+import AuthLayout from "@/auth/authLayout";
+import { Navigate } from "react-router-dom";
 
 export const routes = [
   {
-    path: '/',
+    path: '/auth',
+    component: <AuthLayout />,
+    routes: [
+      {
+        path: '',
+        component: <Login />
+      },
+      {
+        path: 'signup',
+        component: <Register />
+      }
+    ]
+  },
+  {
+    path: '/inicio',
     component: <Homepage />
-  },
-  {
-    path: '/login',
-    component: <Login />
-  },
-  {
-    path: '/signup',
-    component: <Register />
   },
   {
     path: '/contact',
@@ -67,7 +75,15 @@ export const routes = [
     component: <Colaboration />
   },
   {
-    path: '*',
+    path: "/",
+    component: <Navigate to="/inicio" />,
+  },
+  {
+    path: '/404',
     component: <Notfound />
-  }
+  },
+  {
+    path: "*",
+    component: <Navigate to="/404" />,
+  },
 ]

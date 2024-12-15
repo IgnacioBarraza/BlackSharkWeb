@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { SideNavBar } from './sidebar'
 import { SidebarTrigger } from '../ui/sidebar'
 import { useProps } from '@/hooks/useProps'
@@ -9,6 +9,14 @@ import { Button } from '../ui/button'
 
 export const Navbar = () => {
   const { userToken, userName, userType } = useProps()
+  const location = useLocation()
+  const hideNavbarAndFooter = ['/auth', '/auth/signup', '/404'].some((path) =>
+    location.pathname.startsWith(path)
+  )
+
+  if (hideNavbarAndFooter) {
+    return null
+  }
 
   return (
     <nav className="bg-background border-b border-border fixed top-0 left-0 right-0 z-50">

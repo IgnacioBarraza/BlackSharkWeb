@@ -2,16 +2,16 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
 } from '@/components/ui/dropdown-menu'
-import { useProps } from '@/hooks/useProps';
-import { useNavigate } from 'react-router-dom';
+import { useProps } from '@/hooks/useProps'
+import { useNavigate } from 'react-router-dom'
 
 export default function UserDropdownMenu({ userType }) {
   const { logout } = useProps()
   const navigate = useNavigate()
-  
+
   const handleLogout = () => {
     logout()
-    navigate("/")
+    navigate('/')
   }
 
   return (
@@ -41,10 +41,8 @@ export default function UserDropdownMenu({ userType }) {
       <DropdownMenuItem>
         <span>Cuenta</span>
       </DropdownMenuItem>
-      <DropdownMenuItem>
-        <button onClick={handleLogout}>
-          <span>Cerrar Sesión</span>
-        </button>
+      <DropdownMenuItem onClick={handleLogout}>
+        <span>Cerrar Sesión</span>
       </DropdownMenuItem>
     </DropdownMenuContent>
   )

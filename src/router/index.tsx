@@ -29,6 +29,7 @@ export default function Router(props) {
       )
     })
   }
+
   return (
     <BrowserRouter>
       <AuthProvider>
