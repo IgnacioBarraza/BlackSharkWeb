@@ -93,7 +93,7 @@ export const Register = () => {
     <>
       <div className="bg-blue-strong-bs min-h-screen">
         <header>
-          <Link to="/login" className="flex items-center justify-start w-fit pt-5 pl-5 gap-x-2">
+          <Link to="/auth" className="flex items-center justify-start w-fit pt-5 pl-5 gap-x-2">
           <FontAwesomeIcon icon={faChevronLeft} size="2xl" color="white" />
           <p className="text-xl text-white hover:underline underline-offset-4">Volver</p>
           </Link>
@@ -174,7 +174,7 @@ export const Register = () => {
               <span className="flex flex-col 2xl:flex-row gap-x-4 gap-y-4 xl:gap-y-4 mt-2">
                 <input type="submit" className="flex items-center justify-center w-full min-w-[330px] 2xl:w-1/2 py-2.5 text-xl font-large text-center cursor-pointer text-white transition duration-200 ease-in-out transform bg-blue-ligth-bs hover:bg-blue-light-hover focus:outline-none focus:ring-2 focus:ring-offset-2" value="Registrarse" />
                   <button className="flex items-center justify-center w-full min-w-[330px] 2xl:w-1/2 text-xl font-large text-center text-white border border-[#005cb3] transition duration-200 ease-in-out transform bg-trasparent hover:border hover:border-blue-700 hover:bg-blue-light-hover">
-                    <Link to="/login" className="w-full py-2.5">
+                    <Link to="/auth" className="w-full py-2.5">
                       Ya tengo una cuenta
                     </Link>
                   </button>

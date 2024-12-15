@@ -43,7 +43,7 @@ export const Navbar = () => {
               <FontAwesomeIcon icon={faCartShopping} size="lg" />
             </Link>
           ) : (
-            <Link to={'/login'} aria-label="Login">
+            <Link to={'/auth'} aria-label="Login">
               <LogIn className="h-6 w-6" />
             </Link>
           )}
