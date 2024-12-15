@@ -1,6 +1,7 @@
 import { AutoLogout } from '@/auth/components/autoLogout'
 import { Footer } from '@/components/Footer/Footer'
 import { Navbar } from '@/components/NavBar/Navbar'
+import { SidebarProvider } from '@/components/ui/sidebar'
 import { AuthProvider } from '@/providers/authContext'
 import { BackendProvider } from '@/providers/backendContext'
 import { FirebaseProvider } from '@/providers/firebaseContext'
@@ -34,17 +35,19 @@ export default function Router(props) {
         <BackendProvider>
           <FirebaseProvider>
             <PropsDataProvider>
-              <div className='flex flex-col min-h-[100dvh]'>
-                <Navbar />
-                <main className='flex-1'>
-                  <AutoLogout />
-                  <Routes>
-                    {renderRoutes(props.routes)}
-                    <Route path="*" element={<Notfound />} />
-                  </Routes>
-                </main>
-                <Footer />
-              </div>
+              <SidebarProvider defaultOpen={false}>
+                <div className="flex flex-col min-h-[100dvh] min-w-[100dvw]">
+                  <Navbar />
+                  <main className="flex-1">
+                    <AutoLogout />
+                    <Routes>
+                      {renderRoutes(props.routes)}
+                      <Route path="*" element={<Notfound />} />
+                    </Routes>
+                  </main>
+                  <Footer />
+                </div>
+              </SidebarProvider>
             </PropsDataProvider>
           </FirebaseProvider>
         </BackendProvider>
