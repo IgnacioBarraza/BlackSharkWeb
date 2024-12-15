@@ -1,30 +1,33 @@
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
-import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar'
-import { AppWindow, ChevronUp, Home, Images, Phone, User2 } from 'lucide-react'
 
-export function SideNavBar() {
-  const items = [
-    {
-      title: "Inicio",
-      url: "/",
-      icon: Home,
-    },
-    {
-      title: "Servicios",
-      url: "/servicios",
-      icon: AppWindow,
-    },
-    {
-      title: "Galeria",
-      url: "/gallery",
-      icon: Images,
-    },
-    {
-      title: "Contact",
-      url: "/contact",
-      icon: Phone,
-    },
-  ]
+import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar'
+import { AppWindow, Home, Images, Phone } from 'lucide-react'
+import LoggedFooter from './components/loggedFooter'
+import { SidebarProps } from '@/utils/interfaces'
+
+const items = [
+  {
+    title: "Inicio",
+    url: "/",
+    icon: Home,
+  },
+  {
+    title: "Servicios",
+    url: "/servicios",
+    icon: AppWindow,
+  },
+  {
+    title: "Galeria",
+    url: "/gallery",
+    icon: Images,
+  },
+  {
+    title: "Contact",
+    url: "/contact",
+    icon: Phone,
+  },
+]
+
+export function SideNavBar({ userToken, userName, userType }: SidebarProps) {
   
   return (
     <Sidebar>
@@ -47,34 +50,7 @@ export function SideNavBar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
-      <SidebarFooter>
-          <SidebarMenu>
-            <SidebarMenuItem>
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <SidebarMenuButton>
-                    <User2 /> Username
-                    <ChevronUp className="ml-auto" />
-                  </SidebarMenuButton>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent
-                  side="top"
-                  className="w-[--radix-popper-anchor-width]"
-                >
-                  <DropdownMenuItem>
-                    <span>Account</span>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <span>Billing</span>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <span>Sign out</span>
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            </SidebarMenuItem>
-          </SidebarMenu>
-        </SidebarFooter>
+      {userToken && <LoggedFooter userName={userName} userType={userType} />}
     </Sidebar>
   )
 }
