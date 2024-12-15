@@ -124,7 +124,6 @@ export const Gallery = () => {
 
   return (
     <div className="flex flex-col min-h-screen bg-white bg-cover bg-center bg-no-repeat">
-      <Navbar />
       <div className="flex-grow p-5 md:p-10">
         <div className="columns-1 gap-5 lg:gap-8 sm:columns-2 lg:columns-3 xl:columns-4 [&>img:not(:first-child)]:mt-5 lg:[&>img:not(:first-child)]:mt-8">
           {userType === "admin" && userToken && (
@@ -157,7 +156,6 @@ export const Gallery = () => {
           )}
         </div>
       </div>
-      <Footer />
     </div>
   );
 }
