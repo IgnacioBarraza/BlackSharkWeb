@@ -14,6 +14,9 @@ import { Colaboration } from "../shared/Colaboration";
 import { Notfound } from "../shared/notfound";
 import AuthLayout from "@/auth/authLayout";
 import { Navigate } from "react-router-dom";
+import Layout from "@/shared/layout";
+import AdminLayout from "@/shared/adminLayout";
+import AdminHomePage from "@/shared/admin/adminHomePage";
 
 export const routes = [
   {
@@ -27,52 +30,64 @@ export const routes = [
       {
         path: 'signup',
         component: <Register />
-      }
+      },
+      {
+        path: 'recoverpassword',
+        component: <Recoverpassword />
+      },
+      {
+        path: 'newpassword',
+        component: <Newpassword />
+      },
     ]
   },
   {
     path: '/inicio',
-    component: <Homepage />
+    component: <Layout />,
+    routes: [
+      {
+        path: '',
+        component: <Homepage />
+      },
+      {
+        path: 'contacto',
+        component: <Contact />
+      },
+      {
+        path: 'galeria',
+        component: <Gallery />
+      },
+      {
+        path: 'servicios',
+        component: <Servicios />
+      },
+      {
+        path: 'cart',
+        component: <Cart />
+      },
+    ]
   },
   {
-    path: '/contact',
-    component: <Contact />
-  },
-  {
-    path: '/gallery',
-    component: <Gallery />
-  },
-  {
-    path: '/servicios',
-    component: <Servicios />
-  },
-  {
-    path: '/recoverpassword',
-    component: <Recoverpassword />
-  },
-  {
-    path: '/newpassword',
-    component: <Newpassword />
-  },
-  {
-    path: '/cart',
-    component: <Cart />
-  },
-  {
-    path: '/tools',
-    component: <Tools />
-  },
-  {
-    path: '/metrics',
-    component: <MetricsDashboard />
-  },
-  {
-    path: '/messagecontact',
-    component: <MessageContact />
-  },
-  { 
-    path: '/colaboration',
-    component: <Colaboration />
+    path: '/admin',
+    component: <AdminLayout />,
+    routes: [
+      {
+        path: '',
+        component: <AdminHomePage /> 
+      },
+      {
+        path: 'tools',
+        component: <Tools />
+      },
+      {
+        path: 'metrics',
+        component: <MetricsDashboard />
+      },
+      {
+        path: 'messagecontact',
+        component: <MessageContact />
+      },
+    ]
   },
   {
     path: "/",

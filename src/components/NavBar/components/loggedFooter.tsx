@@ -9,8 +9,9 @@ import {
   SidebarMenuItem,
 } from '@/components/ui/sidebar'
 import { LoggedFooterProps } from '@/utils/interfaces'
-import { ChevronUp, User2 } from 'lucide-react'
 import UserDropdownMenu from './dropdownMenu'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faChevronUp, faUser } from '@fortawesome/free-solid-svg-icons'
 
 export default function LoggedFooter({ userName, userType }: LoggedFooterProps) {
   console.log(userType)
@@ -22,8 +23,8 @@ export default function LoggedFooter({ userName, userType }: LoggedFooterProps) 
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <SidebarMenuButton>
-                <User2 /> {userName}
-                <ChevronUp className="ml-auto" />
+                <FontAwesomeIcon icon={faUser} /> {userName}
+                <FontAwesomeIcon icon={faChevronUp} className="ml-auto" />
               </SidebarMenuButton>
             </DropdownMenuTrigger>
             <UserDropdownMenu userType={userType}/>

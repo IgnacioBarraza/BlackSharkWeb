@@ -1,29 +1,31 @@
 
 import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar'
-import { AppWindow, Home, Images, Phone } from 'lucide-react'
 import LoggedFooter from './components/loggedFooter'
 import { SidebarProps } from '@/utils/interfaces'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faAddressBook, faHome, faImages, faWindowRestore } from '@fortawesome/free-solid-svg-icons'
+import { Link } from 'react-router-dom'
 
 const items = [
   {
     title: "Inicio",
     url: "/",
-    icon: Home,
+    icon: faHome,
   },
   {
     title: "Servicios",
-    url: "/servicios",
-    icon: AppWindow,
+    url: "/inicio/servicios",
+    icon: faWindowRestore,
   },
   {
     title: "Galeria",
-    url: "/gallery",
-    icon: Images,
+    url: "/inicio/galeria",
+    icon: faImages,
   },
   {
     title: "Contact",
-    url: "/contact",
-    icon: Phone,
+    url: "/inicio/contacto",
+    icon: faAddressBook,
   },
 ]
 
@@ -33,16 +35,16 @@ export function SideNavBar({ userToken, userName, userType }: SidebarProps) {
     <Sidebar>
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>Black Shark Studio</SidebarGroupLabel>
+          <SidebarGroupLabel className='text-lg mb-10 font-myriad-pro'>Black Shark Studio</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {items.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
-                    <a href={item.url}>
-                      <item.icon />
+                    <Link to={item.url} className='text-lg'>
+                      <FontAwesomeIcon icon={item.icon} />
                       <span>{item.title}</span>
-                    </a>
+                    </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}

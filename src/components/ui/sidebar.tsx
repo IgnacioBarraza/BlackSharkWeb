@@ -522,6 +522,7 @@ const sidebarMenuButtonVariants = cva(
         default: "h-8 text-sm",
         sm: "h-7 text-xs",
         lg: "h-12 text-sm group-data-[collapsible=icon]:!p-0",
+        xl: "h-10 text-lg group-data-[collapsible=icon]:!p-0 font-myriad-pro"
       },
     },
     defaultVariants: {
@@ -544,7 +545,7 @@ const SidebarMenuButton = React.forwardRef<
       asChild = false,
       isActive = false,
       variant = "default",
-      size = "default",
+      size = "xl",
       tooltip,
       className,
       ...props
