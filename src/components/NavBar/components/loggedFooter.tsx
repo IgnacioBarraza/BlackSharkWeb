@@ -14,8 +14,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronUp, faUser } from '@fortawesome/free-solid-svg-icons'
 
 export default function LoggedFooter({ userName, userType }: LoggedFooterProps) {
-  console.log(userType)
-
   return (
     <SidebarFooter>
       <SidebarMenu>

@@ -1,22 +1,23 @@
-import { Login } from "../auth/login";
-import { Register } from "../auth/register";
-import { Newpassword } from "../components/NewPassword/newpassword";
-import { Recoverpassword } from "../components/RecoverPassword/recoverpassword";
-import { Contact } from "../shared/contact";
-import { Gallery } from "../shared/gallery/gallery";
-import { Homepage } from "../shared/homepage";
-import { Servicios } from "../shared/services/services";
-import { Cart } from "../shared/shop/shoppingCart";
-import { Tools } from "../shared/tools/tools";
-import { MetricsDashboard } from "../shared/metrics/metricsDashboard";
-import { MessageContact } from "../shared/messageContact";
-import { Colaboration } from "../shared/Colaboration";
-import { Notfound } from "../shared/notfound";
-import AuthLayout from "@/auth/authLayout";
-import { Navigate } from "react-router-dom";
-import Layout from "@/shared/layout";
-import AdminLayout from "@/shared/adminLayout";
-import AdminHomePage from "@/shared/admin/adminHomePage";
+import { Login } from '../auth/login'
+import { Register } from '../auth/register'
+import { Newpassword } from '../components/NewPassword/newpassword'
+import { Recoverpassword } from '../components/RecoverPassword/recoverpassword'
+import { Contact } from '../shared/contact'
+import { Gallery } from '../shared/gallery/gallery'
+import { Homepage } from '../shared/homepage'
+import { Servicios } from '../shared/services/services'
+import { Cart } from '../shared/shop/shoppingCart'
+import { Tools } from '../shared/tools/tools'
+import { MetricsDashboard } from '../shared/metrics/metricsDashboard'
+import { MessageContact } from '../shared/messageContact'
+import { Notfound } from '../shared/notfound'
+import AuthLayout from '@/auth/authLayout'
+import { Navigate } from 'react-router-dom'
+import Layout from '@/layouts/homeLayout'
+import AdminLayout from '@/layouts/adminLayout'
+import AdminHomePage from '@/shared/admin/adminHomePage'
+import AccountLayout from '@/layouts/accountLayout'
+import Account from '@/shared/account/account'
 
 export const routes = [
   {
@@ -25,21 +26,21 @@ export const routes = [
     routes: [
       {
         path: '',
-        component: <Login />
+        component: <Login />,
       },
       {
         path: 'signup',
-        component: <Register />
+        component: <Register />,
       },
       {
         path: 'recoverpassword',
-        component: <Recoverpassword />
+        component: <Recoverpassword />,
       },
       {
         path: 'newpassword',
-        component: <Newpassword />
+        component: <Newpassword />,
       },
-    ]
+    ],
   },
   {
     path: '/inicio',
@@ -47,25 +48,25 @@ export const routes = [
     routes: [
       {
         path: '',
-        component: <Homepage />
+        component: <Homepage />,
       },
       {
         path: 'contacto',
-        component: <Contact />
+        component: <Contact />,
       },
       {
         path: 'galeria',
-        component: <Gallery />
+        component: <Gallery />,
       },
       {
         path: 'servicios',
-        component: <Servicios />
+        component: <Servicios />,
       },
       {
         path: 'cart',
-        component: <Cart />
+        component: <Cart />,
       },
-    ]
+    ],
   },
   {
     path: '/admin',
@@ -73,32 +74,46 @@ export const routes = [
     routes: [
       {
         path: '',
-        component: <AdminHomePage /> 
+        component: <AdminHomePage />,
       },
       {
         path: 'tools',
-        component: <Tools />
+        component: <Tools />,
       },
       {
         path: 'metrics',
-        component: <MetricsDashboard />
+        component: <MetricsDashboard />,
       },
       {
         path: 'messagecontact',
-        component: <MessageContact />
+        component: <MessageContact />,
       },
-    ]
+    ],
   },
   {
-    path: "/",
+    path: '/account',
+    component: <AccountLayout />,
+    routes: [
+      {
+        path: '',
+        component: <Account />
+      },
+      // {
+      //   path: 'orders',
+      //   component: <Orders />
+      // }
+    ],
+  },
+  {
+    path: '/',
     component: <Navigate to="/inicio" />,
   },
   {
     path: '/404',
-    component: <Notfound />
+    component: <Notfound />,
   },
   {
-    path: "*",
+    path: '*',
     component: <Navigate to="/404" />,
   },
 ]

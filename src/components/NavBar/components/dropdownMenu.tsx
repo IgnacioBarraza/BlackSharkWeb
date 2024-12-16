@@ -3,7 +3,7 @@ import {
   DropdownMenuItem,
 } from '@/components/ui/dropdown-menu'
 import { useProps } from '@/hooks/useProps'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 export default function UserDropdownMenu({ userType }) {
   const { logout } = useProps()
@@ -18,29 +18,41 @@ export default function UserDropdownMenu({ userType }) {
     <DropdownMenuContent side="top" className="w-[--radix-popper-anchor-width]">
       {userType === 'admin' ? (
         <div>
-          <DropdownMenuItem>
-            <span>Gestionar Pedidos</span>
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            <span>Administrar</span>
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            <span>Gestionar Mensajes</span>
-          </DropdownMenuItem>
+          <Link to={'/admin'}>
+            <DropdownMenuItem>
+              <span>Gestionar Pedidos</span>
+            </DropdownMenuItem>
+          </Link>
+          <Link to={'/admin'}>
+            <DropdownMenuItem>
+              <span>Administrar</span>
+            </DropdownMenuItem>
+          </Link>
+          <Link to={'/admin/messagecontact'}>
+            <DropdownMenuItem>
+              <span>Gestionar Mensajes</span>
+            </DropdownMenuItem>
+          </Link>
         </div>
       ) : (
         <div>
-          <DropdownMenuItem>
-            <span>Mis pedidos</span>
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            <span>Carrito de compras</span>
-          </DropdownMenuItem>
+          <Link to={'/account/orders'}>
+            <DropdownMenuItem>
+              <span>Mis pedidos</span>
+            </DropdownMenuItem>
+          </Link>
+          <Link to={'/inicio/cart'}>
+            <DropdownMenuItem>
+              <span>Carrito de compras</span>
+            </DropdownMenuItem>
+          </Link>
         </div>
       )}
-      <DropdownMenuItem>
-        <span>Cuenta</span>
-      </DropdownMenuItem>
+      <Link to={'/account'}>
+        <DropdownMenuItem>
+          <span>Cuenta</span>
+        </DropdownMenuItem>
+      </Link>
       <DropdownMenuItem onClick={handleLogout}>
         <span>Cerrar Sesión</span>
       </DropdownMenuItem>
