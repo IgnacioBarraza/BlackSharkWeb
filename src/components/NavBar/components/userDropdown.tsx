@@ -4,8 +4,6 @@ import { useRef, useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
 import { useProps } from "../../../hooks/useProps";
-import { signOut } from "firebase/auth";
-import { auth } from "../../../firebase";
 
 export const UserDropdown = () => {
   const navigate = useNavigate();
@@ -16,10 +14,6 @@ export const UserDropdown = () => {
   const firstName = userName ? userName.split(" ")[0] : "";
 
   const handleLogout = async () => {
-    if (authMethod === "firebase") {
-      await signOut(auth)
-    }
-
     logout();
     navigate("/");
     setDropdownOpen(false);

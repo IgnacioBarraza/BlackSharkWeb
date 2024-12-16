@@ -7,6 +7,9 @@ import { PropsDataProvider } from "./providers/propsContext";
 import Router from "./router";
 import { routes } from "./routes/routesConfig";
 import { ChakraProvider } from "@chakra-ui/react";
+import { GoogleOAuthProvider } from "@react-oauth/google"
+
+const clientId = import.meta.env.VITE_CLIENT_ID
 
 function App() {
   return (
@@ -15,8 +18,10 @@ function App() {
         <BackendProvider>
           <PropsDataProvider>
             <FirebaseProvider>
-              <AutoLogout />
-              <Router routes={routes} />
+              <GoogleOAuthProvider clientId={clientId}>
+                <AutoLogout />
+                <Router routes={routes} />
+              </GoogleOAuthProvider>
             </FirebaseProvider>
           </PropsDataProvider>
         </BackendProvider>
