@@ -39,7 +39,7 @@ export const Navbar = () => {
             </Link>
           </div>
           {userToken ? (
-            <Link to={'/cart'} aria-label="Carrito de Compras" >
+            <Link to={'/inicio/cart'} aria-label="Carrito de Compras" >
               <FontAwesomeIcon icon={faCartShopping} size="lg" />
             </Link>
           ) : (
