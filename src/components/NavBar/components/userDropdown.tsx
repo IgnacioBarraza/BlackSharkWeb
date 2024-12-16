@@ -4,6 +4,7 @@ import { useRef, useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
 import { useProps } from "../../../hooks/useProps";
+import { googleLogout } from "@react-oauth/google";
 
 export const UserDropdown = () => {
   const navigate = useNavigate();
@@ -14,7 +15,11 @@ export const UserDropdown = () => {
   const firstName = userName ? userName.split(" ")[0] : "";
 
   const handleLogout = async () => {
-    logout();
+    if (authMethod != 'custom') {
+      googleLogout()
+    }
+
+    logout()
     navigate("/");
     setDropdownOpen(false);
   };

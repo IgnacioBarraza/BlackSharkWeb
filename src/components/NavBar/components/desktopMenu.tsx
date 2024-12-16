@@ -3,16 +3,21 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRef, useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useProps } from "../../../hooks/useProps";
+import { googleLogout } from "@react-oauth/google";
 
 export const DesktopMenu = () => {
   const navigate = useNavigate();
-  const { userName, userType, userToken, logout } = useProps();
+  const { userName, userType, userToken, logout, authMethod } = useProps();
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
   
   const firstName = userName ? userName.split(' ')[0] : '';
 
   const handleLogout = () => {
+    if (authMethod != 'custom') {
+      googleLogout()
+    }
+
     logout()
     navigate("/")
     setDropdownOpen(false);
