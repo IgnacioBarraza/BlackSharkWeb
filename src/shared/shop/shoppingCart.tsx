@@ -31,6 +31,16 @@ export const Cart = () => {
     }
   };
 
+  const handleQuantityChange = (id_shopping_cart: string, newQuantity: number) => {
+    const updatedItems = cartItems.map(item =>
+      item.id_shopping_cart === id_shopping_cart
+        ? { ...item, cantidad: newQuantity }
+        : item
+    );
+    setCartItems(updatedItems);
+    setShoppingCartData(updatedItems);
+  };
+
   const filterServicesById = (shoppingCart: ShoppingCart[], services: Services[]): ServicesShoppingCart[] => {
     return shoppingCart.flatMap(item => {
         const service = services.find(service => service.id_servicios === item.id_servicios);
@@ -81,25 +91,42 @@ export const Cart = () => {
   }, [services, cartItems])
 
   return (
+    <>
     <div className="min-h-screen bg-white bg-cover bg-center w-full bg-no-repeat flex flex-col overflow-hidden">
       <div className="flex-shrink-0">
         <Navbar />
       </div>
-      <div className="flex-grow flex flex-col md:flex-row bg-blue-strong-bs p-4 gap-4">
+      <div className="flex-grow flex flex-col md:flex-row bg-[#10243c] p-4 gap-4">
         <div className="md:w-2/3 w-full">
           {cartItems.length > 0 ? (
-            cartItems.map((item, index) => (
+            <>
+            <div className="flex justify-between items-center bg-[#0186ff] text-white font-bold py-4 px-8 rounded-lg shadow-md">
+              <span className="flex-grow text-lg font-myriad-pro pl-16 sm-text-center">Servicios</span>
+              <span className="hidden sm:inline-block text-center flex-grow text-lg font-myriad-pro">Precio</span> 
+            </div>
+            <div className="h-6"></div>
+            {cartItems.map((item, index) => (
               <CartItem
                 key={index}
                 service={item}
                 onRemove={() => removeItem(item.id_shopping_cart)}
+                onQuantityChange={handleQuantityChange}
               />
-            ))
+            ))}
+          </>
           ) : (
-            <div className='w-full h-full flex flex-col items-center justify-center'>
-              <span className="text-center text-white font-myriad-pro text-xl">No hay servicios en el carrito.</span>
-              <Link to={'/servicios'}>
-                <span className='text-center text-white font-myriad-pro text-xl hover:animate-beat-fade'>Agrega Servicios a tu carrito de compras</span>
+            <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-b bg-[#10243c] rounded-lg p-8 shadow-lg">
+              <div className="text-center">
+                <h2 className="text-white font-semibold text-4xl">Tu carrito está vacío</h2>
+                <p className="text-gray-400 text-xl mt-2">
+                  Parece que aún no has agregado servicios. ¡Explora nuestras opciones y encuentra lo que necesitas!
+                </p>
+              </div>
+              <Link
+                to="/servicios"
+                className="mt-6 px-6 py-3  bg-[#0186ff] hover:bg-blue-light-hover text-white font-semibold text-lg rounded-lg  transition duration-300 shadow-md hover:shadow-lg focus:ring focus:ring-blue-300"
+              >
+                Explorar Servicios
               </Link>
             </div>
           )}
@@ -109,5 +136,6 @@ export const Cart = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
