@@ -76,7 +76,7 @@ export const DesktopMenu = () => {
           </Link>
         </div>
 
-        <div className="flex items-center justify-end max-md:hidden">
+        <div className="flex items-center justify-end max-md:hidden ">
           {userName ? (
             <div ref={dropdownRef}>
               <button
@@ -85,65 +85,70 @@ export const DesktopMenu = () => {
               >
                 <span className="text-white">{firstName}</span>
               </button>
-              {isDropdownOpen && (
-                <div className="absolute w-max p-2 flex flex-col items-center top-[80px] right-[0%] bg-white rounded-l-lg shadow-lg ">
-
-                  {userType === 'admin' && userToken ? (
+              <div className={`fixed h-screen w-[250px] top-0 right-0 bg-white z-50 shadow-md transform transition-transform duration-500 ease-in-out ${
+              isDropdownOpen ? "translate-x-0" : "translate-x-full"
+              }`}>
+                <div className="flex justify-center items-center border-b-8 border-b-black bg-black">
+                  <img src="/background-auth-photo.jpg" alt="background-photo" className="opacity-70"/>
+                  <div className="absolute flex justify-center">
+                    <span className="font-myriad-pro text-2xl py-2 px-4 font-bold w-full text-center text-white">{userName}</span>
+                  </div>
+                </div>
+                {userType === 'admin' && userToken ? (
+                  <>
+                    <Link
+                      to="/manageOrders"
+                      className="block w-full px-4 py-2 text-black text-xl font-myriad-pro hover:bg-[#10243c] hover:text-white"
+                      onClick={toggleDropdown}
+                    >
+                      Gestionar pedidos
+                    </Link>
+                    <Link
+                      to="/tools"
+                      className="block w-full px-4 py-2 text-black text-xl font-myriad-pro hover:bg-[#10243c] hover:text-white"
+                      onClick={toggleDropdown}
+                    >
+                      Equipos
+                    </Link>
+                    <Link
+                      to="/metrics"
+                      className="block w-full px-4 py-2 text-black text-xl font-myriad-pro hover:bg-[#10243c] hover:text-white"
+                      onClick={toggleDropdown}
+                    >
+                      Métricas
+                    </Link>
+                    <Link
+                      to="/messagecontact"
+                      className="block w-full px-4 py-2 text-black text-xl font-myriad-pro hover:bg-[#10243c] hover:text-white"
+                      onClick={toggleDropdown}
+                    >
+                      Gestionar mensajes
+                    </Link>
+                  </> 
+                  ) : (
                     <>
                       <Link
-                        to="/manageOrders"
-                        className="block w-full px-4 py-2 text-black font-myriad-pro rounded hover:bg-[#10243c] hover:text-white"
-                        onClick={toggleDropdown}
+                        to="/orders"
+                        className="block w-full px-4 py-2 text-black text-xl font-myriad-pro hover:bg-[#10243c] hover:text-white"
                       >
-                        Gestionar pedidos
+                        Mis pedidos
                       </Link>
                       <Link
-                        to="/tools"
-                        className="block w-full px-4 py-2 text-black font-myriad-pro rounded hover:bg-[#10243c] hover:text-white"
-                        onClick={toggleDropdown}
+                        to="/cart"
+                        className="block w-full px-4 py-2 text-black text-xl font-myriad-pro hover:bg-[#10243c] hover:text-white"
                       >
-                        Equipos
+                        Carrito de compras
                       </Link>
-                      <Link
-                        to="/metrics"
-                        className="block w-full px-4 py-2 text-black font-myriad-pro rounded hover:bg-[#10243c] hover:text-white"
-                        onClick={toggleDropdown}
-                      >
-                        Metricas
-                      </Link>
-                      <Link
-                        to="/messagecontact"
-                        className="block w-full px-4 py-2 text-black font-myriad-pro rounded hover:bg-[#10243c] hover:text-white"
-                        onClick={toggleDropdown}
-                      >
-                        Gestionar mensajes
-                      </Link>
-                    </> 
-                    ) : (
-                      <>
-                        <Link
-                          to="/orders"
-                          className="block w-full px-4 py-2 text-black font-myriad-pro rounded hover:bg-[#10243c] hover:text-white"
-                        >
-                          Mis pedidos
-                        </Link>
-                        <Link
-                          to="/cart"
-                          className="block w-full px-4 py-2 text-black font-myriad-pro rounded hover:bg-[#10243c] hover:text-white"
-                        >
-                          Carrito de compras
-                        </Link>
-                      </>
-                      )}
-                        <button
-                          onClick={handleLogout}
-                          className="block w-full text-left px-4 py-2 text-black font-myriad-pro rounded hover:bg-[#10243c] hover:text-white"
-                        >
-                          Cerrar Sesión
-                        </button>
-                      </div>
+                    </>
                     )}
-                  </div>
+                      <button
+                        onClick={handleLogout}
+                        className="block w-full text-left px-4 py-2 text-black text-xl font-myriad-pro hover:bg-[#10243c] hover:text-white"
+                      >
+                        Cerrar Sesión
+                      </button>
+              </div>
+            </div>
                 ) : (
             <>
               <Link

@@ -32,57 +32,66 @@ export const MobileMenu = () => {
   };
 
   return (
-    <div className="flex justify-between items-center">
+    <div className="relative flex justify-between items-center ">
       {!userName &&( 
         <div className="md:hidden flex items-center px-4">
-          <button ref={toggleButtonRef} onClick={toggleMobileMenu} className="text-2xl flex mr-2 text-white">
+          <button 
+            onClick={toggleMobileMenu} 
+            className=" relative text-2xl flex mr-2 text-white">
             <FontAwesomeIcon
-              icon={isMobileMenuOpen ? faTimes : faBars}
+              icon={faBars}
               size="lg"
             />
           </button>
         </div>
       )}
-
-      {isMobileMenuOpen && (
-        <div ref={mobileMenuRef} className="absolute flex flex-col items-center top-[80px] right-[0%] p-2 bg-white z-50 rounded-l-lg md:hidden shadow-md ">
+        <div 
+          ref={mobileMenuRef}
+          className={`fixed h-full w-[250px] top-0 right-0 bg-white z-50 shadow-md md:translate-x-full transform transition-transform duration-500 ease-in-out ${
+          isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
+          }`}>
+          <div ref={toggleButtonRef} className="flex justify-center items-center bg-black">
+            <img src="/background-auth-photo.jpg" alt="background-photo" className="opacity-70 w-screen h-50"/>
+            <div className="absolute flex justify-center">
+              <span className="font-myriad-pro text-2xl py-2 px-4 font-bold w-full text-center text-white">Agencia Publicitaria</span>
+            </div>
+          </div>
           <Link
             to="/servicios"
-            className="block w-full font-myriad-pro font-medium text-2xl py-2 px-4 rounded hover:bg-[#10243c] hover:text-white"
+            className="block w-full font-myriad-pro font-medium text-xl py-2 px-4 hover:bg-[#10243c] hover:text-white"
             onClick={toggleMobileMenu}
           >
             Servicios
           </Link>
           <Link
             to="/gallery"
-            className="block w-full font-myriad-pro font-medium text-2xl py-2 px-4 rounded hover:bg-[#10243c] hover:text-white"
+            className="block w-full font-myriad-pro font-medium text-xl py-2 px-4 hover:bg-[#10243c] hover:text-white"
             onClick={toggleMobileMenu}
           >
             Galería
           </Link>
           <Link
             to="/contact"
-            className="block w-full font-myriad-pro font-medium text-2xl py-2 px-4 rounded hover:bg-[#10243c] hover:text-white"
+            className="block w-full font-myriad-pro font-medium text-xl py-2 px-4 hover:bg-[#10243c] hover:text-white"
             onClick={toggleMobileMenu}
           >
             Contacto
           </Link>
           <Link
             to="/login"
-            className="block w-full font-myriad-pro font-medium text-2xl py-2 px-4 rounded hover:bg-[#10243c] hover:text-white"
+            className="block w-full font-myriad-pro font-medium text-xl py-2 px-4 hover:bg-[#10243c] hover:text-white"
             onClick={toggleMobileMenu}
           >
-            Iniciar Sesion
+            Iniciar Sesión
           </Link>
           <Link
             to="/signup"
-            className="block w-full font-myriad-pro font-medium text-2xl py-2 px-4 rounded hover:bg-[#10243c] hover:text-white"
+            className="block w-full font-myriad-pro font-medium text-xl py-2 px-4 hover:bg-[#10243c] hover:text-white"
             onClick={toggleMobileMenu}
           >
             Registrarse
           </Link>
         </div>
-      )}
     </div>
   );
 };

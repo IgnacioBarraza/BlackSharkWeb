@@ -10,8 +10,6 @@ export const UserDropdown = () => {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
 
-  const firstName = userName ? userName.split(" ")[0] : "";
-
   const handleLogout = () => {
     logout();
     navigate("/");
@@ -61,40 +59,67 @@ export const UserDropdown = () => {
         )}
       </button>
 
-      {isDropdownOpen && (
-        <div className="absolute flex flex-col items-center top-[80px] right-[0%] bg-white z-50 border-gray-300 shadow-md rounded-l-lg p-2">
-            <span 
-              className="font-myriad-pro text-xl py-2 px-4 font-bold w-full text-center text-white bg-[#10243c] rounded"
-              >
-              {firstName}
-            </span>
-
+        <div className={`fixed h-full w-[250px] top-0 right-0 bg-white z-50 shadow-md md:translate-x-full transform transition-transform duration-500 ease-in-out ${
+          isDropdownOpen ? "translate-x-0" : "translate-x-full"
+          }`}>
+            <div className="flex justify-center items-center bg-black">
+              <img src="/background-auth-photo.jpg" alt="background-photo" className="opacity-70 w-screen h-50"/>
+              <div className="absolute flex justify-center">
+                <span 
+                className="font-myriad-pro text-2xl py-2 px-4 font-bold w-full text-center text-white"
+                >
+                  {userName}
+                </span>
+              </div>
+            </div>
+            
           {userType === "admin" && userToken ? (
             <>
               <Link
+                to="/servicios"
+                className="block w-full font-myriad-pro font-medium text-xl py-2 px-4 hover:bg-[#10243c] hover:text-white"
+                onClick={toggleDropdown}
+              >
+                Servicios
+              </Link>
+              <Link
+                to="/gallery"
+                className="block w-full font-myriad-pro font-medium text-xl py-2 px-4 hover:bg-[#10243c] hover:text-white"
+                onClick={toggleDropdown}
+              >
+                Galería
+              </Link>
+              <Link
+                to="/contact"
+                className="block w-full font-myriad-pro font-medium text-xl py-2 px-4 hover:bg-[#10243c] hover:text-white"
+                onClick={toggleDropdown}
+              >
+                Contacto
+              </Link>
+              <Link
                 to="/manageOrders"
-                className="block w-full px-4 py-2 text-black font-myriad-pro rounded hover:bg-[#10243c] hover:text-white"
+                className="block w-full px-4 py-2 text-black text-xl font-myriad-pro hover:bg-[#10243c] hover:text-white"
                 onClick={toggleDropdown}
               >
                 Gestionar pedidos
               </Link>
               <Link
                 to="/tools"
-                className="block w-full px-4 py-2 text-black font-myriad-pro rounded hover:bg-[#10243c] hover:text-white"
+                className="block w-full px-4 py-2 text-black text-xl font-myriad-pro hover:bg-[#10243c] hover:text-white"
                 onClick={toggleDropdown}
               >
                 Equipos
               </Link>
               <Link
                 to="/metrics"
-                className="block w-full px-4 py-2 text-black font-myriad-pro rounded hover:bg-[#10243c] hover:text-white"
+                className="block w-full px-4 py-2 text-black text-xl font-myriad-pro hover:bg-[#10243c] hover:text-white"
                 onClick={toggleDropdown}
               >
                 Metricas
               </Link>
               <Link
                 to="/messagecontact"
-                className="block w-full px-4 py-2 text-black font-myriad-pro rounded hover:bg-[#10243c] hover:text-white"
+                className="block w-full px-4 py-2 text-black text-xl font-myriad-pro hover:bg-[#10243c] hover:text-white"
                 onClick={toggleDropdown}
               >
                 Gestionar mensajes
@@ -104,35 +129,35 @@ export const UserDropdown = () => {
             <>
               <Link
                 to="/servicios"
-                className="block w-full font-myriad-pro font-medium text-xl py-2 px-4 rounded hover:bg-[#10243c] hover:text-white"
+                className="block w-full font-myriad-pro font-medium text-xl py-2 px-4 hover:bg-[#10243c] hover:text-white"
                 onClick={toggleDropdown}
               >
                 Servicios
               </Link>
               <Link
                 to="/gallery"
-                className="block w-full font-myriad-pro font-medium text-xl py-2 px-4 rounded hover:bg-[#10243c] hover:text-white"
+                className="block w-full font-myriad-pro font-medium text-xl py-2 px-4 hover:bg-[#10243c] hover:text-white"
                 onClick={toggleDropdown}
               >
                 Galería
               </Link>
               <Link
                 to="/contact"
-                className="block w-full font-myriad-pro font-medium text-xl py-2 px-4 rounded hover:bg-[#10243c] hover:text-white"
+                className="block w-full font-myriad-pro font-medium text-xl py-2 px-4 hover:bg-[#10243c] hover:text-white"
                 onClick={toggleDropdown}
               >
                 Contacto
               </Link>
               <Link
                 to="/orders"
-                className="block w-full font-myriad-pro text-xl py-2 px-4 rounded hover:bg-[#10243c] hover:text-white"
+                className="block w-full font-myriad-pro text-xl py-2 px-4 hover:bg-[#10243c] hover:text-white"
                 onClick={toggleDropdown}
               >
                 Mis pedidos
               </Link>
               <Link
                 to="/cart"
-                className="block w-full font-myriad-pro text-xl py-2 px-4 rounded hover:bg-[#10243c] hover:text-white"
+                className="block w-full font-myriad-pro text-xl py-2 px-4 hover:bg-[#10243c] hover:text-white"
                 onClick={toggleDropdown}
               >
                 Carrito de compras
@@ -141,12 +166,11 @@ export const UserDropdown = () => {
           )}
           <button
             onClick={handleLogout}
-            className="text-left w-full font-myriad-pro text-lg py-2 px-4 rounded hover:bg-[#10243c] hover:text-white"
+            className="text-left w-full font-myriad-pro text-xl py-2 px-4 hover:bg-[#10243c] hover:text-white"
           >
             Cerrar Sesión
           </button>
         </div>
-      )}
     </div>
   );
 };
