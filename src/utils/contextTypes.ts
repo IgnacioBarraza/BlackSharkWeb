@@ -101,3 +101,7 @@ export type UserDataProviderType = {
   colaborationsData: Colaborations[] | null
   setColaborationsData:(colaborationsData: Colaborations[]) => void
 }
+
+export type DataContextType = {
+  getServices: () => void
+}

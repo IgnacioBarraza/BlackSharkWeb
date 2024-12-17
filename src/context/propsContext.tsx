@@ -1,6 +1,6 @@
 import { useState, createContext, useEffect } from "react"
 import { Colaborations, Equipment, GalleryData, Messages, Services, ServicesShoppingCart } from "../utils/interfaces"
-import { ContextProps, UserDataProviderType } from "@/utils/contextTypes"
+import { ContextProps, UserDataProviderType } from "@utils/contextTypes"
 
 export const PropsContext = createContext<UserDataProviderType | undefined>(undefined)
 
