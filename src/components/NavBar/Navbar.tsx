@@ -2,10 +2,8 @@ import { Link, useLocation } from 'react-router-dom'
 import { SideNavBar } from './sidebar'
 import { SidebarTrigger } from '../ui/sidebar'
 import { useProps } from '@/hooks/useProps'
-import { LogIn } from 'lucide-react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCartShopping } from '@fortawesome/free-solid-svg-icons'
-import { Button } from '../ui/button'
 
 export const Navbar = () => {
   const { userToken, userName, userType } = useProps()
@@ -32,15 +30,15 @@ export const Navbar = () => {
             <Link to="/" className="font-bold text-2xl text-foreground">
               <span className="sr-only">Black Shark Studios</span>
               <img
-                src="/BlackShark.png"
+                src="/BlackShark.webp"
                 alt="Black Shark Studio logo"
-                className="w-20 h-20"
+                className="w-24 h-24"
               />
             </Link>
           </div>
           {userToken ? (
             <Link to={'/inicio/cart'} aria-label="Carrito de Compras" >
-              <FontAwesomeIcon icon={faCartShopping} size="lg" />
+              <FontAwesomeIcon icon={faCartShopping} size="xl" />
             </Link>
           ) : (
             <Link to={'/auth'} aria-label="Login" className='bg-blue-light-bs hover:bg-blue-strong-bs p-2 rounded-lg transition-colors'>
