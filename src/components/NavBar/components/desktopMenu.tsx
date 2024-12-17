@@ -43,9 +43,7 @@ export const DesktopMenu = () => {
       <div className="w-full flex overflow-hidden">
         <div className="mr-4 flex md:mr-4 px-2">
           <Link to="/" className="mr-4 flex">
-            <div className="w-20 h-20">
-              <img src="/BlackShark.png" alt="Blackshark logo" />
-            </div>
+              <img src="/BlackShark.png" alt="Blackshark logo" className="w-20 h-20" />
           </Link>
         </div>
         
@@ -55,7 +53,7 @@ export const DesktopMenu = () => {
             className="group relative inline-block text-white font-myriad-pro px-2 text-xl"
           > 
             <span>Servicios</span>
-            <span className="absolute bottom-0 left-0 w-0 h-1 bg-[#0186ff] transition-all duration-300 group-hover:w-full"
+            <span className="absolute bottom-0 left-0 w-0 h-1 bg-blue-ligth-bs transition-all duration-300 group-hover:w-full"
             />
           </Link>
           <Link
@@ -63,7 +61,7 @@ export const DesktopMenu = () => {
             className="group relative inline-block text-white font-myriad-pro px-2 text-xl"
           >
             <span>Galería</span>
-            <span className="absolute bottom-0 left-0 w-0 h-1 bg-[#0186ff] transition-all duration-300 group-hover:w-full"
+            <span className="absolute bottom-0 left-0 w-0 h-1 bg-blue-ligth-bs transition-all duration-300 group-hover:w-full"
             />
           </Link>
           <Link
@@ -71,7 +69,7 @@ export const DesktopMenu = () => {
             className="group relative inline-block text-white font-myriad-pro px-2 text-xl"
           >
             <span>Contacto</span>
-            <span className="absolute bottom-0 left-0 w-0 h-1 bg-[#0186ff] transition-all duration-300 group-hover:w-full"
+            <span className="absolute bottom-0 left-0 w-0 h-1 bg-blue-ligth-bs transition-all duration-300 group-hover:w-full"
             />
           </Link>
         </div>
@@ -98,28 +96,28 @@ export const DesktopMenu = () => {
                   <>
                     <Link
                       to="/manageOrders"
-                      className="block w-full px-4 py-2 text-black text-xl font-myriad-pro hover:bg-[#10243c] hover:text-white"
+                      className="block w-full px-4 py-2 text-black text-xl font-myriad-pro hover:bg-blue-strong-bs hover:text-white"
                       onClick={toggleDropdown}
                     >
                       Gestionar pedidos
                     </Link>
                     <Link
                       to="/tools"
-                      className="block w-full px-4 py-2 text-black text-xl font-myriad-pro hover:bg-[#10243c] hover:text-white"
+                      className="block w-full px-4 py-2 text-black text-xl font-myriad-pro hover:bg-blue-strong-bs hover:text-white"
                       onClick={toggleDropdown}
                     >
                       Equipos
                     </Link>
                     <Link
                       to="/metrics"
-                      className="block w-full px-4 py-2 text-black text-xl font-myriad-pro hover:bg-[#10243c] hover:text-white"
+                      className="block w-full px-4 py-2 text-black text-xl font-myriad-pro hover:bg-blue-strong-bs hover:text-white"
                       onClick={toggleDropdown}
                     >
                       Métricas
                     </Link>
                     <Link
                       to="/messagecontact"
-                      className="block w-full px-4 py-2 text-black text-xl font-myriad-pro hover:bg-[#10243c] hover:text-white"
+                      className="block w-full px-4 py-2 text-black text-xl font-myriad-pro hover:bg-blue-strong-bs hover:text-white"
                       onClick={toggleDropdown}
                     >
                       Gestionar mensajes
@@ -129,13 +127,13 @@ export const DesktopMenu = () => {
                     <>
                       <Link
                         to="/orders"
-                        className="block w-full px-4 py-2 text-black text-xl font-myriad-pro hover:bg-[#10243c] hover:text-white"
+                        className="block w-full px-4 py-2 text-black text-xl font-myriad-pro hover:bg-bg-blue-strong-bs hover:text-white"
                       >
                         Mis pedidos
                       </Link>
                       <Link
                         to="/cart"
-                        className="block w-full px-4 py-2 text-black text-xl font-myriad-pro hover:bg-[#10243c] hover:text-white"
+                        className="block w-full px-4 py-2 text-black text-xl font-myriad-pro hover:bg-bg-blue-strong-bs hover:text-white"
                       >
                         Carrito de compras
                       </Link>
@@ -143,7 +141,7 @@ export const DesktopMenu = () => {
                     )}
                       <button
                         onClick={handleLogout}
-                        className="block w-full text-left px-4 py-2 text-black text-xl font-myriad-pro hover:bg-[#10243c] hover:text-white"
+                        className="block w-full text-left px-4 py-2 text-black text-xl font-myriad-pro hover:bg-blue-strong-bs hover:text-white"
                       >
                         Cerrar Sesión
                       </button>
@@ -161,7 +159,7 @@ export const DesktopMenu = () => {
                 to="/signup"
                 className="group relative inline-block text-white font-myriad-pro text-xl px-4"
               >
-                <span className="bg-[#0186ff] rounded p-2 hover:opacity-75 mr-4">Registrarse</span>
+                <span className="bg-blue-ligth-bs rounded p-2 hover:opacity-75 mr-4">Registrarse</span>
               </Link>
             </> )}
         </div>

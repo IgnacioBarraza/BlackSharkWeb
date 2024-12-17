@@ -58,35 +58,35 @@ export const MobileMenu = () => {
           </div>
           <Link
             to="/servicios"
-            className="block w-full font-myriad-pro font-medium text-xl py-2 px-4 hover:bg-[#10243c] hover:text-white"
+            className="block w-full font-myriad-pro font-medium text-xl py-2 px-4 hover:bg-blue-strong-bs hover:text-white"
             onClick={toggleMobileMenu}
           >
             Servicios
           </Link>
           <Link
             to="/gallery"
-            className="block w-full font-myriad-pro font-medium text-xl py-2 px-4 hover:bg-[#10243c] hover:text-white"
+            className="block w-full font-myriad-pro font-medium text-xl py-2 px-4 hover:bg-blue-strong-bs hover:text-white"
             onClick={toggleMobileMenu}
           >
             Galería
           </Link>
           <Link
             to="/contact"
-            className="block w-full font-myriad-pro font-medium text-xl py-2 px-4 hover:bg-[#10243c] hover:text-white"
+            className="block w-full font-myriad-pro font-medium text-xl py-2 px-4 hover:bg-blue-strong-bs hover:text-white"
             onClick={toggleMobileMenu}
           >
             Contacto
           </Link>
           <Link
             to="/login"
-            className="block w-full font-myriad-pro font-medium text-xl py-2 px-4 hover:bg-[#10243c] hover:text-white"
+            className="block w-full font-myriad-pro font-medium text-xl py-2 px-4 hover:bg-blue-strong-bs hover:text-white"
             onClick={toggleMobileMenu}
           >
             Iniciar Sesión
           </Link>
           <Link
             to="/signup"
-            className="block w-full font-myriad-pro font-medium text-xl py-2 px-4 hover:bg-[#10243c] hover:text-white"
+            className="block w-full font-myriad-pro font-medium text-xl py-2 px-4 hover:bg-blue-strong-bs hover:text-white"
             onClick={toggleMobileMenu}
           >
             Registrarse
