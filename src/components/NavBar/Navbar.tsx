@@ -43,8 +43,8 @@ export const Navbar = () => {
               <FontAwesomeIcon icon={faCartShopping} size="lg" />
             </Link>
           ) : (
-            <Link to={'/auth'} aria-label="Login">
-              <LogIn className="h-6 w-6" />
+            <Link to={'/auth'} aria-label="Login" className='bg-blue-light-bs hover:bg-blue-strong-bs p-2 rounded-lg transition-colors'>
+              <span className='font-myriad-pro text-lg text-white'>Iniciar Sesión</span>
             </Link>
           )}
         </div>
