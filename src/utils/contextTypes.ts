@@ -28,6 +28,11 @@ import {
   CreateColaborations,
   UpdateColaborations,
   GetMetricsServiceResponse,
+  Services,
+  GalleryData,
+  ServicesShoppingCart,
+  Equipment,
+  Colaborations,
 } from './interfaces'
 
 export const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
@@ -70,4 +75,29 @@ export type BackendContextType = {
   deleteColaborations: (id_colaboration: string, token:string) => Promise<ApiResponse>
   getFilteredServices: (filter: string) => Promise<GetServicesResponse | null>
   getServiceMetricsByDate: (initDate: string, finishDate: string, token: string) => Promise<GetMetricsServiceResponse>
+}
+
+export type UserDataProviderType = {
+  setUserType: (userType: string) => void
+  userType: string | null
+  setTokenData: (token: string) => void
+  userToken: string | null
+  setUserName: (username: string) => void
+  userName: string | null
+  logout: () => void
+  setServicesData: (servicesData: Services[]) => void
+  servicesData: Services[] | null
+  setGalleryData: (galleyData: GalleryData[]) => void
+  galleryData: GalleryData[] | null
+  setShoppingCartData: (shoppingCartData: ServicesShoppingCart[]) => void
+  shoppingCartData: ServicesShoppingCart[] | null
+  setUserId: (id_usuario: string) => void
+  userId: string | null
+  setToolsData: (toolsData: Equipment[]) => void
+  toolsData: Equipment[] | null
+  loginData: (token: string, tipo_user: string, username: string, user_id: string) => void
+  setMessagesData: (messagesData: Messages[]) => void
+  messagesData: Messages[] | null
+  colaborationsData: Colaborations[] | null
+  setColaborationsData:(colaborationsData: Colaborations[]) => void
 }
