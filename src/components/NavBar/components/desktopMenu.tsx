@@ -151,15 +151,9 @@ export const DesktopMenu = () => {
             <>
               <Link
                 to="/login"
-                className="group relative inline-block text-white font-myriad-pro text-xl"
-              >
-                <span className="hover:opacity-75">Iniciar Sesión</span>
-              </Link>
-              <Link
-                to="/signup"
                 className="group relative inline-block text-white font-myriad-pro text-xl px-4"
               >
-                <span className="bg-blue-ligth-bs rounded p-2 hover:opacity-75 mr-4">Registrarse</span>
+                <span className="bg-blue-ligth-bs rounded p-2 hover:opacity-75 mr-4">Ingresar</span>
               </Link>
             </> )}
         </div>

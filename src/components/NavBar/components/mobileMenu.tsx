@@ -82,14 +82,7 @@ export const MobileMenu = () => {
             className="block w-full font-myriad-pro font-medium text-xl py-2 px-4 hover:bg-blue-strong-bs hover:text-white"
             onClick={toggleMobileMenu}
           >
-            Iniciar Sesión
-          </Link>
-          <Link
-            to="/signup"
-            className="block w-full font-myriad-pro font-medium text-xl py-2 px-4 hover:bg-blue-strong-bs hover:text-white"
-            onClick={toggleMobileMenu}
-          >
-            Registrarse
+            Ingresar
           </Link>
         </div>
     </div>
