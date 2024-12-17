@@ -44,15 +44,19 @@ export const UserDropdown = () => {
   };
 
   return (
-    <div className=" md:hidden bg-[#10243c]" ref={dropdownRef}>
+    <div className=" md:hidden bg-blue-strong-bs" ref={dropdownRef}>
       <button
         onClick={userName ? toggleDropdown : handleLoginRedirect}
         className="text-2xl flex text-white mr-6"
       >
-        <FontAwesomeIcon
-        icon={isDropdownOpen ? faTimes : faBars}
-        size="lg"
-        />
+        {userToken &&(
+          <>
+            <FontAwesomeIcon
+            icon={faBars}
+            size="lg"
+            />
+          </>
+        )}
       </button>
       <div className={`fixed h-full w-[250px] top-0 right-0 bg-white z-50 shadow-md md:translate-x-full transform transition-transform duration-500 ease-in-out ${
         isDropdownOpen ? "translate-x-0" : "translate-x-full"
