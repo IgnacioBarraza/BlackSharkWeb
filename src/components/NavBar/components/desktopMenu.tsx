@@ -1,5 +1,3 @@
-import { faCircleUser } from "@fortawesome/free-regular-svg-icons/faCircleUser";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRef, useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useProps } from "../../../hooks/useProps";
@@ -39,116 +37,131 @@ export const DesktopMenu = () => {
     };
   }, [isDropdownOpen]);
 
-  return (
-    <div className="hidden md:flex items-center justify-between w-2/4">
-      <Link
-        to="/servicios"
-        className="font-myriad-pro font-medium transition duration-500 transform hover:scale-110 px-2 mr-7 text-2xl"
-      >
-        <span>Servicios</span>
-      </Link>
-      <Link
-        to="/gallery"
-        className="font-myriad-pro font-medium transition duration-500 transform hover:scale-110 text-2xl px-2 mr-7"
-      >
-        <span>Galería</span>
-      </Link>
-      <Link to="/" className="flex items-center">
-        <div className="w-28 h-28">
-          <img src="/BlackShark.png" alt="Blackshark logo" />
-        </div>
-      </Link>
-      <Link
-        to="/contact"
-        className="font-myriad-pro font-medium transition duration-500 transform hover:scale-110 text-2xl px-2 mr-7"
-      >
-        <span>Contacto</span>
-      </Link>
-      {userName ? (
-        <div className="relative" ref={dropdownRef}>
-          <button
-            onClick={toggleDropdown}
-            className="font-myriad-pro font-medium transition duration-500 transform hover:scale-110 text-2xl px-2 mr-7"
-          >
-            <span>{firstName}</span>
-          </button>
-          {isDropdownOpen && (
-            <div className="absolute top-[80px] left-1/2 transform -translate-x-1/2 mt-2 w-48 bg-white border border-gray-300 rounded-lg shadow-lg z-50">
-              <div className="flex items-center p-4">
-                <FontAwesomeIcon
-                  icon={faCircleUser}
-                  className="w-6 h-6 rounded-full"
-                />
-                <span className="ml-3 font-myriad-pro font-medium">
-                  Mi Cuenta
-                </span>
-              </div>
-              <hr className="border-t border-gray-300" />
 
-              {userType === 'admin' && userToken ? (
-            <>
-              <Link
-                to="/manageOrders"
-                className="block px-4 py-2 text-black font-myriad-pro hover:bg-gray-100"
-                onClick={toggleDropdown}
-              >
-                Gestionar pedidos
-              </Link>
-              <Link
-                to="/tools"
-                className="block px-4 py-2 text-black font-myriad-pro hover:bg-gray-100"
-                onClick={toggleDropdown}
-              >
-                Equipos
-              </Link>
-              <Link
-                to="/metrics"
-                className="block px-4 py-2 text-black font-myriad-pro hover:bg-gray-100"
-                onClick={toggleDropdown}
-              >
-                Metricas
-              </Link>
-              <Link
-                to="/messagecontact"
-                className="block px-4 py-2 text-black font-myriad-pro hover:bg-gray-100"
-                onClick={toggleDropdown}
-              >
-                Gestionar mensajes
-              </Link>
-            </>
-          ) : (
-            <>
-              <Link
-                to="/orders"
-                className="block px-4 py-2 text-black font-myriad-pro hover:bg-gray-100"
-              >
-                Mis pedidos
-              </Link>
-              <Link
-                to="/cart"
-                className="block px-4 py-2 text-black font-myriad-pro hover:bg-gray-100"
-              >
-                Carrito de compras
-              </Link>
-            </>
-            )}
-              <button
-                onClick={handleLogout}
-                className="w-full text-left px-4 py-2 text-black font-myriad-pro hover:bg-gray-100"
-              >
-                Cerrar Sesión
-              </button>
+  return (
+    <>
+      <div className="w-full flex overflow-hidden">
+        <div className="mr-4 flex md:mr-4 px-2">
+          <Link to="/" className="mr-4 flex">
+            <div className="w-20 h-20">
+              <img src="/BlackShark.png" alt="Blackshark logo" />
             </div>
-          )}
+          </Link>
         </div>
-      ) : (
-        <Link
-          to="/login"
-          className="font-myriad-pro font-medium transition duration-500 transform hover:scale-110 text-2xl px-2 mr-7"
-        >
-          <span>Iniciar Sesión</span>
-        </Link>
-      )}
-    </div>
+        
+        <div className="flex flex-1 items-center justify-center space-x-2 max-md:hidden">
+          <Link
+            to="/servicios"
+            className="group relative inline-block text-white font-myriad-pro px-2 text-xl"
+          > 
+            <span>Servicios</span>
+            <span className="absolute bottom-0 left-0 w-0 h-1 bg-[#0186ff] transition-all duration-300 group-hover:w-full"
+            />
+          </Link>
+          <Link
+            to="/gallery"
+            className="group relative inline-block text-white font-myriad-pro px-2 text-xl"
+          >
+            <span>Galería</span>
+            <span className="absolute bottom-0 left-0 w-0 h-1 bg-[#0186ff] transition-all duration-300 group-hover:w-full"
+            />
+          </Link>
+          <Link
+            to="/contact"
+            className="group relative inline-block text-white font-myriad-pro px-2 text-xl"
+          >
+            <span>Contacto</span>
+            <span className="absolute bottom-0 left-0 w-0 h-1 bg-[#0186ff] transition-all duration-300 group-hover:w-full"
+            />
+          </Link>
+        </div>
+
+        <div className="flex items-center justify-end max-md:hidden">
+          {userName ? (
+            <div ref={dropdownRef}>
+              <button
+                onClick={toggleDropdown}
+                className="font-myriad-pro font-medium transition duration-500 transform hover:scale-110 text-2xl px-2 mr-7"
+              >
+                <span className="text-white">{firstName}</span>
+              </button>
+              {isDropdownOpen && (
+                <div className="absolute w-max p-2 flex flex-col items-center top-[80px] right-[0%] bg-white rounded-l-lg shadow-lg ">
+
+                  {userType === 'admin' && userToken ? (
+                    <>
+                      <Link
+                        to="/manageOrders"
+                        className="block w-full px-4 py-2 text-black font-myriad-pro rounded hover:bg-[#10243c] hover:text-white"
+                        onClick={toggleDropdown}
+                      >
+                        Gestionar pedidos
+                      </Link>
+                      <Link
+                        to="/tools"
+                        className="block w-full px-4 py-2 text-black font-myriad-pro rounded hover:bg-[#10243c] hover:text-white"
+                        onClick={toggleDropdown}
+                      >
+                        Equipos
+                      </Link>
+                      <Link
+                        to="/metrics"
+                        className="block w-full px-4 py-2 text-black font-myriad-pro rounded hover:bg-[#10243c] hover:text-white"
+                        onClick={toggleDropdown}
+                      >
+                        Metricas
+                      </Link>
+                      <Link
+                        to="/messagecontact"
+                        className="block w-full px-4 py-2 text-black font-myriad-pro rounded hover:bg-[#10243c] hover:text-white"
+                        onClick={toggleDropdown}
+                      >
+                        Gestionar mensajes
+                      </Link>
+                    </> 
+                    ) : (
+                      <>
+                        <Link
+                          to="/orders"
+                          className="block w-full px-4 py-2 text-black font-myriad-pro rounded hover:bg-[#10243c] hover:text-white"
+                        >
+                          Mis pedidos
+                        </Link>
+                        <Link
+                          to="/cart"
+                          className="block w-full px-4 py-2 text-black font-myriad-pro rounded hover:bg-[#10243c] hover:text-white"
+                        >
+                          Carrito de compras
+                        </Link>
+                      </>
+                      )}
+                        <button
+                          onClick={handleLogout}
+                          className="block w-full text-left px-4 py-2 text-black font-myriad-pro rounded hover:bg-[#10243c] hover:text-white"
+                        >
+                          Cerrar Sesión
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                ) : (
+            <>
+              <Link
+                to="/login"
+                className="group relative inline-block text-white font-myriad-pro text-xl"
+              >
+                <span className="hover:opacity-75">Iniciar Sesión</span>
+              </Link>
+              <Link
+                to="/signup"
+                className="group relative inline-block text-white font-myriad-pro text-xl px-4"
+              >
+                <span className="bg-[#0186ff] rounded p-2 hover:opacity-75 mr-4">Registrarse</span>
+              </Link>
+            </> )}
+        </div>
+      </div>
+      
+    </>
   );
 };

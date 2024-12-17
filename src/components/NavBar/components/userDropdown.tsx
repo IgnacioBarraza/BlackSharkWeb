@@ -1,9 +1,8 @@
-import { faCircleUser } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRef, useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
 import { useProps } from "../../../hooks/useProps";
+import { faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
 
 export const UserDropdown = () => {
   const navigate = useNavigate();
@@ -47,53 +46,55 @@ export const UserDropdown = () => {
   };
 
   return (
-    <div className="relative md:hidden" ref={dropdownRef}>
+    <div className=" md:hidden bg-[#10243c]" ref={dropdownRef}>
       <button
         onClick={userName ? toggleDropdown : handleLoginRedirect}
-        className="block font-myriad-pro font-medium text-2xl"
+        className="text-2xl flex text-white mr-6"
       >
-        {userToken ? (
-          <FontAwesomeIcon icon={faCircleUser} size="xl" />
-        ) : (
-          <FontAwesomeIcon icon={faRightToBracket} size="xl" />
+        {userToken &&(
+          <>
+            <FontAwesomeIcon
+            icon={isDropdownOpen ? faTimes : faBars}
+            size="lg"
+            />
+          </>
         )}
       </button>
+
       {isDropdownOpen && (
-        <div className="absolute top-[77px] right-[-40px] bg-white z-50 border-gray-300 shadow-md w-[240px] rounded-lg p-4">
-          <div className="ml-4">
-            <FontAwesomeIcon icon={faCircleUser} size="xl" />
-            <span className="font-myriad-pro text-xl py-2 px-4 font-bold">
+        <div className="absolute flex flex-col items-center top-[80px] right-[0%] bg-white z-50 border-gray-300 shadow-md rounded-l-lg p-2">
+            <span 
+              className="font-myriad-pro text-xl py-2 px-4 font-bold w-full text-center text-white bg-[#10243c] rounded"
+              >
               {firstName}
             </span>
-          </div>
-          <hr className="border-t-2 border-gray-300 mt-2" />
 
           {userType === "admin" && userToken ? (
             <>
               <Link
                 to="/manageOrders"
-                className="block font-myriad-pro text-xl py-2 px-4"
+                className="block w-full px-4 py-2 text-black font-myriad-pro rounded hover:bg-[#10243c] hover:text-white"
                 onClick={toggleDropdown}
               >
                 Gestionar pedidos
               </Link>
               <Link
                 to="/tools"
-                className="block font-myriad-pro text-xl py-2 px-4"
+                className="block w-full px-4 py-2 text-black font-myriad-pro rounded hover:bg-[#10243c] hover:text-white"
                 onClick={toggleDropdown}
               >
                 Equipos
               </Link>
               <Link
                 to="/metrics"
-                className="block font-myriad-pro text-xl py-2 px-4"
+                className="block w-full px-4 py-2 text-black font-myriad-pro rounded hover:bg-[#10243c] hover:text-white"
                 onClick={toggleDropdown}
               >
                 Metricas
               </Link>
               <Link
                 to="/messagecontact"
-                className="block px-4 py-2 text-black font-myriad-pro hover:bg-gray-100"
+                className="block w-full px-4 py-2 text-black font-myriad-pro rounded hover:bg-[#10243c] hover:text-white"
                 onClick={toggleDropdown}
               >
                 Gestionar mensajes
@@ -102,15 +103,36 @@ export const UserDropdown = () => {
           ) : (
             <>
               <Link
+                to="/servicios"
+                className="block w-full font-myriad-pro font-medium text-xl py-2 px-4 rounded hover:bg-[#10243c] hover:text-white"
+                onClick={toggleDropdown}
+              >
+                Servicios
+              </Link>
+              <Link
+                to="/gallery"
+                className="block w-full font-myriad-pro font-medium text-xl py-2 px-4 rounded hover:bg-[#10243c] hover:text-white"
+                onClick={toggleDropdown}
+              >
+                Galería
+              </Link>
+              <Link
+                to="/contact"
+                className="block w-full font-myriad-pro font-medium text-xl py-2 px-4 rounded hover:bg-[#10243c] hover:text-white"
+                onClick={toggleDropdown}
+              >
+                Contacto
+              </Link>
+              <Link
                 to="/orders"
-                className="block font-myriad-pro text-xl py-2 px-4"
+                className="block w-full font-myriad-pro text-xl py-2 px-4 rounded hover:bg-[#10243c] hover:text-white"
                 onClick={toggleDropdown}
               >
                 Mis pedidos
               </Link>
               <Link
                 to="/cart"
-                className="block font-myriad-pro text-xl py-2 px-4"
+                className="block w-full font-myriad-pro text-xl py-2 px-4 rounded hover:bg-[#10243c] hover:text-white"
                 onClick={toggleDropdown}
               >
                 Carrito de compras
@@ -119,7 +141,7 @@ export const UserDropdown = () => {
           )}
           <button
             onClick={handleLogout}
-            className="w-full text-left font-myriad-pro text-xl py-2 px-4"
+            className="text-left w-full font-myriad-pro text-lg py-2 px-4 rounded hover:bg-[#10243c] hover:text-white"
           >
             Cerrar Sesión
           </button>
