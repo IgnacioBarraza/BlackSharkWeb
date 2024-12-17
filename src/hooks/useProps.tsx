@@ -1,5 +1,5 @@
 import { useContext } from "react"
-import { PropsContext } from "../providers/propsContext"
+import { PropsContext } from "../context/propsContext"
 
 export const useProps = () => {
   const context = useContext(PropsContext)
