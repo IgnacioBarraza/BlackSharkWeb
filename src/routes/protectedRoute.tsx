@@ -1,31 +1,32 @@
-import { useEffect } from "react";
-import { Outlet, useNavigate } from "react-router-dom";
+import { ReactNode, useEffect, useState } from "react";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useProps } from "../hooks/useProps";
 
 interface ProtectedRouteProps {
-  roles?: string[];
+  roles?: string[]; // Allowed roles
+  children?: ReactNode;
 }
 
-function ProtectedRoute({ roles }: ProtectedRouteProps) {
+function ProtectedRoute({ roles = [], children }: ProtectedRouteProps) {
   const navigate = useNavigate();
-  const { userToken, userType } = useProps();
-  const isAuthenticated = localStorage.getItem("token") || userToken;
-  const storedUserRole = localStorage.getItem("userType") || userType;
-  
+  const location = useLocation();
+  const [userRole, setUserRole] = useState<string | null>(null);
+
+  const isAuthenticated = !!localStorage.getItem("token");
+  const userId = localStorage.getItem("userId");
+  const storedUserRole = localStorage.getItem("userRole");
+
   useEffect(() => {
-    if (roles && storedUserRole && !roles.includes(storedUserRole)) {
-      navigate("/");
-      return
-    }
-    
     if (!isAuthenticated) {
-      navigate("/");
-
-      return;
+      navigate("/auth", { state: { from: location.pathname + location.search } });
+    } else if (roles.length && storedUserRole && !roles.includes(storedUserRole)) {
+      navigate("/inicio");
+    } else {
+      setUserRole(storedUserRole); // Set the user role if authenticated
     }
-  }, [isAuthenticated, roles, navigate, userType]);
+  }, [isAuthenticated, roles, storedUserRole, location, navigate]);
 
-  return <Outlet />;
+  return isAuthenticated ? (children ? children : <Outlet />) : null;
 }
 
 export default ProtectedRoute;

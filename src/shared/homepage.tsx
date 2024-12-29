@@ -1,14 +1,9 @@
-import { Footer } from "../components/Footer/Footer"
-import { Navbar } from "../components/NavBar/Navbar"
 import '../styles/homepage.css';
 import { Colaboration } from "./Colaboration";
 
 export const Homepage = () => {
     return (
       <>
-      <div className="flex justify-center items-center bg-transparent">
-        <Navbar/>
-      </div>
       <div className="background-image bg-center bg-no-repeat bg-cover w-full h-screen overflow-hidden overflow-y-auto">
         <div className="flex justify-center items-center h-full">
             <div className="flex flex-col justify-center space-y-8 items-center bg-black bg-opacity-40 width-container pt-8 pb-8 rounded fade-in sm:w-3/4 md:w-2/3">
@@ -21,7 +16,6 @@ export const Homepage = () => {
         <span className="text-[50px] font-myriad-pro font-bold">Colaboraciones</span>
         <Colaboration/>
       </div>
-      <Footer/>
       </>
       
     )

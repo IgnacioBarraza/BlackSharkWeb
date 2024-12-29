@@ -93,10 +93,7 @@ export const Cart = () => {
   return (
     <>
     <div className="min-h-screen bg-white bg-cover bg-center w-full bg-no-repeat flex flex-col overflow-hidden">
-      <div className="flex-shrink-0">
-        <Navbar />
-      </div>
-      <div className="flex-grow flex flex-col md:flex-row bg-[#10243c] p-4 gap-4">
+      <div className="flex-grow flex flex-col md:flex-row bg-blue-strong-bs p-4 gap-4">
         <div className="md:w-2/3 w-full">
           {cartItems.length > 0 ? (
             <>

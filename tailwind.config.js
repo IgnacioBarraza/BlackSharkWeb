@@ -8,7 +8,7 @@ export default {
         'myriad-pro': ['Myriad Pro', 'sans-serif'],
       },
       colors: {
-        'blue-ligth-bs': '#0186ff',
+        'blue-light-bs': '#0186ff',
         'blue-strong-bs': '#10243c',
         'blue-light-hover': '#005cb3',
         'dark-bg': '#000F1F',
@@ -51,6 +51,16 @@ export default {
           3: 'hsl(var(--chart-3))',
           4: 'hsl(var(--chart-4))',
           5: 'hsl(var(--chart-5))',
+        },
+        sidebar: {
+          DEFAULT: 'hsl(var(--sidebar-background))',
+          foreground: 'hsl(var(--sidebar-foreground))',
+          primary: 'hsl(var(--sidebar-primary))',
+          'primary-foreground': 'hsl(var(--sidebar-primary-foreground))',
+          accent: 'hsl(var(--sidebar-accent))',
+          'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
+          border: 'hsl(var(--sidebar-border))',
+          ring: 'hsl(var(--sidebar-ring))',
         },
       },
       keyframes: {
