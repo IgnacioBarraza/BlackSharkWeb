@@ -95,6 +95,7 @@ export const PropsDataProvider = ({ children }) => {
     localStorage.removeItem("userType");
     localStorage.removeItem("userName");
     localStorage.removeItem("userid");
+    console.log('sesion cerrada...')
   };
 
   const loginData = (token: string, tipo_user: string, username: string, user_id: string, authMethod: string) => {

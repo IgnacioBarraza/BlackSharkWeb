@@ -317,3 +317,14 @@ export interface ServiceModalProps {
   isOpen: boolean
   onClose: () => void
 }
+
+export interface SidebarProps {
+  userToken: string
+  userName: string
+  userType: string
+}
+
+export interface LoggedFooterProps {
+  userName: string
+  userType: string
+}

@@ -49,7 +49,7 @@ export const Servicios = () => {
   }, [])
 
   return (
-    <div className="bg-blue-strong-bs text-foreground min-h-screen">
+    <div className="bg-blue-strong-bs text-foreground min-h-screen pt-16">
       <div className="container mx-auto px-4 py-16">
         <div className="mb-12 space-y-4">
           <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl text-white">

@@ -121,9 +121,9 @@ export const Login = () => {
                 </div>
 
                 <span className="flex flex-col 2xl:flex-row gap-x-4 gap-y-4 xl:gap-y-4 mb-2">
-                  <input type="submit" className="flex items-center justify-center w-full min-w-[330px] 2xl:w-1/2 py-2.5 text-xl font-large text-center cursor-pointer text-white transition duration-200 ease-in-out transform bg-blue-ligth-bs hover:bg-blue-light-hover focus:outline-none focus:ring-2 focus:ring-offset-2" value="Ingresar" />
+                  <input type="submit" className="flex items-center justify-center w-full min-w-[330px] 2xl:w-1/2 py-2.5 text-xl font-large text-center cursor-pointer text-white transition duration-200 ease-in-out transform bg-blue-light-bs hover:bg-blue-light-hover focus:outline-none focus:ring-2 focus:ring-offset-2" value="Ingresar" />
                   <button className="flex items-center justify-center w-full min-w-[330px] 2xl:w-1/2 text-xl font-large text-center text-white border border-blue-light-hover transition duration-200 ease-in-out transform bg-trasparent hover:border hover:bg-blue-light-hover">
-                    <Link to="/signup" className="w-full py-2.5">
+                    <Link to="signup" className="w-full py-2.5">
                       Registrarse  
                     </Link>
                   </button>
