@@ -11,8 +11,9 @@ export const AuthProvider = ({ children }: ContextProps) => {
   const recoverPassword = (email: RecoverPassword): Promise<RecoverResponde> => axios.post(`${BACKEND_URL}/login/recover`, email)
   const verifyToken = (token: Token): Promise<TokenResponse> => axios.post(`${BACKEND_URL}/login/decodeToken`, token)
   const updatePassword = (passwordAndToken: UpdatePassword): Promise<NewPasswordResponse> => axios.patch(`${BACKEND_URL}/login/newPassword`, passwordAndToken)
+  const oauth = (email: string, username: string): Promise<LoginResponse> => axios.post(`${BACKEND_URL}/login/oauth`, { email, username })
 
   return (
-    <AuthContext.Provider value={{ login, register, recoverPassword, verifyToken, updatePassword }}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{ login, register, recoverPassword, verifyToken, updatePassword, oauth }}>{children}</AuthContext.Provider>
   )
 }

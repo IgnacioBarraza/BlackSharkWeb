@@ -49,6 +49,7 @@ export type AuthContextType = {
   updatePassword: (
     passwordAndToken: UpdatePassword
   ) => Promise<NewPasswordResponse>
+  oauth: (email: string, username: string) => Promise<LoginResponse>
 }
 
 export type BackendContextType = {
@@ -95,7 +96,9 @@ export type UserDataProviderType = {
   userId: string | null
   setToolsData: (toolsData: Equipment[]) => void
   toolsData: Equipment[] | null
-  loginData: (token: string, tipo_user: string, username: string, user_id: string) => void
+  loginData: (token: string, tipo_user: string, username: string, user_id: string, authMethod: string) => void
+  setAuthMethod: (authMethod: string) => void
+  authMethod: string | null
   setMessagesData: (messagesData: Messages[]) => void
   messagesData: Messages[] | null
   colaborationsData: Colaborations[] | null

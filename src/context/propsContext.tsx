@@ -8,6 +8,7 @@ export const PropsDataProvider = ({ children }: ContextProps) => {
   const [userType, setUserType] = useState<string | null>(localStorage.getItem("userType") || "");
   const [userToken, setTokenData] = useState<string | null>(localStorage.getItem("token") || "");
   const [userName, setUserName] = useState<string | null>(localStorage.getItem("userName") || "");
+  const [authMethod, setAuthMethod] = useState<string | null>(localStorage.getItem("authMethod") || "")
   const [userId, setUserId] = useState<string | null>(localStorage.getItem("userid") || "");
   const [servicesData, setServices] = useState<Services[] | null>([]);
   const [galleryData, setGallery] = useState<GalleryData[] | null>([]);
@@ -21,7 +22,8 @@ export const PropsDataProvider = ({ children }: ContextProps) => {
     localStorage.setItem("token", userToken || "");
     localStorage.setItem("userName", userName || "");
     localStorage.setItem("userid", userId || "");
-  }, [userType, userToken, userName, userId]);
+    localStorage.setItem("authMethod", authMethod || "")
+  }, [userType, userToken, userName, userId, authMethod]);
 
   const logout = () => {
     setUserName(null);
@@ -35,15 +37,17 @@ export const PropsDataProvider = ({ children }: ContextProps) => {
     console.log('sesion cerrada...')
   };
 
-  const loginData = (token: string, tipo_user: string, username: string, user_id: string) => {
+  const loginData = (token: string, tipo_user: string, username: string, user_id: string, authMethod: string) => {
     localStorage.setItem("token", token);
     localStorage.setItem("userType", tipo_user);
     localStorage.setItem("userName", username);
     localStorage.setItem("userId", user_id);
+    localStorage.setItem("authMethod", authMethod);
     setUserType(tipo_user);
     setTokenData(token);
     setUserName(username);
     setUserId(user_id);
+    setAuthMethod(authMethod);
   };
 
   const setServicesData = (servicesData: Services[]) => setServices(servicesData);
@@ -66,6 +70,7 @@ export const PropsDataProvider = ({ children }: ContextProps) => {
       toolsData, setToolsData,
       messagesData, setMessagesData,
       colaborationsData, setColaborationsData,
+      authMethod, setAuthMethod
     }}>{children}</PropsContext.Provider>
   );
 };
