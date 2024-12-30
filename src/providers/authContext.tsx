@@ -10,6 +10,7 @@ type AuthContextType = {
   recoverPassword: (email: RecoverPassword) => Promise<RecoverResponde>
   verifyToken: (token: Token) => Promise<TokenResponse>
   updatePassword: (passwordAndToken: UpdatePassword) => Promise<NewPasswordResponse>
+  oauth: (email: string, username: string) => Promise<LoginResponse>
 }
 
 type AuthProviderProps = {
@@ -23,7 +24,8 @@ export const AuthContext = createContext<AuthContextType>({
       token: "",
       username: "",
       tipo_user: "",
-      user_id: ""
+      user_id: "",
+      method: "",
     },
     status: 0,
     statusText: "",
@@ -80,7 +82,23 @@ export const AuthContext = createContext<AuthContextType>({
       "content-length": "",
       "content-type": ""
     }
-  })
+  }),
+  oauth: () => Promise.resolve({ 
+    data: {
+      message: "",
+      token: "",
+      username: "",
+      tipo_user: "",
+      user_id: "",
+      method: "",
+    },
+    status: 0,
+    statusText: "",
+    headers: {
+      "content-length": "",
+      "content-type": ""
+    }
+  }),
 });
 
 
@@ -90,8 +108,9 @@ export const AuthProvider = ({children}: AuthProviderProps) => {
   const recoverPassword = (email: RecoverPassword): Promise<RecoverResponde> => axios.post(`${BACKEND_URL}/login/recover`, email)
   const verifyToken = (token: Token): Promise<TokenResponse> => axios.post(`${BACKEND_URL}/login/decodeToken`, token)
   const updatePassword = (passwordAndToken: UpdatePassword): Promise<NewPasswordResponse> => axios.patch(`${BACKEND_URL}/login/newPassword`, passwordAndToken)
+  const oauth = (email: string, username: string): Promise<LoginResponse> => axios.post(`${BACKEND_URL}/login/oauth`, { email, username })
 
   return (
-    <AuthContext.Provider value={{ login, register, recoverPassword, verifyToken, updatePassword }}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{ login, register, recoverPassword, verifyToken, updatePassword, oauth }}>{children}</AuthContext.Provider>
   )
 }

@@ -3,13 +3,18 @@ import {
   DropdownMenuItem,
 } from '@/components/ui/dropdown-menu'
 import { useProps } from '@/hooks/useProps'
+import { googleLogout } from '@react-oauth/google'
 import { Link, useNavigate } from 'react-router-dom'
 
 export default function UserDropdownMenu({ userType }) {
-  const { logout } = useProps()
+  const { authMethod, logout } = useProps()
   const navigate = useNavigate()
 
   const handleLogout = () => {
+    if (authMethod != 'custom') {
+      googleLogout()
+    }
+
     logout()
     navigate('/')
   }

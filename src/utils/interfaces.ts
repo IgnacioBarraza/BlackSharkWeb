@@ -20,7 +20,8 @@ export interface LoginResponse {
     token: string;
     username: string;
     tipo_user: string;
-    user_id: string
+    user_id: string;
+    method: string;
   };
   status: number;
   statusText: string;
