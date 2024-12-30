@@ -30,7 +30,7 @@ const BSWImage = () => {
   return (
     <div className="lg:w-1/2 flex items-center justify-center transition-shadow">
       <img
-        src="/logotipo_blacksharkstudios.webp"
+        src="/BlackShark.webp"
         width="600"
         height="600"
         className="rounded-full object-cover transition-all duration-75"
