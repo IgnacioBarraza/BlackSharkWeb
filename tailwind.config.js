@@ -1,3 +1,5 @@
+import tailwindcssAnimate from "tailwindcss-animate";
+
 /** @type {import('tailwindcss').Config} */
 export default {
   darkMode: ["class"],
@@ -11,7 +13,6 @@ export default {
         "blue-light-bs": "#0186ff",
         "blue-strong-bs": "#10243c",
         "blue-light-hover": "#005cb3",
-        "gray-light": "#babcbf",
         "dark-bg": "#000F1F",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
@@ -86,6 +87,5 @@ export default {
       },
     },
   },
-  // eslint-disable-next-line no-undef
-  plugins: [require("tailwindcss-animate")],
+  plugins: [tailwindcssAnimate],
 };

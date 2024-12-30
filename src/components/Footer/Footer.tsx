@@ -15,7 +15,7 @@ export const Footer = () => {
 
   return (
     <footer className="bg-black text-white py-6">
-      <div className=" grid grid-cols-1 md:grid-cols-4 p-4 gap-4">
+      <div className=" grid grid-cols-1 md:grid-cols-4 px-4 gap-4">
         {/* col 1 info */}
         <div className="space-y-4 md:mx-auto">
           <h3 className="text-xl font-semibold">Black Shark Studios</h3>
@@ -35,12 +35,14 @@ export const Footer = () => {
         <div className="space-y-4 list-none md:mx-auto">
           <h4 className="text-xl font-semibold">Contacto</h4>
           <ul className="space-y-2">
+            {/*
             <li className="flex items-center gap-2">
               <Phone size={16} />
               <span className="text-lg text-gray-light">
                 +61 3 8376 6284 <br /> +44 3 7890 - 123
               </span>
-            </li>
+            </li> 
+            */}
             <li className="flex items-center gap-2">
               <Mail size={16} />
               <span className="text-lg text-gray-light">

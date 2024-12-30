@@ -1,19 +1,22 @@
 import {
   DropdownMenu,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
+} from "@/components/ui/dropdown-menu";
 import {
   SidebarFooter,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from '@/components/ui/sidebar'
-import { LoggedFooterProps } from '@/utils/interfaces'
-import UserDropdownMenu from './dropdownMenu'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faChevronUp, faUser } from '@fortawesome/free-solid-svg-icons'
+} from "@/components/ui/sidebar";
+import { LoggedFooterProps } from "@/utils/interfaces";
+import UserDropdownMenu from "./dropdownMenu";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronUp, faUser } from "@fortawesome/free-solid-svg-icons";
 
-export default function LoggedFooter({ userName, userType }: LoggedFooterProps) {
+export default function LoggedFooter({
+  userName,
+  userType,
+}: LoggedFooterProps) {
   return (
     <SidebarFooter>
       <SidebarMenu>
@@ -25,10 +28,10 @@ export default function LoggedFooter({ userName, userType }: LoggedFooterProps) 
                 <FontAwesomeIcon icon={faChevronUp} className="ml-auto" />
               </SidebarMenuButton>
             </DropdownMenuTrigger>
-            <UserDropdownMenu userType={userType}/>
+            <UserDropdownMenu userType={userType} />
           </DropdownMenu>
         </SidebarMenuItem>
       </SidebarMenu>
     </SidebarFooter>
-  )
+  );
 }
