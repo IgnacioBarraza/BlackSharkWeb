@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useFirebase } from "../../../hooks/useFirebase";
 import { useBackend } from "../../../hooks/useBackend";
 import { NewGallery } from "../../../utils/interfaces";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -8,7 +7,6 @@ import { useProps } from "../../../hooks/useProps";
 
 export const UploadModal = ({ handleModal, services, addGalleryImage, successToast, errorToast }) => {
 
-  const { uploadGalleryImage } = useFirebase();
   const { createGallery } = useBackend();
   const { userToken } = useProps();
 
@@ -22,12 +20,6 @@ export const UploadModal = ({ handleModal, services, addGalleryImage, successToa
 
   const handleUpload = () => {
     if (selectedServices.length === 0) return alert("Debes seleccionar al menos un servicio para asociarlo a la imagen...");
-    uploadGalleryImage(
-      image,
-      (progress) => setProgress(progress),
-      (error) => setError(error),
-      (downloadURL) => setUrl(downloadURL)
-    );
     setImage(null);
   };
 

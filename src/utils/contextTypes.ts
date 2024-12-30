@@ -79,11 +79,11 @@ export type BackendContextType = {
 }
 
 export type UserDataProviderType = {
-  setUserType: (userType: string) => void
+  setUserType: (userType: string | null) => void
   userType: string | null
-  setTokenData: (token: string) => void
+  setTokenData: (token: string | null) => void
   userToken: string | null
-  setUserName: (username: string) => void
+  setUserName: (username: string | null) => void
   userName: string | null
   logout: () => void
   setServicesData: (servicesData: Services[]) => void
@@ -92,7 +92,7 @@ export type UserDataProviderType = {
   galleryData: GalleryData[] | null
   setShoppingCartData: (shoppingCartData: ServicesShoppingCart[]) => void
   shoppingCartData: ServicesShoppingCart[] | null
-  setUserId: (id_usuario: string) => void
+  setUserId: (id_usuario: string | null) => void
   userId: string | null
   setToolsData: (toolsData: Equipment[]) => void
   toolsData: Equipment[] | null

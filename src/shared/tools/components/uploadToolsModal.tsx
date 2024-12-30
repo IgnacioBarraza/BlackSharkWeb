@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useFirebase } from "../../../hooks/useFirebase";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmarkCircle } from "@fortawesome/free-solid-svg-icons";
 import { useBackend } from "../../../hooks/useBackend";
@@ -8,7 +7,6 @@ import { CreateEquipment, Equipment } from "../../../utils/interfaces";
 
 export const UploadToolsModal = ({ handleInterface, services, addTool, showSuccessToast, showErrorToast }) => {
   const {userToken} = useProps()
-  const { uploadServiceImage } = useFirebase(); //Cambiar esto para el equipo
   const { createEquipment } = useBackend()
 
   const [image, setImage] = useState(null);

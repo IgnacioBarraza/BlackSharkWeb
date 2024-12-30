@@ -28,7 +28,7 @@ export const Register = () => {
     setUser({ ...user, [name]: value })
   };
 
-  const handleRegister = async (e) => {
+  const handleRegister = async (e: { preventDefault: () => void; }) => {
     e.preventDefault()
     setUserType(null)
     setTokenData(null)
@@ -49,8 +49,8 @@ export const Register = () => {
     try {
       const res = await register(userToRegister)
       if (res.status === 201) {
-        const { token, tipo_user, username, user_id, message } = res.data
-        loginData(token, tipo_user, username, user_id)
+        const { token, tipo_user, username, user_id, message, method } = res.data
+        loginData(token, tipo_user, username, user_id, method)
         navigate("/")
         successToastNotification(message)
       }

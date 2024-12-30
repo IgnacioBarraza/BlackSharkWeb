@@ -1,4 +1,3 @@
-import { extend } from "lodash";
 import { ReactNode } from "react";
 
 export interface userToVerify {
@@ -24,11 +23,6 @@ export interface LoginResponse {
     method: string;
   };
   status: number;
-  statusText: string;
-  headers: {
-    "content-length": string;
-    "content-type": string;
-  };
 }
 
 export interface RegisterResponse {
@@ -37,14 +31,10 @@ export interface RegisterResponse {
     token: string;
     username: string;
     tipo_user: string;
-    user_id: string
+    user_id: string;
+    method: string;
   };
   status: number;
-  statusText: string;
-  headers: {
-    "content-length": string;
-    "content-type": string;
-  };
 }
 
 export interface RecoverPassword {

@@ -1,21 +1,16 @@
-import { Navbar } from "../../components/NavBar/Navbar";
 import { useEffect, useState } from "react";
-import '../../styles/gallery.css';
 import { UploadModal } from "./components/uploadModal";
 import { ImageModal } from "./components/imagemodal";
 import { useProps } from "../../hooks/useProps";
 import { useBackend } from "../../hooks/useBackend";
 import { GalleryData, Services } from "../../utils/interfaces";
-import { Footer } from "../../components/Footer/Footer";
 import { UploadGalleryButton } from "./components/uploadGalleryButton";
-import { useFirebase } from "../../hooks/useFirebase";
 import { useToast } from "@chakra-ui/react";
 
 export const Gallery = () => {
 
   const { userType, userToken, setServicesData, servicesData, setGalleryData, galleryData } = useProps();
   const { getServices, getGallery, deleteGallery } = useBackend()
-  const { deleteImageFromGallery } = useFirebase()
   const toast = useToast()
 
   const [showModal, setShowModal] = useState(false);
@@ -59,22 +54,21 @@ export const Gallery = () => {
     });
   }
 
-  const extractImageNameFromURL = (url) => {
-    const decodedURL = decodeURIComponent(url);
-    const parts = decodedURL.split('/');
-    const fileNameWithToken = parts.pop();
-    const fileName = fileNameWithToken.split('?')[0];
-    return fileName;
-  };
+  // const extractImageNameFromURL = (url) => {
+  //   const decodedURL = decodeURIComponent(url);
+  //   const parts = decodedURL.split('/');
+  //   const fileNameWithToken = parts.pop();
+  //   const fileName = fileNameWithToken.split('?')[0];
+  //   return fileName;
+  // };
 
   const deleteGalleryImage = async (image) => {
-    const galleryToDelete = gallery.filter(gallery => gallery.id_imagen === image.id_imagen)
-    const imagename = extractImageNameFromURL(galleryToDelete[0].imagen_link)
+    // const galleryToDelete = gallery.filter(gallery => gallery.id_imagen === image.id_imagen)
+    // const imagename = extractImageNameFromURL(galleryToDelete[0].imagen_link)
     try {
       const res = await deleteGallery(image.id_imagen, userToken)
       const {status, data} = res
       if (status === 200) {
-        deleteImageFromGallery(imagename)
         setSelectedImage(null)
         const updatedGallery = gallery.filter(gallery => gallery.id_imagen !== image.id_imagen)
         setGallery(updatedGallery);

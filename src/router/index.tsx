@@ -2,10 +2,9 @@ import { AutoLogout } from '@/auth/components/autoLogout'
 import { Footer } from '@/components/Footer/Footer'
 import { Navbar } from '@/components/NavBar/Navbar'
 import { SidebarProvider } from '@/components/ui/sidebar'
-import { AuthProvider } from '@/providers/authContext'
-import { BackendProvider } from '@/providers/backendContext'
-import { FirebaseProvider } from '@/providers/firebaseContext'
-import { PropsDataProvider } from '@/providers/propsContext'
+import { AuthProvider } from '@/context/authContext'
+import { BackendProvider } from '@/context/backendContext'
+import { PropsDataProvider } from '@/context/propsContext'
 import ProtectedRoute from '@/routes/protectedRoute'
 import { Notfound } from '@/shared/notfound'
 import { GoogleOAuthProvider } from '@react-oauth/google'
@@ -35,9 +34,8 @@ export default function Router(props) {
     <BrowserRouter>
       <AuthProvider>
         <BackendProvider>
-          <FirebaseProvider>
-            <PropsDataProvider>
-              <GoogleOAuthProvider clientId={import.meta.env.VITE_CLIENT_ID}>
+          <PropsDataProvider>
+            <GoogleOAuthProvider clientId={import.meta.env.VITE_CLIENT_ID}>
               <SidebarProvider defaultOpen={false}>
                 <div className="flex flex-col min-h-[100dvh] min-w-[100dvw]">
                   <Navbar />
@@ -51,9 +49,8 @@ export default function Router(props) {
                   <Footer />
                 </div>
               </SidebarProvider>
-              </GoogleOAuthProvider>
-            </PropsDataProvider>
-          </FirebaseProvider>
+            </GoogleOAuthProvider>
+          </PropsDataProvider>
         </BackendProvider>
       </AuthProvider>
     </BrowserRouter>

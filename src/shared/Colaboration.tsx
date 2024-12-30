@@ -5,13 +5,11 @@ import { faPlus, faXmarkCircle } from "@fortawesome/free-solid-svg-icons";
 import { Colaborations, Services } from "../utils/interfaces"
 import { useBackend } from "../hooks/useBackend";
 import { useToast } from "@chakra-ui/react";
-import { useFirebase } from "../hooks/useFirebase";
 import { ImageModal } from "./gallery/components/imagemodal";
 
 export const Colaboration = () => {
   const { userType, userToken, servicesData, setServicesData, colaborationsData, setColaborationsData} = useProps();
   const { getServices, getColaborations, deleteColaborations, createColaborations } = useBackend();
-  const { deleteImageFromCollaboration, uploadCollaborationImage } = useFirebase();
 
   const toast = useToast();
   
@@ -75,12 +73,6 @@ export const Colaboration = () => {
 
   const handleImageUpload = () => {
     if (selectedServices.length === 0) return alert('Debes seleccionar al menos un servicio asociado a la colaboración!');
-    uploadCollaborationImage(
-      image,
-      (progress) => setProgress(progress),
-      (error) => setError(error),
-      (downloadUrl) => setUrl(downloadUrl)
-    );
     setImage(null);
   }
 
@@ -109,12 +101,11 @@ export const Colaboration = () => {
 
   const deleteCollaborationsImage = async (item) => {
     if (confirm('¿Quieres eliminar esta colaboración?')) {
-        const imageName = extractImageNameFromURL(item.imagen_link);
+        // const imageName = extractImageNameFromURL(item.imagen_link);
         try {
           const res = await deleteColaborations(item.id_collaboration, userToken);
           const {status, data} = res;
           if (status === 200) {
-            deleteImageFromCollaboration(imageName);
             setSelectedCollab(null);
             const updatedCollabs = colaboration.filter(colab => colab.id_collaboration !== item.id_collaboration);
             setColaboration(updatedCollabs);
