@@ -260,10 +260,10 @@ export interface GetMessagesResponse {
   status: number;
 }
 export interface Colaborations {
-  nombre_empresa: string,
+  titulo: string,
   id_servicios: string,
   imagen_link: string,
-  id_collaboration?: string
+  descripcion?: string
 }
 
 export interface GetColaborationsReponse {
