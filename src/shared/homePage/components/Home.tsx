@@ -2,9 +2,9 @@ import { Link } from 'react-router-dom'
 
 function Home() {
   return (
-    <div className='w-screen h-full max-md:py-20 md:py-52 background-Home bg-center bg-no-repeat bg-cover text-white'>
+    <div className='w-screen h-screen flex items-center max-md:py-20 md:py-52 background-home bg-center bg-no-repeat bg-cover text-white'>
       <div className='max-w-[800px] lg:pl-14 max-lg:px-8'>
-        <h2 className='text-6xl font-semibold'>
+        <h2 className='text-6xl font-semibold pt-10 max-xl:text-5xl'>
           Transforma tu visión en realidad
         </h2>
         <p className='py-6 text-xl'>
