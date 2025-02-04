@@ -8,6 +8,8 @@ type UserDataProviderType = {
   userToken: string | null
   setUserName: (username: string) => void
   userName: string | null
+  setAuthMethod: (authMethod: string) => void
+  authMethod: string | null
   logout: () => void
   setServicesData: (servicesData: Services[]) => void
   servicesData: Services[] | null
@@ -19,7 +21,7 @@ type UserDataProviderType = {
   userId: string | null
   setToolsData: (toolsData: Equipment[]) => void
   toolsData: Equipment[] | null
-  loginData: (token: string, tipo_user: string, username: string, user_id: string) => void
+  loginData: (token: string, tipo_user: string, username: string, user_id: string, authMethod: string) => void
   setMessagesData: (messagesData: Messages[]) => void
   messagesData: Messages[] | null
   colaborationsData: Colaborations[] | null
@@ -33,6 +35,8 @@ export const PropsContext = createContext<UserDataProviderType>({
   userToken: null,
   setUserName: () => {},
   userName: null,
+  setAuthMethod: () => {},
+  authMethod: null,
   logout: () => {},
   setServicesData: () => {},
   servicesData: null,
@@ -55,6 +59,7 @@ export const PropsDataProvider = ({ children }) => {
   const [userType, setUserType] = useState<string | null>(localStorage.getItem("userType") || "");
   const [userToken, setTokenData] = useState<string | null>(localStorage.getItem("token") || "");
   const [userName, setUserName] = useState<string | null>(localStorage.getItem("userName") || "");
+  const [authMethod, setAuthMethod] = useState<string | null>(localStorage.getItem("authMethod") || "")
   const [userId, setUserId] = useState<string | null>(localStorage.getItem("userid") || "");
   const [servicesData, setServices] = useState<Services[] | null>([]);
   const [galleryData, setGallery] = useState<GalleryData[] | null>([]);
@@ -68,7 +73,8 @@ export const PropsDataProvider = ({ children }) => {
     localStorage.setItem("token", userToken || "");
     localStorage.setItem("userName", userName || "");
     localStorage.setItem("userid", userId || "");
-  }, [userType, userToken, userName, userId]);
+    localStorage.setItem("authMethod", authMethod || "")
+  }, [userType, userToken, userName, userId, authMethod]);
 
   const setUserData = (userType: string, username: string, id_user: string) => {
     setUserType(userType);
@@ -92,15 +98,17 @@ export const PropsDataProvider = ({ children }) => {
     console.log('sesion cerrada...')
   };
 
-  const loginData = (token: string, tipo_user: string, username: string, user_id: string) => {
+  const loginData = (token: string, tipo_user: string, username: string, user_id: string, authMethod: string) => {
     localStorage.setItem("token", token);
     localStorage.setItem("userType", tipo_user);
     localStorage.setItem("userName", username);
     localStorage.setItem("userId", user_id);
+    localStorage.setItem("authMethod", authMethod);
     setUserType(tipo_user);
     setTokenData(token);
     setUserName(username);
     setUserId(user_id);
+    setAuthMethod(authMethod);
   };
 
   const setServicesData = (servicesData: Services[]) => setServices(servicesData);
@@ -123,6 +131,7 @@ export const PropsDataProvider = ({ children }) => {
       toolsData, setToolsData,
       messagesData, setMessagesData,
       colaborationsData, setColaborationsData,
+      authMethod, setAuthMethod
     }}>{children}</PropsContext.Provider>
   );
 };
