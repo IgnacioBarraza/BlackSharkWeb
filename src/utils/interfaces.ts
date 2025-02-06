@@ -20,7 +20,8 @@ export interface LoginResponse {
     token: string;
     username: string;
     tipo_user: string;
-    user_id: string
+    user_id: string;
+    method: string;
   };
   status: number;
   statusText: string;
@@ -259,10 +260,10 @@ export interface GetMessagesResponse {
   status: number;
 }
 export interface Colaborations {
-  nombre_empresa: string,
+  titulo: string,
   id_servicios: string,
   imagen_link: string,
-  id_collaboration?: string
+  descripcion?: string
 }
 
 export interface GetColaborationsReponse {

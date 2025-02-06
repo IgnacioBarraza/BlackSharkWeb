@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import tailwindcssAnimate from "tailwindcss-animate";
+=======
+import tailwindcssAnimate from 'tailwindcss-animate'
+>>>>>>> 3cf58cc0a63818e0c6f9919524958afaa8b6b75a
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -88,4 +92,8 @@ export default {
     },
   },
   plugins: [tailwindcssAnimate],
+<<<<<<< HEAD
 };
+=======
+}
+>>>>>>> 3cf58cc0a63818e0c6f9919524958afaa8b6b75a

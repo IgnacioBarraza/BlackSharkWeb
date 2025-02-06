@@ -4,7 +4,7 @@ import { Newpassword } from '../components/NewPassword/newpassword'
 import { Recoverpassword } from '../components/RecoverPassword/recoverpassword'
 import { Contact } from '../shared/contact'
 import { Gallery } from '../shared/gallery/gallery'
-import { Homepage } from '../shared/homepage'
+import { Homepage } from '../shared/homePage/homepage'
 import { Servicios } from '../shared/services/services'
 import { Cart } from '../shared/shop/shoppingCart'
 import { Tools } from '../shared/tools/tools'
@@ -96,7 +96,7 @@ export const routes = [
     routes: [
       {
         path: '',
-        component: <Account />
+        component: <Account />,
       },
       // {
       //   path: 'orders',
@@ -106,7 +106,7 @@ export const routes = [
   },
   {
     path: '/',
-    component: <Navigate to="/inicio" />,
+    component: <Navigate to='/inicio' />,
   },
   {
     path: '/404',
@@ -114,6 +114,6 @@ export const routes = [
   },
   {
     path: '*',
-    component: <Navigate to="/404" />,
+    component: <Navigate to='/404' />,
   },
 ]

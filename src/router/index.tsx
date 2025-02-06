@@ -8,6 +8,7 @@ import { FirebaseProvider } from '@/providers/firebaseContext'
 import { PropsDataProvider } from '@/providers/propsContext'
 import ProtectedRoute from '@/routes/protectedRoute'
 import { Notfound } from '@/shared/notfound'
+import { GoogleOAuthProvider } from '@react-oauth/google'
 import { Routes, Route, BrowserRouter } from 'react-router-dom'
 
 export default function Router(props) {
@@ -36,6 +37,7 @@ export default function Router(props) {
         <BackendProvider>
           <FirebaseProvider>
             <PropsDataProvider>
+              <GoogleOAuthProvider clientId={import.meta.env.VITE_CLIENT_ID}>
               <SidebarProvider defaultOpen={false}>
                 <div className="flex flex-col min-h-[100dvh] min-w-[100dvw]">
                   <Navbar />
@@ -49,6 +51,7 @@ export default function Router(props) {
                   <Footer />
                 </div>
               </SidebarProvider>
+              </GoogleOAuthProvider>
             </PropsDataProvider>
           </FirebaseProvider>
         </BackendProvider>
