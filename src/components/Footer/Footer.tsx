@@ -3,14 +3,15 @@ import { Mail, MapPin } from 'lucide-react'
 import { faFacebook, faInstagram } from '@fortawesome/free-brands-svg-icons'
 import { useLocation } from 'react-router-dom'
 
+
 export const Footer = () => {
-  const location = useLocation()
-  const hideNavbarAndFooter = ['/auth', '/auth/signup', '/404'].some((path) =>
+  const location = useLocation();
+  const hideNavbarAndFooter = ["/auth", "/auth/signup", "/404"].some((path) =>
     location.pathname.startsWith(path)
-  )
+  );
 
   if (hideNavbarAndFooter) {
-    return null
+    return null;
   }
 
   return (
@@ -75,5 +76,5 @@ export const Footer = () => {
         </p>
       </div>
     </footer>
-  )
-}
+  );
+};
